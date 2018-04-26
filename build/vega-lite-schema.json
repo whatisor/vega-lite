@@ -1159,6 +1159,83 @@
       ],
       "type": "object"
     },
+    "Callout": {
+      "enum": [
+        "callout"
+      ],
+      "type": "string"
+    },
+    "CalloutConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "angle": {
+          "description": "Angle of callout line.\n__Default value:__ `45`",
+          "type": "number"
+        },
+        "label": {
+          "$ref": "#/definitions/MarkConfig"
+        },
+        "labelOffset": {
+          "description": "Offset distance between callout line and label\n__Default value:__ `2`",
+          "type": "number"
+        },
+        "line": {
+          "$ref": "#/definitions/MarkConfig"
+        },
+        "lineLength": {
+          "description": "Length of callout line.\n__Default value:__ `30`",
+          "type": "number"
+        },
+        "lineOffset": {
+          "description": "Offset distance between the data point and the callout line.\n__Default value:__ `0`",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "CalloutDef": {
+      "additionalProperties": false,
+      "properties": {
+        "angle": {
+          "description": "Angle of callout line.\n__Default value:__ `45`",
+          "type": "number"
+        },
+        "color": {
+          "description": "Color of the marks.\n\n__Default value:__ <span style=\"color: #4682b4;\">&#9632;</span> `\"#4682b4\"`",
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/definitions/MarkConfig"
+        },
+        "labelOffset": {
+          "description": "Offset distance between callout line and label\n__Default value:__ `2`",
+          "type": "number"
+        },
+        "line": {
+          "$ref": "#/definitions/MarkConfig"
+        },
+        "lineLength": {
+          "description": "Length of callout line.\n__Default value:__ `30`",
+          "type": "number"
+        },
+        "lineOffset": {
+          "description": "Offset distance between the data point and the callout line.\n__Default value:__ `0`",
+          "type": "number"
+        },
+        "opacity": {
+          "description": "Opacity of the marks.",
+          "type": "number"
+        },
+        "type": {
+          "$ref": "#/definitions/Callout",
+          "description": "The mark type. This could a primitive mark type\n(one of `\"bar\"`, `\"circle\"`, `\"square\"`, `\"tick\"`, `\"line\"`,\n`\"area\"`, `\"point\"`, `\"geoshape\"`, `\"rule\"`, and `\"text\"`)\nor a composite mark type (e.g., \"boxplot\")."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
     "CompositeMark": {
       "anyOf": [
         {
@@ -1166,11 +1243,21 @@
         },
         {
           "$ref": "#/definitions/ErrorBar"
+        },
+        {
+          "$ref": "#/definitions/Callout"
         }
       ]
     },
     "CompositeMarkDef": {
-      "$ref": "#/definitions/BoxPlotDef"
+      "anyOf": [
+        {
+          "$ref": "#/definitions/BoxPlotDef"
+        },
+        {
+          "$ref": "#/definitions/CalloutDef"
+        }
+      ]
     },
     "CompositeUnitSpec": {
       "$ref": "#/definitions/CompositeUnitSpecAlias",
@@ -1739,6 +1826,10 @@
         "boxplot": {
           "$ref": "#/definitions/BoxPlotConfig",
           "description": "Box Config"
+        },
+        "callout": {
+          "$ref": "#/definitions/CalloutConfig",
+          "description": "Callout Rule Config"
         },
         "circle": {
           "$ref": "#/definitions/MarkConfig",
