@@ -51,7 +51,7 @@ export interface CalloutConfig extends CalloutPartsMinxins {
 }
 
 export const DEFAULT_CALLOUT_CONFIG: CalloutConfig = {
-  angle: 45,
+  angle: -45,
   lineOffset: 0,
   lineLength: 30,
   labelOffset: 2,
@@ -127,5 +127,5 @@ export function normalizeCallout(spec: GenericUnitSpec<Encoding<string>, Callout
 
 function getCoordinateFromAngleAndLength(angle: number, length: number): {x: number, y: number} {
   const radian = angle * Math.PI / 180;
-  return {x: length * Math.cos(radian), y: -1 * length * Math.sin(radian)};
+  return {x: length * Math.cos(radian), y: length * Math.sin(radian)};
 }

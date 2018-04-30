@@ -22,7 +22,7 @@
     }],
     "mark": {
       "type": "callout",
-      "angle": 90,
+      "angle": -90,
       "labelOffset": 5
     },
     "encoding": {
