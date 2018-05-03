@@ -135,8 +135,6 @@ After adding a new example, make sure to run `yarn build:example <examplename>` 
 
 - `test/` - Code for unit testing. `test`'s structure reflects `src`'s directory structure.
 For example, `test/compile/` tests files inside `src/compile/`.
-  - Note that we prepend `/* tslint:disable:quotemark */` to all files under `test/compile`
-  to allow putting JSON specs in tests directly without getting lint errors.
 - `typings/` - TypeScript typing declaration for dependencies.
 
 ## Understanding How Vega-Lite Works
@@ -153,7 +151,7 @@ You can run `yarn build` to compile Vega-Lite and regenerate `vega-lite-schema.j
 
 ### Basic Lint & Test & Test Coverage
 
-`yarn lint` and `yarn test` run ts-lint and all unit-tests respectively. These two commands are automatically run by `yarn start` and `yarn watch`.
+`yarn test` run linting and all unit-tests respectively. `yarn format` automatically fixes linting issues if possible.
 
 `yarn test` includes test coverage and generates a report inside `coverage/index.html`.
 You can see if specific lines are covered in the unit test by running `open coverage/index.html`
@@ -198,8 +196,8 @@ If you want to update only github pages, use `yarn deploy:gh`.
 
 We use the [Visual Studio Code](http://code.visualstudio.com/) editor with TSLint plugin.
 - VSCode has nice built-in Typescript support!
-- We already include project settings to hide compiled files  (`*.js`, `*.js.map`).  This should work automatically if you open the vega-lite folder with VSCode.
-- Make sure to install [TypeScript Importer](https://marketplace.visualstudio.com/items?itemName=pmneo.tsimporter) and [TSLint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint) extensions.
+- We already include project settings to hide compiled files  (`*.js`, `*.js.map`).  This should work automatically if you open the `vega-lite` folder with VSCode.
+- Make sure to install [TSLint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint), [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)  extensions.
 
 ## Manually Testing with Vega-Editor
 
