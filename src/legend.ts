@@ -44,7 +44,7 @@ export interface Legend extends VgLegendBase, Guide {
   zindex?: number;
 }
 
-export type LegendEncoding = {
+export interface LegendEncoding {
   /**
    * Custom encoding for the legend container.
    * This can be useful for creating legend with custom x, y position.
@@ -70,7 +70,7 @@ export type LegendEncoding = {
    * Custom encoding for legend gradient filled rect marks.
    */
   gradient?: GuideEncodingEntry;
-};
+}
 
 export const defaultLegendConfig: LegendConfig = {};
 

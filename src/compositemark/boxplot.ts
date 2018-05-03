@@ -100,7 +100,7 @@ export function normalizeBoxPlot(spec: GenericUnitSpec<Encoding<string>, BOXPLOT
   // TODO: use selection
   const {mark, encoding, selection, projection: _p, ...outerSpec} = spec;
 
-  let kIQRScalar: number = undefined;
+  let kIQRScalar: number;
   if (isNumber(config.box.extent)) {
     kIQRScalar = config.box.extent;
   }

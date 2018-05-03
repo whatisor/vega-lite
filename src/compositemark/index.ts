@@ -30,7 +30,7 @@ export type CompositeAggregate = BOXPLOT;
 export const COMPOSITE_MARK_STYLES = BOXPLOT_STYLES;
 export type CompositeMarkStyle = typeof COMPOSITE_MARK_STYLES[0];
 
-export interface CompositeMarkConfigMixins extends BoxPlotConfigMixins {}
+export type CompositeMarkConfigMixins = BoxPlotConfigMixins;
 
 export const VL_ONLY_COMPOSITE_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX = {
   ...VL_ONLY_BOXPLOT_CONFIG_PROPERTY_INDEX

@@ -8,10 +8,10 @@ import {Model} from '../model';
 import {assembleDomain, getFieldFromDomain} from '../scale/domain';
 import {DataFlowNode} from './dataflow';
 
-type ChildIndependentFieldsWithStep = {
-  x?: string,
-  y?: string
-};
+interface ChildIndependentFieldsWithStep {
+  x?: string;
+  y?: string;
+}
 
 /**
  * A node that helps us track what fields we are faceting by.
