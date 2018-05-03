@@ -109,7 +109,6 @@ export type HiddenCompositeAggregate = CompositeAggregate;
 export type Aggregate = AggregateOp | HiddenCompositeAggregate;
 
 export interface FieldDefBase<F> {
-
   /**
    * __Required.__ A string defining the name of the field from which to pull a data value
    * or an object defining iterated values from the [`repeat`](https://vega.github.io/vega-lite/docs/repeat.html) operator.
@@ -155,7 +154,7 @@ export function toFieldDefBase(fieldDef: FieldDef<string>): FieldDefBase<string>
     ...(timeUnit ? {timeUnit} : {}),
     ...(bin ? {bin} : {}),
     ...(aggregate ? {aggregate} : {}),
-    field
+    field,
   };
 }
 
@@ -225,12 +224,12 @@ export interface PositionFieldDef<F> extends ScaleFieldDef<F> {
  * Field definition of a mark property, which can contain a legend.
  */
 export interface MarkPropFieldDef<F> extends ScaleFieldDef<F> {
-   /**
-    * An object defining properties of the legend.
-    * If `null`, the legend for the encoding channel will be removed.
-    *
-    * __Default value:__ If undefined, default [legend properties](https://vega.github.io/vega-lite/docs/legend.html) are applied.
-    */
+  /**
+   * An object defining properties of the legend.
+   * If `null`, the legend for the encoding channel will be removed.
+   *
+   * __Default value:__ If undefined, default [legend properties](https://vega.github.io/vega-lite/docs/legend.html) are applied.
+   */
   legend?: Legend | null;
 }
 
@@ -261,21 +260,31 @@ export function isConditionalDef<F>(channelDef: ChannelDef<F>): channelDef is Ch
 /**
  * Return if a channelDef is a ConditionalValueDef with ConditionFieldDef
  */
-export function hasConditionalFieldDef<F>(channelDef: ChannelDef<F>): channelDef is (ValueDef & {condition: Conditional<FieldDef<F>>}) {
+export function hasConditionalFieldDef<F>(
+  channelDef: ChannelDef<F>
+): channelDef is ValueDef & {condition: Conditional<FieldDef<F>>} {
   return !!channelDef && !!channelDef.condition && !isArray(channelDef.condition) && isFieldDef(channelDef.condition);
 }
 
-export function hasConditionalValueDef<F>(channelDef: ChannelDef<F>): channelDef is (ValueDef & {condition: Conditional<ValueDef> | Conditional<ValueDef>[]}) {
-  return !!channelDef && !!channelDef.condition && (
-    isArray(channelDef.condition) || isValueDef(channelDef.condition)
-  );
+export function hasConditionalValueDef<F>(
+  channelDef: ChannelDef<F>
+): channelDef is ValueDef & {condition: Conditional<ValueDef> | Conditional<ValueDef>[]} {
+  return !!channelDef && !!channelDef.condition && (isArray(channelDef.condition) || isValueDef(channelDef.condition));
 }
 
-export function isFieldDef<F>(channelDef: ChannelDef<F>): channelDef is FieldDef<F> | PositionFieldDef<F> | ScaleFieldDef<F> | MarkPropFieldDef<F> | OrderFieldDef<F> | TextFieldDef<F> {
+export function isFieldDef<F>(
+  channelDef: ChannelDef<F>
+): channelDef is
+  | FieldDef<F>
+  | PositionFieldDef<F>
+  | ScaleFieldDef<F>
+  | MarkPropFieldDef<F>
+  | OrderFieldDef<F>
+  | TextFieldDef<F> {
   return !!channelDef && (!!channelDef['field'] || channelDef['aggregate'] === 'count');
 }
 
-export function isStringFieldDef(fieldDef: ChannelDef<string|RepeatRef>): fieldDef is FieldDef<string> {
+export function isStringFieldDef(fieldDef: ChannelDef<string | RepeatRef>): fieldDef is FieldDef<string> {
   return isFieldDef(fieldDef) && isString(fieldDef.field);
 }
 
@@ -457,8 +466,7 @@ export function getFieldDef<F>(channelDef: ChannelDef<F>): FieldDef<F> {
  */
 export function normalize(channelDef: ChannelDef<string>, channel: Channel): ChannelDef<any> {
   if (isString(channelDef) || isNumber(channelDef) || isBoolean(channelDef)) {
-    const primitiveType = isString(channelDef) ? 'string' :
-      isNumber(channelDef) ? 'number' : 'boolean';
+    const primitiveType = isString(channelDef) ? 'string' : isNumber(channelDef) ? 'number' : 'boolean';
     log.warn(log.message.primitiveChannelDef(channel, primitiveType, channelDef));
     return {value: channelDef};
   }
@@ -470,7 +478,7 @@ export function normalize(channelDef: ChannelDef<string>, channel: Channel): Cha
     return {
       ...channelDef,
       // Need to cast as normalizeFieldDef normally return FieldDef, but here we know that it is definitely Condition<FieldDef>
-      condition: normalizeFieldDef(channelDef.condition, channel) as Conditional<FieldDef<string>>
+      condition: normalizeFieldDef(channelDef.condition, channel) as Conditional<FieldDef<string>>,
     };
   }
   return channelDef;
@@ -487,7 +495,7 @@ export function normalizeFieldDef(fieldDef: FieldDef<string>, channel: Channel) 
   if (fieldDef.timeUnit) {
     fieldDef = {
       ...fieldDef,
-      timeUnit: normalizeTimeUnit(fieldDef.timeUnit)
+      timeUnit: normalizeTimeUnit(fieldDef.timeUnit),
     };
   }
 
@@ -495,7 +503,7 @@ export function normalizeFieldDef(fieldDef: FieldDef<string>, channel: Channel) 
   if (fieldDef.bin) {
     fieldDef = {
       ...fieldDef,
-      bin: normalizeBin(fieldDef.bin, channel)
+      bin: normalizeBin(fieldDef.bin, channel),
     };
   }
 
@@ -506,7 +514,7 @@ export function normalizeFieldDef(fieldDef: FieldDef<string>, channel: Channel) 
       // convert short type to full type
       fieldDef = {
         ...fieldDef,
-        type: fullType
+        type: fullType,
       };
     }
     if (fieldDef.type !== 'quantitative') {
@@ -514,7 +522,7 @@ export function normalizeFieldDef(fieldDef: FieldDef<string>, channel: Channel) 
         log.warn(log.message.invalidFieldTypeForCountAggregate(fieldDef.type, fieldDef.aggregate));
         fieldDef = {
           ...fieldDef,
-          type: 'quantitative'
+          type: 'quantitative',
         };
       }
     }
@@ -523,8 +531,8 @@ export function normalizeFieldDef(fieldDef: FieldDef<string>, channel: Channel) 
     const newType = defaultType(fieldDef, channel);
     log.warn(log.message.emptyOrInvalidFieldType(fieldDef.type, channel, newType));
     fieldDef = {
-        ...fieldDef,
-      type: newType
+      ...fieldDef,
+      type: newType,
     };
   }
 
@@ -535,7 +543,7 @@ export function normalizeFieldDef(fieldDef: FieldDef<string>, channel: Channel) 
   return fieldDef;
 }
 
-export function normalizeBin(bin: BinParams|boolean, channel: Channel) {
+export function normalizeBin(bin: BinParams | boolean, channel: Channel) {
   if (isBoolean(bin)) {
     return {maxbins: autoMaxBins(channel)};
   } else if (!bin.maxbins && !bin.step) {
@@ -546,7 +554,10 @@ export function normalizeBin(bin: BinParams|boolean, channel: Channel) {
 }
 
 const COMPATIBLE = {compatible: true};
-export function channelCompatibility(fieldDef: FieldDef<Field>, channel: Channel): {compatible: boolean; warning?: string;} {
+export function channelCompatibility(
+  fieldDef: FieldDef<Field>,
+  channel: Channel
+): {compatible: boolean; warning?: string} {
   switch (channel) {
     case 'row':
     case 'column':
@@ -555,7 +566,7 @@ export function channelCompatibility(fieldDef: FieldDef<Field>, channel: Channel
         // with timeUnit it's not always strictly continuous
         return {
           compatible: false,
-          warning: log.message.facetChannelShouldBeDiscrete(channel)
+          warning: log.message.facetChannelShouldBeDiscrete(channel),
         };
       }
       return COMPATIBLE;
@@ -579,7 +590,7 @@ export function channelCompatibility(fieldDef: FieldDef<Field>, channel: Channel
       if (fieldDef.type !== QUANTITATIVE) {
         return {
           compatible: false,
-          warning: `Channel ${channel} should not be used with ${fieldDef.type} field.`
+          warning: `Channel ${channel} should not be used with ${fieldDef.type} field.`,
         };
       }
       return COMPATIBLE;
@@ -591,7 +602,7 @@ export function channelCompatibility(fieldDef: FieldDef<Field>, channel: Channel
       if (isDiscrete(fieldDef) && !fieldDef.bin) {
         return {
           compatible: false,
-          warning: `Channel ${channel} should not be used with discrete field.`
+          warning: `Channel ${channel} should not be used with discrete field.`,
         };
       }
       return COMPATIBLE;
@@ -600,7 +611,7 @@ export function channelCompatibility(fieldDef: FieldDef<Field>, channel: Channel
       if (fieldDef.type !== 'nominal' && fieldDef.type !== 'geojson') {
         return {
           compatible: false,
-          warning: 'Shape channel should be used with nominal data or geojson only'
+          warning: 'Shape channel should be used with nominal data or geojson only',
         };
       }
       return COMPATIBLE;
@@ -609,7 +620,7 @@ export function channelCompatibility(fieldDef: FieldDef<Field>, channel: Channel
       if (fieldDef.type === 'nominal') {
         return {
           compatible: false,
-          warning: `Channel order is inappropriate for nominal field, which has no inherent order.`
+          warning: `Channel order is inappropriate for nominal field, which has no inherent order.`,
         };
       }
       return COMPATIBLE;

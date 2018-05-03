@@ -15,7 +15,7 @@ export const rect: MarkCompiler = {
       ...x(model),
       ...y(model),
     };
-  }
+  },
 };
 
 function x(model: UnitModel) {
@@ -34,10 +34,11 @@ function x(model: UnitModel) {
       // We don't support rect mark with point/ordinal scale
       throw new Error(log.message.scaleTypeNotWorkWithMark(RECT, xScaleType));
     }
-  } else { // continuous scale or no scale
+  } else {
+    // continuous scale or no scale
     return {
       ...mixins.pointPosition('x', model, 'zeroOrMax'),
-      ...mixins.pointPosition2(model, 'zeroOrMin', 'x2')
+      ...mixins.pointPosition2(model, 'zeroOrMin', 'x2'),
     };
   }
 }
@@ -58,10 +59,11 @@ function y(model: UnitModel) {
       // We don't support rect mark with point/ordinal scale
       throw new Error(log.message.scaleTypeNotWorkWithMark(RECT, yScaleType));
     }
-  } else { // continuous scale or no scale
+  } else {
+    // continuous scale or no scale
     return {
       ...mixins.pointPosition('y', model, 'zeroOrMax'),
-      ...mixins.pointPosition2(model, 'zeroOrMin', 'y2')
+      ...mixins.pointPosition2(model, 'zeroOrMin', 'y2'),
     };
   }
 }

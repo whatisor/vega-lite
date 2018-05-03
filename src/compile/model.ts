@@ -50,7 +50,6 @@ import {SelectionComponent} from './selection/selection';
 import {Split} from './split';
 import {UnitModel} from './unit';
 
-
 /**
  * Composable Components that are intermediate results of the parsing phase of the
  * compilations.  The components represents parts of the specification in a form that
@@ -64,8 +63,8 @@ export interface Component {
   layoutSize: LayoutSizeComponent;
 
   layoutHeaders: {
-    row?: LayoutHeaderComponent,
-    column?: LayoutHeaderComponent
+    row?: LayoutHeaderComponent;
+    column?: LayoutHeaderComponent;
   };
 
   mark: VgMarkGroup[];
@@ -98,7 +97,6 @@ export class NameMap implements NameMapInterface {
   public rename(oldName: string, newName: string) {
     this.nameMap[oldName] = newName;
   }
-
 
   public has(name: string): boolean {
     return this.nameMap[name] !== undefined;
@@ -146,7 +144,6 @@ export function isLayerModel(model: Model): model is LayerModel {
 }
 
 export abstract class Model {
-
   public abstract readonly type: 'unit' | 'facet' | 'layer' | 'concat' | 'repeat';
   public readonly parent: Model;
   public readonly name: string;
@@ -174,7 +171,14 @@ export abstract class Model {
 
   public abstract readonly children: Model[] = [];
 
-  constructor(spec: BaseSpec, parent: Model, parentGivenName: string, config: Config, repeater: RepeaterValue, resolve: Resolve) {
+  constructor(
+    spec: BaseSpec,
+    parent: Model,
+    parentGivenName: string,
+    config: Config,
+    repeater: RepeaterValue,
+    resolve: Resolve
+  ) {
     this.parent = parent;
     this.config = config;
     this.repeater = repeater;
@@ -200,14 +204,16 @@ export abstract class Model {
         outputNodeRefCounts: parent ? parent.component.data.outputNodeRefCounts : {},
         ancestorParse: parent ? {...parent.component.data.ancestorParse} : {},
         // data is faceted if the spec is a facet spec or the parent has faceted data and no data is defined
-        isFaceted: isFacetSpec(spec) || (parent && parent.component.data.isFaceted && !spec.data)
+        isFaceted: isFacetSpec(spec) || (parent && parent.component.data.isFaceted && !spec.data),
       },
       layoutSize: new Split<LayoutSizeIndex>(),
-      layoutHeaders:{row: {}, column: {}},
+      layoutHeaders: {row: {}, column: {}},
       mark: null,
       resolve: {
-        scale: {}, axis: {}, legend: {},
-        ...(resolve || {})
+        scale: {},
+        axis: {},
+        legend: {},
+        ...(resolve || {}),
       },
       selection: null,
       scales: null,
@@ -220,7 +226,6 @@ export abstract class Model {
   public get width(): VgSignalRef {
     return this.getSizeSignalRef('width');
   }
-
 
   public get height(): VgSignalRef {
     return this.getSizeSignalRef('height');
@@ -254,7 +259,6 @@ export abstract class Model {
   public abstract parseData(): void;
 
   public abstract parseSelection(): void;
-
 
   public parseScale() {
     parseScale(this);
@@ -304,7 +308,7 @@ export abstract class Model {
     if (this.type === 'unit' || this.type === 'layer') {
       return {
         width: this.getSizeSignalRef('width'),
-        height: this.getSizeSignalRef('height')
+        height: this.getSizeSignalRef('height'),
       };
     }
     return undefined;
@@ -347,7 +351,7 @@ export abstract class Model {
   public assembleTitle(): VgTitle {
     const title: VgTitle = {
       ...extractTitleConfig(this.config.title).nonMark,
-      ...this.title
+      ...this.title,
     };
 
     if (title.text) {
@@ -383,14 +387,11 @@ export abstract class Model {
       group.layout = layout;
     }
 
-    group.marks = [].concat(
-      this.assembleHeaderMarks(),
-      this.assembleMarks()
-    );
+    group.marks = [].concat(this.assembleHeaderMarks(), this.assembleMarks());
 
     // Only include scales if this spec is top-level or if parent is facet.
     // (Otherwise, it will be merged with upper-level's scope.)
-    const scales = (!this.parent || isFacetModel(this.parent)) ? assembleScales(this) : [];
+    const scales = !this.parent || isFacetModel(this.parent) ? assembleScales(this) : [];
     if (scales.length > 0) {
       group.scales = scales;
     }
@@ -446,7 +447,8 @@ export abstract class Model {
       const channel = sizeType === 'width' ? 'x' : 'y';
       const scaleComponent = this.component.scales[channel];
 
-      if (scaleComponent && !scaleComponent.merged) { // independent scale
+      if (scaleComponent && !scaleComponent.merged) {
+        // independent scale
         const type = scaleComponent.get('type');
         const range = scaleComponent.get('range');
 
@@ -457,19 +459,18 @@ export abstract class Model {
           if (field) {
             const fieldRef = vgField({aggregate: 'distinct', field}, {expr: 'datum'});
             return {
-              signal: sizeExpr(scaleName, scaleComponent, fieldRef)
+              signal: sizeExpr(scaleName, scaleComponent, fieldRef),
             };
           } else {
             log.warn('Unknown field for ${channel}.  Cannot calculate view size.');
             return null;
           }
-
         }
       }
     }
 
     return {
-      signal: this.layoutSizeNameMap.get(this.getName(sizeType))
+      signal: this.layoutSizeNameMap.get(this.getName(sizeType)),
     };
   }
 
@@ -489,7 +490,7 @@ export abstract class Model {
   }
 
   public getSizeName(oldSizeName: string): string {
-     return this.layoutSizeNameMap.get(oldSizeName);
+    return this.layoutSizeNameMap.get(oldSizeName);
   }
 
   public renameLayoutSize(oldName: string, newName: string) {
@@ -518,11 +519,11 @@ export abstract class Model {
     // If there is a scale for the channel, it should either
     // be in the scale component or exist in the name map
     if (
-        // If there is a scale for the channel, there should be a local scale component for it
-        (isChannel(originalScaleName) && isScaleChannel(originalScaleName) && this.component.scales[originalScaleName]) ||
-        // in the scale name map (the scale get merged by its parent)
-        this.scaleNameMap.has(this.getName(originalScaleName))
-      ) {
+      // If there is a scale for the channel, there should be a local scale component for it
+      (isChannel(originalScaleName) && isScaleChannel(originalScaleName) && this.component.scales[originalScaleName]) ||
+      // in the scale name map (the scale get merged by its parent)
+      this.scaleNameMap.has(this.getName(originalScaleName))
+    ) {
       return this.scaleNameMap.get(this.getName(originalScaleName));
     }
     return undefined;
@@ -539,7 +540,10 @@ export abstract class Model {
       return this.getName('projection');
     }
 
-    if ((this.component.projection && !this.component.projection.merged) || this.projectionNameMap.has(this.getName('projection'))) {
+    if (
+      (this.component.projection && !this.component.projection.merged) ||
+      this.projectionNameMap.has(this.getName('projection'))
+    ) {
       return this.projectionNameMap.get(this.getName('projection'));
     }
     return undefined;
@@ -562,7 +566,7 @@ export abstract class Model {
     }
 
     return mark;
-  }
+  };
 
   /**
    * Traverse a model's hierarchy to get the scale component for a particular channel.
@@ -570,14 +574,16 @@ export abstract class Model {
   public getScaleComponent(channel: ScaleChannel): ScaleComponent {
     /* istanbul ignore next: This is warning for debugging test */
     if (!this.component.scales) {
-      throw new Error('getScaleComponent cannot be called before parseScale().  Make sure you have called parseScale or use parseUnitModelWithScale().');
+      throw new Error(
+        'getScaleComponent cannot be called before parseScale().  Make sure you have called parseScale or use parseUnitModelWithScale().'
+      );
     }
 
     const localScaleComponent = this.component.scales[channel];
     if (localScaleComponent && !localScaleComponent.merged) {
       return localScaleComponent;
     }
-    return (this.parent ? this.parent.getScaleComponent(channel) : undefined);
+    return this.parent ? this.parent.getScaleComponent(channel) : undefined;
   }
 
   /**
@@ -613,22 +619,31 @@ export abstract class ModelWithField extends Model {
   protected abstract getMapping(): {[key in Channel]?: any};
 
   public reduceFieldDef<T, U>(f: (acc: U, fd: FieldDef<string>, c: Channel) => U, init: T, t?: any) {
-    return reduce(this.getMapping(), (acc:U , cd: ChannelDef<string>, c: Channel) => {
-      const fieldDef = getFieldDef(cd);
-      if (fieldDef) {
-        return f(acc, fieldDef, c);
-      }
-      return acc;
-    }, init, t);
+    return reduce(
+      this.getMapping(),
+      (acc: U, cd: ChannelDef<string>, c: Channel) => {
+        const fieldDef = getFieldDef(cd);
+        if (fieldDef) {
+          return f(acc, fieldDef, c);
+        }
+        return acc;
+      },
+      init,
+      t
+    );
   }
 
   public forEachFieldDef(f: (fd: FieldDef<string>, c: Channel) => void, t?: any) {
-    forEach(this.getMapping(), (cd: ChannelDef<string>, c: Channel) => {
-      const fieldDef = getFieldDef(cd);
-      if (fieldDef) {
-        f(fieldDef, c);
-      }
-    }, t);
+    forEach(
+      this.getMapping(),
+      (cd: ChannelDef<string>, c: Channel) => {
+        const fieldDef = getFieldDef(cd);
+        if (fieldDef) {
+          f(fieldDef, c);
+        }
+      },
+      t
+    );
   }
   public abstract channelHasField(channel: Channel): boolean;
 }

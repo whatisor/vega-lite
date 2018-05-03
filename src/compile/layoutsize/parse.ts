@@ -53,9 +53,7 @@ function parseNonUnitLayoutSizeForChannel(model: Model, sizeType: 'width' | 'hei
         mergedSize = undefined;
         break;
       }
-      mergedSize = mergeValuesWithExplicit<LayoutSizeIndex, LayoutSize>(
-        mergedSize, childSize, sizeType, ''
-      );
+      mergedSize = mergeValuesWithExplicit<LayoutSizeIndex, LayoutSize>(mergedSize, childSize, sizeType, '');
     } else {
       mergedSize = childSize;
     }
@@ -72,7 +70,7 @@ function parseNonUnitLayoutSizeForChannel(model: Model, sizeType: 'width' | 'hei
     // Otherwise, there is no merged size.
     return {
       explicit: false,
-      value: undefined
+      value: undefined,
     };
   }
 }
@@ -115,5 +113,4 @@ function defaultUnitSize(model: UnitModel, sizeType: 'width' | 'height'): Layout
     // Set width/height equal to rangeStep config or if rangeStep is null, use value from default scale config.
     return config.scale.rangeStep || defaultScaleConfig.rangeStep;
   }
-
 }

@@ -102,19 +102,18 @@ export interface AggregatedFieldDef {
   as: string;
 }
 
-
 export type WindowOnlyOp =
-  'row_number' |
-   'rank' |
-   'dense_rank' |
-   'percent_rank' |
-   'cume_dist' |
-   'ntile' |
-   'lag' |
-   'lead' |
-   'first_value' |
-   'last_value' |
-   'nth_value';
+  | 'row_number'
+  | 'rank'
+  | 'dense_rank'
+  | 'percent_rank'
+  | 'cume_dist'
+  | 'ntile'
+  | 'lag'
+  | 'lead'
+  | 'first_value'
+  | 'last_value'
+  | 'nth_value';
 
 export interface WindowFieldDef {
   /**
@@ -213,7 +212,6 @@ export interface LookupTransform {
   default?: string;
 }
 
-
 /**
  * A compartor for fields within the window transform
  */
@@ -253,13 +251,20 @@ export function isAggregate(t: Transform): t is AggregateTransform {
   return t['aggregate'] !== undefined;
 }
 
-export type Transform = FilterTransform | CalculateTransform | LookupTransform | BinTransform | TimeUnitTransform | AggregateTransform | WindowTransform;
+export type Transform =
+  | FilterTransform
+  | CalculateTransform
+  | LookupTransform
+  | BinTransform
+  | TimeUnitTransform
+  | AggregateTransform
+  | WindowTransform;
 
 export function normalizeTransform(transform: Transform[]) {
   return transform.map(t => {
     if (isFilter(t)) {
       return {
-        filter: normalizeLogicalOperand(t.filter, normalizePredicate)
+        filter: normalizeLogicalOperand(t.filter, normalizePredicate),
       };
     }
     return t;

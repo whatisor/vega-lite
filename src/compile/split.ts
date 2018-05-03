@@ -1,7 +1,6 @@
 import * as log from '../log';
 import {duplicate, stringify} from '../util';
 
-
 /**
  * Generic class for storing properties that are explicitly specified
  * and implicitly determined by the compiler.
@@ -9,10 +8,7 @@ import {duplicate, stringify} from '../util';
  * we want to prioritize properties that users explicitly specified.
  */
 export class Split<T extends object> {
-  constructor(
-    public readonly explicit: Partial<T> = {},
-    public readonly implicit: Partial<T> = {}
-  ) {}
+  constructor(public readonly explicit: Partial<T> = {}, public readonly implicit: Partial<T> = {}) {}
 
   public clone() {
     return new Split(duplicate(this.explicit), duplicate(this.implicit));
@@ -22,8 +18,8 @@ export class Split<T extends object> {
     // FIXME remove "as any".
     // Add "as any" to avoid an error "Spread types may only be created from object types".
     return {
-      ...this.explicit as any, // Explicit properties comes first
-      ...this.implicit as any
+      ...(this.explicit as any), // Explicit properties comes first
+      ...(this.implicit as any),
     };
   }
 
@@ -75,18 +71,17 @@ export interface Explicit<T> {
   value: T;
 }
 
-
 export function makeExplicit<T>(value: T): Explicit<T> {
   return {
     explicit: true,
-    value
+    value,
   };
 }
 
 export function makeImplicit<T>(value: T): Explicit<T> {
   return {
     explicit: false,
-    value
+    value,
   };
 }
 
@@ -111,11 +106,17 @@ export function defaultTieBreaker<S, T>(v1: Explicit<T>, v2: Explicit<T>, proper
 }
 
 export function mergeValuesWithExplicit<S, T>(
-    v1: Explicit<T>, v2: Explicit<T>,
+  v1: Explicit<T>,
+  v2: Explicit<T>,
+  property: keyof S,
+  propertyOf: 'scale' | 'axis' | 'legend' | '',
+  tieBreaker: (
+    v1: Explicit<T>,
+    v2: Explicit<T>,
     property: keyof S,
-    propertyOf: 'scale' | 'axis' | 'legend' | '',
-    tieBreaker: (v1: Explicit<T>, v2: Explicit<T>, property: keyof S, propertyOf: string) => Explicit<T> = defaultTieBreaker
-  ) {
+    propertyOf: string
+  ) => Explicit<T> = defaultTieBreaker
+) {
   if (v1 === undefined || v1.value === undefined) {
     // For first run
     return v2;

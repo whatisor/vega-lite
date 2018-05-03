@@ -4,7 +4,6 @@ import {MarkCompiler} from './base';
 import * as mixins from './mixins';
 import * as ref from './valueref';
 
-
 export const tick: MarkCompiler = {
   vgMark: 'rect',
 
@@ -24,11 +23,11 @@ export const tick: MarkCompiler = {
       // size / thickness => width / height
       ...mixins.nonPosition('size', model, {
         defaultValue: defaultSize(model),
-        vgChannel: vgSizeChannel
+        vgChannel: vgSizeChannel,
       }),
       [vgThicknessChannel]: {value: config.tick.thickness},
     };
-  }
+  },
 };
 
 function defaultSize(model: UnitModel): number {
@@ -42,9 +41,7 @@ function defaultSize(model: UnitModel): number {
     return config.tick.bandSize;
   } else {
     const scaleRange = scale ? scale.get('range') : undefined;
-    const rangeStep = scaleRange && isVgRangeStep(scaleRange) ?
-      scaleRange.step :
-      config.scale.rangeStep;
+    const rangeStep = scaleRange && isVgRangeStep(scaleRange) ? scaleRange.step : config.scale.rangeStep;
     if (typeof rangeStep !== 'number') {
       // FIXME consolidate this log
       throw new Error('Function does not handle non-numeric rangeStep');

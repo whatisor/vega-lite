@@ -6,7 +6,6 @@ import {VgFormulaTransform} from '../../vega.schema';
 import {ModelWithField} from '../model';
 import {DataFlowNode} from './dataflow';
 
-
 export interface TimeUnitComponent {
   as: string;
   timeUnit: TimeUnit;
@@ -23,17 +22,20 @@ export class TimeUnitNode extends DataFlowNode {
   }
 
   public static makeFromEncoding(parent: DataFlowNode, model: ModelWithField) {
-    const formula = model.reduceFieldDef((timeUnitComponent: TimeUnitComponent, fieldDef) => {
-      if (fieldDef.timeUnit) {
-        const f = vgField(fieldDef);
-        timeUnitComponent[f] = {
-          as: f,
-          timeUnit: fieldDef.timeUnit,
-          field: fieldDef.field
-        };
-      }
-      return timeUnitComponent;
-    }, {} as Dict<TimeUnitComponent>);
+    const formula = model.reduceFieldDef(
+      (timeUnitComponent: TimeUnitComponent, fieldDef) => {
+        if (fieldDef.timeUnit) {
+          const f = vgField(fieldDef);
+          timeUnitComponent[f] = {
+            as: f,
+            timeUnit: fieldDef.timeUnit,
+            field: fieldDef.field,
+          };
+        }
+        return timeUnitComponent;
+      },
+      {} as Dict<TimeUnitComponent>
+    );
 
     if (keys(formula).length === 0) {
       return null;
@@ -47,8 +49,8 @@ export class TimeUnitNode extends DataFlowNode {
       [t.field]: {
         as: t.as,
         timeUnit: t.timeUnit,
-        field: t.field
-      }
+        field: t.field,
+      },
     });
   }
 
@@ -82,7 +84,7 @@ export class TimeUnitNode extends DataFlowNode {
       return {
         type: 'formula',
         as: c.as,
-        expr: fieldExpr(c.timeUnit, c.field)
+        expr: fieldExpr(c.timeUnit, c.field),
       } as VgFormulaTransform;
     });
   }

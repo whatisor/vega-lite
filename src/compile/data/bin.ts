@@ -9,22 +9,21 @@ import {binFormatExpression, binRequiresRange} from '../common';
 import {isUnitModel, Model, ModelWithField} from '../model';
 import {DataFlowNode} from './dataflow';
 
-
 function rangeFormula(model: ModelWithField, fieldDef: FieldDef<string>, channel: Channel, config: Config) {
-    if (binRequiresRange(fieldDef, channel)) {
-      // read format from axis or legend, if there is no format then use config.numberFormat
+  if (binRequiresRange(fieldDef, channel)) {
+    // read format from axis or legend, if there is no format then use config.numberFormat
 
-      const guide = isUnitModel(model) ? (model.axis(channel) || model.legend(channel) || {}) : {};
+    const guide = isUnitModel(model) ? model.axis(channel) || model.legend(channel) || {} : {};
 
-      const startField = vgField(fieldDef, {expr: 'datum',});
-      const endField = vgField(fieldDef, {expr: 'datum', binSuffix: 'end'});
+    const startField = vgField(fieldDef, {expr: 'datum'});
+    const endField = vgField(fieldDef, {expr: 'datum', binSuffix: 'end'});
 
-      return {
-        formulaAs: vgField(fieldDef, {binSuffix: 'range'}),
-        formula: binFormatExpression(startField, endField, guide.format, config)
-      };
-    }
-    return {};
+    return {
+      formulaAs: vgField(fieldDef, {binSuffix: 'range'}),
+      formula: binFormatExpression(startField, endField, guide.format, config),
+    };
+  }
+  return {};
 }
 
 function binKey(bin: BinParams, field: string) {
@@ -34,7 +33,7 @@ function binKey(bin: BinParams, field: string) {
 function getSignalsFromModel(model: Model, key: string) {
   return {
     signal: model.getName(`${key}_bins`),
-    extentSignal: model.getName(`${key}_extent`)
+    extentSignal: model.getName(`${key}_extent`),
   };
 }
 
@@ -59,8 +58,8 @@ function createBinComponent(t: FieldDef<string> | BinTransform, model: Model) {
     bin: bin,
     field: t.field,
     as: as,
-    ...signal ? {signal} : {},
-    ...extentSignal ? {extentSignal} : {}
+    ...(signal ? {signal} : {}),
+    ...(extentSignal ? {extentSignal} : {}),
   };
 
   return {key, binComponent};
@@ -95,7 +94,7 @@ export class BinNode extends DataFlowNode {
         binComponentIndex[key] = {
           ...binComponent,
           ...binComponentIndex[key],
-          ...rangeFormula(model, fieldDef, channel, model.config)
+          ...rangeFormula(model, fieldDef, channel, model.config),
         };
       }
       return binComponentIndex;
@@ -115,7 +114,7 @@ export class BinNode extends DataFlowNode {
   public static makeFromTransform(parent: DataFlowNode, t: BinTransform, model: Model) {
     const {key, binComponent} = createBinComponent(t, model);
     return new BinNode(parent, {
-      [key]: binComponent
+      [key]: binComponent,
     });
   }
 
@@ -128,7 +127,7 @@ export class BinNode extends DataFlowNode {
     const out = {};
 
     vals(this.bins).forEach(c => {
-      c.as.forEach(f => out[f] = true);
+      c.as.forEach(f => (out[f] = true));
     });
 
     return out;
@@ -145,37 +144,39 @@ export class BinNode extends DataFlowNode {
   }
 
   public assemble(): VgTransform[] {
-    return flatten(vals(this.bins).map(bin => {
-      const transform: VgTransform[] = [];
+    return flatten(
+      vals(this.bins).map(bin => {
+        const transform: VgTransform[] = [];
 
-      const binTrans: VgBinTransform = {
+        const binTrans: VgBinTransform = {
           type: 'bin',
           field: bin.field,
           as: bin.as,
           signal: bin.signal,
-          ...bin.bin
-      };
+          ...bin.bin,
+        };
 
-      if (!bin.bin.extent && bin.extentSignal) {
-        transform.push({
-          type: 'extent',
-          field: bin.field,
-          signal: bin.extentSignal
-        });
-        binTrans.extent = {signal: bin.extentSignal};
-      }
+        if (!bin.bin.extent && bin.extentSignal) {
+          transform.push({
+            type: 'extent',
+            field: bin.field,
+            signal: bin.extentSignal,
+          });
+          binTrans.extent = {signal: bin.extentSignal};
+        }
 
-      transform.push(binTrans);
+        transform.push(binTrans);
 
-      if (bin.formula) {
-        transform.push({
-          type: 'formula',
-          expr: bin.formula,
-          as: bin.formulaAs
-        });
-      }
+        if (bin.formula) {
+          transform.push({
+            type: 'formula',
+            expr: bin.formula,
+            as: bin.formulaAs,
+          });
+        }
 
-      return transform;
-    }));
+        return transform;
+      })
+    );
   }
 }

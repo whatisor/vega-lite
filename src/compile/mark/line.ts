@@ -13,13 +13,12 @@ export const line: MarkCompiler = {
       ...mixins.pointPosition('x', model, ref.mid(width)),
       ...mixins.pointPosition('y', model, ref.mid(height)),
       ...mixins.nonPosition('size', model, {
-        vgChannel: 'strokeWidth'  // VL's line size is strokeWidth
+        vgChannel: 'strokeWidth', // VL's line size is strokeWidth
       }),
-      ...mixins.defined(model)
+      ...mixins.defined(model),
     };
-  }
+  },
 };
-
 
 export const trail: MarkCompiler = {
   vgMark: 'trail',
@@ -31,7 +30,7 @@ export const trail: MarkCompiler = {
       ...mixins.pointPosition('x', model, ref.mid(width)),
       ...mixins.pointPosition('y', model, ref.mid(height)),
       ...mixins.nonPosition('size', model),
-      ...mixins.defined(model)
+      ...mixins.defined(model),
     };
-  }
+  },
 };

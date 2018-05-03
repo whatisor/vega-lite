@@ -14,7 +14,6 @@ import {LegendComponent, LegendComponentIndex} from './component';
 import * as encode from './encode';
 import * as properties from './properties';
 
-
 export function parseLegend(model: Model) {
   if (isUnitModel(model)) {
     model.component.legends = parseUnitLegend(model);
@@ -25,9 +24,13 @@ export function parseLegend(model: Model) {
 
 function parseUnitLegend(model: UnitModel): LegendComponentIndex {
   const {encoding} = model;
-  return [COLOR, FILL, STROKE, SIZE, SHAPE, OPACITY].reduce(function (legendComponent, channel) {
+  return [COLOR, FILL, STROKE, SIZE, SHAPE, OPACITY].reduce((legendComponent, channel) => {
     const def = encoding[channel];
-    if (model.legend(channel) && model.getScaleComponent(channel) && !(isFieldDef(def) && (channel === SHAPE && def.type === GEOJSON))) {
+    if (
+      model.legend(channel) &&
+      model.getScaleComponent(channel) &&
+      !(isFieldDef(def) && (channel === SHAPE && def.type === GEOJSON))
+    ) {
       legendComponent[channel] = parseLegendForChannel(model, channel);
     }
     return legendComponent;
@@ -55,12 +58,13 @@ export function parseLegendForChannel(model: UnitModel, channel: NonPositionScal
 
   const legendCmpt = new LegendComponent({}, getLegendDefWithScale(model, channel));
 
-  LEGEND_PROPERTIES.forEach(function(property) {
+  LEGEND_PROPERTIES.forEach(property => {
     const value = getProperty(property, legend, channel, model);
     if (value !== undefined) {
-      const explicit = property === 'values' ?
-        !!legend.values :  // specified legend.values is already respected, but may get transformed.
-        value === legend[property];
+      const explicit =
+        property === 'values'
+          ? !!legend.values // specified legend.values is already respected, but may get transformed.
+          : value === legend[property];
       if (explicit || model.config.legend[property] === undefined) {
         legendCmpt.set(property, value, explicit);
       }
@@ -69,16 +73,19 @@ export function parseLegendForChannel(model: UnitModel, channel: NonPositionScal
 
   // 2) Add mark property definition groups
   const legendEncoding = legend.encoding || {};
-  const legendEncode = ['labels', 'legend', 'title', 'symbols', 'gradient'].reduce((e: VgLegendEncode, part) => {
-    const value = encode[part] ?
-      // TODO: replace legendCmpt with type is sufficient
-      encode[part](fieldDef, legendEncoding[part], model, channel, legendCmpt.get('type')) : // apply rule
-      legendEncoding[part]; // no rule -- just default values
-    if (value !== undefined && keys(value).length > 0) {
-      e[part] = {update: value};
-    }
-    return e;
-  }, {} as VgLegendEncode);
+  const legendEncode = ['labels', 'legend', 'title', 'symbols', 'gradient'].reduce(
+    (e: VgLegendEncode, part) => {
+      const value = encode[part]
+        ? // TODO: replace legendCmpt with type is sufficient
+          encode[part](fieldDef, legendEncoding[part], model, channel, legendCmpt.get('type')) // apply rule
+        : legendEncoding[part]; // no rule -- just default values
+      if (value !== undefined && keys(value).length > 0) {
+        e[part] = {update: value};
+      }
+      return e;
+    },
+    {} as VgLegendEncode
+  );
 
   if (keys(legendEncode).length > 0) {
     legendCmpt.set('encode', legendEncode, !!legend.encoding);
@@ -87,7 +94,12 @@ export function parseLegendForChannel(model: UnitModel, channel: NonPositionScal
   return legendCmpt;
 }
 
-function getProperty(property: keyof (Legend | VgLegend), specifiedLegend: Legend, channel: NonPositionScaleChannel, model: UnitModel) {
+function getProperty(
+  property: keyof (Legend | VgLegend),
+  specifiedLegend: Legend,
+  channel: NonPositionScaleChannel,
+  model: UnitModel
+) {
   const fieldDef = model.fieldDef(channel);
 
   switch (property) {
@@ -97,17 +109,19 @@ function getProperty(property: keyof (Legend | VgLegend), specifiedLegend: Legen
     case 'title':
       // For falsy value, keep undefined so we use default,
       // but use null for '', null, and false to hide the title
-      const specifiedTitle = fieldDef.title !== undefined ? fieldDef.title :
-        specifiedLegend.title || (specifiedLegend.title === undefined ? undefined : null);
+      const specifiedTitle =
+        fieldDef.title !== undefined
+          ? fieldDef.title
+          : specifiedLegend.title || (specifiedLegend.title === undefined ? undefined : null);
 
-      return getSpecifiedOrDefaultValue(
-        specifiedTitle,
-        fieldDefTitle(fieldDef, model.config)
-      ) || undefined; // make falsy value undefined so output Vega spec is shorter
+      return getSpecifiedOrDefaultValue(specifiedTitle, fieldDefTitle(fieldDef, model.config)) || undefined; // make falsy value undefined so output Vega spec is shorter
     case 'values':
       return properties.values(specifiedLegend);
     case 'type':
-      return getSpecifiedOrDefaultValue(specifiedLegend.type, properties.type(fieldDef.type, channel, model.getScaleComponent(channel).get('type')));
+      return getSpecifiedOrDefaultValue(
+        specifiedLegend.type,
+        properties.type(fieldDef.type, channel, model.getScaleComponent(channel).get('type'))
+      );
   }
 
   // Otherwise, return specified property.
@@ -162,7 +176,6 @@ export function mergeLegendComponent(mergedLegend: LegendComponent, childLegend:
   const mergedOrient = mergedLegend.getWithExplicit('orient');
   const childOrient = childLegend.getWithExplicit('orient');
 
-
   if (mergedOrient.explicit && childOrient.explicit && mergedOrient.value !== childOrient.value) {
     // TODO: throw warning if resolve is explicit (We don't have info about explicit/implicit resolve yet.)
     // Cannot merge due to inconsistent orient
@@ -174,7 +187,8 @@ export function mergeLegendComponent(mergedLegend: LegendComponent, childLegend:
     const mergedValueWithExplicit = mergeValuesWithExplicit<VgLegend, any>(
       mergedLegend.getWithExplicit(prop),
       childLegend.getWithExplicit(prop),
-      prop, 'legend',
+      prop,
+      'legend',
 
       // Tie breaker function
       (v1: Explicit<any>, v2: Explicit<any>): any => {
@@ -192,7 +206,7 @@ export function mergeLegendComponent(mergedLegend: LegendComponent, childLegend:
     mergedLegend.setWithExplicit(prop, mergedValueWithExplicit);
   }
   if (typeMerged) {
-    if(((mergedLegend.implicit || {}).encode || {}).gradient) {
+    if (((mergedLegend.implicit || {}).encode || {}).gradient) {
       deleteNestedProperty(mergedLegend.implicit, ['encode', 'gradient']);
     }
     if (((mergedLegend.explicit || {}).encode || {}).gradient) {
@@ -200,7 +214,5 @@ export function mergeLegendComponent(mergedLegend: LegendComponent, childLegend:
     }
   }
 
-
   return mergedLegend;
 }
-

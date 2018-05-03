@@ -60,7 +60,7 @@ export class ParseNode extends DataFlowNode {
       if (isCalculate(transform)) {
         calcFieldMap[transform.as] = true;
       } else if (isFilter(transform)) {
-        forEachLeaf(transform.filter, (filter) => {
+        forEachLeaf(transform.filter, filter => {
           if (isFieldPredicate(filter)) {
             if (filter.timeUnit) {
               parse[filter.field] = 'date';
@@ -143,7 +143,7 @@ export class ParseNode extends DataFlowNode {
 
   public assembleTransforms(onlyNested = false): VgFormulaTransform[] {
     return keys(this._parse)
-      .filter(field => onlyNested ? accessPathDepth(field) > 1 : true)
+      .filter(field => (onlyNested ? accessPathDepth(field) > 1 : true))
       .map(field => {
         const expr = parseExpression(field, this._parse[field]);
         if (!expr) {
@@ -153,9 +153,10 @@ export class ParseNode extends DataFlowNode {
         const formula: VgFormulaTransform = {
           type: 'formula',
           expr,
-          as: removePathFromField(field)  // Vega output is always flattened
+          as: removePathFromField(field), // Vega output is always flattened
         };
         return formula;
-      }).filter(t => t !== null);
+      })
+      .filter(t => t !== null);
   }
 }

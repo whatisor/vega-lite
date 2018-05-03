@@ -33,7 +33,6 @@ import {
   parseUnitSelection,
 } from './selection/selection';
 
-
 /**
  * Internal model of Vega-Lite specification for the compiler.
  */
@@ -55,18 +54,27 @@ export class UnitModel extends ModelWithField {
   public readonly selection: Dict<SelectionDef> = {};
   public children: Model[] = [];
 
-  constructor(spec: NormalizedUnitSpec, parent: Model, parentGivenName: string,
-    parentGivenSize: LayoutSizeMixins = {}, repeater: RepeaterValue, config: Config, public fit: boolean) {
-
+  constructor(
+    spec: NormalizedUnitSpec,
+    parent: Model,
+    parentGivenName: string,
+    parentGivenSize: LayoutSizeMixins = {},
+    repeater: RepeaterValue,
+    config: Config,
+    public fit: boolean
+  ) {
     super(spec, parent, parentGivenName, config, repeater, undefined);
     this.initSize({
       ...parentGivenSize,
       ...(spec.width ? {width: spec.width} : {}),
-      ...(spec.height ? {height: spec.height} : {})
+      ...(spec.height ? {height: spec.height} : {}),
     });
     const mark = isMarkDef(spec.mark) ? spec.mark.type : spec.mark;
 
-    const encoding = this.encoding = normalizeEncoding(replaceRepeaterInEncoding(spec.encoding || {}, repeater), mark);
+    const encoding = (this.encoding = normalizeEncoding(
+      replaceRepeaterInEncoding(spec.encoding || {}, repeater),
+      mark
+    ));
 
     this.markDef = normalizeMarkDef(spec.mark, encoding, config);
 
@@ -104,29 +112,32 @@ export class UnitModel extends ModelWithField {
   }
 
   private initScales(mark: Mark, encoding: Encoding<string>): ScaleIndex {
-    return SCALE_CHANNELS.reduce((scales, channel) => {
-      let fieldDef: FieldDef<string>;
-      let specifiedScale: Scale;
+    return SCALE_CHANNELS.reduce(
+      (scales, channel) => {
+        let fieldDef: FieldDef<string>;
+        let specifiedScale: Scale;
 
-      const channelDef = encoding[channel];
+        const channelDef = encoding[channel];
 
-      if (isFieldDef(channelDef)) {
-        fieldDef = channelDef;
-        specifiedScale = channelDef.scale;
-      } else if (hasConditionalFieldDef(channelDef)) {
-        fieldDef = channelDef.condition;
-        specifiedScale = channelDef.condition['scale'];
-      } else if (channel === 'x') {
-        fieldDef = getFieldDef(encoding.x2);
-      } else if (channel === 'y') {
-        fieldDef = getFieldDef(encoding.y2);
-      }
+        if (isFieldDef(channelDef)) {
+          fieldDef = channelDef;
+          specifiedScale = channelDef.scale;
+        } else if (hasConditionalFieldDef(channelDef)) {
+          fieldDef = channelDef.condition;
+          specifiedScale = channelDef.condition['scale'];
+        } else if (channel === 'x') {
+          fieldDef = getFieldDef(encoding.x2);
+        } else if (channel === 'y') {
+          fieldDef = getFieldDef(encoding.y2);
+        }
 
-      if (fieldDef) {
-        scales[channel] = specifiedScale || {};
-      }
-      return scales;
-    }, {} as ScaleIndex);
+        if (fieldDef) {
+          scales[channel] = specifiedScale || {};
+        }
+        return scales;
+      },
+      {} as ScaleIndex
+    );
   }
 
   private initAxes(encoding: Encoding<string>): AxisIndex {
@@ -135,16 +146,17 @@ export class UnitModel extends ModelWithField {
 
       // TODO: handle ConditionFieldDef
       const channelDef = encoding[channel];
-      if (isFieldDef(channelDef) ||
-          (channel === X && isFieldDef(encoding.x2)) ||
-          (channel === Y && isFieldDef(encoding.y2))) {
-
+      if (
+        isFieldDef(channelDef) ||
+        (channel === X && isFieldDef(encoding.x2)) ||
+        (channel === Y && isFieldDef(encoding.y2))
+      ) {
         const axisSpec = isFieldDef(channelDef) ? channelDef.axis : null;
 
         // We no longer support false in the schema, but we keep false here for backward compatibility.
         if (axisSpec !== null && axisSpec !== false) {
           _axis[channel] = {
-            ...axisSpec
+            ...axisSpec,
           };
         }
       }
@@ -156,8 +168,11 @@ export class UnitModel extends ModelWithField {
     return NONPOSITION_SCALE_CHANNELS.reduce((_legend, channel) => {
       const channelDef = encoding[channel];
       if (channelDef) {
-        const legend = isFieldDef(channelDef) ? channelDef.legend :
-          (hasConditionalFieldDef(channelDef)) ? channelDef.condition['legend'] : null;
+        const legend = isFieldDef(channelDef)
+          ? channelDef.legend
+          : hasConditionalFieldDef(channelDef)
+            ? channelDef.condition['legend']
+            : null;
 
         if (legend !== null && legend !== false) {
           _legend[channel] = {...legend};
@@ -224,7 +239,7 @@ export class UnitModel extends ModelWithField {
   public assembleLayoutSize(): VgEncodeEntry {
     return {
       width: this.getSizeSignalRef('width'),
-      height: this.getSizeSignalRef('height')
+      height: this.getSizeSignalRef('height'),
     };
   }
 
@@ -238,7 +253,7 @@ export class UnitModel extends ModelWithField {
 
     spec = {
       mark: this.markDef,
-      encoding: encoding
+      encoding: encoding,
     };
 
     if (!excludeConfig) {

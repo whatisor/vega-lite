@@ -30,28 +30,36 @@ export function color(model: UnitModel, opt: {valueOnly: boolean} = {valueOnly: 
   const configValue = {
     fill: getMarkConfig('fill', markDef, config),
     stroke: getMarkConfig('stroke', markDef, config),
-    color: getMarkConfig('color', markDef, config)
+    color: getMarkConfig('color', markDef, config),
   };
 
-  const transparentIfNeeded = contains(['bar', 'point', 'circle', 'square', 'geoshape'], markType) ? 'transparent' : undefined;
+  const transparentIfNeeded = contains(['bar', 'point', 'circle', 'square', 'geoshape'], markType)
+    ? 'transparent'
+    : undefined;
 
   const defaultValue = {
-    fill: markDef.fill || configValue.fill ||
-    // If there is no fill, always fill symbols, bar, geoshape
-    // with transparent fills https://github.com/vega/vega-lite/issues/1316
+    fill:
+      markDef.fill ||
+      configValue.fill ||
+      // If there is no fill, always fill symbols, bar, geoshape
+      // with transparent fills https://github.com/vega/vega-lite/issues/1316
       transparentIfNeeded,
-    stroke: markDef.stroke || configValue.stroke
+    stroke: markDef.stroke || configValue.stroke,
   };
 
   const colorVgChannel = filled ? 'fill' : 'stroke';
 
   const fillStrokeMarkDefAndConfig: VgEncodeEntry = {
-    ...(defaultValue.fill ? {
-      fill: {value: defaultValue.fill}
-    } : {}),
-    ...(defaultValue.stroke ? {
-      stroke: {value: defaultValue.stroke}
-    } : {}),
+    ...(defaultValue.fill
+      ? {
+          fill: {value: defaultValue.fill},
+        }
+      : {}),
+    ...(defaultValue.stroke
+      ? {
+          stroke: {value: defaultValue.stroke},
+        }
+      : {}),
   };
 
   if (encoding.fill || encoding.stroke) {
@@ -63,18 +71,22 @@ export function color(model: UnitModel, opt: {valueOnly: boolean} = {valueOnly: 
 
     return {
       ...nonPosition('fill', model, {defaultValue: defaultValue.fill || transparentIfNeeded}),
-      ...nonPosition('stroke', model, {defaultValue: defaultValue.stroke})
+      ...nonPosition('stroke', model, {defaultValue: defaultValue.stroke}),
     };
   } else if (encoding.color) {
-
     return {
       ...fillStrokeMarkDefAndConfig,
       // override them with encoded color field
       ...nonPosition('color', model, {
         vgChannel: colorVgChannel,
         // apply default fill/stroke first, then color config, then transparent if needed.
-        defaultValue: markDef[colorVgChannel] || markDef.color || configValue[colorVgChannel] || configValue.color || (filled ? transparentIfNeeded : undefined)
-      })
+        defaultValue:
+          markDef[colorVgChannel] ||
+          markDef.color ||
+          configValue[colorVgChannel] ||
+          configValue.color ||
+          (filled ? transparentIfNeeded : undefined),
+      }),
     };
   } else if (markDef.fill || markDef.stroke) {
     // Ignore markDef.color, config.color
@@ -87,7 +99,7 @@ export function color(model: UnitModel, opt: {valueOnly: boolean} = {valueOnly: 
       ...fillStrokeMarkDefAndConfig, // in this case, fillStrokeMarkDefAndConfig only include config
 
       // override config with markDef.color
-      [colorVgChannel]: {value: markDef.color}
+      [colorVgChannel]: {value: markDef.color},
     };
   } else if (configValue.fill || configValue.stroke) {
     // ignore config.color
@@ -95,7 +107,7 @@ export function color(model: UnitModel, opt: {valueOnly: boolean} = {valueOnly: 
   } else if (configValue.color) {
     return {
       ...(transparentIfNeeded ? {fill: {value: 'transparent'}} : {}),
-      [colorVgChannel]: {value: configValue.color}
+      [colorVgChannel]: {value: configValue.color},
     };
   }
   return {};
@@ -109,7 +121,7 @@ export function baseEncodeEntry(model: UnitModel, ignore: Ignore) {
     ...color(model),
     ...nonPosition('opacity', model),
     ...tooltip(model),
-    ...text(model, 'href')
+    ...text(model, 'href'),
   };
 }
 
@@ -135,7 +147,8 @@ function validPredicate(vgRef: string) {
 
 export function defined(model: UnitModel): VgEncodeEntry {
   if (model.config.invalidValues === 'filter') {
-    const fields = ['x', 'y'].map((channel: PositionScaleChannel) => {
+    const fields = ['x', 'y']
+      .map((channel: PositionScaleChannel) => {
         const scaleComponent = model.getScaleComponent(channel);
         if (scaleComponent) {
           const scaleType = scaleComponent.get('type');
@@ -152,7 +165,7 @@ export function defined(model: UnitModel): VgEncodeEntry {
 
     if (fields.length > 0) {
       return {
-        defined: {signal: fields.join(' && ')}
+        defined: {signal: fields.join(' && ')},
       };
     }
   }
@@ -163,15 +176,21 @@ export function defined(model: UnitModel): VgEncodeEntry {
 /**
  * Return mixins for non-positional channels with scales.  (Text doesn't have scale.)
  */
-export function nonPosition(channel: typeof NONPOSITION_SCALE_CHANNELS[0], model: UnitModel, opt: {defaultValue?: number | string | boolean, vgChannel?: string, defaultRef?: VgValueRef} = {}): VgEncodeEntry {
+export function nonPosition(
+  channel: typeof NONPOSITION_SCALE_CHANNELS[0],
+  model: UnitModel,
+  opt: {defaultValue?: number | string | boolean; vgChannel?: string; defaultRef?: VgValueRef} = {}
+): VgEncodeEntry {
   const {defaultValue, vgChannel} = opt;
   const defaultRef = opt.defaultRef || (defaultValue !== undefined ? {value: defaultValue} : undefined);
 
   const channelDef = model.encoding[channel];
 
-  return wrapCondition(model, channelDef, vgChannel || channel, (cDef) => {
+  return wrapCondition(model, channelDef, vgChannel || channel, cDef => {
     return ref.midPoint(
-      channel, cDef, model.scaleName(channel),
+      channel,
+      cDef,
+      model.scaleName(channel),
       model.getScaleComponent(channel),
       null, // No need to provide stack for non-position as it does not affect mid point
       defaultRef
@@ -184,26 +203,25 @@ export function nonPosition(channel: typeof NONPOSITION_SCALE_CHANNELS[0], model
  * or a simple mixin if channel def has no condition.
  */
 function wrapCondition(
-    model: UnitModel, channelDef: ChannelDef<string>, vgChannel: string,
-    refFn: (cDef: ChannelDef<string>) => VgValueRef
-  ): VgEncodeEntry {
+  model: UnitModel,
+  channelDef: ChannelDef<string>,
+  vgChannel: string,
+  refFn: (cDef: ChannelDef<string>) => VgValueRef
+): VgEncodeEntry {
   const condition = channelDef && channelDef.condition;
   const valueRef = refFn(channelDef);
   if (condition) {
     const conditions = isArray(condition) ? condition : [condition];
-    const vgConditions = conditions.map((c) => {
+    const vgConditions = conditions.map(c => {
       const conditionValueRef = refFn(c);
       const test = isConditionalSelection(c) ? selectionPredicate(model, c.selection) : expression(model, c.test);
       return {
         test,
-        ...conditionValueRef
+        ...conditionValueRef,
       };
     });
     return {
-      [vgChannel]: [
-        ...vgConditions,
-        ...(valueRef !== undefined ? [valueRef] : [])
-      ]
+      [vgChannel]: [...vgConditions, ...(valueRef !== undefined ? [valueRef] : [])],
     };
   } else {
     return valueRef !== undefined ? {[vgChannel]: valueRef} : {};
@@ -214,7 +232,7 @@ export function tooltip(model: UnitModel) {
   const channel = 'tooltip';
   const channelDef = model.encoding[channel];
   if (isArray(channelDef)) {
-    const keyValues = channelDef.map((fieldDef) => {
+    const keyValues = channelDef.map(fieldDef => {
       const key = fieldDef.title !== undefined ? fieldDef.title : vgField(fieldDef, {binSuffix: 'range'});
       const value = ref.text(fieldDef, model.config).signal;
       return `"${key}": ${value}`;
@@ -231,11 +249,15 @@ export function text(model: UnitModel, channel: 'text' | 'href' = 'text') {
   return textCommon(model, channel, channelDef);
 }
 
-function textCommon(model: UnitModel, channel: 'text' | 'href' | 'tooltip', channelDef: FieldDefWithCondition<TextFieldDef<string>> | ValueDefWithCondition<TextFieldDef<string>>) {
-  return wrapCondition(model, channelDef, channel, (cDef) => ref.text(cDef, model.config));
+function textCommon(
+  model: UnitModel,
+  channel: 'text' | 'href' | 'tooltip',
+  channelDef: FieldDefWithCondition<TextFieldDef<string>> | ValueDefWithCondition<TextFieldDef<string>>
+) {
+  return wrapCondition(model, channelDef, channel, cDef => ref.text(cDef, model.config));
 }
 
-export function bandPosition(fieldDef: FieldDef<string>, channel: 'x'|'y', model: UnitModel) {
+export function bandPosition(fieldDef: FieldDef<string>, channel: 'x' | 'y', model: UnitModel) {
   const scaleName = model.scaleName(channel);
   const sizeChannel = channel === 'x' ? 'width' : 'height';
 
@@ -245,7 +267,7 @@ export function bandPosition(fieldDef: FieldDef<string>, channel: 'x'|'y', model
       const centeredBandPositionMixins = {
         // Use xc/yc and place the mark at the middle of the band
         // This way we never have to deal with size's condition for x/y position.
-        [channel+'c']: ref.fieldRef(fieldDef, scaleName, {}, {band: 0.5})
+        [channel + 'c']: ref.fieldRef(fieldDef, scaleName, {}, {band: 0.5}),
       };
 
       if (getFieldDef(model.encoding.size)) {
@@ -258,12 +280,12 @@ export function bandPosition(fieldDef: FieldDef<string>, channel: 'x'|'y', model
       } else if (isValueDef(model.encoding.size)) {
         return {
           ...centeredBandPositionMixins,
-          ...nonPosition('size', model, {vgChannel: sizeChannel})
+          ...nonPosition('size', model, {vgChannel: sizeChannel}),
         };
       } else if (model.markDef.size !== undefined) {
         return {
           ...centeredBandPositionMixins,
-          [sizeChannel]: {value: model.markDef.size}
+          [sizeChannel]: {value: model.markDef.size},
         };
       }
     } else {
@@ -272,29 +294,40 @@ export function bandPosition(fieldDef: FieldDef<string>, channel: 'x'|'y', model
   }
   return {
     [channel]: ref.fieldRef(fieldDef, scaleName, {binSuffix: 'range'}),
-    [sizeChannel]: ref.bandRef(scaleName)
+    [sizeChannel]: ref.bandRef(scaleName),
   };
 }
 
-export function centeredBandPosition(channel: 'x' | 'y', model: UnitModel, defaultPosRef: VgValueRef, defaultSizeRef: VgValueRef) {
+export function centeredBandPosition(
+  channel: 'x' | 'y',
+  model: UnitModel,
+  defaultPosRef: VgValueRef,
+  defaultSizeRef: VgValueRef
+) {
   const centerChannel: 'xc' | 'yc' = channel === 'x' ? 'xc' : 'yc';
   const sizeChannel = channel === 'x' ? 'width' : 'height';
   return {
     ...pointPosition(channel, model, defaultPosRef, centerChannel),
-    ...nonPosition('size', model, {defaultRef: defaultSizeRef, vgChannel: sizeChannel})
+    ...nonPosition('size', model, {defaultRef: defaultSizeRef, vgChannel: sizeChannel}),
   };
 }
 
-export function binnedPosition(fieldDef: FieldDef<string>, channel: 'x'|'y', scaleName: string, spacing: number, reverse: boolean) {
+export function binnedPosition(
+  fieldDef: FieldDef<string>,
+  channel: 'x' | 'y',
+  scaleName: string,
+  spacing: number,
+  reverse: boolean
+) {
   if (channel === 'x') {
     return {
       x2: ref.bin(fieldDef, scaleName, 'start', reverse ? 0 : spacing),
-      x: ref.bin(fieldDef, scaleName, 'end', reverse ? spacing : 0)
+      x: ref.bin(fieldDef, scaleName, 'end', reverse ? spacing : 0),
     };
   } else {
     return {
       y2: ref.bin(fieldDef, scaleName, 'start', reverse ? spacing : 0),
-      y: ref.bin(fieldDef, scaleName, 'end', reverse ? 0 : spacing)
+      y: ref.bin(fieldDef, scaleName, 'end', reverse ? 0 : spacing),
     };
   }
 }
@@ -302,7 +335,12 @@ export function binnedPosition(fieldDef: FieldDef<string>, channel: 'x'|'y', sca
 /**
  * Return mixins for point (non-band) position channels.
  */
-export function pointPosition(channel: 'x'|'y', model: UnitModel, defaultRef: VgValueRef | 'zeroOrMin' | 'zeroOrMax', vgChannel?: 'x'|'y'|'xc'|'yc') {
+export function pointPosition(
+  channel: 'x' | 'y',
+  model: UnitModel,
+  defaultRef: VgValueRef | 'zeroOrMin' | 'zeroOrMax',
+  vgChannel?: 'x' | 'y' | 'xc' | 'yc'
+) {
   // TODO: refactor how refer to scale as discussed in https://github.com/vega/vega-lite/pull/1613
 
   const {encoding, mark, stack} = model;
@@ -311,15 +349,21 @@ export function pointPosition(channel: 'x'|'y', model: UnitModel, defaultRef: Vg
   const scaleName = model.scaleName(channel);
   const scale = model.getScaleComponent(channel);
 
-  const valueRef = !channelDef && (encoding.latitude || encoding.longitude) ?
-    // use geopoint output if there are lat/long and there is no point position overriding lat/long.
-    {field: model.getName(channel)} :
-    ref.stackable(channel, encoding[channel], scaleName, scale, stack,
-      ref.getDefaultRef(defaultRef, channel, scaleName, scale, mark)
-    );
+  const valueRef =
+    !channelDef && (encoding.latitude || encoding.longitude)
+      ? // use geopoint output if there are lat/long and there is no point position overriding lat/long.
+        {field: model.getName(channel)}
+      : ref.stackable(
+          channel,
+          encoding[channel],
+          scaleName,
+          scale,
+          stack,
+          ref.getDefaultRef(defaultRef, channel, scaleName, scale, mark)
+        );
 
   return {
-    [vgChannel || channel]: valueRef
+    [vgChannel || channel]: valueRef,
   };
 }
 
@@ -336,12 +380,19 @@ export function pointPosition2(model: UnitModel, defaultRef: 'zeroOrMin' | 'zero
   const scaleName = model.scaleName(baseChannel);
   const scale = model.getScaleComponent(baseChannel);
 
-  const valueRef = !channelDef && (encoding.latitude || encoding.longitude) ?
-    // use geopoint output if there are lat2/long2 and there is no point position2 overriding lat2/long2.
-    {field: model.getName(channel)}:
-    ref.stackable2(channel, channelDef, encoding[channel], scaleName, scale, stack,
-      ref.getDefaultRef(defaultRef, baseChannel, scaleName, scale, mark)
-    );
+  const valueRef =
+    !channelDef && (encoding.latitude || encoding.longitude)
+      ? // use geopoint output if there are lat2/long2 and there is no point position2 overriding lat2/long2.
+        {field: model.getName(channel)}
+      : ref.stackable2(
+          channel,
+          channelDef,
+          encoding[channel],
+          scaleName,
+          scale,
+          stack,
+          ref.getDefaultRef(defaultRef, baseChannel, scaleName, scale, mark)
+        );
 
   return {[channel]: valueRef};
 }

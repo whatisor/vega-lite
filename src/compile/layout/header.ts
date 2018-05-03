@@ -44,7 +44,6 @@ export interface LayoutHeaderComponent {
  * A component that represents one group of row/column-header/footer.
  */
 export interface HeaderComponent {
-
   labels: boolean;
 
   sizeSignal: {signal: string};
@@ -66,21 +65,23 @@ export function getTitleGroup(model: Model, channel: HeaderChannel) {
   const update = {
     align: {value: 'center'},
     text: {value: title},
-    ...(textOrient === 'vertical' ? {angle: {value: 270}}: {}),
+    ...(textOrient === 'vertical' ? {angle: {value: 270}} : {}),
     // TODO*https://github.com/vega/vega-lite/issues/2446): add title* properties (e.g., titleAlign)
     // also make sure that guide-title config override these Vega-lite default
   };
 
   return {
-    name:  model.getName(`${channel}_title`),
+    name: model.getName(`${channel}_title`),
     role: `${channel}-title`,
     type: 'group',
-    marks: [{
-      type: 'text',
-      role: `${channel}-title-text`,
-      style: 'guide-title',
-      ...(keys(update).length > 0 ? {encode: {update}} : {})
-    }]
+    marks: [
+      {
+        type: 'text',
+        role: `${channel}-title-text`,
+        style: 'guide-title',
+        ...(keys(update).length > 0 ? {encode: {update}} : {}),
+      },
+    ],
   };
 }
 
@@ -101,8 +102,9 @@ export function getHeaderGroups(model: Model, channel: HeaderChannel): VgMarkGro
 
 export function labelAlign(angle: number) {
   // to keep angle in [0, 360)
-  angle = ((angle % 360) + 360) % 360;
-  if ((angle + 90) % 180 === 0) {  // for 90 and 270
+  angle = (360 + angle % 360) % 360;
+  if ((angle + 90) % 180 === 0) {
+    // for 90 and 270
     return {}; // default center
   } else if (angle < 90 || 270 < angle) {
     return {align: {value: 'right'}};
@@ -114,14 +116,20 @@ export function labelAlign(angle: number) {
 
 export function labelBaseline(angle: number) {
   // to keep angle in [0, 360)
-  angle = ((angle % 360) + 360) % 360;
+  angle = (360 + angle % 360) % 360;
   if (45 <= angle && angle <= 135) {
     return {baseline: {value: 'top'}};
   }
   return {};
 }
 
-function getHeaderGroup(model: Model, channel: HeaderChannel, headerType: HeaderType, layoutHeader: LayoutHeaderComponent, headerCmpt: HeaderComponent) {
+function getHeaderGroup(
+  model: Model,
+  channel: HeaderChannel,
+  headerType: HeaderType,
+  layoutHeader: LayoutHeaderComponent,
+  headerCmpt: HeaderComponent
+) {
   if (headerCmpt) {
     let title = null;
     const {facetFieldDef} = layoutHeader;
@@ -130,12 +138,9 @@ function getHeaderGroup(model: Model, channel: HeaderChannel, headerType: Header
       const {format, labelAngle} = header;
 
       const update = {
-        ...(
-          labelAngle !== undefined ? {angle: {value: labelAngle}} : {}
-        ),
+        ...(labelAngle !== undefined ? {angle: {value: labelAngle}} : {}),
         ...labelAlign(labelAngle),
-        ...labelBaseline(labelAngle)
-
+        ...labelBaseline(labelAngle),
       };
 
       title = {
@@ -143,7 +148,7 @@ function getHeaderGroup(model: Model, channel: HeaderChannel, headerType: Header
         offset: 10,
         orient: channel === 'row' ? 'left' : 'top',
         style: 'guide-label',
-        ...(keys(update).length > 0 ? {encode: {update}} : {})
+        ...(keys(update).length > 0 ? {encode: {update}} : {}),
       };
     }
 
@@ -157,22 +162,26 @@ function getHeaderGroup(model: Model, channel: HeaderChannel, headerType: Header
         name: model.getName(`${channel}_${headerType}`),
         type: 'group',
         role: `${channel}-${headerType}`,
-        ...(layoutHeader.facetFieldDef ? {
-          from: {data: model.getName(channel + '_domain')},
-          sort: {
-            field: vgField(facetFieldDef, {expr: 'datum'}),
-            order: facetFieldDef.sort || 'ascending'
-          }
-        } : {}),
-        ...(title ? {title} : {}),
-        ...(headerCmpt.sizeSignal ? {
-          encode: {
-            update: {
-              [sizeChannel]: headerCmpt.sizeSignal
+        ...(layoutHeader.facetFieldDef
+          ? {
+              from: {data: model.getName(channel + '_domain')},
+              sort: {
+                field: vgField(facetFieldDef, {expr: 'datum'}),
+                order: facetFieldDef.sort || 'ascending',
+              },
             }
-          }
-        }: {}),
-        ...(hasAxes ? {axes} : {})
+          : {}),
+        ...(title ? {title} : {}),
+        ...(headerCmpt.sizeSignal
+          ? {
+              encode: {
+                update: {
+                  [sizeChannel]: headerCmpt.sizeSignal,
+                },
+              },
+            }
+          : {}),
+        ...(hasAxes ? {axes} : {}),
       };
     }
   }

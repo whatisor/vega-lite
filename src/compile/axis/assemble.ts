@@ -19,13 +19,13 @@ export function assembleAxis(
   kind: 'main' | 'grid',
   config: Config,
   opt: {
-    header: boolean // whether this is called via a header
+    header: boolean; // whether this is called via a header
   } = {header: false}
 ): VgAxis {
   const {orient, scale, title, zindex, ...axis} = axisCmpt.combine();
 
   // Remove properties that are not valid for this kind of axis
-  keys(axis).forEach((key) => {
+  keys(axis).forEach(key => {
     const propType = AXIS_PROPERTY_TYPE[key];
     if (propType && propType !== kind && propType !== 'both') {
       delete axis[key];
@@ -42,7 +42,7 @@ export function assembleAxis(
       // Only need to keep encode block for grid
       const {grid} = axis.encode;
       axis.encode = {
-        ...(grid ? {grid} : {})
+        ...(grid ? {grid} : {}),
       };
 
       if (keys(axis.encode).length === 0) {
@@ -62,9 +62,10 @@ export function assembleAxis(
       maxExtent: 0,
       minExtent: 0,
       ticks: false,
-      zindex: zindex !== undefined ? zindex : 0 // put grid behind marks by default
+      zindex: zindex !== undefined ? zindex : 0, // put grid behind marks by default
     };
-  } else { // kind === 'main'
+  } else {
+    // kind === 'main'
 
     if (!opt.header && axisCmpt.mainExtracted) {
       // if mainExtracted has been extracted to a separate facet
@@ -74,9 +75,7 @@ export function assembleAxis(
     // Remove unnecessary encode block
     if (axis.encode) {
       for (const part of AXIS_PARTS) {
-        if (
-          !axisCmpt.hasAxisPart(part)
-        ) {
+        if (!axisCmpt.hasAxisPart(part)) {
           delete axis.encode[part];
         }
       }
@@ -92,17 +91,17 @@ export function assembleAxis(
       orient,
       ...(titleString ? {title: titleString} : {}),
       ...axis,
-      zindex: zindex !== undefined ? zindex : 1 // put axis line above marks by default
+      zindex: zindex !== undefined ? zindex : 1, // put axis line above marks by default
     };
   }
 }
 
 export function assembleAxes(axisComponents: AxisComponentIndex, config: Config): VgAxis[] {
-  const {x=[], y=[]} = axisComponents;
+  const {x = [], y = []} = axisComponents;
   return [
     ...x.map(a => assembleAxis(a, 'main', config)),
     ...x.map(a => assembleAxis(a, 'grid', config)),
     ...y.map(a => assembleAxis(a, 'main', config)),
-    ...y.map(a => assembleAxis(a, 'grid', config))
+    ...y.map(a => assembleAxis(a, 'grid', config)),
   ].filter(a => a); // filter undefined
 }

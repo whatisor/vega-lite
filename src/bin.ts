@@ -2,7 +2,6 @@ import {isBoolean} from 'vega-util';
 import {Channel, COLOR, COLUMN, FILL, OPACITY, ROW, SHAPE, SIZE, STROKE} from './channel';
 import {keys, varName} from './util';
 
-
 export interface BaseBin {
   /**
    * The number base to use for automatic bin determination (default is base 10).
@@ -48,7 +47,6 @@ export interface BaseBin {
   nice?: boolean;
 }
 
-
 /**
  * Binning properties or boolean flag for determining whether to bin data or not.
  */
@@ -58,14 +56,19 @@ export interface BinParams extends BaseBin {
    * @minItems 2
    * @maxItems 2
    */
-  extent?: number[];  // VgBinTransform uses a different extent so we need to pull this out.
+  extent?: number[]; // VgBinTransform uses a different extent so we need to pull this out.
 }
 
 export function binToString(bin: BinParams | boolean) {
   if (isBoolean(bin)) {
     return 'bin';
   }
-  return 'bin' + keys(bin).map(p => varName(`_${p}_${bin[p]}`)).join('');
+  return (
+    'bin' +
+    keys(bin)
+      .map(p => varName(`_${p}_${bin[p]}`))
+      .join('')
+  );
 }
 
 export function isBinParams(bin: BinParams | boolean): bin is BinParams {
@@ -81,8 +84,8 @@ export function autoMaxBins(channel: Channel): number {
     case FILL:
     case STROKE:
     case OPACITY:
-      // Facets and Size shouldn't have too many bins
-      // We choose 6 like shape to simplify the rule
+    // Facets and Size shouldn't have too many bins
+    // We choose 6 like shape to simplify the rule
     case SHAPE:
       return 6; // Vega's "shape" has 6 distinct values
     default:

@@ -24,7 +24,7 @@ const TYPE_INDEX: Flag<Type> = {
   nominal: 1,
   latitude: 1,
   longitude: 1,
-  geojson: 1
+  geojson: 1,
 };
 
 export function isType(t: any): t is Type {
@@ -43,7 +43,7 @@ export const GEOJSON = Type.GEOJSON;
  * @param  type
  * @return Full type name.
  */
-export function getFullName(type: Type|string): Type {
+export function getFullName(type: Type | string): Type {
   if (type) {
     type = type.toLowerCase();
     switch (type) {

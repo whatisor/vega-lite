@@ -21,8 +21,19 @@ export namespace Mark {
 /**
  * All types of primitive marks.
  */
-export type Mark = typeof Mark.AREA | typeof Mark.BAR | typeof Mark.LINE | typeof Mark.TRAIL | typeof Mark.POINT | typeof Mark.TEXT | typeof Mark.TICK | typeof Mark.RECT | typeof Mark.RULE | typeof Mark.CIRCLE | typeof Mark.SQUARE | typeof Mark.GEOSHAPE;
-
+export type Mark =
+  | typeof Mark.AREA
+  | typeof Mark.BAR
+  | typeof Mark.LINE
+  | typeof Mark.TRAIL
+  | typeof Mark.POINT
+  | typeof Mark.TEXT
+  | typeof Mark.TICK
+  | typeof Mark.RECT
+  | typeof Mark.RULE
+  | typeof Mark.CIRCLE
+  | typeof Mark.SQUARE
+  | typeof Mark.GEOSHAPE;
 
 export const AREA = Mark.AREA;
 export const BAR = Mark.BAR;
@@ -51,7 +62,7 @@ const MARK_INDEX: {[M in Mark]: 1} = {
   geoshape: 1,
   rule: 1,
   circle: 1,
-  square: 1
+  square: 1,
 };
 
 export function isMark(m: string): m is Mark {
@@ -63,7 +74,6 @@ export function isPathMark(m: Mark | CompositeMark): m is 'line' | 'area' | 'tra
 }
 
 export const PRIMITIVE_MARKS = flagKeys(MARK_INDEX);
-
 
 export interface MarkConfig extends VgMarkConfig {
   // ---------- Color ----------
@@ -119,12 +129,9 @@ export interface MarkProperties extends BarBinSpacingMixins, MarkConfig {
 /** @hide */
 export type HiddenComposite = CompositeMark | CompositeMarkDef;
 
-export type AnyMark =
-  HiddenComposite |
-  Mark |
-  MarkDef;
+export type AnyMark = HiddenComposite | Mark | MarkDef;
 
-export function isMarkDef(mark: AnyMark): mark is (MarkDef | CompositeMarkDef) {
+export function isMarkDef(mark: AnyMark): mark is MarkDef | CompositeMarkDef {
   return mark['type'];
 }
 
@@ -135,8 +142,7 @@ export function isPrimitiveMark(mark: CompositeMark | CompositeMarkDef | Mark | 
   return markType in PRIMITIVE_MARK_INDEX;
 }
 
-export const STROKE_CONFIG = ['stroke', 'strokeWidth',
-  'strokeDash', 'strokeDashOffset', 'strokeOpacity'];
+export const STROKE_CONFIG = ['stroke', 'strokeWidth', 'strokeDash', 'strokeDashOffset', 'strokeOpacity'];
 
 export const FILL_CONFIG = ['fill', 'fillOpacity'];
 
@@ -145,13 +151,13 @@ export const FILL_STROKE_CONFIG = [].concat(STROKE_CONFIG, FILL_CONFIG);
 export const VL_ONLY_MARK_CONFIG_PROPERTIES: (keyof MarkConfig)[] = ['filled', 'color'];
 
 export const VL_ONLY_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX: {
-  [k in (typeof PRIMITIVE_MARKS[0])]?: (keyof MarkConfigMixins[k])[]
+  [k in typeof PRIMITIVE_MARKS[0]]?: (keyof MarkConfigMixins[k])[]
 } = {
   area: ['line', 'point'],
   bar: ['binSpacing', 'continuousBandSize', 'discreteBandSize'],
   line: ['point'],
   text: ['shortTimeLabels'],
-  tick: ['bandSize', 'thickness']
+  tick: ['bandSize', 'thickness'],
 };
 
 export const defaultMarkConfig: MarkConfig = {
@@ -200,9 +206,7 @@ export interface MarkConfigMixins {
   geoshape?: MarkConfig;
 }
 
-
 export interface BarConfig extends BarBinSpacingMixins, MarkConfig {
-
   /**
    * The default size of the bars on continuous scales.
    *
@@ -252,7 +256,6 @@ export interface LineOverlayMixins {
 
 export interface AreaConfig extends MarkConfig, PointOverlayMixins, LineOverlayMixins {}
 
-
 // Point/Line OverlayMixins are only for area, line, and trail but we don't want to declare multiple types of MarkDef
 export interface MarkDef extends MarkProperties, PointOverlayMixins, LineOverlayMixins {
   /**
@@ -265,7 +268,7 @@ export interface MarkDef extends MarkProperties, PointOverlayMixins, LineOverlay
 
 export const defaultBarConfig: BarConfig = {
   binSpacing: 1,
-  continuousBandSize: 5
+  continuousBandSize: 5,
 };
 
 export interface TextConfig extends MarkConfig {
@@ -295,5 +298,5 @@ export interface TickConfig extends MarkConfig {
 }
 
 export const defaultTickConfig: TickConfig = {
-  thickness: 1
+  thickness: 1,
 };

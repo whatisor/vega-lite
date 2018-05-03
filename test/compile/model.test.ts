@@ -3,8 +3,8 @@ import {NameMap} from '../../src/compile/model';
 import {parseFacetModel, parseFacetModelWithScale} from '../util';
 
 describe('Model', () => {
-  describe('NameMap', function () {
-    it('should rename correctly', function () {
+  describe('NameMap', () => {
+    it('should rename correctly', () => {
       const map = new NameMap();
       assert.equal(map.get('a'), 'a');
 
@@ -32,9 +32,9 @@ describe('Model', () => {
         spec: {
           mark: 'point',
           encoding: {
-            x: {field: 'x', type: 'quantitative'}
-          }
-        }
+            x: {field: 'x', type: 'quantitative'},
+          },
+        },
       });
       assert(model.hasDescendantWithFieldOnChannel('x'));
     });
@@ -43,18 +43,21 @@ describe('Model', () => {
       const model = parseFacetModel({
         facet: {row: {field: 'a', type: 'nominal'}},
         spec: {
-          layer: [{
-            mark: 'point',
-            encoding: {
-              x: {field: 'x', type: 'quantitative'}
-            }
-          },{
-            mark: 'point',
-            encoding: {
-              color: {field: 'x', type: 'quantitative'}
-            }
-          },]
-        }
+          layer: [
+            {
+              mark: 'point',
+              encoding: {
+                x: {field: 'x', type: 'quantitative'},
+              },
+            },
+            {
+              mark: 'point',
+              encoding: {
+                color: {field: 'x', type: 'quantitative'},
+              },
+            },
+          ],
+        },
       });
       assert(model.hasDescendantWithFieldOnChannel('x'));
     });
@@ -65,9 +68,9 @@ describe('Model', () => {
         spec: {
           mark: 'point',
           encoding: {
-            color: {field: 'x', type: 'quantitative'}
-          }
-        }
+            color: {field: 'x', type: 'quantitative'},
+          },
+        },
       });
       assert(!model.hasDescendantWithFieldOnChannel('x'));
     });
@@ -76,18 +79,21 @@ describe('Model', () => {
       const model = parseFacetModel({
         facet: {row: {field: 'a', type: 'nominal'}},
         spec: {
-          layer: [{
-            mark: 'point',
-            encoding: {
-              color: {field: 'x', type: 'quantitative'}
-            }
-          },{
-            mark: 'point',
-            encoding: {
-              color: {field: 'x', type: 'quantitative'}
-            }
-          },]
-        }
+          layer: [
+            {
+              mark: 'point',
+              encoding: {
+                color: {field: 'x', type: 'quantitative'},
+              },
+            },
+            {
+              mark: 'point',
+              encoding: {
+                color: {field: 'x', type: 'quantitative'},
+              },
+            },
+          ],
+        },
       });
       assert(!model.hasDescendantWithFieldOnChannel('x'));
     });
@@ -97,23 +103,27 @@ describe('Model', () => {
     it('returns formula for step if parent is facet', () => {
       const model = parseFacetModelWithScale({
         facet: {
-          row: {field: 'a', type: 'ordinal'}
+          row: {field: 'a', type: 'ordinal'},
         },
         spec: {
           mark: 'point',
           encoding: {
-            x: {field: 'b', type: 'nominal', scale: {
-              padding: 0.345
-            }}
-          }
+            x: {
+              field: 'b',
+              type: 'nominal',
+              scale: {
+                padding: 0.345,
+              },
+            },
+          },
         },
         resolve: {
-          scale: {x: 'independent'}
-        }
+          scale: {x: 'independent'},
+        },
       });
 
       assert.deepEqual(model.child.getSizeSignalRef('width'), {
-        signal: `bandspace(datum[\"distinct_b\"], 1, 0.345) * child_x_step`
+        signal: `bandspace(datum[\"distinct_b\"], 1, 0.345) * child_x_step`,
       });
     });
   });

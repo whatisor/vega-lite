@@ -1,4 +1,3 @@
-
 import {isArray} from 'vega-util';
 import {Channel, CHANNELS, isChannel, supportMark} from './channel';
 import {FacetMapping} from './facet';
@@ -19,7 +18,7 @@ import {
   PositionFieldDef,
   TextFieldDef,
   ValueDef,
-  ValueDefWithCondition
+  ValueDefWithCondition,
 } from './fielddef';
 import * as log from './log';
 import {Mark} from './mark';
@@ -48,7 +47,6 @@ export interface Encoding<F> {
    */
   // TODO: Ham need to add default behavior
   y2?: FieldDef<F> | ValueDef;
-
 
   /**
    * Longitude position of geographically projected marks.
@@ -91,7 +89,6 @@ export interface Encoding<F> {
    */
   fill?: FieldDefWithCondition<MarkPropFieldDef<F>> | ValueDefWithCondition<MarkPropFieldDef<F>>;
 
-
   /**
    * Stroke color of the marks.
    * __Default value:__ If undefined, the default color depends on [mark config](config.html#mark)'s `color` property.
@@ -99,7 +96,6 @@ export interface Encoding<F> {
    * _Note:_ When using `stroke` channel, `color ` channel will be ignored. To customize both stroke and fill, please use `stroke` and `fill` channels (not `stroke` and `color`).
    */
   stroke?: FieldDefWithCondition<MarkPropFieldDef<F>> | ValueDefWithCondition<MarkPropFieldDef<F>>;
-
 
   /**
    * Opacity of the marks – either can be a value or a range.
@@ -170,7 +166,7 @@ export function channelHasField(encoding: EncodingWithFacet<Field>, channel: Cha
   const channelDef = encoding && encoding[channel];
   if (channelDef) {
     if (isArray(channelDef)) {
-      return some(channelDef, (fieldDef) => !!fieldDef.field);
+      return some(channelDef, fieldDef => !!fieldDef.field);
     } else {
       return isFieldDef(channelDef) || hasConditionalFieldDef(channelDef);
     }
@@ -178,13 +174,12 @@ export function channelHasField(encoding: EncodingWithFacet<Field>, channel: Cha
   return false;
 }
 
-
 export function isAggregate(encoding: EncodingWithFacet<Field>) {
-  return some(CHANNELS, (channel) => {
+  return some(CHANNELS, channel => {
     if (channelHasField(encoding, channel)) {
       const channelDef = encoding[channel];
       if (isArray(channelDef)) {
-        return some(channelDef, (fieldDef) => !!fieldDef.aggregate);
+        return some(channelDef, fieldDef => !!fieldDef.aggregate);
       } else {
         const fieldDef = getFieldDef(channelDef);
         return fieldDef && !!fieldDef.aggregate;
@@ -195,7 +190,7 @@ export function isAggregate(encoding: EncodingWithFacet<Field>) {
 }
 
 export function normalizeEncoding(encoding: Encoding<string>, mark: Mark): Encoding<string> {
-   return keys(encoding).reduce((normalizedEncoding: Encoding<string>, channel: Channel | string) => {
+  return keys(encoding).reduce((normalizedEncoding: Encoding<string>, channel: Channel | string) => {
     if (!isChannel(channel)) {
       // Drop invalid channel
       log.warn(log.message.invalidEncodingChannel(channel));
@@ -219,24 +214,26 @@ export function normalizeEncoding(encoding: Encoding<string>, mark: Mark): Encod
     }
 
     // Drop color if either fill or stroke is specified
-     if (channel === 'color' && ('fill' in encoding || 'stroke' in encoding) ) {
-       log.warn(log.message.droppingColor('encoding', {fill: 'fill' in encoding, stroke: 'stroke' in encoding}));
-       return normalizedEncoding;
+    if (channel === 'color' && ('fill' in encoding || 'stroke' in encoding)) {
+      log.warn(log.message.droppingColor('encoding', {fill: 'fill' in encoding, stroke: 'stroke' in encoding}));
+      return normalizedEncoding;
     }
 
     if (channel === 'detail' || channel === 'order' || (channel === 'tooltip' && isArray(encoding[channel]))) {
       const channelDef = encoding[channel];
       if (channelDef) {
         // Array of fieldDefs for detail channel (or production rule)
-        normalizedEncoding[channel] = (isArray(channelDef) ? channelDef : [channelDef])
-          .reduce((defs: FieldDef<string>[], fieldDef: FieldDef<string>) => {
+        normalizedEncoding[channel] = (isArray(channelDef) ? channelDef : [channelDef]).reduce(
+          (defs: FieldDef<string>[], fieldDef: FieldDef<string>) => {
             if (!isFieldDef(fieldDef)) {
               log.warn(log.message.emptyFieldDef(fieldDef, channel));
             } else {
               defs.push(normalizeFieldDef(fieldDef, channel));
             }
             return defs;
-          }, []);
+          },
+          []
+        );
       }
     } else {
       // FIXME: remove this casting.  (I don't know why Typescript doesn't infer this correctly here.)
@@ -245,17 +242,23 @@ export function normalizeEncoding(encoding: Encoding<string>, mark: Mark): Encod
       const fieldDef = getFieldDef(encoding[channel]);
       if (fieldDef && contains([Type.LATITUDE, Type.LONGITUDE], fieldDef.type)) {
         const {[channel]: _, ...newEncoding} = normalizedEncoding;
-        const newChannel = channel === 'x' ? 'longitude' :
-          channel === 'y' ? 'latitude' :
-          channel === 'x2' ? 'longitude2' :
-          channel === 'y2' ? 'latitude2' : undefined;
+        const newChannel =
+          channel === 'x'
+            ? 'longitude'
+            : channel === 'y'
+              ? 'latitude'
+              : channel === 'x2'
+                ? 'longitude2'
+                : channel === 'y2'
+                  ? 'latitude2'
+                  : undefined;
         log.warn(log.message.latLongDeprecated(channel, fieldDef.type, newChannel));
         return {
           ...newEncoding,
           [newChannel]: {
             ...normalize(fieldDef as any, channel),
-            type: 'quantitative'
-          }
+            type: 'quantitative',
+          },
         };
       }
 
@@ -269,17 +272,16 @@ export function normalizeEncoding(encoding: Encoding<string>, mark: Mark): Encod
   }, {});
 }
 
-
 export function isRanged(encoding: EncodingWithFacet<any>) {
   return encoding && ((!!encoding.x && !!encoding.x2) || (!!encoding.y && !!encoding.y2));
 }
 
 export function fieldDefs(encoding: EncodingWithFacet<Field>): FieldDef<Field>[] {
   const arr: FieldDef<Field>[] = [];
-  CHANNELS.forEach((channel) => {
+  CHANNELS.forEach(channel => {
     if (channelHasField(encoding, channel)) {
       const channelDef = encoding[channel];
-      (isArray(channelDef) ? channelDef : [channelDef]).forEach((def) => {
+      (isArray(channelDef) ? channelDef : [channelDef]).forEach(def => {
         if (isFieldDef(def)) {
           arr.push(def);
         } else if (hasConditionalFieldDef(def)) {
@@ -291,9 +293,7 @@ export function fieldDefs(encoding: EncodingWithFacet<Field>): FieldDef<Field>[]
   return arr;
 }
 
-export function forEach(mapping: any,
-    f: (fd: FieldDef<string>, c: Channel) => void,
-    thisArg?: any) {
+export function forEach(mapping: any, f: (fd: FieldDef<string>, c: Channel) => void, thisArg?: any) {
   if (!mapping) {
     return;
   }
@@ -309,9 +309,12 @@ export function forEach(mapping: any,
   }
 }
 
-export function reduce<T, U extends {[k in Channel]?: any}>(mapping: U,
-    f: (acc: any, fd: FieldDef<string>, c: Channel) => U,
-    init: T, thisArg?: any) {
+export function reduce<T, U extends {[k in Channel]?: any}>(
+  mapping: U,
+  f: (acc: any, fd: FieldDef<string>, c: Channel) => U,
+  init: T,
+  thisArg?: any
+) {
   if (!mapping) {
     return init;
   }

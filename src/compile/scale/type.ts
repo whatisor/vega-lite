@@ -8,7 +8,6 @@ import {Type} from '../../type';
 import * as util from '../../util';
 import {contains} from '../../util';
 
-
 export type RangeType = 'continuous' | 'discrete' | 'flexible' | undefined;
 
 /**
@@ -17,10 +16,12 @@ export type RangeType = 'continuous' | 'discrete' | 'flexible' | undefined;
  */
 // NOTE: CompassQL uses this method.
 export function scaleType(
-  specifiedType: ScaleType, channel: Channel, fieldDef: FieldDef<string>,
-  mark: Mark, scaleConfig: ScaleConfig
+  specifiedType: ScaleType,
+  channel: Channel,
+  fieldDef: FieldDef<string>,
+  mark: Mark,
+  scaleConfig: ScaleConfig
 ): ScaleType {
-
   const defaultScaleType = defaultType(channel, fieldDef, mark, scaleConfig);
 
   if (!isScaleChannel(channel)) {
@@ -50,13 +51,11 @@ export function scaleType(
  * Determine appropriate default scale type.
  */
 // NOTE: Voyager uses this method.
-function defaultType(
-  channel: Channel, fieldDef: FieldDef<string>, mark: Mark, scaleConfig: ScaleConfig
-): ScaleType {
+function defaultType(channel: Channel, fieldDef: FieldDef<string>, mark: Mark, scaleConfig: ScaleConfig): ScaleType {
   switch (fieldDef.type) {
     case 'nominal':
     case 'ordinal':
-      if (isColorChannel(channel)|| rangeType(channel) === 'discrete') {
+      if (isColorChannel(channel) || rangeType(channel) === 'discrete') {
         if (channel === 'shape' && fieldDef.type === 'ordinal') {
           log.warn(log.message.discreteChannelCannotEncode(channel, 'ordinal'));
         }
@@ -117,7 +116,7 @@ function defaultType(
   throw new Error(log.message.invalidFieldType(fieldDef.type));
 }
 
-export function fieldDefMatchScaleType(specifiedType: ScaleType, fieldDef: FieldDef<string>):boolean {
+export function fieldDefMatchScaleType(specifiedType: ScaleType, fieldDef: FieldDef<string>): boolean {
   const type: Type = fieldDef.type;
   if (contains([Type.ORDINAL, Type.NOMINAL], type)) {
     return specifiedType === undefined || hasDiscreteDomain(specifiedType);
@@ -127,7 +126,19 @@ export function fieldDefMatchScaleType(specifiedType: ScaleType, fieldDef: Field
     if (fieldDef.bin) {
       return contains([ScaleType.BIN_LINEAR, ScaleType.BIN_ORDINAL, ScaleType.LINEAR], specifiedType);
     }
-    return contains([ScaleType.LOG, ScaleType.POW, ScaleType.SQRT, ScaleType.QUANTILE, ScaleType.QUANTIZE, ScaleType.LINEAR, ScaleType.SEQUENTIAL, undefined], specifiedType);
+    return contains(
+      [
+        ScaleType.LOG,
+        ScaleType.POW,
+        ScaleType.SQRT,
+        ScaleType.QUANTILE,
+        ScaleType.QUANTIZE,
+        ScaleType.LINEAR,
+        ScaleType.SEQUENTIAL,
+        undefined,
+      ],
+      specifiedType
+    );
   }
 
   return true;

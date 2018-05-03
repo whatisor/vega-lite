@@ -3,8 +3,6 @@ import {Guide, GuideEncodingEntry, VlOnlyGuideConfig} from './guide';
 import {Flag, flagKeys} from './util';
 import {AxisOrient, VgAxis, VgAxisBase, VgAxisConfig} from './vega.schema';
 
-
-
 export interface AxisConfig extends VgAxisConfig, VlOnlyGuideConfig {}
 
 export interface Axis extends VgAxisBase, Guide {
@@ -28,7 +26,6 @@ export interface Axis extends VgAxisBase, Guide {
    * __Default value__: `0`
    */
   position?: number;
-
 
   /**
    * The rotation angle of the axis labels.
@@ -73,19 +70,16 @@ export interface Axis extends VgAxisBase, Guide {
   encoding?: AxisEncoding;
 }
 
-
 export type AxisPart = keyof AxisEncoding;
 export const AXIS_PARTS: AxisPart[] = ['domain', 'grid', 'labels', 'ticks', 'title'];
-
-
 
 /**
  * A dictionary listing whether a certain axis property is applicable for only main axes or only grid axes.
  * (Properties not listed are applicable for both)
  */
 export const AXIS_PROPERTY_TYPE: {
-  // Using Mapped Type to declare type (https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types)
-  [k in keyof VgAxis]: 'main' | 'grid' | 'both'
+  [// Using Mapped Type to declare type (https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types)
+  k in keyof VgAxis]: 'main' | 'grid' | 'both'
 } = {
   grid: 'grid',
   gridScale: 'grid',
@@ -102,7 +96,7 @@ export const AXIS_PROPERTY_TYPE: {
   values: 'both',
 
   scale: 'both',
-  zindex: 'both' // this is actually set afterward, so it doesn't matter
+  zindex: 'both', // this is actually set afterward, so it doesn't matter
 };
 
 export interface AxisEncoding {
@@ -165,14 +159,14 @@ const AXIS_PROPERTIES_INDEX: Flag<keyof Axis> = {
   ...COMMON_AXIS_PROPERTIES_INDEX,
   encoding: 1,
   labelAngle: 1,
-  titleMaxLength: 1
+  titleMaxLength: 1,
 };
 
 const VG_AXIS_PROPERTIES_INDEX: Flag<keyof VgAxis> = {
   scale: 1,
   ...COMMON_AXIS_PROPERTIES_INDEX,
   gridScale: 1,
-  encode: 1
+  encode: 1,
 };
 
 export function isAxisProperty(prop: string): prop is keyof Axis {

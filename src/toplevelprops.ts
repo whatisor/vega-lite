@@ -7,7 +7,7 @@ import {Dict} from './util';
 /**
  * @minimum 0
  */
-export type Padding = number | {top?: number, bottom?: number, left?: number, right?: number};
+export type Padding = number | {top?: number; bottom?: number; left?: number; right?: number};
 
 export type Datasets = Dict<InlineDataset>;
 
@@ -72,11 +72,15 @@ function _normalizeAutoSize(autosize: AutosizeType | AutoSizeParams) {
   return isString(autosize) ? {type: autosize} : autosize || {};
 }
 
-export function normalizeAutoSize(topLevelAutosize: AutosizeType | AutoSizeParams, configAutosize: AutosizeType | AutoSizeParams, isUnitOrLayer: boolean = true): AutoSizeParams {
+export function normalizeAutoSize(
+  topLevelAutosize: AutosizeType | AutoSizeParams,
+  configAutosize: AutosizeType | AutoSizeParams,
+  isUnitOrLayer: boolean = true
+): AutoSizeParams {
   const autosize: AutoSizeParams = {
     type: 'pad',
     ..._normalizeAutoSize(configAutosize),
-    ..._normalizeAutoSize(topLevelAutosize)
+    ..._normalizeAutoSize(topLevelAutosize),
   };
 
   if (autosize.type === 'fit') {
@@ -90,7 +94,9 @@ export function normalizeAutoSize(topLevelAutosize: AutosizeType | AutoSizeParam
 }
 
 const TOP_LEVEL_PROPERTIES: (keyof TopLevelProperties)[] = [
-  'background', 'padding', 'datasets'
+  'background',
+  'padding',
+  'datasets',
   // We do not include "autosize" here as it is supported by only unit and layer specs and thus need to be normalized
 ];
 

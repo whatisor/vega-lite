@@ -11,7 +11,7 @@ export class SourceNode extends DataFlowNode {
   private _hash: string | number;
 
   constructor(data: Data) {
-    super(null);  // source cannot have parent
+    super(null); // source cannot have parent
 
     data = data || {name: 'source'};
 
@@ -91,7 +91,7 @@ export class SourceNode extends DataFlowNode {
     return {
       name: this._name,
       ...this._data,
-      transform: []
+      transform: [],
     };
   }
 }

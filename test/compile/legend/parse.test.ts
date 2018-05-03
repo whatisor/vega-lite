@@ -1,5 +1,3 @@
-/* tslint:disable:quotemark */
-
 import {assert} from 'chai';
 import {COLOR, OPACITY, SHAPE, SIZE} from '../../../src/channel';
 import * as legendParse from '../../../src/compile/legend/parse';
@@ -9,28 +7,28 @@ import {NormalizedUnitSpec} from '../../../src/spec';
 import {GEOJSON} from '../../../src/type';
 import {parseLayerModel, parseUnitModelWithScale} from '../../util';
 
-describe('compile/legend', function () {
-  describe('parseUnitLegend()', function () {
-    it(`should not produce a Vega legend object on channel 'shape' with type 'geojson'`, function () {
+describe('compile/legend', () => {
+  describe('parseUnitLegend()', () => {
+    it(`should not produce a Vega legend object on channel 'shape' with type 'geojson'`, () => {
       const spec: NormalizedUnitSpec = {
-        "mark": "geoshape",
-        "data": {"url": "data/income.json"},
-        "transform": [
+        mark: 'geoshape',
+        data: {url: 'data/income.json'},
+        transform: [
           {
-            "lookup": "id",
-            "from": {
-              "data": {
-                "url": "data/us-10m.json",
-                "format": {"type": "topojson", "feature": "states"}
+            lookup: 'id',
+            from: {
+              data: {
+                url: 'data/us-10m.json',
+                format: {type: 'topojson', feature: 'states'},
               },
-              "key": "id"
+              key: 'id',
             },
-            "as": "geo"
-          }
+            as: 'geo',
+          },
         ],
-        "encoding": {
-          "shape": {"field": "geo", "type": "geojson"}
-        }
+        encoding: {
+          shape: {field: 'geo', type: 'geojson'},
+        },
       };
 
       const unitModel = parseUnitModelWithScale(spec);
@@ -45,14 +43,14 @@ describe('compile/legend', function () {
     });
   });
 
-  describe('parseLegendForChannel()', function() {
-    it('should produce a Vega legend object with correct type and scale for color', function() {
+  describe('parseLegendForChannel()', () => {
+    it('should produce a Vega legend object with correct type and scale for color', () => {
       const model = parseUnitModelWithScale({
-        mark: "point",
+        mark: 'point',
         encoding: {
-          x: {field: "a", type: "nominal"},
-          color: {field: "a", type: "quantitative"}
-        }
+          x: {field: 'a', type: 'nominal'},
+          color: {field: 'a', type: 'quantitative'},
+        },
       });
 
       const def = legendParse.parseLegendForChannel(model, COLOR).combine();
@@ -62,17 +60,18 @@ describe('compile/legend', function () {
       assert.equal(def.type, 'gradient');
     });
 
-    it('should produce no legend title when title is null, "", or false', function() {
+    it('should produce no legend title when title is null, "", or false', () => {
       for (const val of [null, '', false]) {
         const model = parseUnitModelWithScale({
-          mark: "point",
+          mark: 'point',
           encoding: {
-            x: {field: "a", type: "nominal"},
+            x: {field: 'a', type: 'nominal'},
             color: {
-              field: "a", type: "quantitative",
-              legend: {title: val as any} // Need to cast as false is not valid, but we want to fall back gracefully
-            }
-          }
+              field: 'a',
+              type: 'quantitative',
+              legend: {title: val as any}, // Need to cast as false is not valid, but we want to fall back gracefully
+            },
+          },
         });
 
         const def = legendParse.parseLegendForChannel(model, COLOR).combine();
@@ -81,14 +80,14 @@ describe('compile/legend', function () {
     });
 
     [SIZE, SHAPE, OPACITY].forEach(channel => {
-      it(`should produce a Vega legend object with correct type and scale for ${channel}`, function() {
+      it(`should produce a Vega legend object with correct type and scale for ${channel}`, () => {
         const spec: NormalizedUnitSpec = {
-          mark: "point",
+          mark: 'point',
           encoding: {
-            x: {field: "a", type: "nominal"}
-          }
+            x: {field: 'a', type: 'nominal'},
+          },
         };
-        spec.encoding[channel] = {field: "a", type: "nominal"};
+        spec.encoding[channel] = {field: 'a', type: 'nominal'};
 
         const model = parseUnitModelWithScale(spec);
 
@@ -105,7 +104,7 @@ describe('compile/legend', function () {
           assert.isUndefined(def.encode.symbols.update.opacity);
         }
         assert.isObject(def);
-        assert.equal(def.title, "a");
+        assert.equal(def.title, 'a');
       });
     });
   });
@@ -113,26 +112,27 @@ describe('compile/legend', function () {
   describe('parseNonUnitLegend()', () => {
     it('should correctly merge orient by favoring explicit orient', () => {
       const model = parseLayerModel({
-        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-        "description": "Google's stock price over time.",
-        "data": {"url": "data/stocks.csv"},
-        "layer": [
+        $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
+        description: "Google's stock price over time.",
+        data: {url: 'data/stocks.csv'},
+        layer: [
           {
-            "mark": "line",
-            "encoding": {
-              "x": {"field": "date", "type": "temporal"},
-              "y": {"field": "price", "type": "quantitative"},
-              "color": {"field": "symbol", "type": "nominal"}
-            }
-          },{
-            "mark": {"type":"point", "filled": true},
-            "encoding": {
-              "x": {"field": "date", "type": "temporal"},
-              "y": {"field": "price", "type": "quantitative"},
-              "color": {"field": "symbol", "type": "nominal", "legend": {"orient": "left"}}
-            }
-          }
-        ]
+            mark: 'line',
+            encoding: {
+              x: {field: 'date', type: 'temporal'},
+              y: {field: 'price', type: 'quantitative'},
+              color: {field: 'symbol', type: 'nominal'},
+            },
+          },
+          {
+            mark: {type: 'point', filled: true},
+            encoding: {
+              x: {field: 'date', type: 'temporal'},
+              y: {field: 'price', type: 'quantitative'},
+              color: {field: 'symbol', type: 'nominal', legend: {orient: 'left'}},
+            },
+          },
+        ],
       });
       model.parseScale();
       model.parseLegend();
@@ -141,25 +141,26 @@ describe('compile/legend', function () {
 
     it('should correctly merge legend that exists only on one plot', () => {
       const model = parseLayerModel({
-        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-        "description": "Google's stock price over time.",
-        "data": {"url": "data/stocks.csv"},
-        "layer": [
+        $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
+        description: "Google's stock price over time.",
+        data: {url: 'data/stocks.csv'},
+        layer: [
           {
-            "mark": "line",
-            "encoding": {
-              "x": {"field": "date", "type": "temporal"},
-              "y": {"field": "price", "type": "quantitative"}
-            }
-          },{
-            "mark": {"type":"point", "filled": true},
-            "encoding": {
-              "x": {"field": "date", "type": "temporal"},
-              "y": {"field": "price", "type": "quantitative"},
-              "color": {"field": "symbol", "type": "nominal"}
-            }
-          }
-        ]
+            mark: 'line',
+            encoding: {
+              x: {field: 'date', type: 'temporal'},
+              y: {field: 'price', type: 'quantitative'},
+            },
+          },
+          {
+            mark: {type: 'point', filled: true},
+            encoding: {
+              x: {field: 'date', type: 'temporal'},
+              y: {field: 'price', type: 'quantitative'},
+              color: {field: 'symbol', type: 'nominal'},
+            },
+          },
+        ],
       });
       model.parseScale();
       model.parseLegend();

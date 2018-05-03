@@ -2,7 +2,6 @@ import {FieldDef} from './fielddef';
 import {Guide} from './guide';
 import {SortOrder} from './sort';
 
-
 /**
  * Headers of row / column channels for faceted plots.
  */
@@ -34,7 +33,6 @@ export interface FacetFieldDef<F> extends FieldDef<F> {
 }
 
 export interface FacetMapping<F> {
-
   /**
    * Vertical facets for trellis plots.
    */

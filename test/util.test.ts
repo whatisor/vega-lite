@@ -62,11 +62,11 @@ describe('util', () => {
       const originalObject = {
         property1: {property1: 'value1'},
         property2: {property5: 'value2'},
-        property3: {property6: 'value3', property7: 'value4'}
+        property3: {property6: 'value3', property7: 'value4'},
       };
       const newObject = {
         property2: {property5: 'value2'},
-        property3: {property6: 'value3', property7: 'value4'}
+        property3: {property6: 'value3', property7: 'value4'},
       };
       deleteNestedProperty(originalObject, ['property1']);
       assert.equal(stringify(originalObject), stringify(newObject));
@@ -76,11 +76,11 @@ describe('util', () => {
       const originalObject = {
         property1: {property4: 'value1'},
         property2: {property5: 'value2'},
-        property3: {property6: 'value3', property7: 'value4'}
+        property3: {property6: 'value3', property7: 'value4'},
       };
       const newObject = {
         property2: {property5: 'value2'},
-        property3: {property6: 'value3', property7: 'value4'}
+        property3: {property6: 'value3', property7: 'value4'},
       };
       deleteNestedProperty(originalObject, ['property1', 'property4']);
       assert.equal(stringify(originalObject), stringify(newObject));
@@ -90,12 +90,12 @@ describe('util', () => {
       const originalObject = {
         property1: {property4: 'value1'},
         property2: {property5: 'value2'},
-        property3: {property6: 'value3', property7: 'value4'}
+        property3: {property6: 'value3', property7: 'value4'},
       };
       const newObject = {
         property1: {property4: 'value1'},
         property2: {property5: 'value2'},
-        property3: {property6: 'value3'}
+        property3: {property6: 'value3'},
       };
       deleteNestedProperty(originalObject, ['property3', 'property7']);
       assert.equal(stringify(originalObject), stringify(newObject));

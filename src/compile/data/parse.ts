@@ -40,10 +40,11 @@ function parseRoot(model: Model, sources: Dict<SourceNode>): DataFlowNode {
     }
   } else {
     // If we don't have a source defined (overriding parent's data), use the parent's facet root or main.
-    return model.parent.component.data.facetRoot ? model.parent.component.data.facetRoot : model.parent.component.data.main;
+    return model.parent.component.data.facetRoot
+      ? model.parent.component.data.facetRoot
+      : model.parent.component.data.main;
   }
 }
-
 
 /**
  * Parses a transforms array into a chain of connected dataflow nodes.
@@ -197,7 +198,6 @@ export function parseData(model: Model): DataComponent {
   }
 
   if (isUnitModel(model) || isFacetModel(model)) {
-
     if (!parentIsLayer) {
       head = BinNode.makeFromEncoding(head, model) || head;
     }
@@ -254,6 +254,6 @@ export function parseData(model: Model): DataComponent {
     raw,
     main,
     facetRoot,
-    ancestorParse
+    ancestorParse,
   };
 }

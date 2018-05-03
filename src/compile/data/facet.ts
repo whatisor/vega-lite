@@ -30,7 +30,12 @@ export class FacetNode extends DataFlowNode {
    * @param name The name that this facet source will have.
    * @param data The source data for this facet data.
    */
-  public constructor(parent: DataFlowNode, public readonly model: FacetModel, public readonly name: string, public data: string) {
+  public constructor(
+    parent: DataFlowNode,
+    public readonly model: FacetModel,
+    public readonly name: string,
+    public data: string
+  ) {
     super(parent);
 
     if (model.facet.column) {
@@ -94,7 +99,11 @@ export class FacetNode extends DataFlowNode {
     return childIndependentFieldsWithStep;
   }
 
-  private assembleRowColumnData(channel: 'row' | 'column', crossedDataName: string, childIndependentFieldsWithStep: ChildIndependentFieldsWithStep): VgData {
+  private assembleRowColumnData(
+    channel: 'row' | 'column',
+    crossedDataName: string,
+    childIndependentFieldsWithStep: ChildIndependentFieldsWithStep
+  ): VgData {
     let aggregateChildField: Partial<VgAggregateTransform> = {};
     const childChannel = channel === 'row' ? 'y' : 'x';
 
@@ -105,13 +114,13 @@ export class FacetNode extends DataFlowNode {
           fields: [`distinct_${childIndependentFieldsWithStep[childChannel]}`],
           ops: ['max'],
           // Although it is technically a max, just name it distinct so it's easier to refer to it
-          as: [`distinct_${childIndependentFieldsWithStep[childChannel]}`]
+          as: [`distinct_${childIndependentFieldsWithStep[childChannel]}`],
         };
       } else {
         aggregateChildField = {
           // If there is no crossed data, just calculate distinct
           fields: [childIndependentFieldsWithStep[childChannel]],
-          ops: ['distinct']
+          ops: ['distinct'],
         };
       }
     }
@@ -120,11 +129,13 @@ export class FacetNode extends DataFlowNode {
       name: channel === 'row' ? this.rowName : this.columnName,
       // Use data from the crossed one if it exist
       source: crossedDataName || this.data,
-      transform: [{
-        type: 'aggregate',
-        groupby: channel === 'row' ? this.rowFields : this.columnFields,
-        ...aggregateChildField
-      }]
+      transform: [
+        {
+          type: 'aggregate',
+          groupby: channel === 'row' ? this.rowFields : this.columnFields,
+          ...aggregateChildField,
+        },
+      ],
     };
   }
 
@@ -139,19 +150,21 @@ export class FacetNode extends DataFlowNode {
 
       const fields = [].concat(
         childIndependentFieldsWithStep.x ? [childIndependentFieldsWithStep.x] : [],
-        childIndependentFieldsWithStep.y ? [childIndependentFieldsWithStep.y] : [],
+        childIndependentFieldsWithStep.y ? [childIndependentFieldsWithStep.y] : []
       );
       const ops = fields.map((): AggregateOp => 'distinct');
 
       data.push({
         name: crossedDataName,
         source: this.data,
-        transform: [{
-          type: 'aggregate',
-          groupby: this.columnFields.concat(this.rowFields),
-          fields: fields,
-          ops
-        }]
+        transform: [
+          {
+            type: 'aggregate',
+            groupby: this.columnFields.concat(this.rowFields),
+            fields: fields,
+            ops,
+          },
+        ],
       });
     }
 

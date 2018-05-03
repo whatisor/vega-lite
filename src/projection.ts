@@ -1,4 +1,3 @@
-
 import {VgProjectionType} from './vega.schema';
 
 export type ProjectionType = VgProjectionType;
@@ -72,5 +71,5 @@ export const PROJECTION_PROPERTIES: (keyof Projection)[] = [
   'radius',
   'ratio',
   'spacing',
-  'tilt'
+  'tilt',
 ];

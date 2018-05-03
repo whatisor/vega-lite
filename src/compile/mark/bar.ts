@@ -13,7 +13,6 @@ import {MarkCompiler} from './base';
 import * as mixins from './mixins';
 import * as ref from './valueref';
 
-
 export const bar: MarkCompiler = {
   vgMark: 'rect',
   encodeEntry: (model: UnitModel) => {
@@ -22,7 +21,7 @@ export const bar: MarkCompiler = {
       ...x(model),
       ...y(model),
     };
-  }
+  },
 };
 
 function x(model: UnitModel): VgEncodeEntry {
@@ -39,12 +38,16 @@ function x(model: UnitModel): VgEncodeEntry {
       ...mixins.pointPosition('x', model, 'zeroOrMin'),
       ...mixins.pointPosition2(model, 'zeroOrMin'),
     };
-  } else { // vertical
+  } else {
+    // vertical
     if (isFieldDef(xDef)) {
       const xScaleType = xScale.get('type');
       if (xDef.bin && !sizeDef && !hasDiscreteDomain(xScaleType)) {
         return mixins.binnedPosition(
-          xDef, 'x', model.scaleName('x'), markDef.binSpacing === undefined ? config.bar.binSpacing : markDef.binSpacing,
+          xDef,
+          'x',
+          model.scaleName('x'),
+          markDef.binSpacing === undefined ? config.bar.binSpacing : markDef.binSpacing,
           xScale.get('reverse')
         );
       } else {
@@ -55,7 +58,9 @@ function x(model: UnitModel): VgEncodeEntry {
     }
     // sized bin, normal point-ordinal axis, quantitative x-axis, or no x
 
-    return mixins.centeredBandPosition('x', model,
+    return mixins.centeredBandPosition(
+      'x',
+      model,
       {...ref.mid(width)},
       defaultSizeRef(markDef, xScaleName, xScale, config)
     );
@@ -81,7 +86,9 @@ function y(model: UnitModel) {
       const yScaleType = yScale.get('type');
       if (yDef.bin && !sizeDef && !hasDiscreteDomain(yScaleType)) {
         return mixins.binnedPosition(
-          yDef, 'y', model.scaleName('y'),
+          yDef,
+          'y',
+          model.scaleName('y'),
           markDef.binSpacing === undefined ? config.bar.binSpacing : markDef.binSpacing,
           yScale.get('reverse')
         );
@@ -89,7 +96,10 @@ function y(model: UnitModel) {
         return mixins.bandPosition(yDef, 'y', model);
       }
     }
-    return mixins.centeredBandPosition('y', model, ref.mid(height),
+    return mixins.centeredBandPosition(
+      'y',
+      model,
+      ref.mid(height),
       defaultSizeRef(markDef, yScaleName, yScale, config)
     );
   }
@@ -110,7 +120,8 @@ function defaultSizeRef(markDef: MarkDef, scaleName: string, scale: ScaleCompone
       log.warn(log.message.BAR_WITH_POINT_SCALE_AND_RANGESTEP_NULL);
     } else if (scaleType === ScaleType.BAND) {
       return ref.bandRef(scaleName);
-    } else { // non-ordinal scale
+    } else {
+      // non-ordinal scale
       return {value: config.bar.continuousBandSize};
     }
   } else if (config.scale.rangeStep && config.scale.rangeStep !== null) {
@@ -118,4 +129,3 @@ function defaultSizeRef(markDef: MarkDef, scaleName: string, scale: ScaleCompone
   }
   return {value: 20};
 }
-

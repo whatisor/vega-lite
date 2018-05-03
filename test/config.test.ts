@@ -1,4 +1,3 @@
-
 import {assert} from 'chai';
 import {Config, defaultConfig, stripAndRedirectConfig} from '../src/config';
 import {PRIMITIVE_MARKS} from '../src/mark';
@@ -14,15 +13,15 @@ describe('config', () => {
       },
       bar: {
         opacity: 0.5,
-        ...defaultConfig.bar
+        ...defaultConfig.bar,
       },
       view: {
-        fill: '#eee'
+        fill: '#eee',
       },
       title: {
         color: 'red',
-        fontWeight: 'bold'
-      }
+        fontWeight: 'bold',
+      },
     };
     const copy = duplicate(config);
     const output = stripAndRedirectConfig(config);

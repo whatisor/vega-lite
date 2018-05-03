@@ -7,17 +7,19 @@ import {sortParams} from '../common';
 import {UnitModel} from './../unit';
 import {DataFlowNode} from './dataflow';
 
-
 function getStackByFields(model: UnitModel): string[] {
-  return model.stack.stackBy.reduce((fields, by) => {
-    const fieldDef = by.fieldDef;
+  return model.stack.stackBy.reduce(
+    (fields, by) => {
+      const fieldDef = by.fieldDef;
 
-    const _field = vgField(fieldDef);
-    if (_field) {
-      fields.push(_field);
-    }
-    return fields;
-  }, [] as string[]);
+      const _field = vgField(fieldDef);
+      if (_field) {
+        fields.push(_field);
+      }
+      return fields;
+    },
+    [] as string[]
+  );
 }
 
 export interface StackComponent {
@@ -66,7 +68,6 @@ export class StackNode extends DataFlowNode {
   }
 
   public static make(parent: DataFlowNode, model: UnitModel) {
-
     const stackProperties = model.stack;
 
     if (!stackProperties) {
@@ -87,11 +88,14 @@ export class StackNode extends DataFlowNode {
     } else {
       // default = descending by stackFields
       // FIXME is the default here correct for binned fields?
-      sort = stackby.reduce((s, field) => {
-        s.field.push(field);
-        s.order.push('descending');
-        return s;
-      }, {field:[], order: []});
+      sort = stackby.reduce(
+        (s, field) => {
+          s.field.push(field);
+          s.order.push('descending');
+          return s;
+        },
+        {field: [], order: []}
+      );
     }
 
     return new StackNode(parent, {
@@ -118,10 +122,10 @@ export class StackNode extends DataFlowNode {
 
     out[this._stack.field] = true;
 
-    this.getGroupbyFields().forEach(f => out[f] = true);
-    this._stack.facetby.forEach(f => out[f] = true);
+    this.getGroupbyFields().forEach(f => (out[f] = true));
+    this._stack.facetby.forEach(f => (out[f] = true));
     const field = this._stack.sort.field;
-    isArray(field) ? field.forEach(f => out[f] = true) : out[field] = true;
+    isArray(field) ? field.forEach(f => (out[f] = true)) : (out[field] = true);
 
     return out;
   }
@@ -147,7 +151,7 @@ export class StackNode extends DataFlowNode {
         return [
           // For binned group by field without impute, we need both bin (start) and bin_end
           vgField(dimensionFieldDef, {}),
-          vgField(dimensionFieldDef, {binSuffix: 'end'})
+          vgField(dimensionFieldDef, {binSuffix: 'end'}),
         ];
       }
       return [vgField(dimensionFieldDef)];
@@ -162,19 +166,20 @@ export class StackNode extends DataFlowNode {
 
     // Impute
     if (impute && dimensionFieldDef) {
-      const dimensionField = dimensionFieldDef ? vgField(dimensionFieldDef, {binSuffix: 'mid'}): undefined;
+      const dimensionField = dimensionFieldDef ? vgField(dimensionFieldDef, {binSuffix: 'mid'}) : undefined;
 
       if (dimensionFieldDef.bin) {
         // As we can only impute one field at a time, we need to calculate
         // mid point for a binned field
         transform.push({
           type: 'formula',
-          expr: '(' +
+          expr:
+            '(' +
             vgField(dimensionFieldDef, {expr: 'datum'}) +
             '+' +
             vgField(dimensionFieldDef, {expr: 'datum', binSuffix: 'end'}) +
             ')/2',
-          as: dimensionField
+          as: dimensionField,
         });
       }
 
@@ -184,7 +189,7 @@ export class StackNode extends DataFlowNode {
         groupby: stackby,
         key: dimensionField,
         method: 'value',
-        value: 0
+        value: 0,
       });
     }
 
@@ -194,11 +199,8 @@ export class StackNode extends DataFlowNode {
       groupby: this.getGroupbyFields().concat(facetby),
       field: stackField,
       sort,
-      as: [
-        stackField + '_start',
-        stackField + '_end'
-      ],
-      offset
+      as: [stackField + '_start', stackField + '_end'],
+      offset,
     });
 
     return transform;

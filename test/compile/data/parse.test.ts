@@ -1,5 +1,3 @@
-/* tslint:disable:quotemark */
-
 import {assert} from 'chai';
 import {AggregateNode} from '../../../src/compile/data/aggregate';
 import {BinNode} from '../../../src/compile/data/bin';
@@ -20,8 +18,8 @@ describe('compile/data/parse', () => {
         mark: 'point',
         transform: [{calculate: 'calculate', as: 'as'}, {filter: 'filter'}],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
-        }
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
+        },
       });
 
       const root = new DataFlowNode(null);
@@ -36,8 +34,8 @@ describe('compile/data/parse', () => {
         mark: 'point',
         transform: [{bin: true, field: 'field', as: 'a'}, {timeUnit: 'month', field: 'field', as: 'b'}],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
-        }
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
+        },
       });
 
       const root = new DataFlowNode(null);
@@ -50,10 +48,13 @@ describe('compile/data/parse', () => {
       const model = parseUnitModel({
         data: {values: []},
         mark: 'point',
-        transform: [{bin: true, field: 'field', as: 'a'}, {aggregate: [{op: 'count', field: 'f', as: 'b'}, {op: 'sum', field: 'f', as: 'c'}], groupby: ['field']}],
+        transform: [
+          {bin: true, field: 'field', as: 'a'},
+          {aggregate: [{op: 'count', field: 'f', as: 'b'}, {op: 'sum', field: 'f', as: 'c'}], groupby: ['field']},
+        ],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
-        }
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
+        },
       });
 
       const root = new DataFlowNode(null);
@@ -62,86 +63,29 @@ describe('compile/data/parse', () => {
       assert.isTrue(result instanceof AggregateNode);
     });
 
-    it ('should return a WindowTransform Node', () => {
+    it('should return a WindowTransform Node', () => {
       const transform: Transform = {
         window: [
           {
             op: 'count',
             field: 'f',
             as: 'b',
-          }
-        ],
-      };
-      const model = parseUnitModel({
-        data: {values: []},
-        mark: 'point',
-        transform: [
-          transform
-        ],
-        encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
-        }
-      });
-      const root = new DataFlowNode(null);
-      parseTransformArray(root, model);
-      assert.isTrue(root.children[0] instanceof WindowTransformNode);
-    });
-    it ('should return a WindowTransform Node with optional properties', () => {
-      const transform: Transform = {
-        window: [
-          {
-            op: 'row_number',
-            as: 'ordered_row_number',
           },
         ],
-        ignorePeers: false,
-        sort:  [
-          {
-            field:'f',
-            order:'ascending'
-          }
-        ]
       };
       const model = parseUnitModel({
         data: {values: []},
         mark: 'point',
-        transform: [
-          transform
-        ],
+        transform: [transform],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
-        }
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
+        },
       });
       const root = new DataFlowNode(null);
       parseTransformArray(root, model);
       assert.isTrue(root.children[0] instanceof WindowTransformNode);
     });
-
-    it ('should return a WindowTransform Node', () => {
-      const transform: Transform = {
-        window: [
-          {
-            op: 'count',
-            field: 'f',
-            as: 'b',
-          }
-        ],
-      };
-      const model = parseUnitModel({
-        data: {values: []},
-        mark: 'point',
-        transform: [
-          transform
-        ],
-        encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
-        }
-      });
-      const root = new DataFlowNode(null);
-      parseTransformArray(root, model);
-      assert.isTrue(root.children[0] instanceof WindowTransformNode);
-    });
-    it ('should return a WindowTransform Node with optional properties', () => {
+    it('should return a WindowTransform Node with optional properties', () => {
       const transform: Transform = {
         window: [
           {
@@ -151,21 +95,70 @@ describe('compile/data/parse', () => {
         ],
         ignorePeers: false,
         sort: [
-            {
-              field:'f',
-              order:'ascending'
-            }
-          ]
+          {
+            field: 'f',
+            order: 'ascending',
+          },
+        ],
       };
       const model = parseUnitModel({
         data: {values: []},
         mark: 'point',
-        transform: [
-          transform
-        ],
+        transform: [transform],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
-        }
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
+        },
+      });
+      const root = new DataFlowNode(null);
+      parseTransformArray(root, model);
+      assert.isTrue(root.children[0] instanceof WindowTransformNode);
+    });
+
+    it('should return a WindowTransform Node', () => {
+      const transform: Transform = {
+        window: [
+          {
+            op: 'count',
+            field: 'f',
+            as: 'b',
+          },
+        ],
+      };
+      const model = parseUnitModel({
+        data: {values: []},
+        mark: 'point',
+        transform: [transform],
+        encoding: {
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
+        },
+      });
+      const root = new DataFlowNode(null);
+      parseTransformArray(root, model);
+      assert.isTrue(root.children[0] instanceof WindowTransformNode);
+    });
+    it('should return a WindowTransform Node with optional properties', () => {
+      const transform: Transform = {
+        window: [
+          {
+            op: 'row_number',
+            as: 'ordered_row_number',
+          },
+        ],
+        ignorePeers: false,
+        sort: [
+          {
+            field: 'f',
+            order: 'ascending',
+          },
+        ],
+      };
+      const model = parseUnitModel({
+        data: {values: []},
+        mark: 'point',
+        transform: [transform],
+        encoding: {
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
+        },
       });
       const root = new DataFlowNode(null);
       parseTransformArray(root, model);

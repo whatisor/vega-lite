@@ -6,7 +6,6 @@ import {MarkCompiler} from './base';
 import * as mixins from './mixins';
 import * as ref from './valueref';
 
-
 function encodeEntry(model: UnitModel, fixedShape?: 'circle' | 'square') {
   const {config, width, height} = model;
 
@@ -30,19 +29,19 @@ export const point: MarkCompiler = {
   vgMark: 'symbol',
   encodeEntry: (model: UnitModel) => {
     return encodeEntry(model);
-  }
+  },
 };
 
 export const circle: MarkCompiler = {
   vgMark: 'symbol',
   encodeEntry: (model: UnitModel) => {
     return encodeEntry(model, 'circle');
-  }
+  },
 };
 
 export const square: MarkCompiler = {
   vgMark: 'symbol',
   encodeEntry: (model: UnitModel) => {
     return encodeEntry(model, 'square');
-  }
+  },
 };

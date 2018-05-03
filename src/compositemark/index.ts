@@ -1,12 +1,18 @@
 import {Config} from './../config';
 import {AnyMark, isMarkDef} from './../mark';
 import {GenericUnitSpec, NormalizedLayerSpec} from './../spec';
-import {BOXPLOT, BOXPLOT_STYLES, BoxPlotConfigMixins, BoxPlotDef, normalizeBoxPlot, VL_ONLY_BOXPLOT_CONFIG_PROPERTY_INDEX} from './boxplot';
+import {
+  BOXPLOT,
+  BOXPLOT_STYLES,
+  BoxPlotConfigMixins,
+  BoxPlotDef,
+  normalizeBoxPlot,
+  VL_ONLY_BOXPLOT_CONFIG_PROPERTY_INDEX,
+} from './boxplot';
 import {ERRORBAR, normalizeErrorBar} from './errorbar';
 
-
 export {BoxPlotConfig} from './boxplot';
-export type UnitNormalizer = (spec: GenericUnitSpec<any, any>, config: Config)=> NormalizedLayerSpec;
+export type UnitNormalizer = (spec: GenericUnitSpec<any, any>, config: Config) => NormalizedLayerSpec;
 
 /**
  * Registry index for all composite mark's normalizer
@@ -33,7 +39,7 @@ export type CompositeMarkStyle = typeof COMPOSITE_MARK_STYLES[0];
 export type CompositeMarkConfigMixins = BoxPlotConfigMixins;
 
 export const VL_ONLY_COMPOSITE_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX = {
-  ...VL_ONLY_BOXPLOT_CONFIG_PROPERTY_INDEX
+  ...VL_ONLY_BOXPLOT_CONFIG_PROPERTY_INDEX,
 };
 
 add(BOXPLOT, normalizeBoxPlot);
@@ -43,11 +49,10 @@ add(ERRORBAR, normalizeErrorBar);
  * Transform a unit spec with composite mark into a normal layer spec.
  */
 export function normalize(
-    // This GenericUnitSpec has any as Encoding because unit specs with composite mark can have additional encoding channels.
-    spec: GenericUnitSpec<any, AnyMark>,
-    config: Config
-  ): NormalizedLayerSpec {
-
+  // This GenericUnitSpec has any as Encoding because unit specs with composite mark can have additional encoding channels.
+  spec: GenericUnitSpec<any, AnyMark>,
+  config: Config
+): NormalizedLayerSpec {
   const mark = isMarkDef(spec.mark) ? spec.mark.type : spec.mark;
   const normalizer = normalizerRegistry[mark];
   if (normalizer) {

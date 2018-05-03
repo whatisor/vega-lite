@@ -20,7 +20,8 @@ export function assembleScales(model: Model): VgScale[] {
 }
 
 export function assembleScalesForModel(model: Model): VgScale[] {
-    return keys(model.component.scales).reduce((scales: VgScale[], channel: ScaleChannel) => {
+  return keys(model.component.scales).reduce(
+    (scales: VgScale[], channel: ScaleChannel) => {
       const scaleComponent = model.component.scales[channel];
       if (scaleComponent.merged) {
         // Skipped merged scales
@@ -43,18 +44,19 @@ export function assembleScalesForModel(model: Model): VgScale[] {
         domainRaw = selectionScaleDomain(model, domainRaw);
       }
 
-
       scales.push({
         name,
         type,
         domain: assembleDomain(model, channel),
         ...(domainRaw ? {domainRaw} : {}),
         range: range,
-        ...otherScaleProps
+        ...otherScaleProps,
       });
 
       return scales;
-    }, [] as VgScale[]);
+    },
+    [] as VgScale[]
+  );
 }
 
 export function assembleScaleRange(scaleRange: VgRange, scaleName: string, model: Model, channel: Channel) {
@@ -63,7 +65,7 @@ export function assembleScaleRange(scaleRange: VgRange, scaleName: string, model
     if (isVgRangeStep(scaleRange)) {
       // For x/y range step, use a signal created in layout assemble instead of a constant range step.
       return {
-        step: {signal: scaleName + '_step'}
+        step: {signal: scaleName + '_step'},
       };
     } else if (isArray(scaleRange) && scaleRange.length === 2) {
       const r0 = scaleRange[0];

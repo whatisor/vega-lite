@@ -15,7 +15,6 @@ import {Type} from './type';
 import {stringify} from './util';
 import {VgSortField} from './vega.schema';
 
-
 export {LoggerInterface} from 'vega-util';
 
 /**
@@ -112,7 +111,8 @@ export namespace message {
     return `Cannot find a selection named "${name}"`;
   }
 
-  export const SCALE_BINDINGS_CONTINUOUS = 'Scale bindings are currently only supported for scales with unbinned, continuous domains.';
+  export const SCALE_BINDINGS_CONTINUOUS =
+    'Scale bindings are currently only supported for scales with unbinned, continuous domains.';
 
   // REPEAT
   export function noSuchRepeatedValue(field: string) {
@@ -144,19 +144,26 @@ export namespace message {
     return `Ignoring an invalid transform: ${stringify(transform)}.`;
   }
 
-  export const NO_FIELDS_NEEDS_AS = 'If "from.fields" is not specified, "as" has to be a string that specifies the key to be used for the data from the secondary source.';
+  export const NO_FIELDS_NEEDS_AS =
+    'If "from.fields" is not specified, "as" has to be a string that specifies the key to be used for the data from the secondary source.';
 
   // ENCODING & FACET
 
   export function encodingOverridden(channels: Channel[]) {
     return `Layer's shared ${channels.join(',')} channel ${channels.length === 1 ? 'is' : 'are'} overriden`;
   }
-  export function projectionOverridden(opt: {parentProjection: Projection, projection: Projection}) {
+  export function projectionOverridden(opt: {parentProjection: Projection; projection: Projection}) {
     const {parentProjection, projection} = opt;
-    return `Layer's shared projection ${stringify(parentProjection)} is overridden by a child projection ${stringify(projection)}.`;
+    return `Layer's shared projection ${stringify(parentProjection)} is overridden by a child projection ${stringify(
+      projection
+    )}.`;
   }
 
-  export function primitiveChannelDef(channel: Channel, type: 'string' | 'number' | 'boolean', value: string | number | boolean) {
+  export function primitiveChannelDef(
+    channel: Channel,
+    type: 'string' | 'number' | 'boolean',
+    value: string | number | boolean
+  ) {
     return `Channel ${channel} is a ${type}. Converted to {value: ${stringify(value)}}.`;
   }
 
@@ -165,14 +172,19 @@ export namespace message {
   }
 
   export function nonZeroScaleUsedWithLengthMark(
-    mark: 'bar' | 'area', channel: Channel,
-    opt: {scaleType?: ScaleType, zeroFalse?: boolean}
+    mark: 'bar' | 'area',
+    channel: Channel,
+    opt: {scaleType?: ScaleType; zeroFalse?: boolean}
   ) {
-    const scaleText = opt.scaleType ? `${opt.scaleType} scale` :
-      opt.zeroFalse ? 'scale with zero=false' :
-      'scale with custom domain that excludes zero';
+    const scaleText = opt.scaleType
+      ? `${opt.scaleType} scale`
+      : opt.zeroFalse
+        ? 'scale with zero=false'
+        : 'scale with custom domain that excludes zero';
 
-    return `A ${scaleText} is used with ${mark} mark. This can be misleading as the ${channel === 'x' ? 'width' : 'height'} of the ${mark} can be arbitrary based on the scale domain. You may want to use point mark instead.`;
+    return `A ${scaleText} is used with ${mark} mark. This can be misleading as the ${
+      channel === 'x' ? 'width' : 'height'
+    } of the ${mark} can be arbitrary based on the scale domain. You may want to use point mark instead.`;
   }
 
   export function invalidFieldTypeForCountAggregate(type: Type, aggregate: string) {
@@ -186,10 +198,10 @@ export namespace message {
   export function emptyOrInvalidFieldType(type: Type | string, channel: Channel, newType: Type) {
     return `Invalid field type "${type}" for channel "${channel}", using "${newType}" instead.`;
   }
-  export function droppingColor(type: 'encoding' | 'property', opt: {fill?: boolean, stroke?: boolean}) {
+  export function droppingColor(type: 'encoding' | 'property', opt: {fill?: boolean; stroke?: boolean}) {
     const {fill, stroke} = opt;
-    return `Dropping color ${type} as the plot also has ` + (
-      fill && stroke ? 'fill and stroke' : fill ? 'fill' : 'stroke'
+    return (
+      `Dropping color ${type} as the plot also has ` + (fill && stroke ? 'fill and stroke' : fill ? 'fill' : 'stroke')
     );
   }
 
@@ -200,7 +212,8 @@ export namespace message {
     return `${channel}-encoding with type ${type} is deprecated. Replacing with ${newChannel}-encoding.`;
   }
 
-  export const LINE_WITH_VARYING_SIZE = 'Line marks cannot encode size with a non-groupby field. You may want to use trail marks instead.';
+  export const LINE_WITH_VARYING_SIZE =
+    'Line marks cannot encode size with a non-groupby field. You may want to use trail marks instead.';
 
   export function incompatibleChannel(channel: Channel, markOrFacet: Mark | 'facet' | CompositeMark, when?: string) {
     return `${channel} dropped as it is incompatible with "${markOrFacet}"${when ? ` when ${when}` : ''}.`;
@@ -215,11 +228,14 @@ export namespace message {
   }
 
   export function discreteChannelCannotEncode(channel: Channel, type: Type) {
-    return `Using discrete channel "${channel}" to encode "${type}" field can be misleading as it does not encode ${type === 'ordinal' ? 'order' : 'magnitude'}.`;
+    return `Using discrete channel "${channel}" to encode "${type}" field can be misleading as it does not encode ${
+      type === 'ordinal' ? 'order' : 'magnitude'
+    }.`;
   }
 
   // Mark
-  export const BAR_WITH_POINT_SCALE_AND_RANGESTEP_NULL = 'Bar mark should not be used with point scale when rangeStep is null. Please use band scale instead.';
+  export const BAR_WITH_POINT_SCALE_AND_RANGESTEP_NULL =
+    'Bar mark should not be used with point scale when rangeStep is null. Please use band scale instead.';
 
   export function lineWithRange(hasX2: boolean, hasY2: boolean) {
     const channels = hasX2 && hasY2 ? 'x2 and y2' : hasX2 ? 'x2' : 'y2';
@@ -239,7 +255,8 @@ export namespace message {
   }
 
   // SCALE
-  export const CANNOT_UNION_CUSTOM_DOMAIN_WITH_FIELD_DOMAIN = 'custom domain scale cannot be unioned with default field-based domain';
+  export const CANNOT_UNION_CUSTOM_DOMAIN_WITH_FIELD_DOMAIN =
+    'custom domain scale cannot be unioned with default field-based domain';
 
   export function cannotUseScalePropertyWithNonColor(prop: string) {
     return `Cannot use the scale property "${prop}" with non-color channel.`;
@@ -257,7 +274,7 @@ export namespace message {
     return `Unaggregated domain is currently unsupported for log scale (${stringify(fieldDef)}).`;
   }
 
-  export function cannotUseSizeFieldWithBandSize(positionChannel: 'x'|'y') {
+  export function cannotUseSizeFieldWithBandSize(positionChannel: 'x' | 'y') {
     return `Using size field when ${positionChannel}-channel has a band scale is not supported.`;
   }
 
@@ -266,8 +283,7 @@ export namespace message {
   }
 
   export function rangeStepDropped(channel: Channel) {
-    return `rangeStep for "${channel}" is dropped as top-level ${
-      channel === 'x' ? 'width' : 'height'} is provided.`;
+    return `rangeStep for "${channel}" is dropped as top-level ${channel === 'x' ? 'width' : 'height'} is provided.`;
   }
 
   export function scaleTypeNotWorkWithChannel(channel: Channel, scaleType: ScaleType, defaultScaleType: ScaleType) {
@@ -287,7 +303,9 @@ export namespace message {
   }
 
   export function mergeConflictingProperty<T>(property: string, propertyOf: string, v1: T, v2: T) {
-    return `Conflicting ${propertyOf} property "${property}" (${stringify(v1)} and ${stringify(v2)}).  Using ${stringify(v1)}.`;
+    return `Conflicting ${propertyOf} property "${property}" (${stringify(v1)} and ${stringify(
+      v2
+    )}).  Using ${stringify(v1)}.`;
   }
 
   export function independentScaleMeansIndependentGuide(channel: Channel) {
@@ -300,7 +318,8 @@ export namespace message {
 
   export const UNABLE_TO_MERGE_DOMAINS = 'Unable to merge domains';
 
-  export const MORE_THAN_ONE_SORT = 'Domains that should be unioned has conflicting sort properties. Sort will be set to true.';
+  export const MORE_THAN_ONE_SORT =
+    'Domains that should be unioned has conflicting sort properties. Sort will be set to true.';
 
   // AXIS
   export const INVALID_CHANNEL_FOR_AXIS = 'Invalid channel for axis.';
@@ -324,12 +343,13 @@ export namespace message {
   }
 
   export function dayReplacedWithDate(fullTimeUnit: string) {
-    return `Time unit "${fullTimeUnit}" is not supported. We are replacing it with ${
-      fullTimeUnit.replace('day', 'date')}.`;
+    return `Time unit "${fullTimeUnit}" is not supported. We are replacing it with ${fullTimeUnit.replace(
+      'day',
+      'date'
+    )}.`;
   }
 
   export function droppedDay(d: DateTime | DateTimeExpr) {
     return `Dropping day from datetime ${stringify(d)} as day cannot be combined with other units.`;
   }
 }
-

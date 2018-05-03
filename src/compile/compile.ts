@@ -100,12 +100,11 @@ export function compile(inputSpec: TopLevelSpec, opt: CompileOptions = {}) {
   }
 }
 
-
 function getTopLevelProperties(topLevelSpec: TopLevel<any>, config: Config, autosize: AutoSizeParams) {
   return {
     autosize: keys(autosize).length === 1 && autosize.type ? autosize.type : autosize,
     ...extractTopLevelProperties(config),
-    ...extractTopLevelProperties(topLevelSpec)
+    ...extractTopLevelProperties(topLevelSpec),
   };
 }
 
@@ -148,19 +147,16 @@ function assembleTopLevelModel(model: Model, topLevelProperties: TopLevelPropert
     $schema: 'https://vega.github.io/schema/vega/v3.0.json',
     ...(model.description ? {description: model.description} : {}),
     ...topLevelProperties,
-    ...(title? {title} : {}),
-    ...(style? {style} : {}),
+    ...(title ? {title} : {}),
+    ...(style ? {style} : {}),
     data: data,
     ...(projections.length > 0 ? {projections: projections} : {}),
-    ...model.assembleGroup([
-      ...layoutSignals,
-      ...model.assembleSelectionTopLevelSignals([])
-    ]),
-    ...(vgConfig ? {config: vgConfig} : {})
+    ...model.assembleGroup([...layoutSignals, ...model.assembleSelectionTopLevelSignals([])]),
+    ...(vgConfig ? {config: vgConfig} : {}),
   };
 
   return {
-    spec: output
+    spec: output,
     // TODO: add warning / errors here
   };
 }

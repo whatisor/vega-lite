@@ -10,12 +10,9 @@ import {UnitModel} from '../unit';
 import {getAxisConfig} from './config';
 
 export function labels(model: UnitModel, channel: PositionScaleChannel, specifiedLabelsSpec: any, orient: AxisOrient) {
-  const fieldDef = model.fieldDef(channel) ||
-    (
-      channel === 'x' ? model.fieldDef('x2') :
-      channel === 'y' ? model.fieldDef('y2') :
-      undefined
-    );
+  const fieldDef =
+    model.fieldDef(channel) ||
+    (channel === 'x' ? model.fieldDef('x2') : channel === 'y' ? model.fieldDef('y2') : undefined);
   const axis = model.axis(channel);
   const config = model.config;
 
@@ -26,7 +23,14 @@ export function labels(model: UnitModel, channel: PositionScaleChannel, specifie
     const isUTCScale = model.getScaleComponent(channel).get('type') === ScaleType.UTC;
 
     labelsSpec.text = {
-      signal: timeFormatExpression('datum.value', fieldDef.timeUnit, axis.format, config.axis.shortTimeLabels, config.timeFormat, isUTCScale)
+      signal: timeFormatExpression(
+        'datum.value',
+        fieldDef.timeUnit,
+        axis.format,
+        config.axis.shortTimeLabels,
+        config.timeFormat,
+        isUTCScale
+      ),
     };
   }
 
@@ -50,7 +54,7 @@ export function labels(model: UnitModel, channel: PositionScaleChannel, specifie
 
   labelsSpec = {
     ...labelsSpec,
-    ...specifiedLabelsSpec
+    ...specifiedLabelsSpec,
   };
 
   return keys(labelsSpec).length === 0 ? undefined : labelsSpec;
@@ -61,12 +65,12 @@ export function labelBaseline(angle: number, orient: AxisOrient) {
     if (angle <= 45 || 315 <= angle) {
       return {value: orient === 'top' ? 'bottom' : 'top'};
     } else if (135 <= angle && angle <= 225) {
-      return {value: orient === 'top' ? 'top': 'bottom'};
+      return {value: orient === 'top' ? 'top' : 'bottom'};
     } else {
       return {value: 'middle'};
     }
   } else {
-    if ((angle <= 45 || 315 <= angle) || (135 <= angle && angle <= 225)) {
+    if (angle <= 45 || 315 <= angle || (135 <= angle && angle <= 225)) {
       return {value: 'middle'};
     } else if (45 <= angle && angle <= 135) {
       return {value: orient === 'left' ? 'top' : 'bottom'};
@@ -79,7 +83,7 @@ export function labelBaseline(angle: number, orient: AxisOrient) {
 export function labelAngle(axis: Axis, channel: Channel, fieldDef: FieldDef<string>) {
   if (axis.labelAngle !== undefined) {
     // Make angle within [0,360)
-    return ((axis.labelAngle % 360) + 360) % 360;
+    return (axis.labelAngle % 360 + 360) % 360;
   } else {
     if (channel === X && contains([NOMINAL, ORDINAL], fieldDef.type)) {
       return 270;
@@ -89,7 +93,7 @@ export function labelAngle(axis: Axis, channel: Channel, fieldDef: FieldDef<stri
 }
 
 export function labelAlign(angle: number, orient: AxisOrient): HorizontalAlign {
-  angle = ((angle % 360) + 360) % 360;
+  angle = (angle % 360 + 360) % 360;
   if (orient === 'top' || orient === 'bottom') {
     if (angle % 180 === 0) {
       return 'center';
@@ -108,4 +112,3 @@ export function labelAlign(angle: number, orient: AxisOrient): HorizontalAlign {
     }
   }
 }
-

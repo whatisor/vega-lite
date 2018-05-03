@@ -1,4 +1,3 @@
-
 import {Config} from '../config';
 import * as log from '../log';
 import {Repeat} from '../repeat';
@@ -16,7 +15,13 @@ export class RepeatModel extends BaseConcatModel {
 
   public readonly children: Model[];
 
-  constructor(spec: NormalizedRepeatSpec, parent: Model, parentGivenName: string, repeatValues: RepeaterValue, config: Config) {
+  constructor(
+    spec: NormalizedRepeatSpec,
+    parent: Model,
+    parentGivenName: string,
+    repeatValues: RepeaterValue,
+    config: Config
+  ) {
     super(spec, parent, parentGivenName, config, repeatValues, spec.resolve);
 
     if (spec.resolve && spec.resolve.axis && (spec.resolve.axis.x === 'shared' || spec.resolve.axis.y === 'shared')) {
@@ -39,7 +44,7 @@ export class RepeatModel extends BaseConcatModel {
 
         const childRepeat = {
           row: rowField,
-          column: columnField
+          column: columnField,
         };
 
         children.push(buildModel(spec.spec, this, this.getName('child' + name), undefined, childRepeat, config, false));
@@ -60,7 +65,7 @@ export class RepeatModel extends BaseConcatModel {
       offset: 10,
       columns: this.repeat && this.repeat.column ? this.repeat.column.length : 1,
       bounds: 'full',
-      align: 'all'
+      align: 'all',
     };
   }
 }

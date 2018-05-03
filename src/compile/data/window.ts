@@ -9,7 +9,7 @@ import {DataFlowNode} from './dataflow';
  */
 export class WindowTransformNode extends DataFlowNode {
   public clone() {
-      return new WindowTransformNode(this.parent, duplicate(this.transform));
+    return new WindowTransformNode(this.parent, duplicate(this.transform));
   }
 
   constructor(parent: DataFlowNode, private transform: WindowTransform) {
@@ -48,7 +48,7 @@ export class WindowTransformNode extends DataFlowNode {
     if (this.transform.sort !== undefined) {
       for (const sortField of this.transform.sort) {
         sortFields.push(sortField.field);
-        sortOrder.push(sortField.order === undefined ? null : sortField.order as VgComparatorOrder);
+        sortOrder.push(sortField.order === undefined ? null : (sortField.order as VgComparatorOrder));
       }
     }
     const sort: VgComparator = {

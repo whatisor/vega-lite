@@ -1,5 +1,3 @@
-/* tslint:disable:quotemark */
-
 import {assert} from 'chai';
 import {COLOR} from '../../../src/channel';
 import * as encode from '../../../src/compile/legend/encode';
@@ -7,79 +5,108 @@ import {TimeUnit} from '../../../src/timeunit';
 import {TEMPORAL} from '../../../src/type';
 import {parseUnitModelWithScale} from '../../util';
 
-describe('compile/legend', function() {
-  describe('encode.symbols', function() {
-    it('should not have fill, strokeDash, or strokeDashOffset', function() {
-
-      const symbol = encode.symbols({field: 'a', type: 'nominal'}, {}, parseUnitModelWithScale({
-          mark: "point",
+describe('compile/legend', () => {
+  describe('encode.symbols', () => {
+    it('should not have fill, strokeDash, or strokeDashOffset', () => {
+      const symbol = encode.symbols(
+        {field: 'a', type: 'nominal'},
+        {},
+        parseUnitModelWithScale({
+          mark: 'point',
           encoding: {
-            x: {field: "a", type: "nominal"},
-            color: {field: "a", type: "nominal"}
-          }
-        }), COLOR, 'symbol');
-        assert.deepEqual(symbol.fill, {value: 'transparent'});
-        assert.isUndefined((symbol||{}).strokeDash);
-        assert.isUndefined((symbol||{}).strokeDashOffset);
+            x: {field: 'a', type: 'nominal'},
+            color: {field: 'a', type: 'nominal'},
+          },
+        }),
+        COLOR,
+        'symbol'
+      );
+      assert.deepEqual(symbol.fill, {value: 'transparent'});
+      assert.isUndefined((symbol || {}).strokeDash);
+      assert.isUndefined((symbol || {}).strokeDashOffset);
     });
 
-    it('should return specific symbols.shape.value if user has specified', function() {
-
-      const symbol = encode.symbols({field: 'a', type: 'nominal'}, {}, parseUnitModelWithScale({
-          mark: "point",
+    it('should return specific symbols.shape.value if user has specified', () => {
+      const symbol = encode.symbols(
+        {field: 'a', type: 'nominal'},
+        {},
+        parseUnitModelWithScale({
+          mark: 'point',
           encoding: {
-            x: {field: "a", type: "nominal"},
-            shape: {value: "square"}}
-        }), COLOR, 'symbol');
-        assert.deepEqual(symbol.shape['value'], 'square');
+            x: {field: 'a', type: 'nominal'},
+            shape: {value: 'square'},
+          },
+        }),
+        COLOR,
+        'symbol'
+      );
+      assert.deepEqual(symbol.shape['value'], 'square');
     });
 
-    it('should have default opacity', function() {
-
-      const symbol = encode.symbols({field: 'a', type: 'nominal'}, {}, parseUnitModelWithScale({
-          mark: "point",
+    it('should have default opacity', () => {
+      const symbol = encode.symbols(
+        {field: 'a', type: 'nominal'},
+        {},
+        parseUnitModelWithScale({
+          mark: 'point',
           encoding: {
-            x: {field: "a", type: "nominal"}}
-        }), COLOR, 'symbol');
+            x: {field: 'a', type: 'nominal'},
+          },
+        }),
+        COLOR,
+        'symbol'
+      );
       assert.deepEqual(symbol.opacity['value'], 0.7); // default opacity is 0.7.
     });
 
-    it('should return the maximum value when there is a condition', function() {
-
-      const symbol = encode.symbols({field: 'a', type: 'nominal'}, {}, parseUnitModelWithScale({
-          mark: "point",
+    it('should return the maximum value when there is a condition', () => {
+      const symbol = encode.symbols(
+        {field: 'a', type: 'nominal'},
+        {},
+        parseUnitModelWithScale({
+          mark: 'point',
           encoding: {
-            x: {field: "a", type: "nominal"},
+            x: {field: 'a', type: 'nominal'},
             opacity: {
-              condition: {selection: "brush", value: 1},
-              value: 0
-            }}
-        }), COLOR, 'symbol');
-        assert.deepEqual(symbol.opacity['value'], 1);
+              condition: {selection: 'brush', value: 1},
+              value: 0,
+            },
+          },
+        }),
+        COLOR,
+        'symbol'
+      );
+      assert.deepEqual(symbol.opacity['value'], 1);
     });
   });
 
-  describe('encode.gradient', function() {
-    it('should have default opacity', function() {
-      const gradient = encode.gradient({field: 'a', type: 'quantitative'}, {}, parseUnitModelWithScale({
-          mark: "point",
+  describe('encode.gradient', () => {
+    it('should have default opacity', () => {
+      const gradient = encode.gradient(
+        {field: 'a', type: 'quantitative'},
+        {},
+        parseUnitModelWithScale({
+          mark: 'point',
           encoding: {
-            x: {field: "a", type: "quantitative"}}
-        }), COLOR, 'gradient');
+            x: {field: 'a', type: 'quantitative'},
+          },
+        }),
+        COLOR,
+        'gradient'
+      );
 
       assert.deepEqual(gradient.opacity['value'], 0.7); // default opacity is 0.7.
     });
   });
 
-  describe('encode.labels', function() {
-    it('should return correct expression for the timeUnit: TimeUnit.MONTH', function() {
-
+  describe('encode.labels', () => {
+    it('should return correct expression for the timeUnit: TimeUnit.MONTH', () => {
       const model = parseUnitModelWithScale({
-        mark: "point",
+        mark: 'point',
         encoding: {
-          x: {field: "a", type: "temporal"},
-          color: {field: "a", type: "temporal", timeUnit: "month"}
-        }
+          x: {field: 'a', type: 'temporal'},
+          color: {field: 'a', type: 'temporal', timeUnit: 'month'},
+        },
       });
 
       const fieldDef = {field: 'a', type: TEMPORAL, timeUnit: TimeUnit.MONTH};
@@ -88,13 +115,13 @@ describe('compile/legend', function() {
       assert.deepEqual(label.text.signal, expected);
     });
 
-    it('should return correct expression for the timeUnit: TimeUnit.QUARTER', function() {
-
+    it('should return correct expression for the timeUnit: TimeUnit.QUARTER', () => {
       const model = parseUnitModelWithScale({
-        mark: "point",
+        mark: 'point',
         encoding: {
-          x: {field: "a", type: "temporal"},
-          color: {field: "a", type: "temporal", timeUnit: "quarter"}}
+          x: {field: 'a', type: 'temporal'},
+          color: {field: 'a', type: 'temporal', timeUnit: 'quarter'},
+        },
       });
 
       const fieldDef = {field: 'a', type: TEMPORAL, timeUnit: TimeUnit.QUARTER};

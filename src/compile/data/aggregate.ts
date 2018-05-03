@@ -52,7 +52,11 @@ export class AggregateNode extends DataFlowNode {
    * @param dimensions string set for dimensions
    * @param measures dictionary mapping field name => dict of aggregation functions and names to use
    */
-  constructor(parent: DataFlowNode, private dimensions: StringSet, private measures: Dict<{[key in AggregateOp]?: string}>) {
+  constructor(
+    parent: DataFlowNode,
+    private dimensions: StringSet,
+    private measures: Dict<{[key in AggregateOp]?: string}>
+  ) {
     super(parent);
   }
 
@@ -92,7 +96,7 @@ export class AggregateNode extends DataFlowNode {
       }
     });
 
-    if ((keys(dims).length + keys(meas).length) === 0) {
+    if (keys(dims).length + keys(meas).length === 0) {
       return null;
     }
 
@@ -119,7 +123,7 @@ export class AggregateNode extends DataFlowNode {
       dims[s] = true;
     }
 
-    if ((keys(dims).length + keys(meas).length) === 0) {
+    if (keys(dims).length + keys(meas).length === 0) {
       return null;
     }
 
@@ -136,14 +140,14 @@ export class AggregateNode extends DataFlowNode {
   }
 
   public addDimensions(fields: string[]) {
-    fields.forEach(f => this.dimensions[f] = true);
+    fields.forEach(f => (this.dimensions[f] = true));
   }
 
   public dependentFields() {
     const out = {};
 
-    keys(this.dimensions).forEach(f => out[f] = true);
-    keys(this.measures).forEach(m => out[m] = true);
+    keys(this.dimensions).forEach(f => (out[f] = true));
+    keys(this.measures).forEach(m => (out[m] = true));
 
     return out;
   }
@@ -178,7 +182,7 @@ export class AggregateNode extends DataFlowNode {
       groupby: keys(this.dimensions),
       ops,
       fields,
-      as
+      as,
     };
 
     return result;

@@ -3,7 +3,17 @@ import {Config} from '../../config';
 import {FieldDef} from '../../fielddef';
 import * as log from '../../log';
 import {BarConfig, MarkDef} from '../../mark';
-import {channelScalePropertyIncompatability, Domain, hasContinuousDomain, isContinuousToContinuous, NiceTime, Scale, ScaleConfig, ScaleType, scaleTypeSupportProperty} from '../../scale';
+import {
+  channelScalePropertyIncompatability,
+  Domain,
+  hasContinuousDomain,
+  isContinuousToContinuous,
+  NiceTime,
+  Scale,
+  ScaleConfig,
+  ScaleType,
+  scaleTypeSupportProperty,
+} from '../../scale';
 import {SortField, SortOrder} from '../../sort';
 import {contains, keys} from '../../util';
 import * as util from '../../util';
@@ -43,7 +53,8 @@ function parseUnitScaleProperty(model: UnitModel, property: keyof (Scale | Scale
       // If there is a specified value, check if it is compatible with scale type and channel
       if (!supportedByScaleType) {
         log.warn(log.message.scalePropertyNotWorkWithScaleType(sType, property, channel));
-      } else if (channelIncompatability) { // channel
+      } else if (channelIncompatability) {
+        // channel
         log.warn(channelIncompatability);
       }
     }
@@ -53,12 +64,16 @@ function parseUnitScaleProperty(model: UnitModel, property: keyof (Scale | Scale
         localScaleCmpt.copyKeyFromObject(property, specifiedScale);
       } else {
         const value = getDefaultValue(
-          property, channel, fieldDef, sort,
+          property,
+          channel,
+          fieldDef,
+          sort,
           mergedScaleCmpt.get('type'),
           mergedScaleCmpt.get('padding'),
           mergedScaleCmpt.get('paddingInner'),
           specifiedScale.domain,
-          model.markDef, config
+          model.markDef,
+          config
         );
         if (value !== undefined) {
           localScaleCmpt.set(property, value, false);
@@ -70,9 +85,17 @@ function parseUnitScaleProperty(model: UnitModel, property: keyof (Scale | Scale
 
 // Note: This method is used in Voyager.
 export function getDefaultValue(
-  property: keyof Scale, channel: Channel, fieldDef: FieldDef<string>, sort: SortOrder | SortField<string> | string[],
-  scaleType: ScaleType, scalePadding: number, scalePaddingInner: number,
-  specifiedDomain: Scale['domain'], markDef: MarkDef, config: Config) {
+  property: keyof Scale,
+  channel: Channel,
+  fieldDef: FieldDef<string>,
+  sort: SortOrder | SortField<string> | string[],
+  scaleType: ScaleType,
+  scalePadding: number,
+  scalePaddingInner: number,
+  specifiedDomain: Scale['domain'],
+  markDef: MarkDef,
+  config: Config
+) {
   const scaleConfig = config.scale;
 
   // If we have default rule-base, determine default value first
@@ -113,7 +136,8 @@ export function parseNonUnitScaleProperty(model: Model, property: keyof (Scale |
       if (childComponent) {
         const childValueWithExplicit = childComponent.getWithExplicit(property);
         valueWithExplicit = mergeValuesWithExplicit<VgScale, any>(
-          valueWithExplicit, childValueWithExplicit,
+          valueWithExplicit,
+          childValueWithExplicit,
           property,
           'scale',
           tieBreakByComparing<VgScale, any>((v1, v2) => {
@@ -142,7 +166,14 @@ export function nice(scaleType: ScaleType, channel: Channel, fieldDef: FieldDef<
   return util.contains([X, Y], channel); // return true for quantitative X/Y unless binned
 }
 
-export function padding(channel: Channel, scaleType: ScaleType, scaleConfig: ScaleConfig, fieldDef: FieldDef<string>, markDef: MarkDef, barConfig: BarConfig) {
+export function padding(
+  channel: Channel,
+  scaleType: ScaleType,
+  scaleConfig: ScaleConfig,
+  fieldDef: FieldDef<string>,
+  markDef: MarkDef,
+  barConfig: BarConfig
+) {
   if (util.contains([X, Y], channel)) {
     if (isContinuousToContinuous(scaleType)) {
       if (scaleConfig.continuousPadding !== undefined) {
@@ -151,10 +182,7 @@ export function padding(channel: Channel, scaleType: ScaleType, scaleConfig: Sca
 
       const {type, orient} = markDef;
       if (type === 'bar' && !fieldDef.bin) {
-        if (
-          (orient === 'vertical' && channel === 'x') ||
-          (orient === 'horizontal' && channel === 'y')
-        ) {
+        if ((orient === 'vertical' && channel === 'x') || (orient === 'horizontal' && channel === 'y')) {
           return barConfig.continuousBandSize;
         }
       }
@@ -183,7 +211,13 @@ export function paddingInner(paddingValue: number, channel: Channel, scaleConfig
   return undefined;
 }
 
-export function paddingOuter(paddingValue: number, channel: Channel, scaleType: ScaleType, paddingInnerValue: number, scaleConfig: ScaleConfig) {
+export function paddingOuter(
+  paddingValue: number,
+  channel: Channel,
+  scaleType: ScaleType,
+  paddingInnerValue: number,
+  scaleConfig: ScaleConfig
+) {
   if (paddingValue !== undefined) {
     // If user has already manually specified "padding", no need to add default paddingOuter.
     return undefined;
@@ -216,7 +250,6 @@ export function reverse(scaleType: ScaleType, sort: SortOrder | SortField<string
 }
 
 export function zero(channel: Channel, fieldDef: FieldDef<string>, specifiedScale: Domain, markDef: MarkDef) {
-
   // If users explicitly provide a domain range, we should not augment zero as that will be unexpected.
   const hasCustomDomain = !!specifiedScale && specifiedScale !== 'unaggregated';
   if (hasCustomDomain) {
@@ -237,10 +270,7 @@ export function zero(channel: Channel, fieldDef: FieldDef<string>, specifiedScal
   if (!fieldDef.bin && util.contains([X, Y], channel)) {
     const {orient, type} = markDef;
     if (contains(['bar', 'area', 'line', 'trail'], type)) {
-      if (
-        (orient === 'horizontal' && channel === 'y') ||
-        (orient === 'vertical' && channel === 'x')
-      ) {
+      if ((orient === 'horizontal' && channel === 'y') || (orient === 'vertical' && channel === 'x')) {
         return false;
       }
     }

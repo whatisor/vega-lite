@@ -8,7 +8,7 @@ import {contains} from '../../util';
 export function values(legend: Legend) {
   const vals = legend.values;
   if (vals && isDateTime(vals[0])) {
-    return (vals as DateTime[]).map((dt) => {
+    return (vals as DateTime[]).map(dt => {
       // normalize = true as end user won't put 0 = January
       return {signal: dateTimeExpr(dt, true)};
     });
@@ -18,11 +18,10 @@ export function values(legend: Legend) {
 
 export function type(t: Type, channel: Channel, scaleType: ScaleType): 'gradient' {
   if (
-      isColorChannel(channel) && (
-        (t === 'quantitative' && !isBinScale(scaleType)) ||
-        (t === 'temporal' && contains<ScaleType>(['time', 'utc'], scaleType))
-      )
-    ) {
+    isColorChannel(channel) &&
+    ((t === 'quantitative' && !isBinScale(scaleType)) ||
+      (t === 'temporal' && contains<ScaleType>(['time', 'utc'], scaleType)))
+  ) {
     return 'gradient';
   }
   return undefined;

@@ -70,7 +70,7 @@ function embedExample($target: any, spec: TopLevelSpec, actions=true, tooltip=tr
       .append('a')
       .text('Open in Vega Editor')
       .attr('href', '#')
-      .on('click', function () {
+      .on('click', () => {
         post(window, editorURL, {
           mode: 'vega-lite',
           spec: JSON.stringify(spec, null, 2),
@@ -89,7 +89,7 @@ function getSpec(el: d3.BaseType) {
     const dir = sel.attr('data-dir');
     const fullUrl = BASEURL + '/examples/specs/' + (dir ? (dir + '/') : '') + name + '.vl.json';
 
-    text(fullUrl, function(error, spec) {
+    text(fullUrl, (error, spec) => {
       if (error) {
         console.error(error);
       } else {
@@ -101,13 +101,13 @@ function getSpec(el: d3.BaseType) {
   }
 }
 
-window['changeSpec'] = function(elId: string, newSpec: string) {
+window['changeSpec'] = (elId: string, newSpec: string) => {
   const el = document.getElementById(elId);
   select(el).attr('data-name', newSpec);
   getSpec(el);
 };
 
-window['buildSpecOpts'] = function(id: string, baseName: string) {
+window['buildSpecOpts'] = (id: string, baseName: string) => {
   const oldName = select('#' + id).attr('data-name');
   const prefixSel = select('select[name=' + id + ']');
   const inputsSel = selectAll('input[name=' + id + ']:checked');
@@ -157,7 +157,7 @@ function carouselShow(slides: NodeListOf<any>, indicators: NodeListOf<any>, link
 }
 
 function setSlide(slides: NodeListOf<Element>, indicators: NodeListOf<Element>, links: NodeListOf<any>, active: number) {
-  return function() {
+  return () => {
     // Reset all slides
     for (let i = 0; i < indicators.length; i++) {
       indicators[i].setAttribute('data-state', '');

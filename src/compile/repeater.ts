@@ -26,7 +26,7 @@ function replaceRepeat<T extends {field?: Field}>(o: T, repeater: RepeaterValue)
   if (isRepeatRef(o.field)) {
     if (o.field.repeat in repeater) {
       // any needed to calm down ts compiler
-      return {...o as any, field: repeater[o.field.repeat]};
+      return {...(o as any), field: repeater[o.field.repeat]};
     } else {
       log.warn(log.message.noSuchRepeatedValue(o.field.repeat));
       return undefined;
@@ -50,7 +50,7 @@ function replaceRepeaterInFieldDef(fieldDef: ScaleFieldDef<Field>, repeater: Rep
     const sort = replaceRepeat(fieldDef.sort, repeater);
     fieldDef = {
       ...fieldDef,
-      ...(sort ? {sort} : {})
+      ...(sort ? {sort} : {}),
     };
   }
 
@@ -71,7 +71,7 @@ function replaceRepeaterInChannelDef(channelDef: ChannelDef<Field>, repeater: Re
       if (fd) {
         return {
           ...channelDef,
-          condition: fd
+          condition: fd,
         } as ChannelDef<string>;
       } else {
         const {condition, ...channelDefWithoutCondition} = channelDef;
@@ -93,8 +93,7 @@ function replaceRepeater(mapping: EncodingOrFacet<Field>, repeater: RepeaterValu
 
       if (isArray(channelDef)) {
         // array cannot have condition
-        out[channel] = channelDef.map(cd => replaceRepeaterInChannelDef(cd, repeater))
-          .filter(cd => cd);
+        out[channel] = channelDef.map(cd => replaceRepeaterInChannelDef(cd, repeater)).filter(cd => cd);
       } else {
         const cd = replaceRepeaterInChannelDef(channelDef, repeater);
         if (cd) {

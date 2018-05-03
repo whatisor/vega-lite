@@ -3,7 +3,6 @@ import {isArray, isString} from 'vega-util';
 
 import {VgComparatorOrder} from './vega.schema';
 
-
 export type SortOrder = VgComparatorOrder | null;
 
 export interface SortField<F> {

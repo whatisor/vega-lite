@@ -5,19 +5,26 @@ import {selectionPredicate} from './compile/selection/selection';
 import {DateTime, dateTimeExpr, isDateTime} from './datetime';
 import {vgField} from './fielddef';
 import {LogicalOperand} from './logical';
-import {fieldExpr as timeUnitFieldExpr, getLocalTimeUnit, isLocalSingleTimeUnit, isUtcSingleTimeUnit, normalizeTimeUnit, TimeUnit} from './timeunit';
+import {
+  fieldExpr as timeUnitFieldExpr,
+  getLocalTimeUnit,
+  isLocalSingleTimeUnit,
+  isUtcSingleTimeUnit,
+  normalizeTimeUnit,
+  TimeUnit,
+} from './timeunit';
 import {logicalExpr} from './util';
 
 export type Predicate =
   // a) FieldPrecidate (but we don't type FieldFilter here so the schema has no nesting
   // and thus the documentation shows all of the types clearly)
-  FieldEqualPredicate | FieldRangePredicate | FieldOneOfPredicate |
+  | FieldEqualPredicate
+  | FieldRangePredicate
+  | FieldOneOfPredicate
   // b) Selection Predicate
-  SelectionPredicate |
+  | SelectionPredicate
   // c) Vega Expression string
-  string;
-
-
+  | string;
 
 export type FieldPredicate = FieldEqualPredicate | FieldRangePredicate | FieldOneOfPredicate;
 
@@ -49,7 +56,6 @@ export interface FieldEqualPredicate {
    * The value that the field should be equal to.
    */
   equal: string | number | boolean | DateTime;
-
 }
 
 export function isFieldEqualPredicate(predicate: any): predicate is FieldEqualPredicate {
@@ -75,8 +81,7 @@ export interface FieldRangePredicate {
    * @maxItems 2
    * @minItems 2
    */
-  range: (number|DateTime|null)[];
-
+  range: (number | DateTime | null)[];
 }
 
 export function isFieldRangePredicate(predicate: any): predicate is FieldRangePredicate {
@@ -106,17 +111,17 @@ export interface FieldOneOfPredicate {
    * for a data item included in the filtered data.
    */
   oneOf: string[] | number[] | boolean[] | DateTime[];
-
 }
 
 export function isFieldOneOfPredicate(predicate: any): predicate is FieldOneOfPredicate {
-  return predicate && !!predicate.field && (
-    isArray(predicate.oneOf) ||
-    isArray(predicate.in) // backward compatibility
+  return (
+    predicate && !!predicate.field && (isArray(predicate.oneOf) || isArray(predicate.in)) // backward compatibility
   );
 }
 
-export function isFieldPredicate(predicate: Predicate): predicate is FieldOneOfPredicate | FieldEqualPredicate | FieldRangePredicate {
+export function isFieldPredicate(
+  predicate: Predicate
+): predicate is FieldOneOfPredicate | FieldEqualPredicate | FieldRangePredicate {
   return isFieldOneOfPredicate(predicate) || isFieldEqualPredicate(predicate) || isFieldRangePredicate(predicate);
 }
 
@@ -130,37 +135,42 @@ export function expression(model: Model, filterOp: LogicalOperand<Predicate>, no
       return predicate;
     } else if (isSelectionPredicate(predicate)) {
       return selectionPredicate(model, predicate.selection, node);
-    } else { // Filter Object
+    } else {
+      // Filter Object
       return fieldFilterExpression(predicate);
     }
   });
 }
 
 // This method is used by Voyager.  Do not change its behavior without changing Voyager.
-export function fieldFilterExpression(predicate: FieldPredicate, useInRange=true) {
-  const fieldExpr = predicate.timeUnit ?
-    // For timeUnit, cast into integer with time() so we can use ===, inrange, indexOf to compare values directly.
+export function fieldFilterExpression(predicate: FieldPredicate, useInRange = true) {
+  const fieldExpr = predicate.timeUnit
+    ? // For timeUnit, cast into integer with time() so we can use ===, inrange, indexOf to compare values directly.
       // TODO: We calculate timeUnit on the fly here. Consider if we would like to consolidate this with timeUnit pipeline
       // TODO: support utc
-    ('time(' + timeUnitFieldExpr(predicate.timeUnit, predicate.field) + ')') :
-    vgField(predicate, {expr: 'datum'});
+      'time(' + timeUnitFieldExpr(predicate.timeUnit, predicate.field) + ')'
+    : vgField(predicate, {expr: 'datum'});
 
   if (isFieldEqualPredicate(predicate)) {
     return fieldExpr + '===' + valueExpr(predicate.equal, predicate.timeUnit);
   } else if (isFieldOneOfPredicate(predicate)) {
     // "oneOf" was formerly "in" -- so we need to add backward compatibility
     const oneOf: FieldOneOfPredicate[] = predicate.oneOf || predicate['in'];
-    return 'indexof([' +
-      oneOf.map((v) => valueExpr(v, predicate.timeUnit)).join(',') +
-      '], ' + fieldExpr + ') !== -1';
+    return 'indexof([' + oneOf.map(v => valueExpr(v, predicate.timeUnit)).join(',') + '], ' + fieldExpr + ') !== -1';
   } else if (isFieldRangePredicate(predicate)) {
     const lower = predicate.range[0];
     const upper = predicate.range[1];
 
     if (lower !== null && upper !== null && useInRange) {
-      return 'inrange(' + fieldExpr + ', [' +
-        valueExpr(lower, predicate.timeUnit) + ', ' +
-        valueExpr(upper, predicate.timeUnit) + '])';
+      return (
+        'inrange(' +
+        fieldExpr +
+        ', [' +
+        valueExpr(lower, predicate.timeUnit) +
+        ', ' +
+        valueExpr(upper, predicate.timeUnit) +
+        '])'
+      );
     }
 
     const exprs = [];
@@ -198,7 +208,7 @@ export function normalizePredicate(f: Predicate): Predicate {
   if (isFieldPredicate(f) && f.timeUnit) {
     return {
       ...f,
-      timeUnit: normalizeTimeUnit(f.timeUnit)
+      timeUnit: normalizeTimeUnit(f.timeUnit),
     };
   }
   return f;

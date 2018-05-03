@@ -122,12 +122,12 @@ export function isColorChannel(channel: Channel): channel is ColorChannel {
 
 const FACET_CHANNEL_INDEX: Flag<keyof FacetMapping<any>> = {
   row: 1,
-  column: 1
+  column: 1,
 };
 
 const CHANNEL_INDEX = {
   ...UNIT_CHANNEL_INDEX,
-  ...FACET_CHANNEL_INDEX
+  ...FACET_CHANNEL_INDEX,
 };
 
 export const CHANNELS = flagKeys(CHANNEL_INDEX);
@@ -147,12 +147,27 @@ export const SINGLE_DEF_CHANNELS: SingleDefChannel[] = flagKeys(SINGLE_DEF_CHANN
 // Using the following line leads to TypeError: Cannot read property 'elementTypes' of undefined
 // when running the schema generator
 // export type SingleDefChannel = typeof SINGLE_DEF_CHANNELS[0];
-export type SingleDefChannel = 'x' | 'y' | 'x2' | 'y2' |
-  'longitude' | 'latitude' | 'longitude2' | 'latitude2' |
-  'row' | 'column' |
-  'color' | 'fill' | 'stroke' |
-  'size' | 'shape' | 'opacity' |
-  'text' | 'tooltip' | 'href' | 'key';
+export type SingleDefChannel =
+  | 'x'
+  | 'y'
+  | 'x2'
+  | 'y2'
+  | 'longitude'
+  | 'latitude'
+  | 'longitude2'
+  | 'latitude2'
+  | 'row'
+  | 'column'
+  | 'color'
+  | 'fill'
+  | 'stroke'
+  | 'size'
+  | 'shape'
+  | 'opacity'
+  | 'text'
+  | 'tooltip'
+  | 'href'
+  | 'key';
 
 export function isChannel(str: string): str is Channel {
   return !!CHANNEL_INDEX[str];
@@ -161,14 +176,17 @@ export function isChannel(str: string): str is Channel {
 // CHANNELS without COLUMN, ROW
 export const UNIT_CHANNELS = flagKeys(UNIT_CHANNEL_INDEX);
 
-
 // NONPOSITION_CHANNELS = UNIT_CHANNELS without X, Y, X2, Y2;
 const {
-  x: _x, y: _y,
+  x: _x,
+  y: _y,
   // x2 and y2 share the same scale as x and y
-  x2: _x2, y2: _y2,
-  latitude: _latitude, longitude: _longitude,
-  latitude2: _latitude2, longitude2: _longitude2,
+  x2: _x2,
+  y2: _y2,
+  latitude: _latitude,
+  longitude: _longitude,
+  latitude2: _latitude2,
+  longitude2: _longitude2,
   // The rest of unit channels then have scale
   ...NONPOSITION_CHANNEL_INDEX
 } = UNIT_CHANNEL_INDEX;
@@ -177,7 +195,7 @@ export const NONPOSITION_CHANNELS = flagKeys(NONPOSITION_CHANNEL_INDEX);
 export type NonPositionChannel = typeof NONPOSITION_CHANNELS[0];
 
 // POSITION_SCALE_CHANNELS = X and Y;
-const POSITION_SCALE_CHANNEL_INDEX: {x:1, y:1} = {x:1, y:1};
+const POSITION_SCALE_CHANNEL_INDEX: {x: 1; y: 1} = {x: 1, y: 1};
 export const POSITION_SCALE_CHANNELS = flagKeys(POSITION_SCALE_CHANNEL_INDEX);
 export type PositionScaleChannel = typeof POSITION_SCALE_CHANNELS[0];
 
@@ -186,9 +204,13 @@ const {
   // x2 and y2 share the same scale as x and y
   // text and tooltip have format instead of scale,
   // href has neither format, nor scale
-  text: _t, tooltip: _tt, href: _hr,
+  text: _t,
+  tooltip: _tt,
+  href: _hr,
   // detail and order have no scale
-  detail: _dd, key: _k, order: _oo,
+  detail: _dd,
+  key: _k,
+  order: _oo,
   ...NONPOSITION_SCALE_CHANNEL_INDEX
 } = NONPOSITION_CHANNEL_INDEX;
 export const NONPOSITION_SCALE_CHANNELS = flagKeys(NONPOSITION_SCALE_CHANNEL_INDEX);
@@ -197,7 +219,7 @@ export type NonPositionScaleChannel = typeof NONPOSITION_SCALE_CHANNELS[0];
 // Declare SCALE_CHANNEL_INDEX
 const SCALE_CHANNEL_INDEX = {
   ...POSITION_SCALE_CHANNEL_INDEX,
-  ...NONPOSITION_SCALE_CHANNEL_INDEX
+  ...NONPOSITION_SCALE_CHANNEL_INDEX,
 };
 
 /** List of channels with scales */
@@ -208,9 +230,7 @@ export function isScaleChannel(channel: Channel): channel is ScaleChannel {
   return !!SCALE_CHANNEL_INDEX[channel];
 }
 
-export type SupportedMark = {
-  [mark in Mark]?: boolean
-};
+export type SupportedMark = {[mark in Mark]?: boolean};
 
 /**
  * Return whether a channel supports a particular mark type.
@@ -237,33 +257,64 @@ export function getSupportedMark(channel: Channel): SupportedMark {
     case KEY:
     case TOOLTIP:
     case HREF:
-    case ORDER:    // TODO: revise (order might not support rect, which is not stackable?)
+    case ORDER: // TODO: revise (order might not support rect, which is not stackable?)
     case OPACITY:
     case ROW:
     case COLUMN:
-      return { // all marks
-        point: true, tick: true, rule: true, circle: true, square: true,
-        bar: true, rect: true, line: true, trail: true, area: true, text: true, geoshape: true
+      return {
+        // all marks
+        point: true,
+        tick: true,
+        rule: true,
+        circle: true,
+        square: true,
+        bar: true,
+        rect: true,
+        line: true,
+        trail: true,
+        area: true,
+        text: true,
+        geoshape: true,
       };
     case X:
     case Y:
     case LATITUDE:
     case LONGITUDE:
-      return { // all marks except geoshape. geoshape does not use X, Y -- it uses a projection
-        point: true, tick: true, rule: true, circle: true, square: true,
-        bar: true, rect: true, line: true, trail: true, area: true, text: true
+      return {
+        // all marks except geoshape. geoshape does not use X, Y -- it uses a projection
+        point: true,
+        tick: true,
+        rule: true,
+        circle: true,
+        square: true,
+        bar: true,
+        rect: true,
+        line: true,
+        trail: true,
+        area: true,
+        text: true,
       };
     case X2:
     case Y2:
     case LATITUDE2:
     case LONGITUDE2:
       return {
-        rule: true, bar: true, rect: true, area: true
+        rule: true,
+        bar: true,
+        rect: true,
+        area: true,
       };
     case SIZE:
       return {
-        point: true, tick: true, rule: true, circle: true, square: true,
-        bar: true, text: true, line: true, trail: true
+        point: true,
+        tick: true,
+        rule: true,
+        circle: true,
+        square: true,
+        bar: true,
+        text: true,
+        line: true,
+        trail: true,
       };
     case SHAPE:
       return {point: true, geoshape: true};

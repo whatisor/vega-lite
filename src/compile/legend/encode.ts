@@ -20,14 +20,20 @@ import {applyMarkConfig, timeFormatExpression} from '../common';
 import * as mixins from '../mark/mixins';
 import {UnitModel} from '../unit';
 
-export function symbols(fieldDef: FieldDef<string>, symbolsSpec: any, model: UnitModel, channel: Channel, type: LegendType): VgEncodeEntry {
+export function symbols(
+  fieldDef: FieldDef<string>,
+  symbolsSpec: any,
+  model: UnitModel,
+  channel: Channel,
+  type: LegendType
+): VgEncodeEntry {
   if (type === 'gradient') {
     return undefined;
   }
 
   let out = {
     ...applyMarkConfig({}, model, FILL_STROKE_CONFIG),
-    ...mixins.color(model)
+    ...mixins.color(model),
   };
 
   switch (model.mark) {
@@ -60,7 +66,8 @@ export function symbols(fieldDef: FieldDef<string>, symbolsSpec: any, model: Uni
         // For others, remove fill field
         delete out.fill;
       } else if (isArray(out.fill)) {
-        const fill = getFirstConditionValue(encoding.fill || encoding.color) || markDef.fill || (filled && markDef.color);
+        const fill =
+          getFirstConditionValue(encoding.fill || encoding.color) || markDef.fill || (filled && markDef.color);
         if (fill) {
           out.fill = {value: fill};
         }
@@ -76,7 +83,8 @@ export function symbols(fieldDef: FieldDef<string>, symbolsSpec: any, model: Uni
         // For others, remove stroke field
         delete out.stroke;
       } else if (isArray(out.stroke)) {
-        const stroke = getFirstConditionValue(encoding.stroke || encoding.color) || markDef.stroke || (!filled && markDef.color);
+        const stroke =
+          getFirstConditionValue(encoding.stroke || encoding.color) || markDef.stroke || (!filled && markDef.color);
         if (stroke) {
           out.stroke = {value: stroke};
         }
@@ -98,7 +106,8 @@ export function symbols(fieldDef: FieldDef<string>, symbolsSpec: any, model: Uni
 
   if (channel !== OPACITY) {
     const opacity = getMaxValue(encoding.opacity) || markDef.opacity;
-    if (opacity) { // only apply opacity if it is neither zero or undefined
+    if (opacity) {
+      // only apply opacity if it is neither zero or undefined
       out.opacity = {value: opacity};
     }
   }
@@ -108,12 +117,19 @@ export function symbols(fieldDef: FieldDef<string>, symbolsSpec: any, model: Uni
   return keys(out).length > 0 ? out : undefined;
 }
 
-export function gradient(fieldDef: FieldDef<string>, gradientSpec: any, model: UnitModel, channel: Channel, type: LegendType) {
+export function gradient(
+  fieldDef: FieldDef<string>,
+  gradientSpec: any,
+  model: UnitModel,
+  channel: Channel,
+  type: LegendType
+) {
   let out: any = {};
 
   if (type === 'gradient') {
     const opacity = getMaxValue(model.encoding.opacity) || model.markDef.opacity;
-    if (opacity) { // only apply opacity if it is neither zero or undefined
+    if (opacity) {
+      // only apply opacity if it is neither zero or undefined
       out.opacity = {value: opacity};
     }
   }
@@ -122,7 +138,13 @@ export function gradient(fieldDef: FieldDef<string>, gradientSpec: any, model: U
   return keys(out).length > 0 ? out : undefined;
 }
 
-export function labels(fieldDef: FieldDef<string>, labelsSpec: any, model: UnitModel, channel: NonPositionScaleChannel, type: LegendType) {
+export function labels(
+  fieldDef: FieldDef<string>,
+  labelsSpec: any,
+  model: UnitModel,
+  channel: NonPositionScaleChannel,
+  type: LegendType
+) {
   const legend = model.legend(channel);
   const config = model.config;
 
@@ -132,7 +154,14 @@ export function labels(fieldDef: FieldDef<string>, labelsSpec: any, model: UnitM
     const isUTCScale = model.getScaleComponent(channel).get('type') === ScaleType.UTC;
     labelsSpec = {
       text: {
-        signal: timeFormatExpression('datum.value', fieldDef.timeUnit, legend.format, config.legend.shortTimeLabels, config.timeFormat, isUTCScale)
+        signal: timeFormatExpression(
+          'datum.value',
+          fieldDef.timeUnit,
+          legend.format,
+          config.legend.shortTimeLabels,
+          config.timeFormat,
+          isUTCScale
+        ),
       },
       ...labelsSpec,
     };
@@ -143,26 +172,27 @@ export function labels(fieldDef: FieldDef<string>, labelsSpec: any, model: UnitM
   return keys(out).length > 0 ? out : undefined;
 }
 
-function getMaxValue(channelDef: FieldDefWithCondition<MarkPropFieldDef<string>> | ValueDefWithCondition<MarkPropFieldDef<string>>) {
-  return getConditionValue(channelDef,
-    (v: number, conditionalDef) => Math.max(v, conditionalDef.value as any)
-  );
+function getMaxValue(
+  channelDef: FieldDefWithCondition<MarkPropFieldDef<string>> | ValueDefWithCondition<MarkPropFieldDef<string>>
+) {
+  return getConditionValue(channelDef, (v: number, conditionalDef) => Math.max(v, conditionalDef.value as any));
 }
 
-function getFirstConditionValue(channelDef: FieldDefWithCondition<MarkPropFieldDef<string>> | ValueDefWithCondition<MarkPropFieldDef<string>>) {
-  return getConditionValue(channelDef,
-    (v: number, conditionalDef) => v !== undefined ? v : conditionalDef.value
-  );
+function getFirstConditionValue(
+  channelDef: FieldDefWithCondition<MarkPropFieldDef<string>> | ValueDefWithCondition<MarkPropFieldDef<string>>
+) {
+  return getConditionValue(channelDef, (v: number, conditionalDef) => (v !== undefined ? v : conditionalDef.value));
 }
 
 function getConditionValue<T>(
   channelDef: FieldDefWithCondition<MarkPropFieldDef<string>> | ValueDefWithCondition<MarkPropFieldDef<string>>,
   reducer: (val: T, conditionalDef: Conditional<ValueDef>) => T
 ): T {
-
   if (hasConditionalValueDef(channelDef)) {
-    return (isArray(channelDef.condition) ? channelDef.condition : [channelDef.condition])
-      .reduce(reducer, channelDef.value as any);
+    return (isArray(channelDef.condition) ? channelDef.condition : [channelDef.condition]).reduce(
+      reducer,
+      channelDef.value as any
+    );
   } else if (isValueDef(channelDef)) {
     return channelDef.value as any;
   }

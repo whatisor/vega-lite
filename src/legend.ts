@@ -3,7 +3,6 @@ import {Guide, GuideEncodingEntry, VlOnlyGuideConfig} from './guide';
 import {Flag, flagKeys} from './util';
 import {VgLegend, VgLegendBase, VgLegendConfig} from './vega.schema';
 
-
 export interface LegendConfig extends VgLegendConfig, VlOnlyGuideConfig {}
 
 /**
@@ -84,7 +83,7 @@ const COMMON_LEGEND_PROPERTY_INDEX: Flag<keyof (VgLegend | Legend)> = {
   title: 1,
   type: 1,
   values: 1,
-  zindex: 1
+  zindex: 1,
 };
 
 const VG_LEGEND_PROPERTY_INDEX: Flag<keyof VgLegend> = {
@@ -96,7 +95,7 @@ const VG_LEGEND_PROPERTY_INDEX: Flag<keyof VgLegend> = {
   fill: 1,
   size: 1,
   // encode
-  encode: 1
+  encode: 1,
 };
 
 export const LEGEND_PROPERTIES = flagKeys(COMMON_LEGEND_PROPERTY_INDEX);

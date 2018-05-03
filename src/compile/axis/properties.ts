@@ -12,7 +12,6 @@ import {contains} from '../../util';
 import {VgSignalRef} from '../../vega.schema';
 import {UnitModel} from '../unit';
 
-
 // TODO: we need to refactor this method after we take care of config refactoring
 /**
  * Default rules for whether to show a grid should be shown for a channel.
@@ -40,7 +39,12 @@ export function labelFlush(fieldDef: FieldDef<string>, channel: PositionScaleCha
   return undefined;
 }
 
-export function labelOverlap(fieldDef: FieldDef<string>, specifiedAxis: Axis, channel: PositionScaleChannel, scaleType: ScaleType) {
+export function labelOverlap(
+  fieldDef: FieldDef<string>,
+  specifiedAxis: Axis,
+  channel: PositionScaleChannel,
+  scaleType: ScaleType
+) {
   if (specifiedAxis.labelOverlap !== undefined) {
     return specifiedAxis.labelOverlap;
   }
@@ -67,9 +71,17 @@ export function orient(channel: PositionScaleChannel) {
   throw new Error(log.message.INVALID_CHANNEL_FOR_AXIS);
 }
 
-export function tickCount(channel: PositionScaleChannel, fieldDef: FieldDef<string>, scaleType: ScaleType, size: VgSignalRef) {
-  if (!hasDiscreteDomain(scaleType) && scaleType !== 'log' && !contains(['month', 'hours', 'day', 'quarter'], fieldDef.timeUnit)) {
-
+export function tickCount(
+  channel: PositionScaleChannel,
+  fieldDef: FieldDef<string>,
+  scaleType: ScaleType,
+  size: VgSignalRef
+) {
+  if (
+    !hasDiscreteDomain(scaleType) &&
+    scaleType !== 'log' &&
+    !contains(['month', 'hours', 'day', 'quarter'], fieldDef.timeUnit)
+  ) {
     if (fieldDef.bin) {
       // for binned data, we don't want more ticks than maxbins
       return {signal: `ceil(${size.signal}/20)`};
@@ -86,10 +98,15 @@ export function title(maxLength: number, fieldDef: FieldDef<string>, config: Con
   return maxLength ? truncate(fieldTitle, maxLength) : fieldTitle;
 }
 
-export function values(specifiedAxis: Axis, model: UnitModel, fieldDef: FieldDef<string>, channel: PositionScaleChannel) {
+export function values(
+  specifiedAxis: Axis,
+  model: UnitModel,
+  fieldDef: FieldDef<string>,
+  channel: PositionScaleChannel
+) {
   const vals = specifiedAxis.values;
   if (specifiedAxis.values && isDateTime(vals[0])) {
-    return (vals as DateTime[]).map((dt) => {
+    return (vals as DateTime[]).map(dt => {
       // normalize = true as end user won't put 0 = January
       return {signal: dateTimeExpr(dt, true)};
     });
@@ -97,7 +114,8 @@ export function values(specifiedAxis: Axis, model: UnitModel, fieldDef: FieldDef
 
   if (!vals && fieldDef.bin && fieldDef.type === QUANTITATIVE) {
     const domain = model.scaleDomain(channel);
-    if (domain && domain !== 'unaggregated' && !isSelectionDomain(domain)) { // explicit value
+    if (domain && domain !== 'unaggregated' && !isSelectionDomain(domain)) {
+      // explicit value
       return vals;
     }
     const signal = model.getName(`${binToString(fieldDef.bin)}_${fieldDef.field}_bins`);

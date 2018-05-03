@@ -1,5 +1,3 @@
-/* tslint:disable:quotemark */
-
 import {assert} from 'chai';
 
 import {StackComponent, StackNode} from '../../../src/compile/data/stack';
@@ -19,12 +17,12 @@ function assemble(model: UnitModel) {
 describe('compile/data/stack', () => {
   it('should produce correct stack component for bar with color', () => {
     const model = parseUnitModelWithScale({
-      "mark": "bar",
-      "encoding": {
-        "x": {"aggregate": "sum", "field": "a", "type": "quantitative"},
-        "y": {"field": "b", "type": "nominal"},
-        "color": {"field": "c", "type": "ordinal",}
-      }
+      mark: 'bar',
+      encoding: {
+        x: {aggregate: 'sum', field: 'a', type: 'quantitative'},
+        y: {field: 'b', type: 'nominal'},
+        color: {field: 'c', type: 'ordinal'},
+      },
     });
 
     assert.deepEqual<StackComponent>(parse(model), {
@@ -34,44 +32,44 @@ describe('compile/data/stack', () => {
       stackby: ['c'],
       sort: {
         field: ['c'],
-        order: ['descending']
+        order: ['descending'],
       },
       offset: 'zero',
-      impute: false
+      impute: false,
     });
   });
 
   it('should produce correct stack component with both start and end of the binned field for bar with color and binned y', () => {
     const model = parseUnitModelWithScale({
-      "mark": "bar",
-      "encoding": {
-        "x": {"aggregate": "sum", "field": "a", "type": "quantitative"},
-        "y": {"bin": true, "field": "b", "type": "quantitative"},
-        "color": {"field": "c", "type": "ordinal",}
-      }
+      mark: 'bar',
+      encoding: {
+        x: {aggregate: 'sum', field: 'a', type: 'quantitative'},
+        y: {bin: true, field: 'b', type: 'quantitative'},
+        color: {field: 'c', type: 'ordinal'},
+      },
     });
 
     assert.deepEqual<StackComponent>(parse(model), {
-      dimensionFieldDef: {"bin": {maxbins: 10}, "field": "b", "type": "quantitative"},
+      dimensionFieldDef: {bin: {maxbins: 10}, field: 'b', type: 'quantitative'},
       facetby: [],
       field: 'sum_a',
       stackby: ['c'],
       sort: {
         field: ['c'],
-        order: ['descending']
+        order: ['descending'],
       },
       offset: 'zero',
-      impute: false
+      impute: false,
     });
   });
 
   it('should produce correct stack component for 1D bar with color', () => {
     const model = parseUnitModelWithScale({
-      "mark": "bar",
-      "encoding": {
-        "x": {"aggregate": "sum", "field": "a", "type": "quantitative"},
-        "color": {"field": "c", "type": "ordinal",}
-      }
+      mark: 'bar',
+      encoding: {
+        x: {aggregate: 'sum', field: 'a', type: 'quantitative'},
+        color: {field: 'c', type: 'ordinal'},
+      },
     });
 
     assert.deepEqual<StackComponent>(parse(model), {
@@ -81,35 +79,36 @@ describe('compile/data/stack', () => {
       stackby: ['c'],
       sort: {
         field: ['c'],
-        order: ['descending']
+        order: ['descending'],
       },
       offset: 'zero',
-      impute: false
+      impute: false,
     });
 
-    assert.deepEqual<VgTransform[]>(assemble(model), [{
+    assert.deepEqual<VgTransform[]>(assemble(model), [
+      {
         type: 'stack',
         groupby: [],
         field: 'sum_a',
         sort: {
           field: ['c'],
-          order: ['descending']
+          order: ['descending'],
         },
         as: ['sum_a_start', 'sum_a_end'],
-        offset: 'zero'
-      }
+        offset: 'zero',
+      },
     ]);
   });
 
-  it('should produce correct stack component for area with color and order', function() {
+  it('should produce correct stack component for area with color and order', () => {
     const model = parseUnitModelWithScale({
-      "mark": "area",
-      "encoding": {
-        "x": {"aggregate": "sum", "field": "a", "type": "quantitative"},
-        "y": {"field": "b", "type": "nominal"},
-        "color": {"field": "c", "type": "nominal"},
-        "order": {"aggregate": "mean", "field": "d", "type": "quantitative"}
-      }
+      mark: 'area',
+      encoding: {
+        x: {aggregate: 'sum', field: 'a', type: 'quantitative'},
+        y: {field: 'b', type: 'nominal'},
+        color: {field: 'c', type: 'nominal'},
+        order: {aggregate: 'mean', field: 'd', type: 'quantitative'},
+      },
     });
 
     assert.deepEqual<StackComponent>(parse(model), {
@@ -119,10 +118,10 @@ describe('compile/data/stack', () => {
       stackby: ['c'],
       sort: {
         field: ['mean_d'],
-        order: ['ascending']
+        order: ['ascending'],
       },
       offset: 'zero',
-      impute: true
+      impute: true,
     });
 
     assert.deepEqual<VgTransform[]>(assemble(model), [
@@ -131,8 +130,8 @@ describe('compile/data/stack', () => {
         field: 'sum_a',
         groupby: ['c'],
         key: 'b',
-        method: "value",
-        value: 0
+        method: 'value',
+        value: 0,
       },
       {
         type: 'stack',
@@ -140,50 +139,50 @@ describe('compile/data/stack', () => {
         field: 'sum_a',
         sort: {
           field: ['mean_d'],
-          order: ['ascending']
+          order: ['ascending'],
         },
         as: ['sum_a_start', 'sum_a_end'],
-        offset: 'zero'
-      }
+        offset: 'zero',
+      },
     ]);
   });
 
-  it('should produce correct stack component for area with color and binned dimension', function() {
+  it('should produce correct stack component for area with color and binned dimension', () => {
     const model = parseUnitModelWithScale({
-      "mark": "area",
-      "encoding": {
-        "x": {"aggregate": "sum", "field": "a", "type": "quantitative"},
-        "y": {"bin": true, "field": "b", "type": "quantitative"},
-        "color": {"field": "c", "type": "nominal"}
-      }
+      mark: 'area',
+      encoding: {
+        x: {aggregate: 'sum', field: 'a', type: 'quantitative'},
+        y: {bin: true, field: 'b', type: 'quantitative'},
+        color: {field: 'c', type: 'nominal'},
+      },
     });
 
     assert.deepEqual<StackComponent>(parse(model), {
-      dimensionFieldDef: {"bin": {maxbins: 10}, "field": "b", "type": "quantitative"},
+      dimensionFieldDef: {bin: {maxbins: 10}, field: 'b', type: 'quantitative'},
       facetby: [],
       field: 'sum_a',
       stackby: ['c'],
       sort: {
         field: ['c'],
-        order: ['descending']
+        order: ['descending'],
       },
       offset: 'zero',
-      impute: true
+      impute: true,
     });
 
     assert.deepEqual<VgTransform[]>(assemble(model), [
       {
         type: 'formula',
-        expr: '(datum[\"bin_maxbins_10_b\"]+datum[\"bin_maxbins_10_b_end\"])/2',
-        as: 'bin_maxbins_10_b_mid'
+        expr: '(datum["bin_maxbins_10_b"]+datum["bin_maxbins_10_b_end"])/2',
+        as: 'bin_maxbins_10_b_mid',
       },
       {
         type: 'impute',
         field: 'sum_a',
         groupby: ['c'],
         key: 'bin_maxbins_10_b_mid',
-        method: "value",
-        value: 0
+        method: 'value',
+        value: 0,
       },
       {
         type: 'stack',
@@ -191,11 +190,11 @@ describe('compile/data/stack', () => {
         field: 'sum_a',
         sort: {
           field: ['c'],
-          order: ['descending']
+          order: ['descending'],
         },
         as: ['sum_a_start', 'sum_a_end'],
-        offset: 'zero'
-      }
+        offset: 'zero',
+      },
     ]);
   });
 });

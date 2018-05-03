@@ -1,5 +1,3 @@
-/* tslint:disable:quotemark */
-
 import {assert} from 'chai';
 import {AggregateNode} from '../../../src/compile/data/aggregate';
 import {assembleRootData} from '../../../src/compile/data/assemble';
@@ -19,16 +17,19 @@ describe('compile/data/assemble', () => {
 
       assert.equal(main.getSource(), 'mainOut');
 
-      const data = assembleRootData({
-        sources: {named: src},
-        outputNodes: {out: main},
-        outputNodeRefCounts,
-        ancestorParse: {},
-        isFaceted: false
-      }, {});
+      const data = assembleRootData(
+        {
+          sources: {named: src},
+          outputNodes: {out: main},
+          outputNodeRefCounts,
+          ancestorParse: {},
+          isFaceted: false,
+        },
+        {}
+      );
 
       assert.equal(data.length, 1);
-      assert.equal(data[0].name, "foo");
+      assert.equal(data[0].name, 'foo');
     });
 
     it('should assemble raw and main output', () => {
@@ -44,28 +45,36 @@ describe('compile/data/assemble', () => {
       assert.equal(raw.getSource(), 'rawOut');
       assert.equal(main.getSource(), 'mainOut');
 
-      const data = assembleRootData({
-        sources: {named: src},
-        outputNodes: {out: main},
-        outputNodeRefCounts,
-        ancestorParse: {},
-        isFaceted: false
-      }, {});
+      const data = assembleRootData(
+        {
+          sources: {named: src},
+          outputNodes: {out: main},
+          outputNodeRefCounts,
+          ancestorParse: {},
+          isFaceted: false,
+        },
+        {}
+      );
 
-      assert.deepEqual<VgData[]>(data, [{
-        name: 'source_0',
-        url: 'foo.csv',
-        format: {type: 'csv'}
-      }, {
-        name: 'data_0',
-        source: 'source_0',
-        transform: [{
-          type: 'aggregate',
-          groupby: ['a'],
-          ops: ['count'],
-          fields: ['b'],
-          as: ['count_*']
-        }]}
+      assert.deepEqual<VgData[]>(data, [
+        {
+          name: 'source_0',
+          url: 'foo.csv',
+          format: {type: 'csv'},
+        },
+        {
+          name: 'data_0',
+          source: 'source_0',
+          transform: [
+            {
+              type: 'aggregate',
+              groupby: ['a'],
+              ops: ['count'],
+              fields: ['b'],
+              as: ['count_*'],
+            },
+          ],
+        },
       ]);
     });
 
@@ -82,15 +91,14 @@ describe('compile/data/assemble', () => {
           },
         ],
         ignorePeers: false,
-        sort:
-          [
-            {
-              field:'f',
-              order:'ascending'
-            }
-          ],
+        sort: [
+          {
+            field: 'f',
+            order: 'ascending',
+          },
+        ],
         groupby: ['f'],
-        frame: [null, 0]
+        frame: [null, 0],
       };
       const agg = new WindowTransformNode(null, transform);
       agg.parent = raw;
@@ -100,35 +108,43 @@ describe('compile/data/assemble', () => {
       assert.equal(raw.getSource(), 'rawOut');
       assert.equal(main.getSource(), 'mainOut');
 
-      const data = assembleRootData({
-        sources: {named: src},
-        outputNodes: {out: main},
-        outputNodeRefCounts,
-        ancestorParse: {},
-        isFaceted: false
-      }, {});
+      const data = assembleRootData(
+        {
+          sources: {named: src},
+          outputNodes: {out: main},
+          outputNodeRefCounts,
+          ancestorParse: {},
+          isFaceted: false,
+        },
+        {}
+      );
 
-      assert.deepEqual<VgData[]>(data, [{
-        name: 'source_0',
-        url: 'foo.csv',
-        format: {type: 'csv'}
-      }, {
-        name: 'data_0',
-        source: 'source_0',
-        transform: [{
-          type: 'window',
-          ops: ['row_number'],
-          fields: [null],
-          params: [null],
-          sort : {
-            field: ["f"],
-            order: ["ascending"],
-          },
-          ignorePeers: false,
-          as: ['ordered_row_number'],
-          frame: [null, 0],
-          groupby: ['f']
-        }]}
+      assert.deepEqual<VgData[]>(data, [
+        {
+          name: 'source_0',
+          url: 'foo.csv',
+          format: {type: 'csv'},
+        },
+        {
+          name: 'data_0',
+          source: 'source_0',
+          transform: [
+            {
+              type: 'window',
+              ops: ['row_number'],
+              fields: [null],
+              params: [null],
+              sort: {
+                field: ['f'],
+                order: ['ascending'],
+              },
+              ignorePeers: false,
+              as: ['ordered_row_number'],
+              frame: [null, 0],
+              groupby: ['f'],
+            },
+          ],
+        },
       ]);
     });
 
@@ -138,20 +154,25 @@ describe('compile/data/assemble', () => {
       const main = new OutputNode(null, 'mainOut', 'main', outputNodeRefCounts);
       main.parent = src;
 
-      const data = assembleRootData({
-        sources: {named: src},
-        outputNodes: {out: main},
-        outputNodeRefCounts,
-        ancestorParse: {},
-        isFaceted: false
-      }, {
-        foo: [1,2,3]
-      });
+      const data = assembleRootData(
+        {
+          sources: {named: src},
+          outputNodes: {out: main},
+          outputNodeRefCounts,
+          ancestorParse: {},
+          isFaceted: false,
+        },
+        {
+          foo: [1, 2, 3],
+        }
+      );
 
-      assert.deepEqual<VgData[]>(data, [{
-        name: 'foo',
-        values: [1,2,3]
-      }]);
+      assert.deepEqual<VgData[]>(data, [
+        {
+          name: 'foo',
+          values: [1, 2, 3],
+        },
+      ]);
     });
   });
 });

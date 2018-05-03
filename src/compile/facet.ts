@@ -28,9 +28,14 @@ export class FacetModel extends ModelWithField {
 
   public readonly children: Model[];
 
-  constructor(spec: NormalizedFacetSpec, parent: Model, parentGivenName: string, repeater: RepeaterValue, config: Config) {
+  constructor(
+    spec: NormalizedFacetSpec,
+    parent: Model,
+    parentGivenName: string,
+    repeater: RepeaterValue,
+    config: Config
+  ) {
     super(spec, parent, parentGivenName, config, repeater, spec.resolve);
-
 
     this.child = buildModel(spec.spec, this, this.getName('child'), undefined, repeater, config, false);
     this.children = [this.child];
@@ -42,22 +47,26 @@ export class FacetModel extends ModelWithField {
 
   private initFacet(facet: FacetMapping<string>): FacetMapping<string> {
     // clone to prevent side effect to the original spec
-    return reduce(facet, (normalizedFacet, fieldDef: FieldDef<string>, channel: Channel) => {
-      if (!contains([ROW, COLUMN], channel)) {
-        // Drop unsupported channel
-        log.warn(log.message.incompatibleChannel(channel, 'facet'));
-        return normalizedFacet;
-      }
+    return reduce(
+      facet,
+      (normalizedFacet, fieldDef: FieldDef<string>, channel: Channel) => {
+        if (!contains([ROW, COLUMN], channel)) {
+          // Drop unsupported channel
+          log.warn(log.message.incompatibleChannel(channel, 'facet'));
+          return normalizedFacet;
+        }
 
-      if (fieldDef.field === undefined) {
-        log.warn(log.message.emptyFieldDef(fieldDef, channel));
-        return normalizedFacet;
-      }
+        if (fieldDef.field === undefined) {
+          log.warn(log.message.emptyFieldDef(fieldDef, channel));
+          return normalizedFacet;
+        }
 
-      // Convert type to full, lowercase type, or augment the fieldDef with a default type if missing.
-      normalizedFacet[channel] = normalize(fieldDef, channel);
-      return normalizedFacet;
-    }, {});
+        // Convert type to full, lowercase type, or augment the fieldDef with a default type if missing.
+        normalizedFacet[channel] = normalize(fieldDef, channel);
+        return normalizedFacet;
+      },
+      {}
+    );
   }
 
   public channelHasField(channel: Channel): boolean {
@@ -100,12 +109,15 @@ export class FacetModel extends ModelWithField {
   }
 
   private parseHeader(channel: HeaderChannel) {
-
     if (this.channelHasField(channel)) {
       const fieldDef = this.facet[channel];
       const header = fieldDef.header || {};
-      let title = fieldDef.title !== undefined ? fieldDef.title :
-        header.title !== undefined ? header.title : fieldDefTitle(fieldDef, this.config);
+      let title =
+        fieldDef.title !== undefined
+          ? fieldDef.title
+          : header.title !== undefined
+            ? header.title
+            : fieldDefTitle(fieldDef, this.config);
 
       if (this.child.component.layoutHeaders[channel].title) {
         // merge title with child to produce "Title / Subtitle / Sub-subtitle"
@@ -117,7 +129,7 @@ export class FacetModel extends ModelWithField {
         title,
         facetFieldDef: fieldDef,
         // TODO: support adding label to footer as well
-        header: [this.makeHeaderComponent(channel, true)]
+        header: [this.makeHeaderComponent(channel, true)],
       };
     }
   }
@@ -128,7 +140,7 @@ export class FacetModel extends ModelWithField {
     return {
       labels,
       sizeSignal: this.child.component.layoutSize.get(sizeType) ? this.child.getSizeSignalRef(sizeType) : undefined,
-      axes: []
+      axes: [],
     };
   }
 
@@ -145,8 +157,7 @@ export class FacetModel extends ModelWithField {
         const layoutHeader = layoutHeaders[headerChannel];
         for (const axisComponent of child.component.axes[channel]) {
           const headerType = getHeaderType(axisComponent.get('orient'));
-          layoutHeader[headerType] = layoutHeader[headerType] ||
-          [this.makeHeaderComponent(headerChannel, false)];
+          layoutHeader[headerType] = layoutHeader[headerType] || [this.makeHeaderComponent(headerChannel, false)];
 
           const mainAxis = assembleAxis(axisComponent, 'main', this.config, {header: true});
           // LayoutHeader no longer keep track of property precedence, thus let's combine.
@@ -172,9 +183,11 @@ export class FacetModel extends ModelWithField {
     return this.child.assembleSelectionData(data);
   }
 
-  private getLayoutBandMixins(headerType: 'header' | 'footer'): {
-    headerBand?: RowCol<number>,
-    footerBand?: RowCol<number>
+  private getLayoutBandMixins(
+    headerType: 'header' | 'footer'
+  ): {
+    headerBand?: RowCol<number>;
+    footerBand?: RowCol<number>;
   } {
     const bandMixins = {};
 
@@ -210,7 +223,7 @@ export class FacetModel extends ModelWithField {
       offset: 10,
       columns,
       bounds: 'full',
-      align: 'all'
+      align: 'all',
     };
   }
 
@@ -220,7 +233,7 @@ export class FacetModel extends ModelWithField {
   }
 
   private columnDistinctSignal() {
-    if (this.parent && (this.parent instanceof FacetModel)) {
+    if (this.parent && this.parent instanceof FacetModel) {
       // For nested facet, we will add columns to group mark instead
       // See discussion in https://github.com/vega/vega/issues/952
       // and https://github.com/vega/vega-view/releases/tag/v1.2.6
@@ -233,21 +246,23 @@ export class FacetModel extends ModelWithField {
   }
 
   public assembleGroup(signals: VgSignal[]) {
-    if (this.parent && (this.parent instanceof FacetModel)) {
+    if (this.parent && this.parent instanceof FacetModel) {
       // Provide number of columns for layout.
       // See discussion in https://github.com/vega/vega/issues/952
       // and https://github.com/vega/vega-view/releases/tag/v1.2.6
       return {
-        ...(this.channelHasField('column') ? {
-          encode: {
-            update: {
-              // TODO(https://github.com/vega/vega-lite/issues/2759):
-              // Correct the signal for facet of concat of facet_column
-              columns: {field: vgField(this.facet.column, {prefix: 'distinct'})}
+        ...(this.channelHasField('column')
+          ? {
+              encode: {
+                update: {
+                  // TODO(https://github.com/vega/vega-lite/issues/2759):
+                  // Correct the signal for facet of concat of facet_column
+                  columns: {field: vgField(this.facet.column, {prefix: 'distinct'})},
+                },
+              },
             }
-          }
-        } : {}),
-        ...super.assembleGroup(signals)
+          : {}),
+        ...super.assembleGroup(signals),
       };
     }
     return super.assembleGroup(signals);
@@ -306,7 +321,7 @@ export class FacetModel extends ModelWithField {
     if (cardinalityAggregateForChild) {
       aggregateMixins.aggregate = {
         ...aggregateMixins.aggregate,
-        ...cardinalityAggregateForChild
+        ...cardinalityAggregateForChild,
       };
     }
 
@@ -316,32 +331,29 @@ export class FacetModel extends ModelWithField {
     const markGroup = {
       name: this.getName('cell'),
       type: 'group',
-      ...(title? {title} : {}),
-      ...(style? {style} : {}),
+      ...(title ? {title} : {}),
+      ...(style ? {style} : {}),
       from: {
         facet: {
           name: facetRoot.name,
           data: facetRoot.data,
-          groupby: [].concat(
-            hasRow ? [this.vgField(ROW)] : [],
-            hasColumn ? [this.vgField(COLUMN)] : []
-          ),
-          ...aggregateMixins
-        }
+          groupby: [].concat(hasRow ? [this.vgField(ROW)] : [], hasColumn ? [this.vgField(COLUMN)] : []),
+          ...aggregateMixins,
+        },
       },
       sort: {
         field: [].concat(
-          hasRow ? [this.vgField(ROW, {expr: 'datum',})] : [],
+          hasRow ? [this.vgField(ROW, {expr: 'datum'})] : [],
           hasColumn ? [this.vgField(COLUMN, {expr: 'datum'})] : []
         ),
         order: [].concat(
-          hasRow ? [ (facet.row.sort) || 'ascending'] : [],
-          hasColumn ? [ (facet.column.sort) || 'ascending'] : []
-        )
+          hasRow ? [facet.row.sort || 'ascending'] : [],
+          hasColumn ? [facet.column.sort || 'ascending'] : []
+        ),
       },
       ...(data.length > 0 ? {data: data} : {}),
       ...(layoutSizeEncodeEntry ? {encode: {update: layoutSizeEncodeEntry}} : {}),
-      ...child.assembleGroup()
+      ...child.assembleGroup(),
     };
 
     return [markGroup];

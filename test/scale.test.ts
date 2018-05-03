@@ -9,9 +9,11 @@ describe('scale', () => {
     // Make sure we always edit this when we add new channel
     it('should have at least one supported scale types for all scale properties', () => {
       for (const prop of scale.SCALE_PROPERTIES) {
-        assert(some(scale.SCALE_TYPES, (scaleType) => {
-          return scale.scaleTypeSupportProperty(scaleType, prop);
-        }));
+        assert(
+          some(scale.SCALE_TYPES, scaleType => {
+            return scale.scaleTypeSupportProperty(scaleType, prop);
+          })
+        );
       }
     });
 
@@ -28,23 +30,26 @@ describe('scale', () => {
     });
   });
 
-
   describe('channelSupportScaleType', () => {
     // Make sure we always edit this when we add new channel
     it('should have at least one supported scale types for all channels with scale', () => {
       for (const channel of SCALE_CHANNELS) {
-        assert(some(SCALE_TYPES, (scaleType) => {
-          return channelSupportScaleType(channel, scaleType);
-        }));
+        assert(
+          some(SCALE_TYPES, scaleType => {
+            return channelSupportScaleType(channel, scaleType);
+          })
+        );
       }
     });
 
     // Make sure we always edit this when we add new scale type
     it('should have at least one supported channel for all scale types', () => {
       for (const scaleType of SCALE_TYPES) {
-        assert(some(SCALE_CHANNELS, (channel) => {
-          return channelSupportScaleType(channel, scaleType);
-        }));
+        assert(
+          some(SCALE_CHANNELS, channel => {
+            return channelSupportScaleType(channel, scaleType);
+          })
+        );
       }
     });
 

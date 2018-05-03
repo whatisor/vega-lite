@@ -23,10 +23,10 @@ export function assembleProjectionForModel(model: Model): VgProjection[] {
   }
 
   const projection = component.combine();
-  const {name, ...rest} = projection;  // we need to extract name so that it is always present in the output and pass TS type validation
+  const {name, ...rest} = projection; // we need to extract name so that it is always present in the output and pass TS type validation
 
   const size: VgSignalRef = {
-    signal: `[${component.size.map((ref) => ref.signal).join(', ')}]`
+    signal: `[${component.size.map(ref => ref.signal).join(', ')}]`,
   };
 
   const fit: string[] = component.data.reduce((sources, data) => {
@@ -42,12 +42,14 @@ export function assembleProjectionForModel(model: Model): VgProjection[] {
     throw new Error("Projection's fit didn't find any data sources");
   }
 
-  return [{
-    name,
-    size,
-    fit: {
-      signal: fit.length > 1 ? `[${fit.join(', ')}]` : fit[0]
+  return [
+    {
+      name,
+      size,
+      fit: {
+        signal: fit.length > 1 ? `[${fit.join(', ')}]` : fit[0],
+      },
+      ...rest,
     },
-    ...rest
-  }];
+  ];
 }

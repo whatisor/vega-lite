@@ -15,7 +15,13 @@ export class ConcatModel extends BaseConcatModel {
 
   public readonly isVConcat: boolean;
 
-  constructor(spec: NormalizedConcatSpec, parent: Model, parentGivenName: string, repeater: RepeaterValue, config: Config) {
+  constructor(
+    spec: NormalizedConcatSpec,
+    parent: Model,
+    parentGivenName: string,
+    repeater: RepeaterValue,
+    config: Config
+  ) {
     super(spec, parent, parentGivenName, config, repeater, spec.resolve);
 
     if (spec.resolve && spec.resolve.axis && (spec.resolve.axis.x === 'shared' || spec.resolve.axis.y === 'shared')) {
@@ -33,7 +39,6 @@ export class ConcatModel extends BaseConcatModel {
     parseConcatLayoutSize(this);
   }
 
-
   public parseAxisGroup(): void {
     return null;
   }
@@ -46,7 +51,7 @@ export class ConcatModel extends BaseConcatModel {
       ...(this.isVConcat ? {columns: 1} : {}),
       bounds: 'full',
       // Use align each so it can work with multiple plots with different size
-      align: 'each'
+      align: 'each',
     };
   }
 }

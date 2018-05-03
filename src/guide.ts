@@ -27,7 +27,6 @@ export interface Guide extends TitleMixins {
   format?: string;
 }
 export interface VlOnlyGuideConfig {
-
   /**
    * Whether month names and weekday names should be abbreviated.
    *
@@ -36,9 +35,6 @@ export interface VlOnlyGuideConfig {
   shortTimeLabels?: boolean;
 }
 
-
-export type GuideEncodingEntry = {
-  [k in VgEncodeChannel]?: ValueDef;
-};
+export type GuideEncodingEntry = {[k in VgEncodeChannel]?: ValueDef};
 
 export const VL_ONLY_GUIDE_CONFIG: (keyof VlOnlyGuideConfig)[] = ['shortTimeLabels'];

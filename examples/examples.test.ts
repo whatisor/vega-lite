@@ -47,17 +47,17 @@ function validateVega(spec: TopLevelSpec) {
 }
 
 const suffixLength = '_future.vl.json'.length;
-describe('Examples', function() {
+describe('Examples', () => {
   const examples = fs.readdirSync('examples/specs');
 
-  examples.forEach(function(example: string) {
+  examples.forEach((example: string) => {
     if (path.extname(example) !== '.json') {
       return;
     }
     const jsonSpec = JSON.parse(fs.readFileSync('examples/specs/' + example));
 
-    describe(example, function() {
-      it('should be valid vega-lite with proper $schema', function() {
+    describe(example, () => {
+      it('should be valid vega-lite with proper $schema', () => {
         if (
           // Do not validate overlay example until we have redesigned it
           example.indexOf('overlay') >= 0 ||
@@ -71,7 +71,7 @@ describe('Examples', function() {
         validateVL(jsonSpec);
       });
 
-      it('should produce valid vega', function() {
+      it('should produce valid vega', () => {
         validateVega(jsonSpec);
       });
     });
