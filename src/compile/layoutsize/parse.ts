@@ -70,7 +70,7 @@ function parseNonUnitLayoutSizeForChannel(model: Model, sizeType: 'width' | 'hei
     // Otherwise, there is no merged size.
     return {
       explicit: false,
-      value: undefined,
+      value: undefined
     };
   }
 }

@@ -12,16 +12,16 @@ describe('normalizeTransform()', () => {
       const filter: LogicalOperand<Predicate> = {
         and: [
           {not: {timeUnit: 'yearmonthday' as TimeUnit, field: 'd', equal: {year: 2008}}},
-          {or: [{field: 'a', equal: 5}]},
-        ],
+          {or: [{field: 'a', equal: 5}]}
+        ]
       };
       const transform: Transform[] = [{filter}];
       assert.deepEqual(normalizeTransform(transform), [
         {
           filter: {
-            and: [{not: {timeUnit: 'yearmonthdate', field: 'd', equal: {year: 2008}}}, {or: [{field: 'a', equal: 5}]}],
-          },
-        },
+            and: [{not: {timeUnit: 'yearmonthdate', field: 'd', equal: {year: 2008}}}, {or: [{field: 'a', equal: 5}]}]
+          }
+        }
       ]);
       assert.equal(localLogger.warns[0], log.message.dayReplacedWithDate('yearmonthday'));
     })

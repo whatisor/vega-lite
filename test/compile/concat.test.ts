@@ -11,17 +11,17 @@ describe('Concat', () => {
           {
             mark: 'point',
             encoding: {
-              x: {field: 'a', type: 'ordinal'},
-            },
+              x: {field: 'a', type: 'ordinal'}
+            }
           },
           {
             mark: 'bar',
             encoding: {
               x: {field: 'b', type: 'ordinal'},
-              y: {field: 'c', type: 'quantitative'},
-            },
-          },
-        ],
+              y: {field: 'c', type: 'quantitative'}
+            }
+          }
+        ]
       });
 
       assert.equal(model.children.length, 2);
@@ -34,17 +34,17 @@ describe('Concat', () => {
           {
             mark: 'point',
             encoding: {
-              x: {field: 'a', type: 'ordinal'},
-            },
+              x: {field: 'a', type: 'ordinal'}
+            }
           },
           {
             mark: 'bar',
             encoding: {
               x: {field: 'b', type: 'ordinal'},
-              y: {field: 'c', type: 'quantitative'},
-            },
-          },
-        ],
+              y: {field: 'c', type: 'quantitative'}
+            }
+          }
+        ]
       });
 
       assert.equal(model.children.length, 2);
@@ -56,13 +56,13 @@ describe('Concat', () => {
         vconcat: [
           {
             mark: 'point',
-            encoding: {},
+            encoding: {}
           },
           {
             mark: 'bar',
-            encoding: {},
-          },
-        ],
+            encoding: {}
+          }
+        ]
       });
 
       assert.deepEqual<VgLayout>(model.assembleLayout(), {
@@ -70,7 +70,7 @@ describe('Concat', () => {
         offset: 10,
         columns: 1,
         bounds: 'full',
-        align: 'each',
+        align: 'each'
       });
     });
 
@@ -79,20 +79,20 @@ describe('Concat', () => {
         hconcat: [
           {
             mark: 'point',
-            encoding: {},
+            encoding: {}
           },
           {
             mark: 'bar',
-            encoding: {},
-          },
-        ],
+            encoding: {}
+          }
+        ]
       });
 
       assert.deepEqual<VgLayout>(model.assembleLayout(), {
         padding: {row: 10, column: 10},
         offset: 10,
         bounds: 'full',
-        align: 'each',
+        align: 'each'
       });
     });
   });
@@ -105,9 +105,9 @@ describe('Concat', () => {
           hconcat: [],
           resolve: {
             axis: {
-              x: 'shared',
-            },
-          },
+              x: 'shared'
+            }
+          }
         });
         assert.equal(localLogger.warns[0], log.message.CONCAT_CANNOT_SHARE_AXIS);
       })

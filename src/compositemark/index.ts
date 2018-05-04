@@ -7,7 +7,7 @@ import {
   BoxPlotConfigMixins,
   BoxPlotDef,
   normalizeBoxPlot,
-  VL_ONLY_BOXPLOT_CONFIG_PROPERTY_INDEX,
+  VL_ONLY_BOXPLOT_CONFIG_PROPERTY_INDEX
 } from './boxplot';
 import {ERRORBAR, normalizeErrorBar} from './errorbar';
 
@@ -39,7 +39,7 @@ export type CompositeMarkStyle = typeof COMPOSITE_MARK_STYLES[0];
 export type CompositeMarkConfigMixins = BoxPlotConfigMixins;
 
 export const VL_ONLY_COMPOSITE_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX = {
-  ...VL_ONLY_BOXPLOT_CONFIG_PROPERTY_INDEX,
+  ...VL_ONLY_BOXPLOT_CONFIG_PROPERTY_INDEX
 };
 
 add(BOXPLOT, normalizeBoxPlot);

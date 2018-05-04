@@ -17,7 +17,7 @@ import {
   LineConfig,
   Mark,
   MarkDef,
-  MarkProperties,
+  MarkProperties
 } from './mark';
 import {Projection} from './projection';
 import {Repeat} from './repeat';
@@ -338,7 +338,7 @@ function normalizeFacet(
   return {
     ...rest,
     // TODO: remove "any" once we support all facet listed in https://github.com/vega/vega-lite/issues/2760
-    spec: normalize(subspec, config) as any,
+    spec: normalize(subspec, config) as any
   };
 }
 
@@ -359,7 +359,7 @@ function mergeEncoding(opt: {parentEncoding: Encoding<any>; encoding: Encoding<a
 
   const merged = {
     ...(parentEncoding || {}),
-    ...(encoding || {}),
+    ...(encoding || {})
   };
   return keys(merged).length > 0 ? merged : undefined;
 }
@@ -388,7 +388,7 @@ function normalizeLayer(
         return normalizeLayer(subspec, config, mergedEncoding, mergedProjection);
       }
       return normalizeNonFacetUnit(subspec, config, mergedEncoding, mergedProjection);
-    }),
+    })
   };
 }
 
@@ -399,7 +399,7 @@ function normalizeRepeat(
   const {spec: subspec, ...rest} = spec;
   return {
     ...rest,
-    spec: normalize(subspec, config),
+    spec: normalize(subspec, config)
   };
 }
 
@@ -410,7 +410,7 @@ function normalizeVConcat(
   const {vconcat: vconcat, ...rest} = spec;
   return {
     ...rest,
-    vconcat: vconcat.map(subspec => normalize(subspec, config)),
+    vconcat: vconcat.map(subspec => normalize(subspec, config))
   };
 }
 
@@ -421,7 +421,7 @@ function normalizeHConcat(
   const {hconcat: hconcat, ...rest} = spec;
   return {
     ...rest,
-    hconcat: hconcat.map(subspec => normalize(subspec, config)),
+    hconcat: hconcat.map(subspec => normalize(subspec, config))
   };
 }
 
@@ -437,7 +437,7 @@ function normalizeFacetedUnit(spec: FacetedCompositeUnitSpec, config: Config): N
     ...outerSpec,
     facet: {
       ...(row ? {row} : {}),
-      ...(column ? {column} : {}),
+      ...(column ? {column} : {})
     },
     spec: normalizeNonFacetUnit(
       {
@@ -446,10 +446,10 @@ function normalizeFacetedUnit(spec: FacetedCompositeUnitSpec, config: Config): N
         ...(width ? {width} : {}),
         ...(height ? {height} : {}),
         encoding,
-        ...(selection ? {selection} : {}),
+        ...(selection ? {selection} : {})
       },
       config
-    ),
+    )
   };
 }
 
@@ -514,7 +514,7 @@ function normalizeNonFacetUnit(
       {
         ...spec,
         ...(mergedProjection ? {projection: mergedProjection} : {}),
-        ...(mergedEncoding ? {encoding: mergedEncoding} : {}),
+        ...(mergedEncoding ? {encoding: mergedEncoding} : {})
       },
       config
     );
@@ -532,7 +532,7 @@ function normalizeNonFacetUnit(
       return normalizeNonFacetUnit(
         {
           mark: 'rule',
-          ...spec,
+          ...spec
         },
         config,
         parentEncoding,
@@ -590,7 +590,7 @@ function normalizePathOverlay(spec: NormalizedUnitSpec, config: Config = {}): No
     return {
       ...spec,
       // Do not include point / line overlay in the normalize spec
-      mark: dropLineAndPoint(markDef),
+      mark: dropLineAndPoint(markDef)
     };
   }
 
@@ -601,10 +601,10 @@ function normalizePathOverlay(spec: NormalizedUnitSpec, config: Config = {}): No
         ...markDef,
         // make area mark translucent by default
         // TODO: extract this 0.7 to be shared with default opacity for point/tick/...
-        ...(markDef.type === 'area' ? {opacity: 0.7} : {}),
+        ...(markDef.type === 'area' ? {opacity: 0.7} : {})
       }),
-      encoding,
-    },
+      encoding
+    }
   ];
 
   // FIXME: disable tooltip for the line layer if tooltip is not group-by field.
@@ -620,8 +620,8 @@ function normalizePathOverlay(spec: NormalizedUnitSpec, config: Config = {}): No
       ...encoding,
       [stackFieldChannel]: {
         ...encoding[stackFieldChannel],
-        ...(offset ? {stack: offset} : {}),
-      },
+        ...(offset ? {stack: offset} : {})
+      }
     };
   }
 
@@ -630,10 +630,10 @@ function normalizePathOverlay(spec: NormalizedUnitSpec, config: Config = {}): No
       ...(projection ? {projection} : {}),
       mark: {
         type: 'line',
-        ...lineOverlay,
+        ...lineOverlay
       },
       ...(selection ? {selection} : {}),
-      encoding: overlayEncoding,
+      encoding: overlayEncoding
     });
   }
   if (pointOverlay) {
@@ -643,16 +643,16 @@ function normalizePathOverlay(spec: NormalizedUnitSpec, config: Config = {}): No
         type: 'point',
         opacity: 1,
         filled: true,
-        ...pointOverlay,
+        ...pointOverlay
       },
       ...(selection ? {selection} : {}),
-      encoding: overlayEncoding,
+      encoding: overlayEncoding
     });
   }
 
   return {
     ...outerSpec,
-    layer,
+    layer
   };
 }
 

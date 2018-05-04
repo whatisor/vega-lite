@@ -7,16 +7,16 @@ describe('src/compile/projection/parse', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'geoshape',
         projection: {
-          type: 'albersUsa',
+          type: 'albersUsa'
         },
         data: {
           url: 'data/us-10m.json',
           format: {
             type: 'topojson',
-            feature: 'states',
-          },
+            feature: 'states'
+          }
         },
-        encoding: {},
+        encoding: {}
       });
       model.parse();
       assert.deepEqual(model.component.projection.explicit, {type: 'albersUsa'});
@@ -29,10 +29,10 @@ describe('src/compile/projection/parse', () => {
           url: 'data/us-10m.json',
           format: {
             type: 'topojson',
-            feature: 'states',
-          },
+            feature: 'states'
+          }
         },
-        encoding: {},
+        encoding: {}
       });
       model.parse();
       assert.deepEqual(model.component.projection.explicit, {});
@@ -45,15 +45,15 @@ describe('src/compile/projection/parse', () => {
           url: 'data/us-10m.json',
           format: {
             type: 'topojson',
-            feature: 'states',
-          },
+            feature: 'states'
+          }
         },
         encoding: {},
         config: {
           projection: {
-            type: 'albersUsa',
-          },
-        },
+            type: 'albersUsa'
+          }
+        }
       });
       model.parse();
       assert.deepEqual(model.component.projection.explicit, {type: 'albersUsa'});
@@ -64,23 +64,23 @@ describe('src/compile/projection/parse', () => {
         data: {
           url: 'data/airports.csv',
           format: {
-            type: 'csv',
-          },
+            type: 'csv'
+          }
         },
         mark: 'circle',
         projection: {
-          type: 'albersUsa',
+          type: 'albersUsa'
         },
         encoding: {
           longitude: {
             field: 'longitude',
-            type: 'quantitative',
+            type: 'quantitative'
           },
           latitude: {
             field: 'latitude',
-            type: 'quantitative',
-          },
-        },
+            type: 'quantitative'
+          }
+        }
       });
       model.parse();
       assert.isObject(model.component.projection.data[0]);
@@ -94,10 +94,10 @@ describe('src/compile/projection/parse', () => {
           url: 'data/us-10m.json',
           format: {
             type: 'topojson',
-            feature: 'states',
-          },
+            feature: 'states'
+          }
         },
-        encoding: {},
+        encoding: {}
       });
       model.parse();
       assert.isString(model.component.projection.data[0]);
@@ -113,37 +113,37 @@ describe('src/compile/projection/parse', () => {
           {
             mark: 'geoshape',
             projection: {
-              type: 'albersUsa',
+              type: 'albersUsa'
             },
             data: {
               url: 'data/us-10m.json',
               format: {
                 type: 'topojson',
-                feature: 'states',
-              },
+                feature: 'states'
+              }
             },
-            encoding: {},
+            encoding: {}
           },
           {
             data: {
-              url: 'data/airports.csv',
+              url: 'data/airports.csv'
             },
             mark: 'circle',
             projection: {
-              type: 'albersUsa',
+              type: 'albersUsa'
             },
             encoding: {
               longitude: {
                 field: 'longitude',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               latitude: {
                 field: 'latitude',
-                type: 'quantitative',
-              },
-            },
-          },
-        ],
+                type: 'quantitative'
+              }
+            }
+          }
+        ]
       });
       model.parse();
       assert.deepEqual(model.component.projection.explicit, {type: 'albersUsa'});
@@ -158,31 +158,31 @@ describe('src/compile/projection/parse', () => {
               url: 'data/us-10m.json',
               format: {
                 type: 'topojson',
-                feature: 'states',
-              },
+                feature: 'states'
+              }
             },
-            encoding: {},
+            encoding: {}
           },
           {
             data: {
-              url: 'data/airports.csv',
+              url: 'data/airports.csv'
             },
             mark: 'circle',
             projection: {
-              type: 'albersUsa',
+              type: 'albersUsa'
             },
             encoding: {
               longitude: {
                 field: 'longitude',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               latitude: {
                 field: 'latitude',
-                type: 'quantitative',
-              },
-            },
-          },
-        ],
+                type: 'quantitative'
+              }
+            }
+          }
+        ]
       });
       emptyFirst.parse();
       assert.deepEqual(emptyFirst.component.projection.explicit, {type: 'albersUsa'});
@@ -194,31 +194,31 @@ describe('src/compile/projection/parse', () => {
               url: 'data/us-10m.json',
               format: {
                 type: 'topojson',
-                feature: 'states',
-              },
+                feature: 'states'
+              }
             },
-            encoding: {},
+            encoding: {}
           },
           {
             data: {
-              url: 'data/airports.csv',
+              url: 'data/airports.csv'
             },
             mark: 'circle',
             projection: {
-              type: 'albersUsa',
+              type: 'albersUsa'
             },
             encoding: {
               longitude: {
                 field: 'longitude',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               latitude: {
                 field: 'latitude',
-                type: 'quantitative',
-              },
-            },
-          },
-        ],
+                type: 'quantitative'
+              }
+            }
+          }
+        ]
       });
       emptyLast.parse();
       assert.deepEqual(emptyLast.component.projection.explicit, {type: 'albersUsa'});
@@ -230,37 +230,37 @@ describe('src/compile/projection/parse', () => {
           {
             mark: 'geoshape',
             projection: {
-              type: 'albersUsa',
+              type: 'albersUsa'
             },
             data: {
               url: 'data/us-10m.json',
               format: {
                 type: 'topojson',
-                feature: 'states',
-              },
+                feature: 'states'
+              }
             },
-            encoding: {},
+            encoding: {}
           },
           {
             data: {
-              url: 'data/airports.csv',
+              url: 'data/airports.csv'
             },
             mark: 'circle',
             projection: {
-              type: 'albersUsa',
+              type: 'albersUsa'
             },
             encoding: {
               longitude: {
                 field: 'longitude',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               latitude: {
                 field: 'latitude',
-                type: 'quantitative',
-              },
-            },
-          },
-        ],
+                type: 'quantitative'
+              }
+            }
+          }
+        ]
       });
       model.parse();
       assert.deepEqual(model.component.projection.explicit, {type: 'albersUsa'});
@@ -272,37 +272,37 @@ describe('src/compile/projection/parse', () => {
           {
             mark: 'geoshape',
             projection: {
-              type: 'mercator',
+              type: 'mercator'
             },
             data: {
               url: 'data/us-10m.json',
               format: {
                 type: 'topojson',
-                feature: 'states',
-              },
+                feature: 'states'
+              }
             },
-            encoding: {},
+            encoding: {}
           },
           {
             data: {
-              url: 'data/airports.csv',
+              url: 'data/airports.csv'
             },
             mark: 'circle',
             projection: {
-              type: 'albersUsa',
+              type: 'albersUsa'
             },
             encoding: {
               longitude: {
                 field: 'longitude',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               latitude: {
                 field: 'latitude',
-                type: 'quantitative',
-              },
-            },
-          },
-        ],
+                type: 'quantitative'
+              }
+            }
+          }
+        ]
       });
       model.parse();
       assert.isUndefined(model.component.projection);

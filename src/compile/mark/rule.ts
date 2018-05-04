@@ -27,8 +27,8 @@ export const rule: MarkCompiler = {
 
       ...mixins.nonPosition('size', model, {
         vgChannel: 'strokeWidth', // VL's rule size is strokeWidth
-        defaultValue: markDef.size,
-      }),
+        defaultValue: markDef.size
+      })
     };
-  },
+  }
 };

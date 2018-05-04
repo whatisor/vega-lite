@@ -15,8 +15,8 @@ describe('compile/legend', () => {
           mark: 'point',
           encoding: {
             x: {field: 'a', type: 'nominal'},
-            color: {field: 'a', type: 'nominal'},
-          },
+            color: {field: 'a', type: 'nominal'}
+          }
         }),
         COLOR,
         'symbol'
@@ -34,8 +34,8 @@ describe('compile/legend', () => {
           mark: 'point',
           encoding: {
             x: {field: 'a', type: 'nominal'},
-            shape: {value: 'square'},
-          },
+            shape: {value: 'square'}
+          }
         }),
         COLOR,
         'symbol'
@@ -50,8 +50,8 @@ describe('compile/legend', () => {
         parseUnitModelWithScale({
           mark: 'point',
           encoding: {
-            x: {field: 'a', type: 'nominal'},
-          },
+            x: {field: 'a', type: 'nominal'}
+          }
         }),
         COLOR,
         'symbol'
@@ -69,9 +69,9 @@ describe('compile/legend', () => {
             x: {field: 'a', type: 'nominal'},
             opacity: {
               condition: {selection: 'brush', value: 1},
-              value: 0,
-            },
-          },
+              value: 0
+            }
+          }
         }),
         COLOR,
         'symbol'
@@ -88,8 +88,8 @@ describe('compile/legend', () => {
         parseUnitModelWithScale({
           mark: 'point',
           encoding: {
-            x: {field: 'a', type: 'quantitative'},
-          },
+            x: {field: 'a', type: 'quantitative'}
+          }
         }),
         COLOR,
         'gradient'
@@ -105,8 +105,8 @@ describe('compile/legend', () => {
         mark: 'point',
         encoding: {
           x: {field: 'a', type: 'temporal'},
-          color: {field: 'a', type: 'temporal', timeUnit: 'month'},
-        },
+          color: {field: 'a', type: 'temporal', timeUnit: 'month'}
+        }
       });
 
       const fieldDef = {field: 'a', type: TEMPORAL, timeUnit: TimeUnit.MONTH};
@@ -120,8 +120,8 @@ describe('compile/legend', () => {
         mark: 'point',
         encoding: {
           x: {field: 'a', type: 'temporal'},
-          color: {field: 'a', type: 'temporal', timeUnit: 'quarter'},
-        },
+          color: {field: 'a', type: 'temporal', timeUnit: 'quarter'}
+        }
       });
 
       const fieldDef = {field: 'a', type: TEMPORAL, timeUnit: TimeUnit.QUARTER};

@@ -264,7 +264,7 @@ export function normalizeTransform(transform: Transform[]) {
   return transform.map(t => {
     if (isFilter(t)) {
       return {
-        filter: normalizeLogicalOperand(t.filter, normalizePredicate),
+        filter: normalizeLogicalOperand(t.filter, normalizePredicate)
       };
     }
     return t;

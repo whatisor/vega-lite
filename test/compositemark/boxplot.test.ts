@@ -15,7 +15,7 @@ describe('normalizeBoxMinMax', () => {
             data: {url: 'data/population.json'},
             mark: {
               type: 'box-plot',
-              extent: 'min-max',
+              extent: 'min-max'
             },
             encoding: {
               x: {aggregate: 'box-plot', field: 'people', type: 'quantitative'},
@@ -23,11 +23,11 @@ describe('normalizeBoxMinMax', () => {
                 aggregate: 'box-plot',
                 field: 'people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           defaultConfig
         );
@@ -46,18 +46,18 @@ describe('normalizeBoxMinMax', () => {
           data: {url: 'data/population.json'},
           mark: {
             type: 'box-plot',
-            extent: 'min-max',
+            extent: 'min-max'
           },
           encoding: {
             x: {field: 'age', type: 'quantitative'},
             y: {
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             size: {value: 5},
-            color: {value: 'skyblue'},
-          },
+            color: {value: 'skyblue'}
+          }
         },
         defaultConfig
       ),
@@ -70,103 +70,103 @@ describe('normalizeBoxMinMax', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'lower_whisker_people',
+                as: 'lower_whisker_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'upper_whisker_people',
-              },
+                as: 'upper_whisker_people'
+              }
             ],
-            groupby: ['age'],
-          },
+            groupby: ['age']
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               y2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 5},
-            },
-          },
-        ],
+              size: {value: 5}
+            }
+          }
+        ]
       }
     );
   });
@@ -181,12 +181,12 @@ describe('normalizeBoxMinMax', () => {
             data: {url: 'data/population.json'},
             mark: {
               type: 'box-plot',
-              extent: 'min-max',
+              extent: 'min-max'
             },
             encoding: {
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           defaultConfig
         );
@@ -206,7 +206,7 @@ describe('normalizeBoxMinMax', () => {
           data: {url: 'data/population.json'},
           mark: {
             type: 'box-plot',
-            extent: 'min-max',
+            extent: 'min-max'
           },
           encoding: {
             x: {field: 'age', type: 'ordinal'},
@@ -214,11 +214,11 @@ describe('normalizeBoxMinMax', () => {
               aggregate: 'min',
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             size: {value: 5},
-            color: {value: 'skyblue'},
-          },
+            color: {value: 'skyblue'}
+          }
         },
         defaultConfig
       );
@@ -237,8 +237,8 @@ describe('normalizeBoxMinMax', () => {
             data: {url: 'data/population.json'},
             mark: 'box-plot',
             encoding: {
-              x: {field: 'age', type: 'ordinal'},
-            },
+              x: {field: 'age', type: 'ordinal'}
+            }
           },
           defaultConfig
         );
@@ -258,18 +258,18 @@ describe('normalizeBoxMinMax', () => {
             data: {url: 'data/population.json'},
             mark: {
               type: 'box-plot',
-              extent: 'min-max',
+              extent: 'min-max'
             },
             encoding: {
               x: {field: 'age', type: 'ordinal'},
               y: {
                 field: 'age',
                 type: 'ordinal',
-                axis: {title: 'age'},
+                axis: {title: 'age'}
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           defaultConfig
         );
@@ -289,17 +289,17 @@ describe('normalizeBoxMinMax', () => {
             data: {url: 'data/population.json'},
             mark: {
               type: 'box-plot',
-              extent: 'min-max',
+              extent: 'min-max'
             },
             encoding: {
               x: {field: 'age', type: 'ordinal'},
               y: {
                 type: 'ordinal',
-                axis: {title: 'age'},
+                axis: {title: 'age'}
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           defaultConfig
         );
@@ -321,8 +321,8 @@ describe('normalizeBoxMinMax', () => {
             encoding: {
               x: {field: 'age', type: 'ordinal'},
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           defaultConfig
         );
@@ -342,18 +342,18 @@ describe('normalizeBoxMinMax', () => {
           mark: {
             type: 'box-plot',
             orient: 'vertical',
-            extent: 'min-max',
+            extent: 'min-max'
           },
           encoding: {
             x: {field: 'age', type: 'quantitative'},
             y: {
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             size: {value: 5},
-            color: {value: 'skyblue'},
-          },
+            color: {value: 'skyblue'}
+          }
         },
         defaultConfig
       ),
@@ -366,103 +366,103 @@ describe('normalizeBoxMinMax', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'lower_whisker_people',
+                as: 'lower_whisker_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'upper_whisker_people',
-              },
+                as: 'upper_whisker_people'
+              }
             ],
-            groupby: ['age'],
-          },
+            groupby: ['age']
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               y2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 5},
-            },
-          },
-        ],
+              size: {value: 5}
+            }
+          }
+        ]
       }
     );
   });
@@ -477,18 +477,18 @@ describe('normalizeBoxMinMax', () => {
           mark: {
             type: 'box-plot',
             orient: 'horizontal',
-            extent: 'min-max',
+            extent: 'min-max'
           },
           encoding: {
             y: {field: 'age', type: 'quantitative'},
             x: {
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             size: {value: 5},
-            color: {value: 'skyblue'},
-          },
+            color: {value: 'skyblue'}
+          }
         },
         defaultConfig
       ),
@@ -501,103 +501,103 @@ describe('normalizeBoxMinMax', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'lower_whisker_people',
+                as: 'lower_whisker_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'upper_whisker_people',
-              },
+                as: 'upper_whisker_people'
+              }
             ],
-            groupby: ['age'],
-          },
+            groupby: ['age']
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               y: {field: 'age', type: 'quantitative'},
               x: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               x2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               y: {field: 'age', type: 'quantitative'},
               x: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               x2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               y: {field: 'age', type: 'quantitative'},
               x: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               x2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               y: {field: 'age', type: 'quantitative'},
               x: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 5},
-            },
-          },
-        ],
+              size: {value: 5}
+            }
+          }
+        ]
       }
     );
   });
@@ -611,7 +611,7 @@ describe('normalizeBoxMinMax', () => {
           data: {url: 'data/population.json'},
           mark: {
             type: 'box-plot',
-            extent: 'min-max',
+            extent: 'min-max'
           },
           encoding: {
             x: {field: 'age', type: 'quantitative'},
@@ -619,11 +619,11 @@ describe('normalizeBoxMinMax', () => {
               field: 'people',
               type: 'quantitative',
               aggregate: 'box-plot',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             size: {value: 5},
-            color: {value: 'skyblue'},
-          },
+            color: {value: 'skyblue'}
+          }
         },
         defaultConfig
       ),
@@ -636,103 +636,103 @@ describe('normalizeBoxMinMax', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'lower_whisker_people',
+                as: 'lower_whisker_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'upper_whisker_people',
-              },
+                as: 'upper_whisker_people'
+              }
             ],
-            groupby: ['age'],
-          },
+            groupby: ['age']
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               y2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 5},
-            },
-          },
-        ],
+              size: {value: 5}
+            }
+          }
+        ]
       }
     );
   });
@@ -746,7 +746,7 @@ describe('normalizeBoxMinMax', () => {
           data: {url: 'data/population.json'},
           mark: {
             type: 'box-plot',
-            extent: 'min-max',
+            extent: 'min-max'
           },
           encoding: {
             y: {field: 'age', type: 'quantitative'},
@@ -754,11 +754,11 @@ describe('normalizeBoxMinMax', () => {
               field: 'people',
               type: 'quantitative',
               aggregate: 'box-plot',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             size: {value: 5},
-            color: {value: 'skyblue'},
-          },
+            color: {value: 'skyblue'}
+          }
         },
         defaultConfig
       ),
@@ -771,103 +771,103 @@ describe('normalizeBoxMinMax', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'lower_whisker_people',
+                as: 'lower_whisker_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'upper_whisker_people',
-              },
+                as: 'upper_whisker_people'
+              }
             ],
-            groupby: ['age'],
-          },
+            groupby: ['age']
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               y: {field: 'age', type: 'quantitative'},
               x: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               x2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               y: {field: 'age', type: 'quantitative'},
               x: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               x2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               y: {field: 'age', type: 'quantitative'},
               x: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               x2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               y: {field: 'age', type: 'quantitative'},
               x: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 5},
-            },
-          },
-        ],
+              size: {value: 5}
+            }
+          }
+        ]
       }
     );
   });
@@ -881,18 +881,18 @@ describe('normalizeBoxMinMax', () => {
           data: {url: 'data/population.json'},
           mark: {
             type: 'box-plot',
-            extent: 'min-max',
+            extent: 'min-max'
           },
           encoding: {
             x: {field: 'age', type: 'ordinal'},
             y: {
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             size: {value: 5},
-            color: {value: 'skyblue'},
-          },
+            color: {value: 'skyblue'}
+          }
         },
         defaultConfig
       ),
@@ -905,103 +905,103 @@ describe('normalizeBoxMinMax', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'lower_whisker_people',
+                as: 'lower_whisker_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'upper_whisker_people',
-              },
+                as: 'upper_whisker_people'
+              }
             ],
-            groupby: ['age'],
-          },
+            groupby: ['age']
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'ordinal'},
               y: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               y2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'ordinal'},
               y: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               x: {field: 'age', type: 'ordinal'},
               y: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               x: {field: 'age', type: 'ordinal'},
               y: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 5},
-            },
-          },
-        ],
+              size: {value: 5}
+            }
+          }
+        ]
       }
     );
   });
@@ -1015,18 +1015,18 @@ describe('normalizeBoxMinMax', () => {
           data: {url: 'data/population.json'},
           mark: {
             type: 'box-plot',
-            extent: 'min-max',
+            extent: 'min-max'
           },
           encoding: {
             y: {field: 'age', type: 'ordinal'},
             x: {
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             size: {value: 5},
-            color: {value: 'skyblue'},
-          },
+            color: {value: 'skyblue'}
+          }
         },
         defaultConfig
       ),
@@ -1039,103 +1039,103 @@ describe('normalizeBoxMinMax', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'lower_whisker_people',
+                as: 'lower_whisker_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'upper_whisker_people',
-              },
+                as: 'upper_whisker_people'
+              }
             ],
-            groupby: ['age'],
-          },
+            groupby: ['age']
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               y: {field: 'age', type: 'ordinal'},
               x: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               x2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               y: {field: 'age', type: 'ordinal'},
               x: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               x2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               y: {field: 'age', type: 'ordinal'},
               x: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               x2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               y: {field: 'age', type: 'ordinal'},
               x: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 5},
-            },
-          },
-        ],
+              size: {value: 5}
+            }
+          }
+        ]
       }
     );
   });
@@ -1149,16 +1149,16 @@ describe('normalizeBoxMinMax', () => {
           data: {url: 'data/population.json'},
           mark: {
             type: 'box-plot',
-            extent: 'min-max',
+            extent: 'min-max'
           },
           encoding: {
             y: {field: 'age', type: 'ordinal'},
             x: {
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
-            },
-          },
+              axis: {title: 'population'}
+            }
+          }
         },
         defaultConfig
       ),
@@ -1171,102 +1171,102 @@ describe('normalizeBoxMinMax', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'lower_whisker_people',
+                as: 'lower_whisker_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'upper_whisker_people',
-              },
+                as: 'upper_whisker_people'
+              }
             ],
-            groupby: ['age'],
-          },
+            groupby: ['age']
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               y: {field: 'age', type: 'ordinal'},
               x: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               x2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               y: {field: 'age', type: 'ordinal'},
               x: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               x2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               y: {field: 'age', type: 'ordinal'},
               x: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               x2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
-              size: {value: 14},
-            },
+              size: {value: 14}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               y: {field: 'age', type: 'ordinal'},
               x: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 14},
-            },
-          },
-        ],
+              size: {value: 14}
+            }
+          }
+        ]
       }
     );
   });
@@ -1280,15 +1280,15 @@ describe('normalizeBoxMinMax', () => {
           data: {url: 'data/population.json'},
           mark: {
             type: 'box-plot',
-            extent: 'min-max',
+            extent: 'min-max'
           },
           encoding: {
             x: {
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
-            },
-          },
+              axis: {title: 'population'}
+            }
+          }
         },
         defaultConfig
       ),
@@ -1301,98 +1301,98 @@ describe('normalizeBoxMinMax', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'lower_whisker_people',
+                as: 'lower_whisker_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'upper_whisker_people',
-              },
+                as: 'upper_whisker_people'
+              }
             ],
-            groupby: [],
-          },
+            groupby: []
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               x2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               x2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               x: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               x2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
-              size: {value: 14},
-            },
+              size: {value: 14}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               x: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 14},
-            },
-          },
-        ],
+              size: {value: 14}
+            }
+          }
+        ]
       }
     );
   });
@@ -1406,15 +1406,15 @@ describe('normalizeBoxMinMax', () => {
           data: {url: 'data/population.json'},
           mark: {
             type: 'box-plot',
-            extent: 'min-max',
+            extent: 'min-max'
           },
           encoding: {
             y: {
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
-            },
-          },
+              axis: {title: 'population'}
+            }
+          }
         },
         defaultConfig
       ),
@@ -1427,98 +1427,98 @@ describe('normalizeBoxMinMax', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'lower_whisker_people',
+                as: 'lower_whisker_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'upper_whisker_people',
-              },
+                as: 'upper_whisker_people'
+              }
             ],
-            groupby: [],
-          },
+            groupby: []
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               y: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               y2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               y: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               y: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
-              size: {value: 14},
-            },
+              size: {value: 14}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               y: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 14},
-            },
-          },
-        ],
+              size: {value: 14}
+            }
+          }
+        ]
       }
     );
   });
@@ -1538,11 +1538,11 @@ describe('normalizeBoxIQR', () => {
             y: {
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             size: {value: 5},
-            color: {value: 'skyblue'},
-          },
+            color: {value: 'skyblue'}
+          }
         },
         defaultConfig
       ),
@@ -1555,115 +1555,115 @@ describe('normalizeBoxIQR', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'min_people',
+                as: 'min_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'max_people',
-              },
+                as: 'max_people'
+              }
             ],
-            groupby: ['age'],
+            groupby: ['age']
           },
           {
             calculate: 'datum.upper_box_people - datum.lower_box_people',
-            as: 'iqr_people',
+            as: 'iqr_people'
           },
           {
             calculate: `min(datum.upper_box_people + datum.iqr_people * ${defaultConfig.box.extent}, datum.max_people)`,
-            as: 'upper_whisker_people',
+            as: 'upper_whisker_people'
           },
           {
             calculate: `max(datum.lower_box_people - datum.iqr_people * ${defaultConfig.box.extent}, datum.min_people)`,
-            as: 'lower_whisker_people',
-          },
+            as: 'lower_whisker_people'
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               y2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 5},
-            },
-          },
-        ],
+              size: {value: 5}
+            }
+          }
+        ]
       }
     );
   });
@@ -1677,18 +1677,18 @@ describe('normalizeBoxIQR', () => {
           data: {url: 'data/population.json'},
           mark: {
             type: 'box-plot',
-            extent: 1.5,
+            extent: 1.5
           },
           encoding: {
             x: {field: 'age', type: 'quantitative'},
             y: {
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             size: {value: 5},
-            color: {value: 'skyblue'},
-          },
+            color: {value: 'skyblue'}
+          }
         },
         defaultConfig
       ),
@@ -1701,115 +1701,115 @@ describe('normalizeBoxIQR', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'min_people',
+                as: 'min_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'max_people',
-              },
+                as: 'max_people'
+              }
             ],
-            groupby: ['age'],
+            groupby: ['age']
           },
           {
             calculate: 'datum.upper_box_people - datum.lower_box_people',
-            as: 'iqr_people',
+            as: 'iqr_people'
           },
           {
             calculate: 'min(datum.upper_box_people + datum.iqr_people * 1.5, datum.max_people)',
-            as: 'upper_whisker_people',
+            as: 'upper_whisker_people'
           },
           {
             calculate: 'max(datum.lower_box_people - datum.iqr_people * 1.5, datum.min_people)',
-            as: 'lower_whisker_people',
-          },
+            as: 'lower_whisker_people'
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               y2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               size: {value: 5},
-              color: {value: 'skyblue'},
-            },
+              color: {value: 'skyblue'}
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 5},
-            },
-          },
-        ],
+              size: {value: 5}
+            }
+          }
+        ]
       }
     );
   });
@@ -1823,22 +1823,22 @@ describe('normalizeBoxIQR', () => {
           data: {url: 'data/population.json'},
           mark: {
             type: 'box-plot',
-            extent: 1.5,
+            extent: 1.5
           },
           encoding: {
             x: {field: 'age', type: 'quantitative'},
             y: {
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             size: {value: 5},
             color: {
               aggregate: 'mean',
               field: 'people',
-              type: 'quantitative',
-            },
-          },
+              type: 'quantitative'
+            }
+          }
         },
         defaultConfig
       ),
@@ -1851,123 +1851,123 @@ describe('normalizeBoxIQR', () => {
               {
                 op: 'q1',
                 field: 'people',
-                as: 'lower_box_people',
+                as: 'lower_box_people'
               },
               {
                 op: 'q3',
                 field: 'people',
-                as: 'upper_box_people',
+                as: 'upper_box_people'
               },
               {
                 op: 'median',
                 field: 'people',
-                as: 'mid_box_people',
+                as: 'mid_box_people'
               },
               {
                 op: 'min',
                 field: 'people',
-                as: 'min_people',
+                as: 'min_people'
               },
               {
                 op: 'max',
                 field: 'people',
-                as: 'max_people',
+                as: 'max_people'
               },
               {
                 op: 'mean',
                 field: 'people',
-                as: 'mean_people',
-              },
+                as: 'mean_people'
+              }
             ],
-            groupby: ['age'],
+            groupby: ['age']
           },
           {
             calculate: 'datum.upper_box_people - datum.lower_box_people',
-            as: 'iqr_people',
+            as: 'iqr_people'
           },
           {
             calculate: 'min(datum.upper_box_people + datum.iqr_people * 1.5, datum.max_people)',
-            as: 'upper_whisker_people',
+            as: 'upper_whisker_people'
           },
           {
             calculate: 'max(datum.lower_box_people - datum.iqr_people * 1.5, datum.min_people)',
-            as: 'lower_whisker_people',
-          },
+            as: 'lower_whisker_people'
+          }
         ],
         layer: [
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_whisker_people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               y2: {
                 field: 'lower_box_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'rule',
-              style: 'boxWhisker',
+              style: 'boxWhisker'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_whisker_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'bar',
-              style: 'box',
+              style: 'box'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'lower_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               y2: {
                 field: 'upper_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               size: {value: 5},
               color: {
                 field: 'mean_people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: {
               type: 'tick',
-              style: 'boxMid',
+              style: 'boxMid'
             },
             encoding: {
               x: {field: 'age', type: 'quantitative'},
               y: {
                 field: 'mid_box_people',
-                type: 'quantitative',
+                type: 'quantitative'
               },
               color: {value: 'white'},
-              size: {value: 5},
-            },
-          },
-        ],
+              size: {value: 5}
+            }
+          }
+        ]
       }
     );
   });

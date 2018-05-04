@@ -28,7 +28,7 @@ const compilers: Dict<TransformCompiler> = {
   translate,
   zoom,
   inputs,
-  nearest,
+  nearest
 };
 
 export function forEachTransform(selCmpt: SelectionComponent, cb: (tx: TransformCompiler) => void) {

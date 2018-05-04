@@ -20,18 +20,18 @@ describe('Selection Predicate', () => {
         type: 'ordinal',
         condition: {
           selection: 'one',
-          value: 'grey',
-        },
+          value: 'grey'
+        }
       },
       opacity: {
         field: 'Origin',
         type: 'nominal',
         condition: {
           selection: {or: ['one', {and: ['two', {not: 'thr-ee'}]}]},
-          value: 0.5,
-        },
-      },
-    },
+          value: 0.5
+        }
+      }
+    }
   });
 
   model.parseScale();
@@ -40,7 +40,7 @@ describe('Selection Predicate', () => {
     one: {type: 'single'},
     two: {type: 'multi', resolve: 'union'},
     'thr-ee': {type: 'interval', resolve: 'intersect'},
-    four: {type: 'single', empty: 'none'},
+    four: {type: 'single', empty: 'none'}
   });
 
   it('generates the predicate expression', () => {
@@ -83,8 +83,8 @@ describe('Selection Predicate', () => {
     assert.deepEqual<VgEncodeEntry>(nonPosition('color', model, {vgChannel: 'fill'}), {
       fill: [
         {test: '!(length(data("one_store"))) || (vlSingle("one_store", datum))', value: 'grey'},
-        {scale: 'color', field: 'Cylinders'},
-      ],
+        {scale: 'color', field: 'Cylinders'}
+      ]
     });
 
     assert.deepEqual<VgEncodeEntry>(nonPosition('opacity', model), {
@@ -95,10 +95,10 @@ describe('Selection Predicate', () => {
             '((vlSingle("one_store", datum)) || ' +
             '((vlMulti("two_store", datum, "union")) && ' +
             '(!(vlInterval("thr_ee_store", datum, "intersect")))))',
-          value: 0.5,
+          value: 0.5
         },
-        {scale: 'opacity', field: 'Origin'},
-      ],
+        {scale: 'opacity', field: 'Origin'}
+      ]
     });
   });
 

@@ -182,7 +182,7 @@ export class AggregateNode extends DataFlowNode {
       groupby: keys(this.dimensions),
       ops,
       fields,
-      as,
+      as
     };
 
     return result;

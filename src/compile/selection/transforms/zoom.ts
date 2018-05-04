@@ -43,9 +43,9 @@ const zoom: TransformCompiler = {
                 [sx ? `x: invert(${sx}, x(unit))` : '', sy ? `y: invert(${sy}, y(unit))` : '']
                   .filter(expr => !!expr)
                   .join(', ') +
-                '}',
-          },
-        ],
+                '}'
+          }
+        ]
       },
       {
         name: delta,
@@ -53,9 +53,9 @@ const zoom: TransformCompiler = {
           {
             events: events,
             force: true,
-            update: 'pow(1.001, event.deltaY * pow(16, event.deltaMode))',
-          },
-        ],
+            update: 'pow(1.001, event.deltaY * pow(16, event.deltaMode))'
+          }
+        ]
       }
     );
 
@@ -68,7 +68,7 @@ const zoom: TransformCompiler = {
     }
 
     return signals;
-  },
+  }
 };
 
 export default zoom;
@@ -105,6 +105,6 @@ function onDelta(
 
   signal.on.push({
     events: {signal: delta},
-    update: hasScales ? update : `clampRange(${update}, 0, ${sizeSg})`,
+    update: hasScales ? update : `clampRange(${update}, 0, ${sizeSg})`
   });
 }

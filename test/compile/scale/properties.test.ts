@@ -175,7 +175,7 @@ describe('compile/scale', () => {
             {
               bin: true,
               field: 'a',
-              type: 'quantitative',
+              type: 'quantitative'
             },
             [3, 5],
             {type: 'point'}

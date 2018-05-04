@@ -65,7 +65,7 @@ const scaleBindings: TransformCompiler = {
     }
 
     return signals;
-  },
+  }
 };
 
 export default scaleBindings;

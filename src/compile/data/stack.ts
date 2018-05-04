@@ -105,7 +105,7 @@ export class StackNode extends DataFlowNode {
       stackby,
       sort,
       offset: stackProperties.offset,
-      impute: stackProperties.impute,
+      impute: stackProperties.impute
     });
   }
 
@@ -151,7 +151,7 @@ export class StackNode extends DataFlowNode {
         return [
           // For binned group by field without impute, we need both bin (start) and bin_end
           vgField(dimensionFieldDef, {}),
-          vgField(dimensionFieldDef, {binSuffix: 'end'}),
+          vgField(dimensionFieldDef, {binSuffix: 'end'})
         ];
       }
       return [vgField(dimensionFieldDef)];
@@ -179,7 +179,7 @@ export class StackNode extends DataFlowNode {
             '+' +
             vgField(dimensionFieldDef, {expr: 'datum', binSuffix: 'end'}) +
             ')/2',
-          as: dimensionField,
+          as: dimensionField
         });
       }
 
@@ -189,7 +189,7 @@ export class StackNode extends DataFlowNode {
         groupby: stackby,
         key: dimensionField,
         method: 'value',
-        value: 0,
+        value: 0
       });
     }
 
@@ -200,7 +200,7 @@ export class StackNode extends DataFlowNode {
       field: stackField,
       sort,
       as: [stackField + '_start', stackField + '_end'],
-      offset,
+      offset
     });
 
     return transform;

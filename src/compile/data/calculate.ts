@@ -25,7 +25,7 @@ export class CalculateNode extends DataFlowNode {
       if (isScaleFieldDef(fieldDef) && isSortArray(fieldDef.sort)) {
         const transform: CalculateTransform = {
           calculate: CalculateNode.calculateExpressionFromSortField(fieldDef.field, fieldDef.sort),
-          as: sortArrayIndexField(model, channel),
+          as: sortArrayIndexField(model, channel)
         };
         parent = new CalculateNode(parent, transform);
       }
@@ -53,7 +53,7 @@ export class CalculateNode extends DataFlowNode {
     return {
       type: 'formula',
       expr: this.transform.calculate,
-      as: this.transform.as,
+      as: this.transform.as
     };
   }
 }

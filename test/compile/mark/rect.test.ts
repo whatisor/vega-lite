@@ -11,8 +11,8 @@ describe('Mark: Rect', () => {
       mark: 'rect',
       encoding: {
         x: {field: 'Origin', type: 'nominal'},
-        y: {type: 'quantitative', field: 'Acceleration', aggregate: 'mean'},
-      },
+        y: {type: 'quantitative', field: 'Acceleration', aggregate: 'mean'}
+      }
     });
     const props = rect.encodeEntry(model);
 
@@ -31,8 +31,8 @@ describe('Mark: Rect', () => {
       mark: 'rect',
       encoding: {
         y: {field: 'Origin', type: 'nominal'},
-        x: {aggregate: 'mean', field: 'Acceleration', type: 'quantitative'},
-      },
+        x: {aggregate: 'mean', field: 'Acceleration', type: 'quantitative'}
+      }
     });
     const props = rect.encodeEntry(model);
 
@@ -52,8 +52,8 @@ describe('Mark: Rect', () => {
       encoding: {
         y: {field: 'Origin', type: 'nominal'},
         x: {aggregate: 'mean', field: 'Acceleration', type: 'quantitative'},
-        size: {aggregate: 'mean', field: 'Horsepower', type: 'quantitative'},
-      },
+        size: {aggregate: 'mean', field: 'Horsepower', type: 'quantitative'}
+      }
     });
     const props = rect.encodeEntry(model);
 
@@ -78,8 +78,8 @@ describe('Mark: Rect', () => {
       mark: 'rect',
       encoding: {
         y: {bin: true, field: 'Horsepower', type: 'quantitative'},
-        x: {aggregate: 'mean', field: 'Acceleration', type: 'quantitative'},
-      },
+        x: {aggregate: 'mean', field: 'Acceleration', type: 'quantitative'}
+      }
     });
     const props = rect.encodeEntry(model);
 
@@ -96,8 +96,8 @@ describe('Mark: Rect', () => {
       mark: 'rect',
       encoding: {
         x: {bin: true, field: 'Horsepower', type: 'quantitative'},
-        y: {aggregate: 'mean', field: 'Acceleration', type: 'quantitative'},
-      },
+        y: {aggregate: 'mean', field: 'Acceleration', type: 'quantitative'}
+      }
     });
     const props = rect.encodeEntry(model);
 
@@ -116,8 +116,8 @@ describe('Mark: Rect', () => {
         y: {aggregate: 'min', field: 'Horsepower', type: 'quantitative'},
         y2: {aggregate: 'max', field: 'Horsepower', type: 'quantitative'},
         x: {aggregate: 'min', field: 'Acceleration', type: 'quantitative'},
-        x2: {aggregate: 'max', field: 'Acceleration', type: 'quantitative'},
-      },
+        x2: {aggregate: 'max', field: 'Acceleration', type: 'quantitative'}
+      }
     });
     const props = rect.encodeEntry(model);
 
@@ -136,8 +136,8 @@ describe('Mark: Rect', () => {
       encoding: {
         y: {field: 'Origin', type: 'ordinal'},
         x: {field: 'Cylinders', type: 'ordinal'},
-        color: {aggregate: 'mean', field: 'Horsepower', type: 'quantitative'},
-      },
+        color: {aggregate: 'mean', field: 'Horsepower', type: 'quantitative'}
+      }
     });
     const props = rect.encodeEntry(model);
 

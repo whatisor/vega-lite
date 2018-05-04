@@ -28,7 +28,7 @@ export class GeoPointNode extends DataFlowNode {
       if (pair[0] || pair[1]) {
         parent = new GeoPointNode(parent, model.projectionName(), pair, [
           model.getName('x' + suffix),
-          model.getName('y' + suffix),
+          model.getName('y' + suffix)
         ]);
       }
     });
@@ -41,7 +41,7 @@ export class GeoPointNode extends DataFlowNode {
       type: 'geopoint',
       projection: this.projection,
       fields: this.fields,
-      as: this.as,
+      as: this.as
     };
   }
 }

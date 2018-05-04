@@ -30,7 +30,7 @@ const markCompiler: {[m in Mark]: MarkCompiler} = {
   square,
   text,
   tick,
-  trail,
+  trail
 };
 
 export function parseMarkGroup(model: UnitModel): any[] {
@@ -48,7 +48,7 @@ function parsePathMark(model: UnitModel) {
 
   const pathMarks = getMarkGroups(model, {
     // If has subfacet for line/area group, need to use faceted data from below.
-    fromPrefix: details.length > 0 ? FACETED_PATH_PREFIX : '',
+    fromPrefix: details.length > 0 ? FACETED_PATH_PREFIX : ''
   });
 
   if (details.length > 0) {
@@ -63,17 +63,17 @@ function parsePathMark(model: UnitModel) {
           facet: {
             name: FACETED_PATH_PREFIX + model.requestDataName(MAIN),
             data: model.requestDataName(MAIN),
-            groupby: details,
-          },
+            groupby: details
+          }
         },
         encode: {
           update: {
             width: {field: {group: 'width'}},
-            height: {field: {group: 'height'}},
-          },
+            height: {field: {group: 'height'}}
+          }
         },
-        marks: pathMarks,
-      },
+        marks: pathMarks
+      }
     ];
   } else {
     return pathMarks;
@@ -94,20 +94,20 @@ export function getSort(model: UnitModel) {
             // FIXME: this op might not already exist?
             // FIXME: what if dimensionChannel (x or y) contains custom domain?
             aggregate: isAggregate(model.encoding) ? s.op : undefined,
-            field: s.field,
+            field: s.field
           },
           {expr: 'datum'}
         )
       : model.vgField(dimensionChannel, {
           // For stack with imputation, we only have bin_mid
           binSuffix: model.stack && model.stack.impute ? 'mid' : undefined,
-          expr: 'datum',
+          expr: 'datum'
         });
 
     return sortField
       ? {
           field: sortField,
-          order: 'descending',
+          order: 'descending'
         }
       : undefined;
   }
@@ -141,14 +141,14 @@ function getMarkGroups(
       ...(sort ? {sort} : {}),
       from: {data: opt.fromPrefix + model.requestDataName(MAIN)},
       encode: {
-        update: markCompiler[mark].encodeEntry(model),
+        update: markCompiler[mark].encodeEntry(model)
       },
       ...(postEncodingTransform
         ? {
-            transform: postEncodingTransform,
+            transform: postEncodingTransform
           }
-        : {}),
-    },
+        : {})
+    }
   ];
 }
 

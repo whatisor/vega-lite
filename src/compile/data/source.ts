@@ -91,7 +91,7 @@ export class SourceNode extends DataFlowNode {
     return {
       name: this._name,
       ...this._data,
-      transform: [],
+      transform: []
     };
   }
 }

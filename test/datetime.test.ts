@@ -9,7 +9,7 @@ describe('datetime', () => {
       log.wrap(localLogger => {
         const d = {
           year: 2007,
-          day: 'monday',
+          day: 'monday'
         };
         const expr = dateTimeExpr(d, true);
         assert.equal(expr, 'datetime(2007, 0, 1, 0, 0, 0, 0)');
@@ -20,7 +20,7 @@ describe('datetime', () => {
     it('should normalize numeric quarter correctly', () => {
       const expr = dateTimeExpr(
         {
-          quarter: 2,
+          quarter: 2
         },
         true
       );
@@ -33,7 +33,7 @@ describe('datetime', () => {
         assert.equal(
           dateTimeExpr(
             {
-              quarter: 5,
+              quarter: 5
             },
             true
           ),
@@ -56,7 +56,7 @@ describe('datetime', () => {
     it('should normalize numeric month correctly', () => {
       const expr = dateTimeExpr(
         {
-          month: 1,
+          month: 1
         },
         true
       );
@@ -67,7 +67,7 @@ describe('datetime', () => {
       assert.equal(
         dateTimeExpr(
           {
-            month: 'January',
+            month: 'January'
           },
           true
         ),
@@ -76,7 +76,7 @@ describe('datetime', () => {
       assert.equal(
         dateTimeExpr(
           {
-            month: 'january',
+            month: 'january'
           },
           true
         ),
@@ -85,7 +85,7 @@ describe('datetime', () => {
       assert.equal(
         dateTimeExpr(
           {
-            month: 'Jan',
+            month: 'Jan'
           },
           true
         ),
@@ -94,7 +94,7 @@ describe('datetime', () => {
       assert.equal(
         dateTimeExpr(
           {
-            month: 'jan',
+            month: 'jan'
           },
           true
         ),
@@ -116,7 +116,7 @@ describe('datetime', () => {
       assert.equal(
         dateTimeExpr(
           {
-            day: 0,
+            day: 0
           },
           true
         ),
@@ -125,7 +125,7 @@ describe('datetime', () => {
       assert.equal(
         dateTimeExpr(
           {
-            day: 7,
+            day: 7
           },
           true
         ),
@@ -137,7 +137,7 @@ describe('datetime', () => {
       assert.equal(
         dateTimeExpr(
           {
-            day: 'Sunday',
+            day: 'Sunday'
           },
           true
         ),
@@ -146,7 +146,7 @@ describe('datetime', () => {
       assert.equal(
         dateTimeExpr(
           {
-            day: 'sunday',
+            day: 'sunday'
           },
           true
         ),
@@ -155,7 +155,7 @@ describe('datetime', () => {
       assert.equal(
         dateTimeExpr(
           {
-            day: 'Sun',
+            day: 'Sun'
           },
           true
         ),
@@ -164,7 +164,7 @@ describe('datetime', () => {
       assert.equal(
         dateTimeExpr(
           {
-            day: 'sun',
+            day: 'sun'
           },
           true
         ),
@@ -186,7 +186,7 @@ describe('datetime', () => {
       const d = {
         year: 2007,
         day: 'monday',
-        utc: true,
+        utc: true
       };
       const expr = dateTimeExpr(d, true);
       assert.equal(expr, 'utc(2007, 0, 1, 0, 0, 0, 0)');

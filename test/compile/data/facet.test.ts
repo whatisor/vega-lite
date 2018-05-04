@@ -17,24 +17,24 @@ describe('compile/data/facet', () => {
               aggregate: 'sum',
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             x: {
               field: 'age',
               type: 'ordinal',
-              scale: {rangeStep: 17},
+              scale: {rangeStep: 17}
             },
             color: {
               field: 'gender',
               type: 'nominal',
-              scale: {range: ['#EA98D2', '#659CCA']},
-            },
-          },
+              scale: {range: ['#EA98D2', '#659CCA']}
+            }
+          }
         },
         resolve: {
-          scale: {x: 'independent'},
+          scale: {x: 'independent'}
         },
-        config: {view: {fill: 'yellow'}},
+        config: {view: {fill: 'yellow'}}
       });
 
       const node = new FacetNode(null, model, 'facetName', 'dataName');
@@ -48,9 +48,9 @@ describe('compile/data/facet', () => {
             type: 'aggregate',
             groupby: ['gender'],
             fields: ['age'],
-            ops: ['distinct'],
-          },
-        ],
+            ops: ['distinct']
+          }
+        ]
       });
     });
 
@@ -62,26 +62,26 @@ describe('compile/data/facet', () => {
             {r: 'r1', c: 'c1', a: 'a1', b: 'b1'},
             {r: 'r1', c: 'c1', a: 'a2', b: 'b2'},
             {r: 'r2', c: 'c2', a: 'a1', b: 'b1'},
-            {r: 'r3', c: 'c2', a: 'a3', b: 'b2'},
-          ],
+            {r: 'r3', c: 'c2', a: 'a3', b: 'b2'}
+          ]
         },
         facet: {
           row: {field: 'r', type: 'nominal'},
-          column: {field: 'c', type: 'nominal'},
+          column: {field: 'c', type: 'nominal'}
         },
         spec: {
           mark: 'rect',
           encoding: {
             y: {field: 'b', type: 'nominal'},
-            x: {field: 'a', type: 'nominal'},
-          },
+            x: {field: 'a', type: 'nominal'}
+          }
         },
         resolve: {
           scale: {
             x: 'independent',
-            y: 'independent',
-          },
-        },
+            y: 'independent'
+          }
+        }
       });
 
       const node = new FacetNode(null, model, 'facetName', 'dataName');
@@ -96,9 +96,9 @@ describe('compile/data/facet', () => {
             type: 'aggregate',
             groupby: ['c', 'r'],
             fields: ['a', 'b'],
-            ops: ['distinct', 'distinct'],
-          },
-        ],
+            ops: ['distinct', 'distinct']
+          }
+        ]
       });
 
       assert.deepEqual(data[1], {
@@ -110,9 +110,9 @@ describe('compile/data/facet', () => {
             groupby: ['c'],
             fields: ['distinct_a'],
             ops: ['max'],
-            as: ['distinct_a'],
-          },
-        ],
+            as: ['distinct_a']
+          }
+        ]
       });
 
       assert.deepEqual(data[2], {
@@ -124,9 +124,9 @@ describe('compile/data/facet', () => {
             groupby: ['r'],
             fields: ['distinct_b'],
             ops: ['max'],
-            as: ['distinct_b'],
-          },
-        ],
+            as: ['distinct_b']
+          }
+        ]
       });
     });
   });

@@ -9,18 +9,18 @@ describe('compile/data/window', () => {
         window: [
           {
             op: 'row_number',
-            as: 'ordered_row_number',
-          },
+            as: 'ordered_row_number'
+          }
         ],
         ignorePeers: false,
         sort: [
           {
             field: 'f',
-            order: 'ascending',
-          },
+            order: 'ascending'
+          }
         ],
         groupby: ['f'],
-        frame: [null, 0],
+        frame: [null, 0]
       };
       const window = new WindowTransformNode(null, transform);
       assert.deepEqual(window.assemble(), {
@@ -30,12 +30,12 @@ describe('compile/data/window', () => {
         params: [null],
         sort: {
           field: ['f'],
-          order: ['ascending'],
+          order: ['ascending']
         },
         ignorePeers: false,
         as: ['ordered_row_number'],
         frame: [null, 0],
-        groupby: ['f'],
+        groupby: ['f']
       });
     });
     it('should return a producer proper fields', () => {
@@ -43,26 +43,26 @@ describe('compile/data/window', () => {
         window: [
           {
             op: 'row_number',
-            as: 'ordered_row_number',
+            as: 'ordered_row_number'
           },
           {
             op: 'count',
-            as: 'count_field',
+            as: 'count_field'
           },
           {
             op: 'sum',
-            as: 'sum_field',
-          },
+            as: 'sum_field'
+          }
         ],
         ignorePeers: false,
         sort: [
           {
             field: 'f',
-            order: 'ascending',
-          },
+            order: 'ascending'
+          }
         ],
         groupby: ['f'],
-        frame: [null, 0],
+        frame: [null, 0]
       };
       const window = new WindowTransformNode(null, transform);
       assert.deepEqual({count_field: true, ordered_row_number: true, sum_field: true}, window.producedFields());
@@ -72,18 +72,18 @@ describe('compile/data/window', () => {
         window: [
           {
             op: 'row_number',
-            as: 'ordered_row_number',
-          },
+            as: 'ordered_row_number'
+          }
         ],
         ignorePeers: false,
         sort: [
           {
             field: 'f',
-            order: 'ascending',
-          },
+            order: 'ascending'
+          }
         ],
         groupby: ['f'],
-        frame: [null, 0],
+        frame: [null, 0]
       };
       const window = new WindowTransformNode(null, transform);
       assert.deepEqual(window, window.clone());

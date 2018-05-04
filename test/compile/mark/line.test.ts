@@ -14,8 +14,8 @@ describe('Mark: Line', () => {
       mark: 'line',
       encoding: {
         x: {field: 'year', type: 'ordinal'},
-        y: {field: 'yield', type: 'quantitative'},
-      },
+        y: {field: 'yield', type: 'quantitative'}
+      }
     });
     const props = line.encodeEntry(model);
 
@@ -35,8 +35,8 @@ describe('Mark: Line', () => {
       encoding: {
         x: {field: 'year', type: 'ordinal'},
         y: {field: 'yield', type: 'quantitative'},
-        color: {field: 'Acceleration', type: 'quantitative'},
-      },
+        color: {field: 'Acceleration', type: 'quantitative'}
+      }
     });
     const props = line.encodeEntry(model);
 
@@ -53,8 +53,8 @@ describe('Mark: Line', () => {
         encoding: {
           x: {field: 'year', type: 'ordinal'},
           y: {field: 'yield', type: 'quantitative', aggregate: 'mean'},
-          size: {field: 'variety', type: 'nominal'},
-        },
+          size: {field: 'variety', type: 'nominal'}
+        }
       });
       const props = line.encodeEntry(model);
 
@@ -70,8 +70,8 @@ describe('Mark: Line', () => {
           encoding: {
             x: {field: 'year', type: 'ordinal'},
             y: {field: 'yield', type: 'quantitative', aggregate: 'mean'},
-            size: {field: 'Acceleration', type: 'quantitative', aggregate: 'mean'},
-          },
+            size: {field: 'Acceleration', type: 'quantitative', aggregate: 'mean'}
+          }
         });
         const props = line.encodeEntry(model);
 
@@ -89,9 +89,9 @@ describe('Mark: Line', () => {
       encoding: {
         x: {field: 'year', type: 'ordinal'},
         y: {field: 'yield', type: 'quantitative', aggregate: 'sum'},
-        color: {field: 'a', type: 'nominal'},
+        color: {field: 'a', type: 'nominal'}
       },
-      config: {stack: 'zero'},
+      config: {stack: 'zero'}
     });
     const props = line.encodeEntry(model);
 
@@ -107,9 +107,9 @@ describe('Mark: Line', () => {
       encoding: {
         y: {field: 'year', type: 'ordinal'},
         x: {field: 'yield', type: 'quantitative', aggregate: 'sum'},
-        color: {field: 'a', type: 'nominal'},
+        color: {field: 'a', type: 'nominal'}
       },
-      config: {stack: 'zero'},
+      config: {stack: 'zero'}
     });
     const props = line.encodeEntry(model);
 
@@ -122,7 +122,7 @@ describe('Mark: Line', () => {
     const model = parseUnitModelWithScaleAndLayoutSize({
       mark: 'line',
       encoding: {x: {field: 'year', type: 'ordinal'}},
-      data: {url: 'data/barley.json'},
+      data: {url: 'data/barley.json'}
     });
 
     const props = line.encodeEntry(model);
@@ -130,7 +130,7 @@ describe('Mark: Line', () => {
     it('should be centered on y', () => {
       assert.deepEqual(props.y, {
         mult: 0.5,
-        signal: 'height',
+        signal: 'height'
       });
     });
 
@@ -143,7 +143,7 @@ describe('Mark: Line', () => {
     const model = parseUnitModelWithScaleAndLayoutSize({
       mark: 'line',
       encoding: {y: {field: 'year', type: 'ordinal'}},
-      data: {url: 'data/barley.json'},
+      data: {url: 'data/barley.json'}
     });
 
     const props = line.encodeEntry(model);
@@ -151,7 +151,7 @@ describe('Mark: Line', () => {
     it('should be centered on x', () => {
       assert.deepEqual(props.x, {
         mult: 0.5,
-        signal: 'width',
+        signal: 'width'
       });
     });
 

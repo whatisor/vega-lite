@@ -80,7 +80,7 @@ export function normalizeAutoSize(
   const autosize: AutoSizeParams = {
     type: 'pad',
     ..._normalizeAutoSize(configAutosize),
-    ..._normalizeAutoSize(topLevelAutosize),
+    ..._normalizeAutoSize(topLevelAutosize)
   };
 
   if (autosize.type === 'fit') {
@@ -96,7 +96,7 @@ export function normalizeAutoSize(
 const TOP_LEVEL_PROPERTIES: (keyof TopLevelProperties)[] = [
   'background',
   'padding',
-  'datasets',
+  'datasets'
   // We do not include "autosize" here as it is supported by only unit and layer specs and thus need to be normalized
 ];
 

@@ -9,7 +9,7 @@ describe('compile/legend', () => {
 
       assert.deepEqual(values, [
         {signal: 'datetime(1970, 0, 1, 0, 0, 0, 0)'},
-        {signal: 'datetime(1980, 0, 1, 0, 0, 0, 0)'},
+        {signal: 'datetime(1980, 0, 1, 0, 0, 0, 0)'}
       ]);
     });
 

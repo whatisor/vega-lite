@@ -71,5 +71,5 @@ export const PROJECTION_PROPERTIES: (keyof Projection)[] = [
   'radius',
   'ratio',
   'spacing',
-  'tilt',
+  'tilt'
 ];

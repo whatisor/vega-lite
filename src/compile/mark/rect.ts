@@ -13,9 +13,9 @@ export const rect: MarkCompiler = {
     return {
       ...mixins.baseEncodeEntry(model, {size: 'ignore', orient: 'ignore'}),
       ...x(model),
-      ...y(model),
+      ...y(model)
     };
-  },
+  }
 };
 
 function x(model: UnitModel) {
@@ -38,7 +38,7 @@ function x(model: UnitModel) {
     // continuous scale or no scale
     return {
       ...mixins.pointPosition('x', model, 'zeroOrMax'),
-      ...mixins.pointPosition2(model, 'zeroOrMin', 'x2'),
+      ...mixins.pointPosition2(model, 'zeroOrMin', 'x2')
     };
   }
 }
@@ -63,7 +63,7 @@ function y(model: UnitModel) {
     // continuous scale or no scale
     return {
       ...mixins.pointPosition('y', model, 'zeroOrMax'),
-      ...mixins.pointPosition2(model, 'zeroOrMin', 'y2'),
+      ...mixins.pointPosition2(model, 'zeroOrMin', 'y2')
     };
   }
 }

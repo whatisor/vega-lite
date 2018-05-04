@@ -22,9 +22,9 @@ describe('compile/data/bin', () => {
         y: {
           bin: {extent: [0, 100]},
           field: 'Acceleration',
-          type: 'quantitative',
-        },
-      },
+          type: 'quantitative'
+        }
+      }
     });
 
     assert.deepEqual<VgTransform>(assembleFromEncoding(model)[0], {
@@ -33,7 +33,7 @@ describe('compile/data/bin', () => {
       as: ['bin_extent_0_100_maxbins_10_Acceleration', 'bin_extent_0_100_maxbins_10_Acceleration_end'],
       maxbins: 10,
       extent: [0, 100],
-      signal: 'bin_extent_0_100_maxbins_10_Acceleration_bins',
+      signal: 'bin_extent_0_100_maxbins_10_Acceleration_bins'
     });
   });
 
@@ -44,16 +44,16 @@ describe('compile/data/bin', () => {
         y: {
           bin: true,
           field: 'Acceleration',
-          type: 'quantitative',
-        },
-      },
+          type: 'quantitative'
+        }
+      }
     });
     const transform = assembleFromEncoding(model);
     assert.deepEqual(transform.length, 2);
     assert.deepEqual<VgTransform>(transform[0], {
       type: 'extent',
       field: 'Acceleration',
-      signal: 'bin_maxbins_10_Acceleration_extent',
+      signal: 'bin_maxbins_10_Acceleration_extent'
     });
     assert.deepEqual<VgTransform>(transform[1], {
       type: 'bin',
@@ -61,7 +61,7 @@ describe('compile/data/bin', () => {
       as: ['bin_maxbins_10_Acceleration', 'bin_maxbins_10_Acceleration_end'],
       maxbins: 10,
       signal: 'bin_maxbins_10_Acceleration_bins',
-      extent: {signal: 'bin_maxbins_10_Acceleration_extent'},
+      extent: {signal: 'bin_maxbins_10_Acceleration_extent'}
     });
   });
 
@@ -73,21 +73,21 @@ describe('compile/data/bin', () => {
         x: {
           bin: true,
           field: 'Rotten_Tomatoes_Rating',
-          type: 'quantitative',
+          type: 'quantitative'
         },
         color: {
           bin: {maxbins: 10},
           field: 'Rotten_Tomatoes_Rating',
-          type: 'ordinal',
-        },
-      },
+          type: 'ordinal'
+        }
+      }
     });
     const transform = assembleFromEncoding(model);
     assert.deepEqual(transform.length, 3);
     assert.deepEqual<VgTransform>(transform[0], {
       type: 'extent',
       field: 'Rotten_Tomatoes_Rating',
-      signal: 'bin_maxbins_10_Rotten_Tomatoes_Rating_extent',
+      signal: 'bin_maxbins_10_Rotten_Tomatoes_Rating_extent'
     });
     assert.deepEqual<VgTransform>(transform[1], {
       type: 'bin',
@@ -95,12 +95,12 @@ describe('compile/data/bin', () => {
       as: ['bin_maxbins_10_Rotten_Tomatoes_Rating', 'bin_maxbins_10_Rotten_Tomatoes_Rating_end'],
       signal: 'bin_maxbins_10_Rotten_Tomatoes_Rating_bins',
       maxbins: 10,
-      extent: {signal: 'bin_maxbins_10_Rotten_Tomatoes_Rating_extent'},
+      extent: {signal: 'bin_maxbins_10_Rotten_Tomatoes_Rating_extent'}
     });
     assert.deepEqual<VgTransform>(transform[2], {
       type: 'formula',
       as: 'bin_maxbins_10_Rotten_Tomatoes_Rating_range',
-      expr: `datum["bin_maxbins_10_Rotten_Tomatoes_Rating"] === null || isNaN(datum["bin_maxbins_10_Rotten_Tomatoes_Rating"]) ? "null" : format(datum["bin_maxbins_10_Rotten_Tomatoes_Rating"], "") + " - " + format(datum["bin_maxbins_10_Rotten_Tomatoes_Rating_end"], "")`,
+      expr: `datum["bin_maxbins_10_Rotten_Tomatoes_Rating"] === null || isNaN(datum["bin_maxbins_10_Rotten_Tomatoes_Rating"]) ? "null" : format(datum["bin_maxbins_10_Rotten_Tomatoes_Rating"], "") + " - " + format(datum["bin_maxbins_10_Rotten_Tomatoes_Rating_end"], "")`
     });
   });
 
@@ -108,7 +108,7 @@ describe('compile/data/bin', () => {
     const t: BinTransform = {
       bin: {extent: [0, 100]},
       field: 'Acceleration',
-      as: 'binned_acceleration',
+      as: 'binned_acceleration'
     };
 
     const model = parseUnitModelWithScale({
@@ -118,13 +118,13 @@ describe('compile/data/bin', () => {
       encoding: {
         x: {
           field: 'Rotten_Tomatoes_Rating',
-          type: 'quantitative',
+          type: 'quantitative'
         },
         color: {
           field: 'Rotten_Tomatoes_Rating',
-          type: 'quantitative',
-        },
-      },
+          type: 'quantitative'
+        }
+      }
     });
 
     assert.deepEqual<VgTransform>(assembleFromTransform(model, t)[0], {
@@ -133,7 +133,7 @@ describe('compile/data/bin', () => {
       maxbins: 10,
       as: ['binned_acceleration', 'binned_acceleration_end'],
       extent: [0, 100],
-      signal: 'bin_extent_0_100_maxbins_10_Acceleration_bins',
+      signal: 'bin_extent_0_100_maxbins_10_Acceleration_bins'
     });
   });
 
@@ -141,7 +141,7 @@ describe('compile/data/bin', () => {
     const t: BinTransform = {
       bin: {extent: [0, 100], maxbins: 20},
       field: 'Acceleration',
-      as: 'binned_acceleration',
+      as: 'binned_acceleration'
     };
 
     const model = parseUnitModelWithScale({
@@ -151,13 +151,13 @@ describe('compile/data/bin', () => {
       encoding: {
         x: {
           field: 'Rotten_Tomatoes_Rating',
-          type: 'quantitative',
+          type: 'quantitative'
         },
         color: {
           field: 'Rotten_Tomatoes_Rating',
-          type: 'quantitative',
-        },
-      },
+          type: 'quantitative'
+        }
+      }
     });
 
     assert.deepEqual<VgTransform>(assembleFromTransform(model, t)[0], {
@@ -166,7 +166,7 @@ describe('compile/data/bin', () => {
       maxbins: 20,
       as: ['binned_acceleration', 'binned_acceleration_end'],
       extent: [0, 100],
-      signal: 'bin_extent_0_100_maxbins_20_Acceleration_bins',
+      signal: 'bin_extent_0_100_maxbins_20_Acceleration_bins'
     });
   });
 });

@@ -13,8 +13,8 @@ function getModel(markType: any) {
     encoding: {
       x: {field: 'Horsepower', type: 'quantitative'},
       y: {field: 'Miles_per_Gallon', type: 'quantitative'},
-      color: {field: 'Origin', type: 'nominal'},
-    },
+      color: {field: 'Origin', type: 'nominal'}
+    }
   });
   model.parseScale();
   model.parseMarkGroup();
@@ -27,7 +27,7 @@ function getModel(markType: any) {
     six: {type: 'multi', nearest: null},
     seven: {type: 'single', nearest: true, encodings: ['x']},
     eight: {type: 'single', nearest: true, encodings: ['y']},
-    nine: {type: 'single', nearest: true, encodings: ['color']},
+    nine: {type: 'single', nearest: true, encodings: ['color']}
   });
 
   return model;
@@ -45,18 +45,18 @@ function voronoiMark(x?: string | {expr: string}, y?: string | {expr: string}) {
           fill: {value: 'transparent'},
           strokeWidth: {value: 0.35},
           stroke: {value: 'transparent'},
-          isVoronoi: {value: true},
-        },
+          isVoronoi: {value: true}
+        }
       },
       transform: [
         {
           type: 'voronoi',
           x: x || {expr: 'datum.datum.x || 0'},
           y: y || {expr: 'datum.datum.y || 0'},
-          size: [{signal: 'width'}, {signal: 'height'}],
-        },
-      ],
-    },
+          size: [{signal: 'width'}, {signal: 'height'}]
+        }
+      ]
+    }
   ];
 }
 

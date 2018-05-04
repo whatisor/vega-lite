@@ -26,9 +26,9 @@ describe('src/compile', () => {
               y: {
                 aggregate: 'mean',
                 field: 'precipitation',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: 'rule',
@@ -37,11 +37,11 @@ describe('src/compile', () => {
                 aggregate: 'mean',
                 field: 'precipitation',
                 type: 'quantitative',
-                scale: {type: 'log'},
-              },
-            },
-          },
-        ],
+                scale: {type: 'log'}
+              }
+            }
+          }
+        ]
       });
       parseScaleCore(model);
       assert.equal(model.getScaleComponent('y').explicit.type, 'log');
@@ -58,9 +58,9 @@ describe('src/compile', () => {
                 aggregate: 'mean',
                 field: 'precipitation',
                 type: 'quantitative',
-                scale: {type: 'log'},
-              },
-            },
+                scale: {type: 'log'}
+              }
+            }
           },
           {
             mark: 'rule',
@@ -68,11 +68,11 @@ describe('src/compile', () => {
               y: {
                 aggregate: 'mean',
                 field: 'precipitation',
-                type: 'quantitative',
-              },
-            },
-          },
-        ],
+                type: 'quantitative'
+              }
+            }
+          }
+        ]
       });
       parseScaleCore(model);
       assert.equal(model.getScaleComponent('y').explicit.type, 'log');
@@ -92,9 +92,9 @@ describe('src/compile', () => {
                   aggregate: 'mean',
                   field: 'precipitation',
                   type: 'quantitative',
-                  scale: {type: 'log'},
-                },
-              },
+                  scale: {type: 'log'}
+                }
+              }
             },
             {
               mark: 'rule',
@@ -103,11 +103,11 @@ describe('src/compile', () => {
                   aggregate: 'mean',
                   field: 'precipitation',
                   type: 'quantitative',
-                  scale: {type: 'pow'},
-                },
-              },
-            },
-          ],
+                  scale: {type: 'pow'}
+                }
+              }
+            }
+          ]
         });
         parseScaleCore(model);
         assert.equal(model.getScaleComponent('y').explicit.type, 'log');
@@ -125,10 +125,10 @@ describe('src/compile', () => {
               y: {
                 aggregate: 'mean',
                 field: 'precipitation',
-                type: 'quantitative',
+                type: 'quantitative'
               },
-              x: {field: 'weather', type: 'nominal'},
-            },
+              x: {field: 'weather', type: 'nominal'}
+            }
           },
           {
             mark: 'bar',
@@ -136,12 +136,12 @@ describe('src/compile', () => {
               y: {
                 aggregate: 'mean',
                 field: 'precipitation',
-                type: 'quantitative',
+                type: 'quantitative'
               },
-              x: {field: 'weather', type: 'nominal'},
-            },
-          },
-        ],
+              x: {field: 'weather', type: 'nominal'}
+            }
+          }
+        ]
       });
       parseScaleCore(model);
       assert.equal(model.getScaleComponent('x').implicit.type, 'band');
@@ -152,20 +152,20 @@ describe('src/compile', () => {
         data: {
           url: 'data/zipcodes.csv',
           format: {
-            type: 'csv',
-          },
+            type: 'csv'
+          }
         },
         mark: 'point',
         encoding: {
           longitude: {
             field: 'longitude',
-            type: 'quantitative',
+            type: 'quantitative'
           },
           latitude: {
             field: 'latitude',
-            type: 'quantitative',
-          },
-        },
+            type: 'quantitative'
+          }
+        }
       });
       parseScaleCore(model);
       assert.isUndefined(model.getScaleComponent('x'));
@@ -182,16 +182,16 @@ describe('src/compile', () => {
             from: {
               data: {
                 url: 'data/us-10m.json',
-                format: {type: 'topojson', feature: 'states'},
+                format: {type: 'topojson', feature: 'states'}
               },
-              key: 'id',
+              key: 'id'
             },
-            as: 'geo',
-          },
+            as: 'geo'
+          }
         ],
         encoding: {
-          shape: {field: 'geo', type: 'geojson'},
-        },
+          shape: {field: 'geo', type: 'geojson'}
+        }
       });
       parseScaleCore(model);
       assert.isUndefined(model.getScaleComponent('shape'));
@@ -211,9 +211,9 @@ describe('src/compile', () => {
                 y: {
                   field: 'a',
                   type: 'nominal',
-                  scale: {rangeStep: 17},
-                },
-              },
+                  scale: {rangeStep: 17}
+                }
+              }
             },
             {
               mark: 'point',
@@ -221,11 +221,11 @@ describe('src/compile', () => {
                 y: {
                   field: 'a',
                   type: 'nominal',
-                  scale: {rangeStep: 17},
-                },
-              },
-            },
-          ],
+                  scale: {rangeStep: 17}
+                }
+              }
+            }
+          ]
         });
         parseScale(model);
         assert.deepEqual(model.getScaleComponent('y').explicit.range, {step: 17});
@@ -238,8 +238,8 @@ describe('src/compile', () => {
         const model = parseUnitModelWithScale({
           mark: 'point',
           encoding: {
-            x: {field: 'origin', type: 'nominal'},
-          },
+            x: {field: 'origin', type: 'nominal'}
+          }
         });
         const scale = model.getScaleComponent('x');
         assert.equal(scale.implicit.type, 'point');
@@ -251,8 +251,8 @@ describe('src/compile', () => {
       const model = parseUnitModelWithScale({
         mark: 'bar',
         encoding: {
-          x: {field: 'origin', type: 'nominal', scale: {type: 'band', padding: 0.6}},
-        },
+          x: {field: 'origin', type: 'nominal', scale: {type: 'band', padding: 0.6}}
+        }
       });
       const scale = model.getScaleComponent('x');
       assert.equal(scale.explicit.padding, 0.6);
@@ -264,11 +264,11 @@ describe('src/compile', () => {
       const model = parseUnitModelWithScale({
         mark: 'bar',
         encoding: {
-          x: {field: 'origin', type: 'nominal', scale: {type: 'band'}},
+          x: {field: 'origin', type: 'nominal', scale: {type: 'band'}}
         },
         config: {
-          scale: {bandPaddingInner: 0.3},
-        },
+          scale: {bandPaddingInner: 0.3}
+        }
       });
       const scale = model.getScaleComponent('x');
       assert.equal(scale.implicit.paddingInner, 0.3);
@@ -280,8 +280,8 @@ describe('src/compile', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          color: {field: 'origin', type: 'nominal'},
-        },
+          color: {field: 'origin', type: 'nominal'}
+        }
       });
 
       const scale = model.getScaleComponent('color');
@@ -293,8 +293,8 @@ describe('src/compile', () => {
           {
             data: 'main',
             field: 'origin',
-            sort: true,
-          },
+            sort: true
+          }
         ]);
         assert.equal(scale.implicit.range, 'category');
       });
@@ -304,8 +304,8 @@ describe('src/compile', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          color: {field: 'origin', type: 'ordinal'},
-        },
+          color: {field: 'origin', type: 'ordinal'}
+        }
       });
 
       const scale = model.getScaleComponent('color');
@@ -318,8 +318,8 @@ describe('src/compile', () => {
           {
             data: 'main',
             field: 'origin',
-            sort: true,
-          },
+            sort: true
+          }
         ]);
       });
     });
@@ -328,8 +328,8 @@ describe('src/compile', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          color: {field: 'origin', type: 'quantitative'},
-        },
+          color: {field: 'origin', type: 'quantitative'}
+        }
       });
 
       const scale = model.getScaleComponent('color');
@@ -342,8 +342,8 @@ describe('src/compile', () => {
         assert.deepEqual(scale.domains, [
           {
             data: 'main',
-            field: 'origin',
-          },
+            field: 'origin'
+          }
         ]);
       });
     });
@@ -352,8 +352,8 @@ describe('src/compile', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          color: {field: 'origin', type: 'quantitative', bin: true},
-        },
+          color: {field: 'origin', type: 'quantitative', bin: true}
+        }
       });
 
       const scale = model.getScaleComponent('color');
@@ -368,8 +368,8 @@ describe('src/compile', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          color: {field: 'origin', type: 'ordinal', bin: true},
-        },
+          color: {field: 'origin', type: 'ordinal', bin: true}
+        }
       });
 
       const scale = model.getScaleComponent('color');
@@ -384,8 +384,8 @@ describe('src/compile', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          opacity: {field: 'origin', type: 'quantitative', bin: true},
-        },
+          opacity: {field: 'origin', type: 'quantitative', bin: true}
+        }
       });
 
       const scale = model.getScaleComponent('opacity');
@@ -400,8 +400,8 @@ describe('src/compile', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          size: {field: 'origin', type: 'quantitative', bin: true},
-        },
+          size: {field: 'origin', type: 'quantitative', bin: true}
+        }
       });
 
       const scale = model.getScaleComponent('size');
@@ -416,8 +416,8 @@ describe('src/compile', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          color: {field: 'origin', type: 'temporal', timeUnit: 'year'},
-        },
+          color: {field: 'origin', type: 'temporal', timeUnit: 'year'}
+        }
       });
 
       const scale = model.getScaleComponent('color');
@@ -435,14 +435,14 @@ describe('src/compile', () => {
           x: {
             field: 'date',
             type: 'temporal',
-            scale: {domain: {selection: 'brush', encoding: 'x'}},
+            scale: {domain: {selection: 'brush', encoding: 'x'}}
           },
           y: {
             field: 'date',
             type: 'temporal',
-            scale: {domain: {selection: 'foobar', field: 'Miles_per_Gallon'}},
-          },
-        },
+            scale: {domain: {selection: 'foobar', field: 'Miles_per_Gallon'}}
+          }
+        }
       });
 
       const xScale = model.getScaleComponent('x');
@@ -471,72 +471,72 @@ describe('src/compile', () => {
       it('should use cloned subtree', () => {
         const model = parseModelWithScale({
           facet: {
-            row: {field: 'symbol', type: 'nominal'},
+            row: {field: 'symbol', type: 'nominal'}
           },
           data: {url: 'foo.csv'},
           spec: {
             mark: 'point',
             encoding: {
-              x: {field: 'a', type: 'quantitative'},
-            },
-          },
+              x: {field: 'a', type: 'quantitative'}
+            }
+          }
         });
 
         assert.deepEqual(model.component.scales.x.domains, [
           {
             data: 'scale_child_main',
-            field: 'a',
-          },
+            field: 'a'
+          }
         ]);
       });
 
       it('should not use cloned subtree if the data is not faceted', () => {
         const model = parseModelWithScale({
           facet: {
-            row: {field: 'symbol', type: 'nominal'},
+            row: {field: 'symbol', type: 'nominal'}
           },
           data: {url: 'foo.csv'},
           spec: {
             data: {url: 'foo'},
             mark: 'point',
             encoding: {
-              x: {field: 'a', type: 'quantitative'},
-            },
-          },
+              x: {field: 'a', type: 'quantitative'}
+            }
+          }
         });
 
         assert.deepEqual(model.component.scales.x.domains, [
           {
             data: 'child_main',
-            field: 'a',
-          },
+            field: 'a'
+          }
         ]);
       });
 
       it('should not use cloned subtree if the scale is independent', () => {
         const model = parseModelWithScale({
           facet: {
-            row: {field: 'symbol', type: 'nominal'},
+            row: {field: 'symbol', type: 'nominal'}
           },
           data: {url: 'foo.csv'},
           spec: {
             mark: 'point',
             encoding: {
-              x: {field: 'a', type: 'quantitative'},
-            },
+              x: {field: 'a', type: 'quantitative'}
+            }
           },
           resolve: {
             scale: {
-              x: 'independent',
-            },
-          },
+              x: 'independent'
+            }
+          }
         });
 
         assert.deepEqual(model.children[0].component.scales.x.domains, [
           {
             data: 'child_main',
-            field: 'a',
-          },
+            field: 'a'
+          }
         ]);
       });
     });

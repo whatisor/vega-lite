@@ -10,7 +10,7 @@ import {
   selectionTypes,
   spec,
   testRenderFn,
-  unitNameRegex,
+  unitNameRegex
 } from './util';
 
 selectionTypes.forEach(type => {
@@ -29,7 +29,7 @@ selectionTypes.forEach(type => {
           const selection = {
             type,
             resolve: 'global',
-            ...(specType === 'facet' ? {encodings: ['y']} : {}),
+            ...(specType === 'facet' ? {encodings: ['y']} : {})
           };
 
           for (let i = 0; i < hits[specType].length; i++) {
@@ -52,7 +52,7 @@ selectionTypes.forEach(type => {
           const selection = {
             type,
             resolve,
-            ...(specType === 'facet' ? {encodings: ['x']} : {}),
+            ...(specType === 'facet' ? {encodings: ['x']} : {})
           };
 
           // Loop through the views, click to add selection instance and observe

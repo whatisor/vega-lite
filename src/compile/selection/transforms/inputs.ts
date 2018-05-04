@@ -25,10 +25,10 @@ const inputBindings: TransformCompiler = {
           on: [
             {
               events: selCmpt.events,
-              update: `datum && item().mark.marktype !== 'group' ? ${accessPathWithDatum(p.field, datum)} : null`,
-            },
+              update: `datum && item().mark.marktype !== 'group' ? ${accessPathWithDatum(p.field, datum)} : null`
+            }
           ],
-          bind: bind[p.field] || bind[p.channel] || bind,
+          bind: bind[p.field] || bind[p.channel] || bind
         });
       }
     });
@@ -51,7 +51,7 @@ const inputBindings: TransformCompiler = {
     delete signal.on;
 
     return signals;
-  },
+  }
 };
 
 export default inputBindings;

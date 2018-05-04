@@ -14,7 +14,7 @@ import {
   NormalizedRepeatSpec,
   NormalizedUnitSpec,
   TopLevel,
-  TopLevelSpec,
+  TopLevelSpec
 } from '../src/spec';
 import {isLayerSpec, isUnitSpec} from '../src/spec';
 import {normalizeAutoSize} from '../src/toplevelprops';

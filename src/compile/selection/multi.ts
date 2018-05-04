@@ -47,10 +47,10 @@ export function signals(model: UnitModel, selCmpt: SelectionComponent) {
             `fields: [${fields}], values: [${values}]` +
             (bins.length ? ', ' + bins.map(b => `${stringValue('bin_' + b)}: 1`).join(', ') : '') +
             '} : null',
-          force: true,
-        },
-      ],
-    },
+          force: true
+        }
+      ]
+    }
   ];
 }
 
@@ -63,7 +63,7 @@ const multi: SelectionCompiler = {
   modifyExpr: (model, selCmpt) => {
     const tpl = selCmpt.name + TUPLE;
     return tpl + ', ' + (selCmpt.resolve === 'global' ? 'null' : `{unit: ${unitName(model)}}`);
-  },
+  }
 };
 
 export default multi;

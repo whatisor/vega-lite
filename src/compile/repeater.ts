@@ -50,7 +50,7 @@ function replaceRepeaterInFieldDef(fieldDef: ScaleFieldDef<Field>, repeater: Rep
     const sort = replaceRepeat(fieldDef.sort, repeater);
     fieldDef = {
       ...fieldDef,
-      ...(sort ? {sort} : {}),
+      ...(sort ? {sort} : {})
     };
   }
 
@@ -71,7 +71,7 @@ function replaceRepeaterInChannelDef(channelDef: ChannelDef<Field>, repeater: Re
       if (fd) {
         return {
           ...channelDef,
-          condition: fd,
+          condition: fd
         } as ChannelDef<string>;
       } else {
         const {condition, ...channelDefWithoutCondition} = channelDef;

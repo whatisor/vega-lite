@@ -96,7 +96,7 @@ export const AXIS_PROPERTY_TYPE: {
   values: 'both',
 
   scale: 'both',
-  zindex: 'both', // this is actually set afterward, so it doesn't matter
+  zindex: 'both' // this is actually set afterward, so it doesn't matter
 };
 
 export interface AxisEncoding {
@@ -152,21 +152,21 @@ const COMMON_AXIS_PROPERTIES_INDEX: Flag<keyof (VgAxis | Axis)> = {
   title: 1,
   titlePadding: 1,
   values: 1,
-  zindex: 1,
+  zindex: 1
 };
 
 const AXIS_PROPERTIES_INDEX: Flag<keyof Axis> = {
   ...COMMON_AXIS_PROPERTIES_INDEX,
   encoding: 1,
   labelAngle: 1,
-  titleMaxLength: 1,
+  titleMaxLength: 1
 };
 
 const VG_AXIS_PROPERTIES_INDEX: Flag<keyof VgAxis> = {
   scale: 1,
   ...COMMON_AXIS_PROPERTIES_INDEX,
   gridScale: 1,
-  encode: 1,
+  encode: 1
 };
 
 export function isAxisProperty(prop: string): prop is keyof Axis {

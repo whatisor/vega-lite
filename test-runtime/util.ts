@@ -46,12 +46,12 @@ export const tuples = [
   {a: 8, b: 67, c: 2},
   {a: 9, b: 49, c: 0},
   {a: 9, b: 15, c: 1},
-  {a: 9, b: 48, c: 2},
+  {a: 9, b: 48, c: 2}
 ];
 
 const unitNames = {
   repeat: ['child_d', 'child_e', 'child_f'],
-  facet: ['child_0', 'child_1', 'child_2'],
+  facet: ['child_0', 'child_1', 'child_2']
 };
 
 export const hits = {
@@ -66,7 +66,7 @@ export const hits = {
     repeat_clear: [13, 14, 2],
 
     facet: [2, 6, 9],
-    facet_clear: [3, 4, 8],
+    facet_clear: [3, 4, 8]
   },
 
   interval: {
@@ -82,8 +82,8 @@ export const hits = {
     repeat_clear: [[8], [11], [17]],
 
     facet: [[1, 9], [2, 8], [4, 10]],
-    facet_clear: [[3], [5], [7]],
-  },
+    facet_clear: [[3], [5], [7]]
+  }
 };
 
 function base(iter: number, sel: any, opts: any = {}): NormalizedUnitSpec | NormalizedLayerSpec {
@@ -106,9 +106,9 @@ function base(iter: number, sel: any, opts: any = {}): NormalizedUnitSpec | Norm
           size,
           color: {
             condition: {selection: 'sel', ...color},
-            value: 'grey',
-          },
-        },
+            value: 'grey'
+          }
+        }
       }
     : {
         data,
@@ -121,15 +121,15 @@ function base(iter: number, sel: any, opts: any = {}): NormalizedUnitSpec | Norm
               y,
               size,
               color,
-              opacity: {value: 0.25},
-            },
+              opacity: {value: 0.25}
+            }
           },
           {
             transform: [{filter: {selection: 'sel'}}],
             mark,
-            encoding: {x, y, size, color},
-          },
-        ],
+            encoding: {x, y, size, color}
+          }
+        ]
       };
 }
 
@@ -144,14 +144,14 @@ export function spec(compose: ComposeType, iter: number, sel: any, opts: any = {
         data,
         facet: {row: {field: 'c', type: 'nominal'}},
         spec: specification,
-        resolve,
+        resolve
       };
     case 'repeat':
       return {
         data,
         repeat: {row: ['d', 'e', 'f']},
         spec: specification,
-        resolve,
+        resolve
       };
   }
 

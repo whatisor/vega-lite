@@ -9,8 +9,8 @@ describe('vl.validate', () => {
         getEncodingMappingError({
           mark: BAR,
           encoding: {
-            x: {field: 'a', type: 'quantitative'},
-          },
+            x: {field: 'a', type: 'quantitative'}
+          }
         })
       );
 
@@ -19,8 +19,8 @@ describe('vl.validate', () => {
           mark: LINE,
           encoding: {
             x: {field: 'b', type: 'quantitative'},
-            y: {field: 'a', type: 'quantitative'},
-          },
+            y: {field: 'a', type: 'quantitative'}
+          }
         })
       );
 
@@ -29,8 +29,8 @@ describe('vl.validate', () => {
           mark: AREA,
           encoding: {
             x: {field: 'a', type: 'quantitative'},
-            y: {field: 'b', type: 'quantitative'},
-          },
+            y: {field: 'b', type: 'quantitative'}
+          }
         })
       );
     });
@@ -40,8 +40,8 @@ describe('vl.validate', () => {
         getEncodingMappingError({
           mark: LINE,
           encoding: {
-            x: {field: 'b', type: 'quantitative'}, // missing y
-          },
+            x: {field: 'b', type: 'quantitative'} // missing y
+          }
         })
       );
 
@@ -49,8 +49,8 @@ describe('vl.validate', () => {
         getEncodingMappingError({
           mark: AREA,
           encoding: {
-            y: {field: 'b', type: 'quantitative'}, // missing x
-          },
+            y: {field: 'b', type: 'quantitative'} // missing x
+          }
         })
       );
 
@@ -58,8 +58,8 @@ describe('vl.validate', () => {
         getEncodingMappingError({
           mark: TEXT,
           encoding: {
-            y: {field: 'b', type: 'quantitative'}, // missing text
-          },
+            y: {field: 'b', type: 'quantitative'} // missing text
+          }
         })
       );
 
@@ -67,8 +67,8 @@ describe('vl.validate', () => {
         getEncodingMappingError({
           mark: LINE,
           encoding: {
-            shape: {field: 'b', type: 'quantitative'}, // using shape with line
-          },
+            shape: {field: 'b', type: 'quantitative'} // using shape with line
+          }
         })
       );
 
@@ -76,8 +76,8 @@ describe('vl.validate', () => {
         getEncodingMappingError({
           mark: AREA,
           encoding: {
-            shape: {field: 'b', type: 'quantitative'}, // using shape with area
-          },
+            shape: {field: 'b', type: 'quantitative'} // using shape with area
+          }
         })
       );
 
@@ -85,8 +85,8 @@ describe('vl.validate', () => {
         getEncodingMappingError({
           mark: BAR,
           encoding: {
-            shape: {field: 'b', type: 'quantitative'}, // using shape with bar
-          },
+            shape: {field: 'b', type: 'quantitative'} // using shape with bar
+          }
         })
       );
     });

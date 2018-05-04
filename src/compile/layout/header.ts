@@ -65,7 +65,7 @@ export function getTitleGroup(model: Model, channel: HeaderChannel) {
   const update = {
     align: {value: 'center'},
     text: {value: title},
-    ...(textOrient === 'vertical' ? {angle: {value: 270}} : {}),
+    ...(textOrient === 'vertical' ? {angle: {value: 270}} : {})
     // TODO*https://github.com/vega/vega-lite/issues/2446): add title* properties (e.g., titleAlign)
     // also make sure that guide-title config override these Vega-lite default
   };
@@ -79,9 +79,9 @@ export function getTitleGroup(model: Model, channel: HeaderChannel) {
         type: 'text',
         role: `${channel}-title-text`,
         style: 'guide-title',
-        ...(keys(update).length > 0 ? {encode: {update}} : {}),
-      },
-    ],
+        ...(keys(update).length > 0 ? {encode: {update}} : {})
+      }
+    ]
   };
 }
 
@@ -140,7 +140,7 @@ function getHeaderGroup(
       const update = {
         ...(labelAngle !== undefined ? {angle: {value: labelAngle}} : {}),
         ...labelAlign(labelAngle),
-        ...labelBaseline(labelAngle),
+        ...labelBaseline(labelAngle)
       };
 
       title = {
@@ -148,7 +148,7 @@ function getHeaderGroup(
         offset: 10,
         orient: channel === 'row' ? 'left' : 'top',
         style: 'guide-label',
-        ...(keys(update).length > 0 ? {encode: {update}} : {}),
+        ...(keys(update).length > 0 ? {encode: {update}} : {})
       };
     }
 
@@ -167,8 +167,8 @@ function getHeaderGroup(
               from: {data: model.getName(channel + '_domain')},
               sort: {
                 field: vgField(facetFieldDef, {expr: 'datum'}),
-                order: facetFieldDef.sort || 'ascending',
-              },
+                order: facetFieldDef.sort || 'ascending'
+              }
             }
           : {}),
         ...(title ? {title} : {}),
@@ -176,12 +176,12 @@ function getHeaderGroup(
           ? {
               encode: {
                 update: {
-                  [sizeChannel]: headerCmpt.sizeSignal,
-                },
-              },
+                  [sizeChannel]: headerCmpt.sizeSignal
+                }
+              }
             }
           : {}),
-        ...(hasAxes ? {axes} : {}),
+        ...(hasAxes ? {axes} : {})
       };
     }
   }

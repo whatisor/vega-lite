@@ -23,7 +23,7 @@ describe('compile/data/assemble', () => {
           outputNodes: {out: main},
           outputNodeRefCounts,
           ancestorParse: {},
-          isFaceted: false,
+          isFaceted: false
         },
         {}
       );
@@ -51,7 +51,7 @@ describe('compile/data/assemble', () => {
           outputNodes: {out: main},
           outputNodeRefCounts,
           ancestorParse: {},
-          isFaceted: false,
+          isFaceted: false
         },
         {}
       );
@@ -60,7 +60,7 @@ describe('compile/data/assemble', () => {
         {
           name: 'source_0',
           url: 'foo.csv',
-          format: {type: 'csv'},
+          format: {type: 'csv'}
         },
         {
           name: 'data_0',
@@ -71,10 +71,10 @@ describe('compile/data/assemble', () => {
               groupby: ['a'],
               ops: ['count'],
               fields: ['b'],
-              as: ['count_*'],
-            },
-          ],
-        },
+              as: ['count_*']
+            }
+          ]
+        }
       ]);
     });
 
@@ -87,18 +87,18 @@ describe('compile/data/assemble', () => {
         window: [
           {
             op: 'row_number',
-            as: 'ordered_row_number',
-          },
+            as: 'ordered_row_number'
+          }
         ],
         ignorePeers: false,
         sort: [
           {
             field: 'f',
-            order: 'ascending',
-          },
+            order: 'ascending'
+          }
         ],
         groupby: ['f'],
-        frame: [null, 0],
+        frame: [null, 0]
       };
       const agg = new WindowTransformNode(null, transform);
       agg.parent = raw;
@@ -114,7 +114,7 @@ describe('compile/data/assemble', () => {
           outputNodes: {out: main},
           outputNodeRefCounts,
           ancestorParse: {},
-          isFaceted: false,
+          isFaceted: false
         },
         {}
       );
@@ -123,7 +123,7 @@ describe('compile/data/assemble', () => {
         {
           name: 'source_0',
           url: 'foo.csv',
-          format: {type: 'csv'},
+          format: {type: 'csv'}
         },
         {
           name: 'data_0',
@@ -136,15 +136,15 @@ describe('compile/data/assemble', () => {
               params: [null],
               sort: {
                 field: ['f'],
-                order: ['ascending'],
+                order: ['ascending']
               },
               ignorePeers: false,
               as: ['ordered_row_number'],
               frame: [null, 0],
-              groupby: ['f'],
-            },
-          ],
-        },
+              groupby: ['f']
+            }
+          ]
+        }
       ]);
     });
 
@@ -160,18 +160,18 @@ describe('compile/data/assemble', () => {
           outputNodes: {out: main},
           outputNodeRefCounts,
           ancestorParse: {},
-          isFaceted: false,
+          isFaceted: false
         },
         {
-          foo: [1, 2, 3],
+          foo: [1, 2, 3]
         }
       );
 
       assert.deepEqual<VgData[]>(data, [
         {
           name: 'foo',
-          values: [1, 2, 3],
-        },
+          values: [1, 2, 3]
+        }
       ]);
     });
   });

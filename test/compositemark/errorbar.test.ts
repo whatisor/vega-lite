@@ -16,15 +16,15 @@ describe('normalizeErrorBar', () => {
               aggregate: 'min',
               field: 'people',
               type: 'quantitative',
-              axis: {title: 'population'},
+              axis: {title: 'population'}
             },
             x2: {
               aggregate: 'max',
               field: 'people',
-              type: 'quantitative',
+              type: 'quantitative'
             },
-            size: {value: 5},
-          },
+            size: {value: 5}
+          }
         },
         defaultConfig
       ),
@@ -39,14 +39,14 @@ describe('normalizeErrorBar', () => {
                 aggregate: 'min',
                 field: 'people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
               x2: {
                 aggregate: 'max',
                 field: 'people',
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           },
           {
             mark: 'tick',
@@ -56,10 +56,10 @@ describe('normalizeErrorBar', () => {
                 aggregate: 'min',
                 field: 'people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
-              size: {value: 5},
-            },
+              size: {value: 5}
+            }
           },
           {
             mark: 'tick',
@@ -68,13 +68,13 @@ describe('normalizeErrorBar', () => {
               x: {
                 aggregate: 'max',
                 field: 'people',
-                type: 'quantitative',
+                type: 'quantitative'
                 // "axis": {"title": "population"}
               },
-              size: {value: 5},
-            },
-          },
-        ],
+              size: {value: 5}
+            }
+          }
+        ]
       }
     );
   });
@@ -92,10 +92,10 @@ describe('normalizeErrorBar', () => {
                 aggregate: 'min',
                 field: 'people',
                 type: 'quantitative',
-                axis: {title: 'population'},
+                axis: {title: 'population'}
               },
-              size: {value: 5},
-            },
+              size: {value: 5}
+            }
           },
           defaultConfig
         );

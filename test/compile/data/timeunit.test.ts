@@ -19,16 +19,16 @@ describe('compile/data/timeunit', () => {
         data: {values: []},
         mark: 'point',
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
-        },
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
+        }
       });
 
       assert.deepEqual(assembleFromEncoding(model), [
         {
           type: 'formula',
           as: 'month_a',
-          expr: 'datetime(0, month(datum["a"]), 1, 0, 0, 0, 0)',
-        },
+          expr: 'datetime(0, month(datum["a"]), 1, 0, 0, 0, 0)'
+        }
       ]);
     });
 
@@ -39,8 +39,8 @@ describe('compile/data/timeunit', () => {
         {
           type: 'formula',
           as: 'month_date',
-          expr: 'datetime(0, month(datum["date"]), 1, 0, 0, 0, 0)',
-        },
+          expr: 'datetime(0, month(datum["date"]), 1, 0, 0, 0, 0)'
+        }
       ]);
     });
   });

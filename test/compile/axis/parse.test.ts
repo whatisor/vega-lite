@@ -10,17 +10,17 @@ describe('Axis', () => {
       const model1 = parseUnitModelWithScale({
         mark: 'bar',
         encoding: {
-          y: {type: 'quantitative', field: 'US_Gross', aggregate: 'sum'},
+          y: {type: 'quantitative', field: 'US_Gross', aggregate: 'sum'}
         },
-        data: {url: 'data/movies.json'},
+        data: {url: 'data/movies.json'}
       });
 
       const model2 = parseUnitModelWithScale({
         mark: 'bar',
         encoding: {
-          y: {type: 'quantitative', field: 'US_Gross', aggregate: 'sum'},
+          y: {type: 'quantitative', field: 'US_Gross', aggregate: 'sum'}
         },
-        data: {url: 'data/movies.json'},
+        data: {url: 'data/movies.json'}
       });
       assert.deepEqual(model1.axis(Y), model2.axis(Y));
     });
@@ -33,9 +33,9 @@ describe('Axis', () => {
           x: {
             field: 'a',
             type: 'quantitative',
-            axis: {grid: true, gridColor: 'blue', gridWidth: 20},
-          },
-        },
+            axis: {grid: true, gridColor: 'blue', gridWidth: 20}
+          }
+        }
       });
       const axisComponent = parseUnitAxis(model);
       assert.equal(axisComponent['x'].length, 1);
@@ -49,9 +49,9 @@ describe('Axis', () => {
           x: {
             field: 'a',
             type: 'quantitative',
-            axis: {grid: false, gridColor: 'blue', gridWidth: 20},
-          },
-        },
+            axis: {grid: false, gridColor: 'blue', gridWidth: 20}
+          }
+        }
       });
       const axisComponent = parseUnitAxis(model);
       assert.equal(axisComponent['x'].length, 1);
@@ -64,13 +64,13 @@ describe('Axis', () => {
         encoding: {
           longitude: {
             field: 'a',
-            type: 'quantitative',
+            type: 'quantitative'
           },
           latitude: {
             field: 'b',
-            type: 'quantitative',
-          },
-        },
+            type: 'quantitative'
+          }
+        }
       });
       const axisComponent = parseUnitAxis(model);
       assert.isUndefined(axisComponent['x']);
@@ -83,10 +83,10 @@ describe('Axis', () => {
         encoding: {
           x: {
             field: 'a',
-            type: 'quantitative',
-          },
+            type: 'quantitative'
+          }
         },
-        config: {axisX: {grid: false}},
+        config: {axisX: {grid: false}}
       });
       const axisComponent = parseUnitAxis(model);
       assert.equal(axisComponent['x'].length, 1);
@@ -99,10 +99,10 @@ describe('Axis', () => {
         encoding: {
           x: {
             field: 'a',
-            type: 'quantitative',
-          },
+            type: 'quantitative'
+          }
         },
-        config: {axis: {grid: false}},
+        config: {axis: {grid: false}}
       });
       const axisComponent = parseUnitAxis(model);
       assert.equal(axisComponent['x'].length, 1);
@@ -117,9 +117,9 @@ describe('Axis', () => {
             x: {
               field: 'a',
               type: 'quantitative',
-              axis: {title: val as any}, // Need to cast as false is not valid, but we want to fall back gracefully
-            },
-          },
+              axis: {title: val as any} // Need to cast as false is not valid, but we want to fall back gracefully
+            }
+          }
         });
         const axisComponent = parseUnitAxis(model);
         assert.equal(axisComponent['x'].length, 1);
@@ -132,8 +132,8 @@ describe('Axis', () => {
         mark: 'rule',
         encoding: {
           x: {field: 'a', type: 'quantitative'},
-          x2: {field: 'a2', type: 'quantitative'},
-        },
+          x2: {field: 'a2', type: 'quantitative'}
+        }
       });
       const axisComponent = parseUnitAxis(model);
       assert.equal(axisComponent['x'].length, 1);
@@ -150,9 +150,9 @@ describe('Axis', () => {
             y: {
               aggregate: 'mean',
               field: 'a',
-              type: 'quantitative',
-            },
-          },
+              type: 'quantitative'
+            }
+          }
         },
         {
           mark: 'line',
@@ -160,16 +160,16 @@ describe('Axis', () => {
             y: {
               aggregate: 'mean',
               field: 'a',
-              type: 'quantitative',
+              type: 'quantitative'
             },
             x: {
               timeUnit: 'month',
               type: 'temporal',
-              field: 'date',
-            },
-          },
-        },
-      ],
+              field: 'date'
+            }
+          }
+        }
+      ]
     });
     globalRuleOverlay.parseScale();
     globalRuleOverlay.parseLayoutSize();
@@ -198,10 +198,10 @@ describe('Axis', () => {
               y: {
                 aggregate: 'max',
                 field: 'Horsepower',
-                type: 'quantitative',
+                type: 'quantitative'
               },
-              color: {value: 'darkred'},
-            },
+              color: {value: 'darkred'}
+            }
           },
           {
             data: {url: 'data/cars.json'},
@@ -211,11 +211,11 @@ describe('Axis', () => {
               y: {
                 aggregate: 'min',
                 field: 'Horsepower',
-                type: 'quantitative',
-              },
-            },
-          },
-        ],
+                type: 'quantitative'
+              }
+            }
+          }
+        ]
       });
       model.parseScale();
       parseLayerAxis(model);
@@ -223,7 +223,7 @@ describe('Axis', () => {
 
       assert.deepEqual(axisComponents.y[0].get('title'), [
         {aggregate: 'max', field: 'Horsepower'},
-        {aggregate: 'min', field: 'Horsepower'},
+        {aggregate: 'min', field: 'Horsepower'}
       ]);
     });
   });

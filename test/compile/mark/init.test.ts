@@ -15,8 +15,8 @@ describe('compile/mark/init', () => {
           mark,
           encoding: {
             y: {type: 'quantitative', field: 'foo'},
-            x: {type: 'quantitative', field: 'bar'},
-          },
+            x: {type: 'quantitative', field: 'bar'}
+          }
         });
         assert.equal(model.markDef.opacity, 0.7);
       }
@@ -28,8 +28,8 @@ describe('compile/mark/init', () => {
           mark,
           encoding: {
             y: {aggregate: 'mean', type: 'quantitative', field: 'foo'},
-            x: {type: 'nominal', field: 'bar'},
-          },
+            x: {type: 'nominal', field: 'bar'}
+          }
         });
         assert.equal(model.markDef.opacity, undefined);
       }
@@ -41,8 +41,8 @@ describe('compile/mark/init', () => {
           mark: {type: mark, opacity: 0.9},
           encoding: {
             y: {type: 'quantitative', field: 'foo'},
-            x: {type: 'quantitative', field: 'bar'},
-          },
+            x: {type: 'quantitative', field: 'bar'}
+          }
         });
         assert.equal(model.markDef.opacity, 0.9);
       }
@@ -55,8 +55,8 @@ describe('compile/mark/init', () => {
           mark,
           encoding: {
             y: {type: 'quantitative', field: 'foo'},
-            x: {type: 'nominal', field: 'bar'},
-          },
+            x: {type: 'nominal', field: 'bar'}
+          }
         });
         assert.equal(model.markDef.opacity, undefined);
       }
@@ -71,8 +71,8 @@ describe('compile/mark/init', () => {
           mark: 'bar',
           encoding: {
             y: {type: 'quantitative', field: 'foo'},
-            x: {type: 'quantitative', field: 'bar'},
-          },
+            x: {type: 'quantitative', field: 'bar'}
+          }
         });
         assert.equal(model.markDef.orient, 'vertical');
         assert.equal(localLogger.warns[0], log.message.unclearOrientContinuous(BAR));
@@ -84,7 +84,7 @@ describe('compile/mark/init', () => {
       log.wrap(localLogger => {
         const model = parseUnitModelWithScaleAndLayoutSize({
           mark: 'bar',
-          encoding: {},
+          encoding: {}
         });
         assert.equal(model.markDef.orient, undefined);
         assert.equal(localLogger.warns[0], log.message.unclearOrientDiscreteOrEmpty(BAR));
@@ -98,8 +98,8 @@ describe('compile/mark/init', () => {
           mark: 'bar',
           encoding: {
             x: {type: 'ordinal', field: 'foo'},
-            y: {type: 'ordinal', field: 'bar'},
-          },
+            y: {type: 'ordinal', field: 'bar'}
+          }
         });
         assert.equal(model.markDef.orient, undefined);
         assert.equal(localLogger.warns[0], log.message.unclearOrientDiscreteOrEmpty(BAR));
@@ -111,8 +111,8 @@ describe('compile/mark/init', () => {
         mark: 'bar',
         encoding: {
           y: {type: 'quantitative', field: 'foo'},
-          x: {type: 'ordinal', field: 'bar'},
-        },
+          x: {type: 'ordinal', field: 'bar'}
+        }
       });
       assert.equal(model.markDef.orient, 'vertical');
     });
@@ -122,8 +122,8 @@ describe('compile/mark/init', () => {
         mark: 'bar',
         encoding: {
           x: {type: 'quantitative', field: 'foo'},
-          y: {type: 'ordinal', field: 'bar'},
-        },
+          y: {type: 'ordinal', field: 'bar'}
+        }
       });
       assert.equal(model.markDef.orient, 'horizontal');
     });
@@ -133,8 +133,8 @@ describe('compile/mark/init', () => {
         mark: 'bar',
         encoding: {
           y: {type: 'quantitative', field: 'foo'},
-          x: {type: 'temporal', field: 'bar'},
-        },
+          x: {type: 'temporal', field: 'bar'}
+        }
       });
       assert.equal(model.markDef.orient, 'vertical');
     });
@@ -144,8 +144,8 @@ describe('compile/mark/init', () => {
         mark: 'bar',
         encoding: {
           x: {type: 'quantitative', field: 'foo'},
-          y: {type: 'temporal', field: 'bar'},
-        },
+          y: {type: 'temporal', field: 'bar'}
+        }
       });
       assert.equal(model.markDef.orient, 'horizontal');
     });
@@ -155,8 +155,8 @@ describe('compile/mark/init', () => {
         mark: 'tick',
         encoding: {
           x: {type: 'quantitative', field: 'foo'},
-          y: {type: 'ordinal', field: 'bar'},
-        },
+          y: {type: 'ordinal', field: 'bar'}
+        }
       });
       assert.equal(model.markDef.orient, 'vertical');
     });
@@ -166,8 +166,8 @@ describe('compile/mark/init', () => {
         mark: 'tick',
         encoding: {
           x: {type: 'quantitative', field: 'foo'},
-          y: {type: 'quantitative', field: 'bar', bin: true},
-        },
+          y: {type: 'quantitative', field: 'bar', bin: true}
+        }
       });
       assert.equal(model.markDef.orient, 'vertical');
     });
@@ -177,8 +177,8 @@ describe('compile/mark/init', () => {
         mark: 'tick',
         encoding: {
           x: {type: 'temporal', field: 'foo', timeUnit: 'yearmonthdate'},
-          y: {type: 'ordinal', field: 'bar'},
-        },
+          y: {type: 'ordinal', field: 'bar'}
+        }
       });
       assert.equal(model.markDef.orient, 'vertical');
     });
@@ -188,8 +188,8 @@ describe('compile/mark/init', () => {
         mark: 'tick',
         encoding: {
           y: {type: 'quantitative', field: 'foo'},
-          x: {type: 'ordinal', field: 'bar'},
-        },
+          x: {type: 'ordinal', field: 'bar'}
+        }
       });
       assert.equal(model.markDef.orient, 'horizontal');
     });
@@ -198,8 +198,8 @@ describe('compile/mark/init', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'rule',
         encoding: {
-          x: {value: 0},
-        },
+          x: {value: 0}
+        }
       });
       assert.equal(model.markDef.orient, 'vertical');
     });
@@ -208,8 +208,8 @@ describe('compile/mark/init', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'rule',
         encoding: {
-          y: {value: 0},
-        },
+          y: {value: 0}
+        }
       });
       assert.equal(model.markDef.orient, 'horizontal');
     });
@@ -221,8 +221,8 @@ describe('compile/mark/init', () => {
           y: {value: 0},
           x: {value: 0},
           y2: {value: 100},
-          x2: {value: 100},
-        },
+          x2: {value: 100}
+        }
       });
       assert.equal(model.markDef.orient, undefined);
     });
@@ -232,8 +232,8 @@ describe('compile/mark/init', () => {
         mark: 'rule',
         encoding: {
           y: {value: 0},
-          x: {value: 0},
-        },
+          x: {value: 0}
+        }
       });
       assert.equal(model.markDef.orient, undefined);
     });
@@ -243,8 +243,8 @@ describe('compile/mark/init', () => {
         mark: 'rule',
         encoding: {
           x: {field: 'b', type: 'quantitative'},
-          y: {field: 'a', type: 'ordinal'},
-        },
+          y: {field: 'a', type: 'ordinal'}
+        }
       });
 
       assert.equal(model.markDef.orient, 'horizontal');
@@ -255,8 +255,8 @@ describe('compile/mark/init', () => {
         mark: 'rule',
         encoding: {
           y: {field: 'b', type: 'quantitative'},
-          x: {field: 'a', type: 'ordinal'},
-        },
+          x: {field: 'a', type: 'ordinal'}
+        }
       });
 
       assert.equal(model.markDef.orient, 'vertical');
@@ -268,8 +268,8 @@ describe('compile/mark/init', () => {
         encoding: {
           x: {type: 'ordinal', field: 'foo'},
           y: {type: 'quantitative', field: 'bar'},
-          y2: {type: 'quantitative', field: 'baz'},
-        },
+          y2: {type: 'quantitative', field: 'baz'}
+        }
       });
       assert.equal(model.markDef.orient, 'vertical');
     });
@@ -280,8 +280,8 @@ describe('compile/mark/init', () => {
         encoding: {
           y: {type: 'ordinal', field: 'foo'},
           x: {type: 'quantitative', field: 'bar'},
-          x2: {type: 'quantitative', field: 'baz'},
-        },
+          x2: {type: 'quantitative', field: 'baz'}
+        }
       });
       assert.equal(model.markDef.orient, 'horizontal');
     });
@@ -291,8 +291,8 @@ describe('compile/mark/init', () => {
         mark: 'rule',
         encoding: {
           x: {type: 'quantitative', field: 'bar'},
-          x2: {type: 'quantitative', field: 'baz'},
-        },
+          x2: {type: 'quantitative', field: 'baz'}
+        }
       });
       assert.equal(model.markDef.orient, 'horizontal');
     });
@@ -302,8 +302,8 @@ describe('compile/mark/init', () => {
         mark: 'rule',
         encoding: {
           y: {type: 'quantitative', field: 'bar'},
-          y2: {type: 'quantitative', field: 'baz'},
-        },
+          y2: {type: 'quantitative', field: 'baz'}
+        }
       });
       assert.equal(model.markDef.orient, 'vertical');
     });

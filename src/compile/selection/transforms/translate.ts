@@ -46,9 +46,9 @@ const translate: TransformCompiler = {
                 ? ', extent_y: ' +
                   (hasScales ? domain(model, Y) : `slice(${channelSignalName(selCmpt, 'y', 'visual')})`)
                 : '') +
-              '}',
-          },
-        ],
+              '}'
+          }
+        ]
       },
       {
         name: name + DELTA,
@@ -56,9 +56,9 @@ const translate: TransformCompiler = {
         on: [
           {
             events: events,
-            update: `{x: ${anchor}.x - x(unit), y: ${anchor}.y - y(unit)}`,
-          },
-        ],
+            update: `{x: ${anchor}.x - x(unit), y: ${anchor}.y - y(unit)}`
+          }
+        ]
       }
     );
 
@@ -71,7 +71,7 @@ const translate: TransformCompiler = {
     }
 
     return signals;
-  },
+  }
 };
 
 export default translate;
@@ -110,6 +110,6 @@ function onDelta(
 
   signal.on.push({
     events: {signal: delta},
-    update: hasScales ? update : `clampRange(${update}, 0, ${sizeSg})`,
+    update: hasScales ? update : `clampRange(${update}, 0, ${sizeSg})`
   });
 }

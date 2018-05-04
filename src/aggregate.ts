@@ -24,7 +24,7 @@ const AGGREGATE_OP_INDEX: Flag<AggregateOp> = {
   valid: 1,
   values: 1,
   variance: 1,
-  variancep: 1,
+  variancep: 1
 };
 
 export const AGGREGATE_OPS = flagKeys(AGGREGATE_OP_INDEX);

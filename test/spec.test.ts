@@ -21,8 +21,8 @@ describe('normalize()', () => {
         encoding: {
           column: {field: 'MPAA_Rating', type: 'ordinal'},
           x: {field: 'Worldwide_Gross', type: 'quantitative'},
-          y: {field: 'US_DVD_Sales', type: 'quantitative'},
-        },
+          y: {field: 'US_DVD_Sales', type: 'quantitative'}
+        }
       };
       const config = initConfig(spec.config);
       assert.deepEqual(normalize(spec, config), {
@@ -30,7 +30,7 @@ describe('normalize()', () => {
         description: 'faceted spec',
         data: {url: 'data/movies.json'},
         facet: {
-          column: {field: 'MPAA_Rating', type: 'ordinal'},
+          column: {field: 'MPAA_Rating', type: 'ordinal'}
         },
         spec: {
           mark: 'point',
@@ -38,9 +38,9 @@ describe('normalize()', () => {
           height: 234,
           encoding: {
             x: {field: 'Worldwide_Gross', type: 'quantitative'},
-            y: {field: 'US_DVD_Sales', type: 'quantitative'},
-          },
-        },
+            y: {field: 'US_DVD_Sales', type: 'quantitative'}
+          }
+        }
       });
     });
 
@@ -51,23 +51,23 @@ describe('normalize()', () => {
         encoding: {
           row: {field: 'MPAA_Rating', type: 'ordinal'},
           x: {field: 'Worldwide_Gross', type: 'quantitative'},
-          y: {field: 'US_DVD_Sales', type: 'quantitative'},
-        },
+          y: {field: 'US_DVD_Sales', type: 'quantitative'}
+        }
       };
 
       const config = initConfig(spec.config);
       assert.deepEqual(normalize(spec, config), {
         data: {url: 'data/movies.json'},
         facet: {
-          row: {field: 'MPAA_Rating', type: 'ordinal'},
+          row: {field: 'MPAA_Rating', type: 'ordinal'}
         },
         spec: {
           mark: 'point',
           encoding: {
             x: {field: 'Worldwide_Gross', type: 'quantitative'},
-            y: {field: 'US_DVD_Sales', type: 'quantitative'},
-          },
-        },
+            y: {field: 'US_DVD_Sales', type: 'quantitative'}
+          }
+        }
       });
     });
   });
@@ -82,7 +82,7 @@ describe('normalize()', () => {
             data: {url: 'data/population.json'},
             transform: [{filter: 'datum.year == 2000'}],
             facet: {
-              row: {field: 'MPAA_Rating', type: 'ordinal'},
+              row: {field: 'MPAA_Rating', type: 'ordinal'}
             },
             spec: {
               layer: [
@@ -94,10 +94,10 @@ describe('normalize()', () => {
                       aggregate: 'mean',
                       field: 'people',
                       type: 'quantitative',
-                      axis: {title: 'population'},
+                      axis: {title: 'population'}
                     },
-                    size: {value: 2},
-                  },
+                    size: {value: 2}
+                  }
                 },
                 {
                   mark: 'error-bar',
@@ -107,18 +107,18 @@ describe('normalize()', () => {
                       aggregate: 'min',
                       field: 'people',
                       type: 'quantitative',
-                      axis: {title: 'population'},
+                      axis: {title: 'population'}
                     },
                     y2: {
                       aggregate: 'max',
                       field: 'people',
-                      type: 'quantitative',
+                      type: 'quantitative'
                     },
-                    size: {value: 5},
-                  },
-                },
-              ],
-            },
+                    size: {value: 5}
+                  }
+                }
+              ]
+            }
           },
           defaultConfig
         ),
@@ -128,7 +128,7 @@ describe('normalize()', () => {
           data: {url: 'data/population.json'},
           transform: [{filter: 'datum.year == 2000'}],
           facet: {
-            row: {field: 'MPAA_Rating', type: 'ordinal'},
+            row: {field: 'MPAA_Rating', type: 'ordinal'}
           },
           spec: {
             layer: [
@@ -140,10 +140,10 @@ describe('normalize()', () => {
                     aggregate: 'mean',
                     field: 'people',
                     type: 'quantitative',
-                    axis: {title: 'population'},
+                    axis: {title: 'population'}
                   },
-                  size: {value: 2},
-                },
+                  size: {value: 2}
+                }
               },
               {
                 layer: [
@@ -155,14 +155,14 @@ describe('normalize()', () => {
                         aggregate: 'min',
                         field: 'people',
                         type: 'quantitative',
-                        axis: {title: 'population'},
+                        axis: {title: 'population'}
                       },
                       y2: {
                         aggregate: 'max',
                         field: 'people',
-                        type: 'quantitative',
-                      },
-                    },
+                        type: 'quantitative'
+                      }
+                    }
                   },
                   {
                     mark: 'tick',
@@ -172,10 +172,10 @@ describe('normalize()', () => {
                         aggregate: 'min',
                         field: 'people',
                         type: 'quantitative',
-                        axis: {title: 'population'},
+                        axis: {title: 'population'}
                       },
-                      size: {value: 5},
-                    },
+                      size: {value: 5}
+                    }
                   },
                   {
                     mark: 'tick',
@@ -184,16 +184,16 @@ describe('normalize()', () => {
                       y: {
                         aggregate: 'max',
                         field: 'people',
-                        type: 'quantitative',
+                        type: 'quantitative'
                         // "axis": {"title": "population"}
                       },
-                      size: {value: 5},
-                    },
-                  },
-                ],
-              },
-            ],
-          },
+                      size: {value: 5}
+                    }
+                  }
+                ]
+              }
+            ]
+          }
         }
       );
     });
@@ -206,7 +206,7 @@ describe('normalize()', () => {
           data: {url: 'data/population.json'},
           projection: {type: 'mercator'},
           encoding: {
-            x: {field: 'age', type: 'ordinal'},
+            x: {field: 'age', type: 'ordinal'}
           },
           layer: [
             {mark: 'point'},
@@ -216,12 +216,12 @@ describe('normalize()', () => {
                 {
                   mark: 'text',
                   encoding: {
-                    text: {field: 'a', type: 'nominal'},
-                  },
-                },
-              ],
-            },
-          ],
+                    text: {field: 'a', type: 'nominal'}
+                  }
+                }
+              ]
+            }
+          ]
         },
         defaultConfig
       );
@@ -233,8 +233,8 @@ describe('normalize()', () => {
             projection: {type: 'mercator'},
             mark: 'point',
             encoding: {
-              x: {field: 'age', type: 'ordinal'},
-            },
+              x: {field: 'age', type: 'ordinal'}
+            }
           },
           {
             layer: [
@@ -242,20 +242,20 @@ describe('normalize()', () => {
                 projection: {type: 'mercator'},
                 mark: 'rule',
                 encoding: {
-                  x: {field: 'age', type: 'ordinal'},
-                },
+                  x: {field: 'age', type: 'ordinal'}
+                }
               },
               {
                 projection: {type: 'mercator'},
                 mark: 'text',
                 encoding: {
                   x: {field: 'age', type: 'ordinal'},
-                  text: {field: 'a', type: 'nominal'},
-                },
-              },
-            ],
-          },
-        ],
+                  text: {field: 'a', type: 'nominal'}
+                }
+              }
+            ]
+          }
+        ]
       });
     });
 
@@ -267,20 +267,20 @@ describe('normalize()', () => {
             data: {url: 'data/population.json'},
             projection: {type: 'mercator'},
             encoding: {
-              x: {field: 'age', type: 'ordinal'},
+              x: {field: 'age', type: 'ordinal'}
             },
             layer: [
               {
                 projection: {type: 'albersUsa'},
-                mark: 'rule',
+                mark: 'rule'
               },
               {
                 mark: 'text',
                 encoding: {
-                  x: {field: 'a', type: 'nominal'},
-                },
-              },
-            ],
+                  x: {field: 'a', type: 'nominal'}
+                }
+              }
+            ]
           },
           defaultConfig
         );
@@ -291,7 +291,7 @@ describe('normalize()', () => {
           localLogger.warns[0],
           log.message.projectionOverridden({
             parentProjection: {type: 'mercator'},
-            projection: {type: 'albersUsa'},
+            projection: {type: 'albersUsa'}
           })
         );
 
@@ -304,17 +304,17 @@ describe('normalize()', () => {
               projection: {type: 'albersUsa'},
               mark: 'rule',
               encoding: {
-                x: {field: 'age', type: 'ordinal'},
-              },
+                x: {field: 'age', type: 'ordinal'}
+              }
             },
             {
               projection: {type: 'mercator'},
               mark: 'text',
               encoding: {
-                x: {field: 'a', type: 'nominal'},
-              },
-            },
-          ],
+                x: {field: 'a', type: 'nominal'}
+              }
+            }
+          ]
         });
       })
     );
@@ -333,10 +333,10 @@ describe('normalize()', () => {
                     aggregate: 'mean',
                     field: 'people',
                     type: 'quantitative',
-                    axis: {title: 'population'},
+                    axis: {title: 'population'}
                   },
-                  size: {value: 2},
-                },
+                  size: {value: 2}
+                }
               },
               {
                 mark: 'error-bar',
@@ -346,17 +346,17 @@ describe('normalize()', () => {
                     aggregate: 'min',
                     field: 'people',
                     type: 'quantitative',
-                    axis: {title: 'population'},
+                    axis: {title: 'population'}
                   },
                   y2: {
                     aggregate: 'max',
                     field: 'people',
-                    type: 'quantitative',
+                    type: 'quantitative'
                   },
-                  size: {value: 5},
-                },
-              },
-            ],
+                  size: {value: 5}
+                }
+              }
+            ]
           },
           defaultConfig
         ),
@@ -371,10 +371,10 @@ describe('normalize()', () => {
                   aggregate: 'mean',
                   field: 'people',
                   type: 'quantitative',
-                  axis: {title: 'population'},
+                  axis: {title: 'population'}
                 },
-                size: {value: 2},
-              },
+                size: {value: 2}
+              }
             },
             {
               layer: [
@@ -386,14 +386,14 @@ describe('normalize()', () => {
                       aggregate: 'min',
                       field: 'people',
                       type: 'quantitative',
-                      axis: {title: 'population'},
+                      axis: {title: 'population'}
                     },
                     y2: {
                       aggregate: 'max',
                       field: 'people',
-                      type: 'quantitative',
-                    },
-                  },
+                      type: 'quantitative'
+                    }
+                  }
                 },
                 {
                   mark: 'tick',
@@ -403,10 +403,10 @@ describe('normalize()', () => {
                       aggregate: 'min',
                       field: 'people',
                       type: 'quantitative',
-                      axis: {title: 'population'},
+                      axis: {title: 'population'}
                     },
-                    size: {value: 5},
-                  },
+                    size: {value: 5}
+                  }
                 },
                 {
                   mark: 'tick',
@@ -415,15 +415,15 @@ describe('normalize()', () => {
                     y: {
                       aggregate: 'max',
                       field: 'people',
-                      type: 'quantitative',
+                      type: 'quantitative'
                       // "axis": {"title": "population"}
                     },
-                    size: {value: 5},
-                  },
-                },
-              ],
-            },
-          ],
+                    size: {value: 5}
+                  }
+                }
+              ]
+            }
+          ]
         }
       );
     });
@@ -436,9 +436,9 @@ describe('normalize()', () => {
         mark: 'line',
         encoding: {
           x: {field: 'date', type: 'temporal'},
-          y: {field: 'price', type: 'quantitative'},
+          y: {field: 'price', type: 'quantitative'}
         },
-        config: {line: {point: {}}},
+        config: {line: {point: {}}}
       };
       const normalizedSpec = normalize(spec, spec.config);
       assert.deepEqual<TopLevel<NormalizedSpec>>(normalizedSpec, {
@@ -448,18 +448,18 @@ describe('normalize()', () => {
             mark: 'line',
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
+              y: {field: 'price', type: 'quantitative'}
+            }
           },
           {
             mark: {type: 'point', opacity: 1, filled: true},
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
-          },
+              y: {field: 'price', type: 'quantitative'}
+            }
+          }
         ],
-        config: {line: {point: {}}},
+        config: {line: {point: {}}}
       });
     });
 
@@ -469,8 +469,8 @@ describe('normalize()', () => {
         mark: {type: 'line', point: 'transparent'},
         encoding: {
           x: {field: 'date', type: 'temporal'},
-          y: {field: 'price', type: 'quantitative'},
-        },
+          y: {field: 'price', type: 'quantitative'}
+        }
       };
       const normalizedSpec = normalize(spec, spec.config);
       assert.deepEqual<TopLevel<NormalizedSpec>>(normalizedSpec, {
@@ -480,17 +480,17 @@ describe('normalize()', () => {
             mark: 'line',
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
+              y: {field: 'price', type: 'quantitative'}
+            }
           },
           {
             mark: {type: 'point', opacity: 0, filled: true},
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
-          },
-        ],
+              y: {field: 'price', type: 'quantitative'}
+            }
+          }
+        ]
       });
     });
 
@@ -500,8 +500,8 @@ describe('normalize()', () => {
         mark: {type: 'line', point: {color: 'red'}},
         encoding: {
           x: {field: 'date', type: 'temporal'},
-          y: {field: 'price', type: 'quantitative'},
-        },
+          y: {field: 'price', type: 'quantitative'}
+        }
       };
       const normalizedSpec = normalize(spec, spec.config);
       assert.deepEqual<TopLevel<NormalizedSpec>>(normalizedSpec, {
@@ -511,17 +511,17 @@ describe('normalize()', () => {
             mark: 'line',
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
+              y: {field: 'price', type: 'quantitative'}
+            }
           },
           {
             mark: {type: 'point', opacity: 1, filled: true, color: 'red'},
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
-          },
-        ],
+              y: {field: 'price', type: 'quantitative'}
+            }
+          }
+        ]
       });
     });
 
@@ -532,15 +532,15 @@ describe('normalize()', () => {
         encoding: {
           row: {field: 'symbol', type: 'nominal'},
           x: {field: 'date', type: 'temporal'},
-          y: {field: 'price', type: 'quantitative'},
+          y: {field: 'price', type: 'quantitative'}
         },
-        config: {line: {point: {}}},
+        config: {line: {point: {}}}
       };
       const normalizedSpec = normalize(spec, spec.config);
       assert.deepEqual<TopLevel<NormalizedSpec>>(normalizedSpec, {
         data: {url: 'data/stocks.csv', format: {type: 'csv'}},
         facet: {
-          row: {field: 'symbol', type: 'nominal'},
+          row: {field: 'symbol', type: 'nominal'}
         },
         spec: {
           layer: [
@@ -548,19 +548,19 @@ describe('normalize()', () => {
               mark: 'line',
               encoding: {
                 x: {field: 'date', type: 'temporal'},
-                y: {field: 'price', type: 'quantitative'},
-              },
+                y: {field: 'price', type: 'quantitative'}
+              }
             },
             {
               mark: {type: 'point', opacity: 1, filled: true},
               encoding: {
                 x: {field: 'date', type: 'temporal'},
-                y: {field: 'price', type: 'quantitative'},
-              },
-            },
-          ],
+                y: {field: 'price', type: 'quantitative'}
+              }
+            }
+          ]
         },
-        config: {line: {point: {}}},
+        config: {line: {point: {}}}
       });
     });
 
@@ -570,9 +570,9 @@ describe('normalize()', () => {
         mark: 'area',
         encoding: {
           x: {field: 'date', type: 'temporal'},
-          y: {field: 'price', type: 'quantitative'},
+          y: {field: 'price', type: 'quantitative'}
         },
-        config: {area: {line: {}, point: {}}},
+        config: {area: {line: {}, point: {}}}
       };
       const normalizedSpec = normalize(spec, spec.config);
       assert.deepEqual<TopLevel<NormalizedSpec>>(normalizedSpec, {
@@ -582,25 +582,25 @@ describe('normalize()', () => {
             mark: {type: 'area', opacity: 0.7},
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
+              y: {field: 'price', type: 'quantitative'}
+            }
           },
           {
             mark: {type: 'line'},
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
+              y: {field: 'price', type: 'quantitative'}
+            }
           },
           {
             mark: {type: 'point', opacity: 1, filled: true},
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
-          },
+              y: {field: 'price', type: 'quantitative'}
+            }
+          }
         ],
-        config: {area: {line: {}, point: {}}},
+        config: {area: {line: {}, point: {}}}
       });
     });
 
@@ -610,9 +610,9 @@ describe('normalize()', () => {
         mark: 'area',
         encoding: {
           x: {field: 'date', type: 'temporal'},
-          y: {field: 'price', type: 'quantitative'},
+          y: {field: 'price', type: 'quantitative'}
         },
-        config: {area: {line: {}}},
+        config: {area: {line: {}}}
       };
       const normalizedSpec = normalize(spec, spec.config);
       assert.deepEqual<TopLevel<NormalizedSpec>>(normalizedSpec, {
@@ -622,18 +622,18 @@ describe('normalize()', () => {
             mark: {type: 'area', opacity: 0.7},
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
+              y: {field: 'price', type: 'quantitative'}
+            }
           },
           {
             mark: {type: 'line'},
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
-          },
+              y: {field: 'price', type: 'quantitative'}
+            }
+          }
         ],
-        config: {area: {line: {}}},
+        config: {area: {line: {}}}
       });
     });
 
@@ -644,8 +644,8 @@ describe('normalize()', () => {
           mark: {type: 'area', point: overlay, line: overlay},
           encoding: {
             x: {field: 'date', type: 'temporal'},
-            y: {field: 'price', type: 'quantitative'},
-          },
+            y: {field: 'price', type: 'quantitative'}
+          }
         };
         const normalizedSpec = normalize(spec, spec.config);
         assert.deepEqual<TopLevel<NormalizedSpec>>(normalizedSpec, {
@@ -653,8 +653,8 @@ describe('normalize()', () => {
           mark: 'area',
           encoding: {
             x: {field: 'date', type: 'temporal'},
-            y: {field: 'price', type: 'quantitative'},
-          },
+            y: {field: 'price', type: 'quantitative'}
+          }
         });
       }
     });
@@ -666,11 +666,11 @@ describe('normalize()', () => {
           mark: {type: 'area'},
           encoding: {
             x: {field: 'date', type: 'temporal'},
-            y: {field: 'price', type: 'quantitative'},
+            y: {field: 'price', type: 'quantitative'}
           },
           config: {
-            area: {point: overlay, line: overlay},
-          },
+            area: {point: overlay, line: overlay}
+          }
         };
         const normalizedSpec = normalize(spec, spec.config);
         assert.deepEqual<TopLevel<NormalizedSpec>>(normalizedSpec, {
@@ -678,11 +678,11 @@ describe('normalize()', () => {
           mark: 'area',
           encoding: {
             x: {field: 'date', type: 'temporal'},
-            y: {field: 'price', type: 'quantitative'},
+            y: {field: 'price', type: 'quantitative'}
           },
           config: {
-            area: {point: overlay, line: overlay},
-          },
+            area: {point: overlay, line: overlay}
+          }
         });
       }
     });
@@ -694,9 +694,9 @@ describe('normalize()', () => {
         encoding: {
           x: {field: 'date', type: 'temporal'},
           y: {aggregate: 'sum', field: 'price', type: 'quantitative'},
-          color: {field: 'symbol', type: 'nominal'},
+          color: {field: 'symbol', type: 'nominal'}
         },
-        config: {area: {line: {}}},
+        config: {area: {line: {}}}
       };
       const normalizedSpec = normalize(spec, spec.config);
       assert.deepEqual<TopLevel<NormalizedSpec>>(normalizedSpec, {
@@ -707,19 +707,19 @@ describe('normalize()', () => {
             encoding: {
               x: {field: 'date', type: 'temporal'},
               y: {aggregate: 'sum', field: 'price', type: 'quantitative'},
-              color: {field: 'symbol', type: 'nominal'},
-            },
+              color: {field: 'symbol', type: 'nominal'}
+            }
           },
           {
             mark: {type: 'line'},
             encoding: {
               x: {field: 'date', type: 'temporal'},
               y: {aggregate: 'sum', field: 'price', type: 'quantitative', stack: 'zero'},
-              color: {field: 'symbol', type: 'nominal'},
-            },
-          },
+              color: {field: 'symbol', type: 'nominal'}
+            }
+          }
         ],
-        config: {area: {line: {}}},
+        config: {area: {line: {}}}
       });
     });
 
@@ -730,9 +730,9 @@ describe('normalize()', () => {
         encoding: {
           x: {field: 'date', type: 'temporal'},
           y: {aggregate: 'sum', field: 'price', type: 'quantitative', stack: 'center'},
-          color: {field: 'symbol', type: 'nominal'},
+          color: {field: 'symbol', type: 'nominal'}
         },
-        config: {area: {line: {}}},
+        config: {area: {line: {}}}
       };
       const normalizedSpec = normalize(spec, spec.config);
       assert.deepEqual<TopLevel<NormalizedSpec>>(normalizedSpec, {
@@ -743,19 +743,19 @@ describe('normalize()', () => {
             encoding: {
               x: {field: 'date', type: 'temporal'},
               y: {aggregate: 'sum', field: 'price', type: 'quantitative', stack: 'center'},
-              color: {field: 'symbol', type: 'nominal'},
-            },
+              color: {field: 'symbol', type: 'nominal'}
+            }
           },
           {
             mark: {type: 'line'},
             encoding: {
               x: {field: 'date', type: 'temporal'},
               y: {aggregate: 'sum', field: 'price', type: 'quantitative', stack: 'center'},
-              color: {field: 'symbol', type: 'nominal'},
-            },
-          },
+              color: {field: 'symbol', type: 'nominal'}
+            }
+          }
         ],
-        config: {area: {line: {}}},
+        config: {area: {line: {}}}
       });
     });
   });
@@ -769,8 +769,8 @@ describe('normalizeRangedUnitSpec', () => {
       encoding: {
         y2: {field: 'age', type: 'ordinal'},
         x: {aggregate: 'min', field: 'people', type: 'quantitative'},
-        x2: {aggregate: 'max', field: 'people', type: 'quantitative'},
-      },
+        x2: {aggregate: 'max', field: 'people', type: 'quantitative'}
+      }
     };
 
     assert.deepEqual<NormalizedSpec>(normalize(spec, defaultConfig), {
@@ -779,8 +779,8 @@ describe('normalizeRangedUnitSpec', () => {
       encoding: {
         y: {field: 'age', type: 'ordinal'},
         x: {aggregate: 'min', field: 'people', type: 'quantitative'},
-        x2: {aggregate: 'max', field: 'people', type: 'quantitative'},
-      },
+        x2: {aggregate: 'max', field: 'people', type: 'quantitative'}
+      }
     });
   });
 
@@ -791,8 +791,8 @@ describe('normalizeRangedUnitSpec', () => {
       encoding: {
         y: {field: 'age', type: 'ordinal'},
         x: {aggregate: 'min', field: 'people', type: 'quantitative'},
-        x2: {aggregate: 'max', field: 'people', type: 'quantitative'},
-      },
+        x2: {aggregate: 'max', field: 'people', type: 'quantitative'}
+      }
     };
 
     assert.deepEqual(normalize(spec, defaultConfig), spec);
@@ -805,8 +805,8 @@ describe('normalizeRangedUnitSpec', () => {
       encoding: {
         x2: {field: 'age', type: 'ordinal'},
         y: {aggregate: 'min', field: 'people', type: 'quantitative'},
-        y2: {aggregate: 'max', field: 'people', type: 'quantitative'},
-      },
+        y2: {aggregate: 'max', field: 'people', type: 'quantitative'}
+      }
     };
 
     assert.deepEqual<NormalizedSpec>(normalize(spec, defaultConfig), {
@@ -815,8 +815,8 @@ describe('normalizeRangedUnitSpec', () => {
       encoding: {
         x: {field: 'age', type: 'ordinal'},
         y: {aggregate: 'min', field: 'people', type: 'quantitative'},
-        y2: {aggregate: 'max', field: 'people', type: 'quantitative'},
-      },
+        y2: {aggregate: 'max', field: 'people', type: 'quantitative'}
+      }
     });
   });
 });
@@ -828,13 +828,13 @@ describe('fieldDefs()', () => {
       mark: 'point',
       encoding: {
         x: {field: 'Horsepower', type: 'quantitative'},
-        y: {field: 'Miles_per_Gallon', type: 'quantitative'},
-      },
+        y: {field: 'Miles_per_Gallon', type: 'quantitative'}
+      }
     };
 
     assert.sameDeepMembers<FieldDef<Field>>(fieldDefs(spec), [
       {field: 'Horsepower', type: 'quantitative'},
-      {field: 'Miles_per_Gallon', type: 'quantitative'},
+      {field: 'Miles_per_Gallon', type: 'quantitative'}
     ]);
   });
 
@@ -847,8 +847,8 @@ describe('fieldDefs()', () => {
           mark: 'line',
           encoding: {
             x: {field: 'date', type: 'temporal'},
-            y: {field: 'price', type: 'quantitative'},
-          },
+            y: {field: 'price', type: 'quantitative'}
+          }
         },
         {
           description: "Google's stock price over time.",
@@ -856,17 +856,17 @@ describe('fieldDefs()', () => {
           encoding: {
             x: {field: 'date', type: 'temporal'},
             y: {field: 'price', type: 'quantitative'},
-            color: {field: 'symbol', type: 'nominal'},
+            color: {field: 'symbol', type: 'nominal'}
           },
-          config: {mark: {filled: true}},
-        },
-      ],
+          config: {mark: {filled: true}}
+        }
+      ]
     };
 
     assert.sameDeepMembers<FieldDef<Field>>(fieldDefs(layerSpec), [
       {field: 'date', type: 'temporal'},
       {field: 'price', type: 'quantitative'},
-      {field: 'symbol', type: 'nominal'},
+      {field: 'symbol', type: 'nominal'}
     ]);
   });
 
@@ -879,8 +879,8 @@ describe('fieldDefs()', () => {
           mark: 'line',
           encoding: {
             x: {field: 'date', type: 'temporal'},
-            y: {field: 'price', type: 'quantitative'},
-          },
+            y: {field: 'price', type: 'quantitative'}
+          }
         },
         {
           description: "Google's stock price over time.",
@@ -888,16 +888,16 @@ describe('fieldDefs()', () => {
           encoding: {
             x: {field: 'date', type: 'temporal'},
             y: {field: 'price', type: 'quantitative'},
-            color: {field: 'date', type: 'temporal', scale: {type: 'pow'}},
+            color: {field: 'date', type: 'temporal', scale: {type: 'pow'}}
           },
-          config: {mark: {filled: true}},
-        },
-      ],
+          config: {mark: {filled: true}}
+        }
+      ]
     };
 
     assert.sameDeepMembers<FieldDef<Field>>(fieldDefs(layerSpec), [
       {field: 'date', type: 'temporal'},
-      {field: 'price', type: 'quantitative'},
+      {field: 'price', type: 'quantitative'}
     ]);
   });
 
@@ -909,15 +909,15 @@ describe('fieldDefs()', () => {
         mark: 'point',
         encoding: {
           x: {field: 'Worldwide_Gross', type: 'quantitative'},
-          y: {field: 'US_DVD_Sales', type: 'quantitative'},
-        },
-      },
+          y: {field: 'US_DVD_Sales', type: 'quantitative'}
+        }
+      }
     };
 
     assert.sameDeepMembers<FieldDef<Field>>(fieldDefs(facetSpec), [
       {field: 'MPAA_Rating', type: 'ordinal'},
       {field: 'Worldwide_Gross', type: 'quantitative'},
-      {field: 'US_DVD_Sales', type: 'quantitative'},
+      {field: 'US_DVD_Sales', type: 'quantitative'}
     ]);
   });
 });

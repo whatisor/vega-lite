@@ -11,20 +11,20 @@ describe('Inputs Selection Transform', () => {
     encoding: {
       x: {field: 'Horsepower', type: 'quantitative'},
       y: {field: 'Miles_per_Gallon', type: 'quantitative'},
-      color: {field: 'Origin', type: 'nominal'},
-    },
+      color: {field: 'Origin', type: 'nominal'}
+    }
   });
 
   model.parseScale();
   const selCmpts = selection.parseUnitSelection(model, {
     one: {
       type: 'single',
-      bind: {input: 'range', min: 0, max: 10, step: 1},
+      bind: {input: 'range', min: 0, max: 10, step: 1}
     },
     two: {
       type: 'single',
       fields: ['Cylinders', 'Horsepower'],
-      bind: {input: 'range', min: 0, max: 10, step: 1},
+      bind: {input: 'range', min: 0, max: 10, step: 1}
     },
     three: {
       type: 'single',
@@ -32,17 +32,17 @@ describe('Inputs Selection Transform', () => {
       fields: ['Cylinders', 'Origin'],
       bind: {
         Horsepower: {input: 'range', min: 0, max: 10, step: 1},
-        Origin: {input: 'select', options: ['Japan', 'USA', 'Europe']},
-      },
+        Origin: {input: 'select', options: ['Japan', 'USA', 'Europe']}
+      }
     },
     four: {
       type: 'single',
-      bind: null,
+      bind: null
     },
     six: {
       type: 'interval',
-      bind: 'scales',
-    },
+      bind: 'scales'
+    }
   });
 
   it('identifies transform invocation', () => {
@@ -58,8 +58,8 @@ describe('Inputs Selection Transform', () => {
     assert.includeDeepMembers(selection.assembleUnitSelectionSignals(model, []), [
       {
         name: 'one_tuple',
-        update: 'one__vgsid_ ? {fields: ["_vgsid_"], values: [one__vgsid_]} : null',
-      },
+        update: 'one__vgsid_ ? {fields: ["_vgsid_"], values: [one__vgsid_]} : null'
+      }
     ]);
 
     assert.includeDeepMembers(selection.assembleTopLevelSignals(model, []), [
@@ -69,11 +69,11 @@ describe('Inputs Selection Transform', () => {
         on: [
           {
             events: [{source: 'scope', type: 'click'}],
-            update: 'datum && item().mark.marktype !== \'group\' ? datum["_vgsid_"] : null',
-          },
+            update: 'datum && item().mark.marktype !== \'group\' ? datum["_vgsid_"] : null'
+          }
         ],
-        bind: {input: 'range', min: 0, max: 10, step: 1},
-      },
+        bind: {input: 'range', min: 0, max: 10, step: 1}
+      }
     ]);
   });
 
@@ -83,8 +83,8 @@ describe('Inputs Selection Transform', () => {
       {
         name: 'two_tuple',
         update:
-          'two_Cylinders && two_Horsepower ? {fields: ["Cylinders", "Horsepower"], values: [two_Cylinders, two_Horsepower]} : null',
-      },
+          'two_Cylinders && two_Horsepower ? {fields: ["Cylinders", "Horsepower"], values: [two_Cylinders, two_Horsepower]} : null'
+      }
     ]);
 
     assert.includeDeepMembers(selection.assembleTopLevelSignals(model, []), [
@@ -94,10 +94,10 @@ describe('Inputs Selection Transform', () => {
         on: [
           {
             events: [{source: 'scope', type: 'click'}],
-            update: 'datum && item().mark.marktype !== \'group\' ? datum["Horsepower"] : null',
-          },
+            update: 'datum && item().mark.marktype !== \'group\' ? datum["Horsepower"] : null'
+          }
         ],
-        bind: {input: 'range', min: 0, max: 10, step: 1},
+        bind: {input: 'range', min: 0, max: 10, step: 1}
       },
       {
         name: 'two_Cylinders',
@@ -105,11 +105,11 @@ describe('Inputs Selection Transform', () => {
         on: [
           {
             events: [{source: 'scope', type: 'click'}],
-            update: 'datum && item().mark.marktype !== \'group\' ? datum["Cylinders"] : null',
-          },
+            update: 'datum && item().mark.marktype !== \'group\' ? datum["Cylinders"] : null'
+          }
         ],
-        bind: {input: 'range', min: 0, max: 10, step: 1},
-      },
+        bind: {input: 'range', min: 0, max: 10, step: 1}
+      }
     ]);
   });
 
@@ -119,8 +119,8 @@ describe('Inputs Selection Transform', () => {
       {
         name: 'three_tuple',
         update:
-          'three_Cylinders && three_Origin ? {fields: ["Cylinders", "Origin"], values: [three_Cylinders, three_Origin]} : null',
-      },
+          'three_Cylinders && three_Origin ? {fields: ["Cylinders", "Origin"], values: [three_Cylinders, three_Origin]} : null'
+      }
     ]);
 
     assert.includeDeepMembers(selection.assembleTopLevelSignals(model, []), [
@@ -131,13 +131,13 @@ describe('Inputs Selection Transform', () => {
           {
             events: [{source: 'scope', type: 'click'}],
             update:
-              'datum && item().mark.marktype !== \'group\' ? (item().isVoronoi ? datum.datum : datum)["Origin"] : null',
-          },
+              'datum && item().mark.marktype !== \'group\' ? (item().isVoronoi ? datum.datum : datum)["Origin"] : null'
+          }
         ],
         bind: {
           input: 'select',
-          options: ['Japan', 'USA', 'Europe'],
-        },
+          options: ['Japan', 'USA', 'Europe']
+        }
       },
       {
         name: 'three_Cylinders',
@@ -146,17 +146,17 @@ describe('Inputs Selection Transform', () => {
           {
             events: [{source: 'scope', type: 'click'}],
             update:
-              'datum && item().mark.marktype !== \'group\' ? (item().isVoronoi ? datum.datum : datum)["Cylinders"] : null',
-          },
+              'datum && item().mark.marktype !== \'group\' ? (item().isVoronoi ? datum.datum : datum)["Cylinders"] : null'
+          }
         ],
         bind: {
           Horsepower: {input: 'range', min: 0, max: 10, step: 1},
           Origin: {
             input: 'select',
-            options: ['Japan', 'USA', 'Europe'],
-          },
-        },
-      },
+            options: ['Japan', 'USA', 'Europe']
+          }
+        }
+      }
     ]);
   });
 });

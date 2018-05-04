@@ -18,11 +18,11 @@ describe('compile/compile', () => {
   it('should return a spec with default top-level properties, size signals, data, marks, and title', () => {
     const spec = compile({
       data: {
-        values: [{a: 'A', b: 28}],
+        values: [{a: 'A', b: 28}]
       },
       title: {text: 'test'},
       mark: 'point',
-      encoding: {},
+      encoding: {}
     }).spec;
 
     assert.equal(spec.padding, 5);
@@ -39,10 +39,10 @@ describe('compile/compile', () => {
     const spec = compile({
       padding: 123,
       data: {
-        values: [{a: 'A', b: 28}],
+        values: [{a: 'A', b: 28}]
       },
       mark: 'point',
-      encoding: {},
+      encoding: {}
     }).spec;
 
     assert.equal(spec.padding, 123);
@@ -60,19 +60,19 @@ describe('compile/compile', () => {
       mark: 'bar',
       encoding: {
         x: {field: 'a', type: 'ordinal'},
-        y: {field: 'b', type: 'quantitative'},
-      },
+        y: {field: 'b', type: 'quantitative'}
+      }
     }).spec;
 
     assert.deepEqual(spec.signals, [
       {
         name: 'x_step',
-        value: 21,
+        value: 21
       },
       {
         name: 'width',
-        update: `bandspace(domain('x').length, 0.1, 0.05) * x_step`,
-      },
+        update: `bandspace(domain('x').length, 0.1, 0.05) * x_step`
+      }
     ]);
     assert.equal(spec.height, 200);
   });
@@ -80,11 +80,11 @@ describe('compile/compile', () => {
   it('should set resize to true if requested', () => {
     const spec = compile({
       autosize: {
-        resize: true,
+        resize: true
       },
       data: {url: 'foo.csv'},
       mark: 'point',
-      encoding: {},
+      encoding: {}
     }).spec;
 
     assert(spec.autosize.resize);
@@ -94,11 +94,11 @@ describe('compile/compile', () => {
     const spec = compile({
       autosize: {
         type: 'fit',
-        contains: 'content',
+        contains: 'content'
       },
       data: {url: 'foo.csv'},
       mark: 'point',
-      encoding: {},
+      encoding: {}
     }).spec;
 
     assert.deepEqual(spec.autosize, {type: 'fit', contains: 'content'});
@@ -109,7 +109,7 @@ describe('compile/compile', () => {
       autosize: 'fit',
       data: {url: 'foo.csv'},
       mark: 'point',
-      encoding: {},
+      encoding: {}
     }).spec;
 
     assert.equal(spec.autosize, 'fit');
@@ -124,8 +124,8 @@ describe('compile/compile', () => {
         autosize: 'fit',
         encoding: {
           x: {field: 'a', type: 'ordinal'},
-          y: {field: 'b', type: 'quantitative'},
-        },
+          y: {field: 'b', type: 'quantitative'}
+        }
       }).spec;
       assert.equal(localLogger.warns[0], log.message.CANNOT_FIX_RANGE_STEP_WITH_FIT);
       assert.equal(spec.width, 200);
@@ -142,9 +142,9 @@ describe('compile/compile', () => {
         vconcat: [
           {
             mark: 'point',
-            encoding: {},
-          },
-        ],
+            encoding: {}
+          }
+        ]
       }).spec;
       assert.equal(localLogger.warns[0], log.message.FIT_NON_SINGLE);
       assert.equal(spec.autosize, 'pad');
@@ -154,15 +154,15 @@ describe('compile/compile', () => {
   it('should return title for a layered spec.', () => {
     const spec = compile({
       data: {
-        values: [{a: 'A', b: 28}],
+        values: [{a: 'A', b: 28}]
       },
       title: {text: 'test'},
       layer: [
         {
           mark: 'point',
-          encoding: {},
-        },
-      ],
+          encoding: {}
+        }
+      ]
     }).spec;
     assert.deepEqual(spec.title, {text: 'test'});
   });
@@ -170,15 +170,15 @@ describe('compile/compile', () => {
   it('should return title (string) for a layered spec.', () => {
     const spec = compile({
       data: {
-        values: [{a: 'A', b: 28}],
+        values: [{a: 'A', b: 28}]
       },
       title: 'test',
       layer: [
         {
           mark: 'point',
-          encoding: {},
-        },
-      ],
+          encoding: {}
+        }
+      ]
     }).spec;
     assert.deepEqual(spec.title, {text: 'test'});
   });
@@ -186,15 +186,15 @@ describe('compile/compile', () => {
   it('should return title from a child of a layer spec if parent has no title.', () => {
     const spec = compile({
       data: {
-        values: [{a: 'A', b: 28}],
+        values: [{a: 'A', b: 28}]
       },
       layer: [
         {
           title: {text: 'test'},
           mark: 'point',
-          encoding: {},
-        },
-      ],
+          encoding: {}
+        }
+      ]
     }).spec;
     assert.deepEqual(spec.title, {text: 'test'});
   });
@@ -204,20 +204,20 @@ describe('compile/compile', () => {
     log.wrap(localLogger => {
       const spec = compile({
         data: {
-          values: [{a: 'A', b: 28}],
+          values: [{a: 'A', b: 28}]
         },
         title: {text: 'test'},
         hconcat: [
           {
             mark: 'point',
-            encoding: {},
-          },
+            encoding: {}
+          }
         ],
-        config: {title: {anchor: 'middle'}},
+        config: {title: {anchor: 'middle'}}
       }).spec;
       assert.deepEqual(spec.title, {
         text: 'test',
-        anchor: 'start', // We only support anchor as start for concat
+        anchor: 'start' // We only support anchor as start for concat
       });
       assert.equal(localLogger.warns[0], log.message.cannotSetTitleAnchor('concat'));
     })
@@ -226,36 +226,36 @@ describe('compile/compile', () => {
   it('should return a title for a concat spec, automatically set anchor to "start", and augment the title with non-mark title config (e.g., offset).', () => {
     const spec = compile({
       data: {
-        values: [{a: 'A', b: 28}],
+        values: [{a: 'A', b: 28}]
       },
       title: {text: 'test'},
       hconcat: [
         {
           mark: 'point',
-          encoding: {},
-        },
+          encoding: {}
+        }
       ],
-      config: {title: {offset: 5}},
+      config: {title: {offset: 5}}
     }).spec;
     assert.deepEqual(spec.title, {
       text: 'test',
       anchor: 'start',
-      offset: 5,
+      offset: 5
     });
   });
 
   it('should not have title if there is no title.', () => {
     const spec = compile({
       data: {
-        values: [{a: 'A', b: 28}],
+        values: [{a: 'A', b: 28}]
       },
       hconcat: [
         {
           mark: 'point',
-          encoding: {},
-        },
+          encoding: {}
+        }
       ],
-      config: {title: {offset: 5}},
+      config: {title: {offset: 5}}
     }).spec;
     assert.isUndefined(spec.title);
   });
@@ -265,12 +265,12 @@ describe('compile/compile', () => {
       {
         mark: 'point',
         data: {url: 'foo.csv'},
-        encoding: {},
+        encoding: {}
       },
       {
         config: {
-          background: 'blue',
-        },
+          background: 'blue'
+        }
       }
     ).spec;
     assert.equal(spec.config.background, 'blue');
@@ -283,13 +283,13 @@ describe('compile/compile', () => {
         data: {url: 'foo.csv'},
         encoding: {},
         config: {
-          background: 'red',
-        },
+          background: 'red'
+        }
       },
       {
         config: {
-          background: 'blue',
-        },
+          background: 'blue'
+        }
       }
     ).spec;
     assert.equal(spec.config.background, 'red');
@@ -302,10 +302,10 @@ describe('compile/compile', () => {
         url: 'data/us-10m.json',
         format: {
           type: 'topojson',
-          feature: 'states',
-        },
+          feature: 'states'
+        }
       },
-      encoding: {},
+      encoding: {}
     }).spec;
     assert.isDefined(spec.projections);
   });
@@ -314,16 +314,16 @@ describe('compile/compile', () => {
     const spec = compile({
       mark: 'geoshape',
       projection: {
-        type: 'albersUsa',
+        type: 'albersUsa'
       },
       data: {
         url: 'data/us-10m.json',
         format: {
           type: 'topojson',
-          feature: 'states',
-        },
+          feature: 'states'
+        }
       },
-      encoding: {},
+      encoding: {}
     }).spec;
     assert.isDefined(spec.projections);
   });

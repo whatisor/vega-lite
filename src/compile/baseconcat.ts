@@ -86,11 +86,11 @@ export abstract class BaseConcatModel extends Model {
         ...(layoutSizeEncodeEntry
           ? {
               encode: {
-                update: layoutSizeEncodeEntry,
-              },
+                update: layoutSizeEncodeEntry
+              }
             }
           : {}),
-        ...child.assembleGroup(),
+        ...child.assembleGroup()
       };
     });
   }

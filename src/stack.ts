@@ -13,7 +13,7 @@ export type StackOffset = 'zero' | 'center' | 'normalize';
 const STACK_OFFSET_INDEX: Flag<StackOffset> = {
   zero: 1,
   center: 1,
-  normalize: 1,
+  normalize: 1
 };
 
 export function isStackOffset(s: string): s is StackOffset {
@@ -161,6 +161,6 @@ export function stack(m: Mark | MarkDef, encoding: Encoding<Field>, stackConfig:
     fieldChannel,
     impute: isPathMark(mark),
     stackBy,
-    offset,
+    offset
   };
 }

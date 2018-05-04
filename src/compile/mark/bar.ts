@@ -19,9 +19,9 @@ export const bar: MarkCompiler = {
     return {
       ...mixins.baseEncodeEntry(model, {size: 'ignore', orient: 'ignore'}),
       ...x(model),
-      ...y(model),
+      ...y(model)
     };
-  },
+  }
 };
 
 function x(model: UnitModel): VgEncodeEntry {
@@ -36,7 +36,7 @@ function x(model: UnitModel): VgEncodeEntry {
   if (orient === 'horizontal') {
     return {
       ...mixins.pointPosition('x', model, 'zeroOrMin'),
-      ...mixins.pointPosition2(model, 'zeroOrMin'),
+      ...mixins.pointPosition2(model, 'zeroOrMin')
     };
   } else {
     // vertical
@@ -79,7 +79,7 @@ function y(model: UnitModel) {
   if (orient === 'vertical') {
     return {
       ...mixins.pointPosition('y', model, 'zeroOrMin'),
-      ...mixins.pointPosition2(model, 'zeroOrMin'),
+      ...mixins.pointPosition2(model, 'zeroOrMin')
     };
   } else {
     if (isFieldDef(yDef)) {

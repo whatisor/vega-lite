@@ -14,8 +14,8 @@ describe('UnitModel', () => {
         const model = parseUnitModel({
           mark: 'bar',
           encoding: {
-            shape: {field: 'a', type: 'quantitative'},
-          },
+            shape: {field: 'a', type: 'quantitative'}
+          }
         });
         assert.equal(model.encoding.shape, undefined);
         assert.equal(localLogger.warns[0], log.message.incompatibleChannel(SHAPE, BAR));
@@ -28,8 +28,8 @@ describe('UnitModel', () => {
         const _model = parseUnitModel({
           mark: 'bar',
           encoding: {
-            _y: {type: 'quantitative'},
-          },
+            _y: {type: 'quantitative'}
+          }
         } as any); // To make parseUnitModel accept the model with invalid encoding channel
         assert.equal(localLogger.warns[0], log.message.invalidEncodingChannel('_y'));
       })
@@ -41,8 +41,8 @@ describe('UnitModel', () => {
         const model = parseUnitModel({
           mark: 'bar',
           encoding: {
-            x: {type: 'quantitative'},
-          },
+            x: {type: 'quantitative'}
+          }
         });
         assert.equal(model.encoding.x, undefined);
         assert.equal(localLogger.warns[0], log.message.emptyFieldDef({type: QUANTITATIVE}, X));
@@ -55,8 +55,8 @@ describe('UnitModel', () => {
         const model = parseUnitModel({
           mark: 'bar',
           encoding: {
-            detail: [{field: 'a', type: 'ordinal'}, {type: 'quantitative'}],
-          },
+            detail: [{field: 'a', type: 'ordinal'}, {type: 'quantitative'}]
+          }
         });
         assert.deepEqual<FieldDef<string> | FieldDef<string>[]>(model.encoding.detail, [{field: 'a', type: 'ordinal'}]);
         assert.equal(localLogger.warns[0], log.message.emptyFieldDef({type: QUANTITATIVE}, DETAIL));
@@ -70,9 +70,9 @@ describe('UnitModel', () => {
         mark: 'point',
         encoding: {
           x: {field: 'a', type: 'ordinal'},
-          y: {field: 'b', type: 'ordinal'},
+          y: {field: 'b', type: 'ordinal'}
         },
-        config: {axis: {domainWidth: 123}},
+        config: {axis: {domainWidth: 123}}
       });
 
       assert.equal(model.axis(X)['domainWidth'], undefined);
@@ -83,8 +83,8 @@ describe('UnitModel', () => {
         mark: 'point',
         encoding: {
           x: {field: 'a', type: 'ordinal', axis: {offset: 345}},
-          y: {field: 'b', type: 'ordinal'},
-        },
+          y: {field: 'b', type: 'ordinal'}
+        }
       });
 
       assert.equal(model.axis(X).offset, 345);

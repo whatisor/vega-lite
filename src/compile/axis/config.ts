@@ -13,7 +13,7 @@ export function getAxisConfig(
   const configTypes = (scaleType === 'band' ? ['axisBand'] : []).concat([
     channel === 'x' ? 'axisX' : 'axisY',
     'axis' + orient.substr(0, 1).toUpperCase() + orient.substr(1), // axisTop, axisBottom, ...
-    'axis',
+    'axis'
   ]);
   for (const configType of configTypes) {
     if (config[configType] && config[configType][property] !== undefined) {

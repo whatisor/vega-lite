@@ -12,7 +12,7 @@ const toggle: TransformCompiler = {
     return signals.concat({
       name: selCmpt.name + TOGGLE,
       value: false,
-      on: [{events: selCmpt.events, update: selCmpt.toggle}],
+      on: [{events: selCmpt.events, update: selCmpt.toggle}]
     });
   },
 
@@ -25,7 +25,7 @@ const toggle: TransformCompiler = {
       (selCmpt.resolve === 'global' ? `${signal} ? null : true, ` : `${signal} ? null : {unit: ${unitName(model)}}, `) +
       `${signal} ? ${tpl} : null`
     );
-  },
+  }
 };
 
 export default toggle;

@@ -10,7 +10,7 @@ export const geoshape: MarkCompiler = {
   vgMark: 'shape',
   encodeEntry: (model: UnitModel) => {
     return {
-      ...mixins.baseEncodeEntry(model, {size: 'ignore', orient: 'ignore'}),
+      ...mixins.baseEncodeEntry(model, {size: 'ignore', orient: 'ignore'})
     };
   },
   postEncodingTransform: (model: UnitModel): VgPostEncodingTransform[] => {
@@ -23,8 +23,8 @@ export const geoshape: MarkCompiler = {
       // as: 'shape',
       ...(shapeDef && isFieldDef(shapeDef) && shapeDef.type === GEOJSON
         ? {field: vgField(shapeDef, {expr: 'datum'})}
-        : {}),
+        : {})
     };
     return [transform];
-  },
+  }
 };

@@ -13,37 +13,37 @@ function getModel(xscale?: ScaleType, yscale?: ScaleType) {
     encoding: {
       x: {field: 'Horsepower', type: 'quantitative', scale: {type: xscale || 'linear'}},
       y: {field: 'Miles_per_Gallon', type: 'quantitative', scale: {type: yscale || 'linear'}},
-      color: {field: 'Origin', type: 'nominal'},
-    },
+      color: {field: 'Origin', type: 'nominal'}
+    }
   });
 
   model.parseScale();
   const selCmpts = selection.parseUnitSelection(model, {
     one: {
-      type: 'single',
+      type: 'single'
     },
     two: {
-      type: 'multi',
+      type: 'multi'
     },
     three: {
       type: 'interval',
-      zoom: false,
+      zoom: false
     },
     four: {
-      type: 'interval',
+      type: 'interval'
     },
     five: {
       type: 'interval',
-      zoom: 'wheel, pinch',
+      zoom: 'wheel, pinch'
     },
     six: {
       type: 'interval',
-      bind: 'scales',
+      bind: 'scales'
     },
     seven: {
       type: 'interval',
-      zoom: null,
-    },
+      zoom: null
+    }
   });
 
   return {model, selCmpts};
@@ -72,9 +72,9 @@ describe('Zoom Selection Transform', () => {
           on: [
             {
               events: parseSelector('@four_brush:wheel!', 'scope'),
-              update: '{x: x(unit), y: y(unit)}',
-            },
-          ],
+              update: '{x: x(unit), y: y(unit)}'
+            }
+          ]
         },
         {
           name: 'four_zoom_delta',
@@ -82,10 +82,10 @@ describe('Zoom Selection Transform', () => {
             {
               events: parseSelector('@four_brush:wheel!', 'scope'),
               force: true,
-              update: 'pow(1.001, event.deltaY * pow(16, event.deltaMode))',
-            },
-          ],
-        },
+              update: 'pow(1.001, event.deltaY * pow(16, event.deltaMode))'
+            }
+          ]
+        }
       ]);
     });
 
@@ -99,9 +99,9 @@ describe('Zoom Selection Transform', () => {
           on: [
             {
               events: parseSelector('@five_brush:wheel, @five_brush:pinch', 'scope'),
-              update: '{x: x(unit), y: y(unit)}',
-            },
-          ],
+              update: '{x: x(unit), y: y(unit)}'
+            }
+          ]
         },
         {
           name: 'five_zoom_delta',
@@ -109,10 +109,10 @@ describe('Zoom Selection Transform', () => {
             {
               events: parseSelector('@five_brush:wheel, @five_brush:pinch', 'scope'),
               force: true,
-              update: 'pow(1.001, event.deltaY * pow(16, event.deltaMode))',
-            },
-          ],
-        },
+              update: 'pow(1.001, event.deltaY * pow(16, event.deltaMode))'
+            }
+          ]
+        }
       ]);
     });
 
@@ -126,9 +126,9 @@ describe('Zoom Selection Transform', () => {
           on: [
             {
               events: parseSelector('wheel!', 'scope'),
-              update: '{x: invert("x", x(unit)), y: invert("y", y(unit))}',
-            },
-          ],
+              update: '{x: invert("x", x(unit)), y: invert("y", y(unit))}'
+            }
+          ]
         },
         {
           name: 'six_zoom_delta',
@@ -136,10 +136,10 @@ describe('Zoom Selection Transform', () => {
             {
               events: parseSelector('wheel!', 'scope'),
               force: true,
-              update: 'pow(1.001, event.deltaY * pow(16, event.deltaMode))',
-            },
-          ],
-        },
+              update: 'pow(1.001, event.deltaY * pow(16, event.deltaMode))'
+            }
+          ]
+        }
       ]);
     });
   });
@@ -153,15 +153,15 @@ describe('Zoom Selection Transform', () => {
       assert.includeDeepMembers(signals.filter(s => s.name === 'four_x')[0].on, [
         {
           events: {signal: 'four_zoom_delta'},
-          update: 'clampRange(zoomLinear(four_x, four_zoom_anchor.x, four_zoom_delta), 0, width)',
-        },
+          update: 'clampRange(zoomLinear(four_x, four_zoom_anchor.x, four_zoom_delta), 0, width)'
+        }
       ]);
 
       assert.includeDeepMembers(signals.filter(s => s.name === 'four_y')[0].on, [
         {
           events: {signal: 'four_zoom_delta'},
-          update: 'clampRange(zoomLinear(four_y, four_zoom_anchor.y, four_zoom_delta), 0, height)',
-        },
+          update: 'clampRange(zoomLinear(four_y, four_zoom_anchor.y, four_zoom_delta), 0, height)'
+        }
       ]);
 
       const model2 = getModel('log', 'pow').model;
@@ -170,15 +170,15 @@ describe('Zoom Selection Transform', () => {
       assert.includeDeepMembers(signals.filter(s => s.name === 'four_x')[0].on, [
         {
           events: {signal: 'four_zoom_delta'},
-          update: 'clampRange(zoomLinear(four_x, four_zoom_anchor.x, four_zoom_delta), 0, width)',
-        },
+          update: 'clampRange(zoomLinear(four_x, four_zoom_anchor.x, four_zoom_delta), 0, width)'
+        }
       ]);
 
       assert.includeDeepMembers(signals.filter(s => s.name === 'four_y')[0].on, [
         {
           events: {signal: 'four_zoom_delta'},
-          update: 'clampRange(zoomLinear(four_y, four_zoom_anchor.y, four_zoom_delta), 0, height)',
-        },
+          update: 'clampRange(zoomLinear(four_y, four_zoom_anchor.y, four_zoom_delta), 0, height)'
+        }
       ]);
     });
 
@@ -190,15 +190,15 @@ describe('Zoom Selection Transform', () => {
       assert.includeDeepMembers(signals.filter(s => s.name === 'six_Horsepower')[0].on, [
         {
           events: {signal: 'six_zoom_delta'},
-          update: 'zoomLinear(domain("x"), six_zoom_anchor.x, six_zoom_delta)',
-        },
+          update: 'zoomLinear(domain("x"), six_zoom_anchor.x, six_zoom_delta)'
+        }
       ]);
 
       assert.includeDeepMembers(signals.filter(s => s.name === 'six_Miles_per_Gallon')[0].on, [
         {
           events: {signal: 'six_zoom_delta'},
-          update: 'zoomLinear(domain("y"), six_zoom_anchor.y, six_zoom_delta)',
-        },
+          update: 'zoomLinear(domain("y"), six_zoom_anchor.y, six_zoom_delta)'
+        }
       ]);
     });
 
@@ -210,15 +210,15 @@ describe('Zoom Selection Transform', () => {
       assert.includeDeepMembers(signals.filter(s => s.name === 'six_Horsepower')[0].on, [
         {
           events: {signal: 'six_zoom_delta'},
-          update: 'zoomLog(domain("x"), six_zoom_anchor.x, six_zoom_delta)',
-        },
+          update: 'zoomLog(domain("x"), six_zoom_anchor.x, six_zoom_delta)'
+        }
       ]);
 
       assert.includeDeepMembers(signals.filter(s => s.name === 'six_Miles_per_Gallon')[0].on, [
         {
           events: {signal: 'six_zoom_delta'},
-          update: 'zoomPow(domain("y"), six_zoom_anchor.y, six_zoom_delta, 1)',
-        },
+          update: 'zoomPow(domain("y"), six_zoom_anchor.y, six_zoom_delta, 1)'
+        }
       ]);
     });
   });

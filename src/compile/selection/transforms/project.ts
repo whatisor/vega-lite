@@ -33,7 +33,7 @@ const project: TransformCompiler = {
           timeUnits[tuField] = {
             as: tuField,
             field: fieldDef.field,
-            timeUnit: fieldDef.timeUnit,
+            timeUnit: fieldDef.timeUnit
           };
         } else {
           channels[fieldDef.field] = channel;
@@ -56,7 +56,7 @@ const project: TransformCompiler = {
     if (keys(timeUnits).length) {
       selCmpt.timeUnit = new TimeUnitNode(null, timeUnits);
     }
-  },
+  }
 };
 
 export default project;

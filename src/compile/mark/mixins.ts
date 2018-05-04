@@ -10,7 +10,7 @@ import {
   isValueDef,
   TextFieldDef,
   ValueDefWithCondition,
-  vgField,
+  vgField
 } from '../../fielddef';
 import * as log from '../../log';
 import {MarkDef} from '../../mark';
@@ -30,7 +30,7 @@ export function color(model: UnitModel, opt: {valueOnly: boolean} = {valueOnly: 
   const configValue = {
     fill: getMarkConfig('fill', markDef, config),
     stroke: getMarkConfig('stroke', markDef, config),
-    color: getMarkConfig('color', markDef, config),
+    color: getMarkConfig('color', markDef, config)
   };
 
   const transparentIfNeeded = contains(['bar', 'point', 'circle', 'square', 'geoshape'], markType)
@@ -44,7 +44,7 @@ export function color(model: UnitModel, opt: {valueOnly: boolean} = {valueOnly: 
       // If there is no fill, always fill symbols, bar, geoshape
       // with transparent fills https://github.com/vega/vega-lite/issues/1316
       transparentIfNeeded,
-    stroke: markDef.stroke || configValue.stroke,
+    stroke: markDef.stroke || configValue.stroke
   };
 
   const colorVgChannel = filled ? 'fill' : 'stroke';
@@ -52,14 +52,14 @@ export function color(model: UnitModel, opt: {valueOnly: boolean} = {valueOnly: 
   const fillStrokeMarkDefAndConfig: VgEncodeEntry = {
     ...(defaultValue.fill
       ? {
-          fill: {value: defaultValue.fill},
+          fill: {value: defaultValue.fill}
         }
       : {}),
     ...(defaultValue.stroke
       ? {
-          stroke: {value: defaultValue.stroke},
+          stroke: {value: defaultValue.stroke}
         }
-      : {}),
+      : {})
   };
 
   if (encoding.fill || encoding.stroke) {
@@ -71,7 +71,7 @@ export function color(model: UnitModel, opt: {valueOnly: boolean} = {valueOnly: 
 
     return {
       ...nonPosition('fill', model, {defaultValue: defaultValue.fill || transparentIfNeeded}),
-      ...nonPosition('stroke', model, {defaultValue: defaultValue.stroke}),
+      ...nonPosition('stroke', model, {defaultValue: defaultValue.stroke})
     };
   } else if (encoding.color) {
     return {
@@ -85,8 +85,8 @@ export function color(model: UnitModel, opt: {valueOnly: boolean} = {valueOnly: 
           markDef.color ||
           configValue[colorVgChannel] ||
           configValue.color ||
-          (filled ? transparentIfNeeded : undefined),
-      }),
+          (filled ? transparentIfNeeded : undefined)
+      })
     };
   } else if (markDef.fill || markDef.stroke) {
     // Ignore markDef.color, config.color
@@ -99,7 +99,7 @@ export function color(model: UnitModel, opt: {valueOnly: boolean} = {valueOnly: 
       ...fillStrokeMarkDefAndConfig, // in this case, fillStrokeMarkDefAndConfig only include config
 
       // override config with markDef.color
-      [colorVgChannel]: {value: markDef.color},
+      [colorVgChannel]: {value: markDef.color}
     };
   } else if (configValue.fill || configValue.stroke) {
     // ignore config.color
@@ -107,7 +107,7 @@ export function color(model: UnitModel, opt: {valueOnly: boolean} = {valueOnly: 
   } else if (configValue.color) {
     return {
       ...(transparentIfNeeded ? {fill: {value: 'transparent'}} : {}),
-      [colorVgChannel]: {value: configValue.color},
+      [colorVgChannel]: {value: configValue.color}
     };
   }
   return {};
@@ -121,7 +121,7 @@ export function baseEncodeEntry(model: UnitModel, ignore: Ignore) {
     ...color(model),
     ...nonPosition('opacity', model),
     ...tooltip(model),
-    ...text(model, 'href'),
+    ...text(model, 'href')
   };
 }
 
@@ -165,7 +165,7 @@ export function defined(model: UnitModel): VgEncodeEntry {
 
     if (fields.length > 0) {
       return {
-        defined: {signal: fields.join(' && ')},
+        defined: {signal: fields.join(' && ')}
       };
     }
   }
@@ -217,11 +217,11 @@ function wrapCondition(
       const test = isConditionalSelection(c) ? selectionPredicate(model, c.selection) : expression(model, c.test);
       return {
         test,
-        ...conditionValueRef,
+        ...conditionValueRef
       };
     });
     return {
-      [vgChannel]: [...vgConditions, ...(valueRef !== undefined ? [valueRef] : [])],
+      [vgChannel]: [...vgConditions, ...(valueRef !== undefined ? [valueRef] : [])]
     };
   } else {
     return valueRef !== undefined ? {[vgChannel]: valueRef} : {};
@@ -267,7 +267,7 @@ export function bandPosition(fieldDef: FieldDef<string>, channel: 'x' | 'y', mod
       const centeredBandPositionMixins = {
         // Use xc/yc and place the mark at the middle of the band
         // This way we never have to deal with size's condition for x/y position.
-        [channel + 'c']: ref.fieldRef(fieldDef, scaleName, {}, {band: 0.5}),
+        [channel + 'c']: ref.fieldRef(fieldDef, scaleName, {}, {band: 0.5})
       };
 
       if (getFieldDef(model.encoding.size)) {
@@ -280,12 +280,12 @@ export function bandPosition(fieldDef: FieldDef<string>, channel: 'x' | 'y', mod
       } else if (isValueDef(model.encoding.size)) {
         return {
           ...centeredBandPositionMixins,
-          ...nonPosition('size', model, {vgChannel: sizeChannel}),
+          ...nonPosition('size', model, {vgChannel: sizeChannel})
         };
       } else if (model.markDef.size !== undefined) {
         return {
           ...centeredBandPositionMixins,
-          [sizeChannel]: {value: model.markDef.size},
+          [sizeChannel]: {value: model.markDef.size}
         };
       }
     } else {
@@ -294,7 +294,7 @@ export function bandPosition(fieldDef: FieldDef<string>, channel: 'x' | 'y', mod
   }
   return {
     [channel]: ref.fieldRef(fieldDef, scaleName, {binSuffix: 'range'}),
-    [sizeChannel]: ref.bandRef(scaleName),
+    [sizeChannel]: ref.bandRef(scaleName)
   };
 }
 
@@ -308,7 +308,7 @@ export function centeredBandPosition(
   const sizeChannel = channel === 'x' ? 'width' : 'height';
   return {
     ...pointPosition(channel, model, defaultPosRef, centerChannel),
-    ...nonPosition('size', model, {defaultRef: defaultSizeRef, vgChannel: sizeChannel}),
+    ...nonPosition('size', model, {defaultRef: defaultSizeRef, vgChannel: sizeChannel})
   };
 }
 
@@ -322,12 +322,12 @@ export function binnedPosition(
   if (channel === 'x') {
     return {
       x2: ref.bin(fieldDef, scaleName, 'start', reverse ? 0 : spacing),
-      x: ref.bin(fieldDef, scaleName, 'end', reverse ? spacing : 0),
+      x: ref.bin(fieldDef, scaleName, 'end', reverse ? spacing : 0)
     };
   } else {
     return {
       y2: ref.bin(fieldDef, scaleName, 'start', reverse ? spacing : 0),
-      y: ref.bin(fieldDef, scaleName, 'end', reverse ? 0 : spacing),
+      y: ref.bin(fieldDef, scaleName, 'end', reverse ? 0 : spacing)
     };
   }
 }
@@ -363,7 +363,7 @@ export function pointPosition(
         );
 
   return {
-    [vgChannel || channel]: valueRef,
+    [vgChannel || channel]: valueRef
   };
 }
 

@@ -11,20 +11,20 @@ describe('compile/layout', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'point', // point mark produce ordinal-point scale by default
         encoding: {
-          x: {field: 'a', type: 'ordinal'},
-        },
+          x: {field: 'a', type: 'ordinal'}
+        }
       });
 
       const size = sizeSignals(model, 'width');
       assert.deepEqual(size, [
         {
           name: 'x_step',
-          value: 21,
+          value: 21
         },
         {
           name: 'width',
-          update: "bandspace(domain('x').length, 1, 0.5) * x_step",
-        },
+          update: "bandspace(domain('x').length, 1, 0.5) * x_step"
+        }
       ]);
     });
 
@@ -32,20 +32,20 @@ describe('compile/layout', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'rect', // rect produces ordinal-band by default
         encoding: {
-          x: {field: 'a', type: 'ordinal', scale: {padding: 0.3}},
-        },
+          x: {field: 'a', type: 'ordinal', scale: {padding: 0.3}}
+        }
       });
 
       const size = sizeSignals(model, 'width');
       assert.deepEqual(size, [
         {
           name: 'x_step',
-          value: 21,
+          value: 21
         },
         {
           name: 'width',
-          update: "bandspace(domain('x').length, 0.3, 0.3) * x_step",
-        },
+          update: "bandspace(domain('x').length, 0.3, 0.3) * x_step"
+        }
       ]);
     });
 
@@ -53,37 +53,37 @@ describe('compile/layout', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'rect', // rect produces ordinal-band by default
         encoding: {
-          x: {field: 'a', type: 'ordinal', scale: {paddingInner: 0.3}},
-        },
+          x: {field: 'a', type: 'ordinal', scale: {paddingInner: 0.3}}
+        }
       });
 
       const size = sizeSignals(model, 'width');
       assert.deepEqual(size, [
         {
           name: 'x_step',
-          value: 21,
+          value: 21
         },
         {
           name: 'width',
-          update: "bandspace(domain('x').length, 0.3, 0.15) * x_step",
-        },
+          update: "bandspace(domain('x').length, 0.3, 0.15) * x_step"
+        }
       ]);
     });
 
     it('should return only step if parent is facet', () => {
       const model = parseFacetModel({
         facet: {
-          row: {field: 'a', type: 'ordinal'},
+          row: {field: 'a', type: 'ordinal'}
         },
         spec: {
           mark: 'point',
           encoding: {
-            x: {field: 'b', type: 'nominal'},
-          },
+            x: {field: 'b', type: 'nominal'}
+          }
         },
         resolve: {
-          scale: {x: 'independent'},
-        },
+          scale: {x: 'independent'}
+        }
       });
       model.parseScale();
       model.parseLayoutSize();
@@ -92,8 +92,8 @@ describe('compile/layout', () => {
       assert.deepEqual(size, [
         {
           name: 'child_x_step',
-          value: 21,
-        },
+          value: 21
+        }
       ]);
     });
 
@@ -101,8 +101,8 @@ describe('compile/layout', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'point',
         encoding: {
-          x: {field: 'a', type: 'ordinal', scale: {rangeStep: null}},
-        },
+          x: {field: 'a', type: 'ordinal', scale: {rangeStep: null}}
+        }
       });
 
       const size = sizeSignals(model, 'width');
@@ -113,8 +113,8 @@ describe('compile/layout', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'point',
         encoding: {
-          y: {field: 'a', type: 'ordinal', scale: {rangeStep: null}},
-        },
+          y: {field: 'a', type: 'ordinal', scale: {rangeStep: null}}
+        }
       });
 
       const size = sizeSignals(model, 'height');
@@ -126,8 +126,8 @@ describe('compile/layout', () => {
         width: 205,
         mark: 'point',
         encoding: {
-          x: {field: 'a', type: 'ordinal'},
-        },
+          x: {field: 'a', type: 'ordinal'}
+        }
       });
 
       const size = sizeSignals(model, 'width');
@@ -141,8 +141,8 @@ describe('compile/layout', () => {
           width: 205,
           mark: 'point',
           encoding: {
-            x: {field: 'a', type: 'ordinal', scale: {rangeStep: 21}},
-          },
+            x: {field: 'a', type: 'ordinal', scale: {rangeStep: 21}}
+          }
         });
 
         const size = sizeSignals(model, 'width');
@@ -155,8 +155,8 @@ describe('compile/layout', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'point',
         encoding: {
-          x: {field: 'a', type: 'quantitative'},
-        },
+          x: {field: 'a', type: 'quantitative'}
+        }
       });
 
       const size = sizeSignals(model, 'width');
@@ -167,8 +167,8 @@ describe('compile/layout', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'point',
         encoding: {
-          y: {field: 'a', type: 'quantitative'},
-        },
+          y: {field: 'a', type: 'quantitative'}
+        }
       });
 
       const size = sizeSignals(model, 'height');
@@ -179,7 +179,7 @@ describe('compile/layout', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'point',
         encoding: {},
-        config: {scale: {rangeStep: 17}},
+        config: {scale: {rangeStep: 17}}
       });
       const size = sizeSignals(model, 'width');
       assert.deepEqual(size, [{name: 'width', value: 17}]);
@@ -189,7 +189,7 @@ describe('compile/layout', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'text',
         encoding: {},
-        config: {scale: {textXRangeStep: 91}},
+        config: {scale: {textXRangeStep: 91}}
       });
       const size = sizeSignals(model, 'width');
       assert.deepEqual(size, [{name: 'width', value: 91}]);

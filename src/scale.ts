@@ -63,7 +63,7 @@ const SCALE_CATEGORY_INDEX: {
   ordinal: 'ordinal',
   'bin-ordinal': 'bin-ordinal', // TODO: should bin-ordinal support merging with other
   point: 'ordinal-position',
-  band: 'ordinal-position',
+  band: 'ordinal-position'
 };
 
 export const SCALE_TYPES = keys(SCALE_CATEGORY_INDEX) as ScaleType[];
@@ -103,7 +103,7 @@ const SCALE_PRECEDENCE_INDEX: {
   'bin-linear': 0,
   sequential: 0,
   ordinal: 0,
-  'bin-ordinal': 0,
+  'bin-ordinal': 0
 };
 
 /**
@@ -120,12 +120,12 @@ export const CONTINUOUS_TO_CONTINUOUS_SCALES: ScaleType[] = [
   'pow',
   'sqrt',
   'time',
-  'utc',
+  'utc'
 ];
 const CONTINUOUS_TO_CONTINUOUS_INDEX = toSet(CONTINUOUS_TO_CONTINUOUS_SCALES);
 
 export const CONTINUOUS_DOMAIN_SCALES: ScaleType[] = CONTINUOUS_TO_CONTINUOUS_SCALES.concat([
-  'sequential' /* TODO add 'quantile', 'quantize', 'threshold'*/,
+  'sequential' /* TODO add 'quantile', 'quantize', 'threshold'*/
 ]);
 const CONTINUOUS_DOMAIN_INDEX = toSet(CONTINUOUS_DOMAIN_SCALES);
 
@@ -357,7 +357,7 @@ export const defaultScaleConfig = {
   minSize: 9, // Point size is area. For square point, 9 = 3 pixel ^ 2, not too small!
 
   minStrokeWidth: 1,
-  maxStrokeWidth: 4,
+  maxStrokeWidth: 4
 };
 
 export interface SchemeParams {
@@ -606,7 +606,7 @@ const SCALE_PROPERTY_INDEX: Flag<keyof Scale> = {
   // band/point
   padding: 1,
   paddingInner: 1,
-  paddingOuter: 1,
+  paddingOuter: 1
 };
 
 export const SCALE_PROPERTIES = flagKeys(SCALE_PROPERTY_INDEX);
@@ -661,7 +661,7 @@ export function scaleTypeSupportProperty(scaleType: ScaleType, propName: keyof S
             'utc', // zero is not meaningful for time
             'bin-linear', // binning should not automatically add zero
             'threshold', // threshold requires custom domain so zero does not matter
-            'quantile', // quantile depends on distribution so zero does not matter
+            'quantile' // quantile depends on distribution so zero does not matter
           ],
           scaleType
         )

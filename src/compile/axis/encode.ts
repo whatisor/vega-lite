@@ -30,7 +30,7 @@ export function labels(model: UnitModel, channel: PositionScaleChannel, specifie
         config.axis.shortTimeLabels,
         config.timeFormat,
         isUTCScale
-      ),
+      )
     };
   }
 
@@ -54,7 +54,7 @@ export function labels(model: UnitModel, channel: PositionScaleChannel, specifie
 
   labelsSpec = {
     ...labelsSpec,
-    ...specifiedLabelsSpec,
+    ...specifiedLabelsSpec
   };
 
   return keys(labelsSpec).length === 0 ? undefined : labelsSpec;

@@ -50,7 +50,7 @@ export function assembleScalesForModel(model: Model): VgScale[] {
         domain: assembleDomain(model, channel),
         ...(domainRaw ? {domainRaw} : {}),
         range: range,
-        ...otherScaleProps,
+        ...otherScaleProps
       });
 
       return scales;
@@ -65,7 +65,7 @@ export function assembleScaleRange(scaleRange: VgRange, scaleName: string, model
     if (isVgRangeStep(scaleRange)) {
       // For x/y range step, use a signal created in layout assemble instead of a constant range step.
       return {
-        step: {signal: scaleName + '_step'},
+        step: {signal: scaleName + '_step'}
       };
     } else if (isArray(scaleRange) && scaleRange.length === 2) {
       const r0 = scaleRange[0];

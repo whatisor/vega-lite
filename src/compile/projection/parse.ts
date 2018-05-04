@@ -34,14 +34,14 @@ function parseUnitProjection(model: UnitModel): ProjectionComponent {
     [[LONGITUDE, LATITUDE], [LONGITUDE2, LATITUDE2]].forEach(posssiblePair => {
       if (model.channelHasField(posssiblePair[0]) || model.channelHasField(posssiblePair[1])) {
         data.push({
-          signal: model.getName(`geojson_${data.length}`),
+          signal: model.getName(`geojson_${data.length}`)
         });
       }
     });
 
     if (model.channelHasField(SHAPE) && model.fieldDef(SHAPE).type === GEOJSON) {
       data.push({
-        signal: model.getName(`geojson_${data.length}`),
+        signal: model.getName(`geojson_${data.length}`)
       });
     }
 
@@ -54,7 +54,7 @@ function parseUnitProjection(model: UnitModel): ProjectionComponent {
       model.projectionName(true),
       {
         ...(config.projection || {}),
-        ...(specifiedProjection || {}),
+        ...(specifiedProjection || {})
       },
       [model.getSizeSignalRef('width'), model.getSizeSignalRef('height')],
       data

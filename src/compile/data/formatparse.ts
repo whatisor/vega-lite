@@ -153,7 +153,7 @@ export class ParseNode extends DataFlowNode {
         const formula: VgFormulaTransform = {
           type: 'formula',
           expr,
-          as: removePathFromField(field), // Vega output is always flattened
+          as: removePathFromField(field) // Vega output is always flattened
         };
         return formula;
       })

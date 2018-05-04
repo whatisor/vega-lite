@@ -12,8 +12,8 @@ describe('legend/assemble', () => {
         x: {field: 'Horsepower', type: 'quantitative'},
         y: {field: 'Miles_per_Gallon', type: 'quantitative'},
         color: {field: 'Origin', type: 'nominal'},
-        shape: {field: 'Origin', type: 'nominal'},
-      },
+        shape: {field: 'Origin', type: 'nominal'}
+      }
     });
     model.parseLegend();
 
@@ -33,8 +33,8 @@ describe('legend/assemble', () => {
         x: {field: 'a', type: 'ordinal'},
         y: {field: 'b', type: 'quantitative'},
         color: {field: 'b', type: 'quantitative'},
-        size: {field: 'b', type: 'quantitative'},
-      },
+        size: {field: 'b', type: 'quantitative'}
+      }
     });
 
     model.parseLegend();

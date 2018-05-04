@@ -12,7 +12,7 @@ import {
   Scale,
   ScaleConfig,
   ScaleType,
-  scaleTypeSupportProperty,
+  scaleTypeSupportProperty
 } from '../../scale';
 import {SortField, SortOrder} from '../../sort';
 import {contains, keys} from '../../util';

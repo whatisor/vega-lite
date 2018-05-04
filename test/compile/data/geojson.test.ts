@@ -10,20 +10,20 @@ describe('compile/data/geojson', () => {
       data: {
         url: 'data/zipcodes.csv',
         format: {
-          type: 'csv',
-        },
+          type: 'csv'
+        }
       },
       mark: 'circle',
       encoding: {
         longitude: {
           field: 'longitude',
-          type: 'quantitative',
+          type: 'quantitative'
         },
         latitude: {
           field: 'latitude',
-          type: 'quantitative',
-        },
-      },
+          type: 'quantitative'
+        }
+      }
     });
 
     const root = new DataFlowNode(null);

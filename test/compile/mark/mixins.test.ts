@@ -14,15 +14,15 @@ describe('compile/mark/mixins', () => {
             field: 'gender',
             type: 'nominal',
             scale: {rangeStep: 6},
-            axis: null,
+            axis: null
           },
           color: {
             field: 'gender',
             type: 'nominal',
-            scale: {range: ['#EA98D2', '#659CCA']},
-          },
+            scale: {range: ['#EA98D2', '#659CCA']}
+          }
         },
-        data: {url: 'data/population.json'},
+        data: {url: 'data/population.json'}
       });
 
       const colorMixins = color(model);
@@ -37,15 +37,15 @@ describe('compile/mark/mixins', () => {
             field: 'gender',
             type: 'nominal',
             scale: {rangeStep: 6},
-            axis: null,
+            axis: null
           },
           color: {
             field: 'gender',
             type: 'nominal',
-            scale: {range: ['#EA98D2', '#659CCA']},
-          },
+            scale: {range: ['#EA98D2', '#659CCA']}
+          }
         },
-        data: {url: 'data/population.json'},
+        data: {url: 'data/population.json'}
       });
 
       const colorMixins = color(model);
@@ -61,15 +61,15 @@ describe('compile/mark/mixins', () => {
             field: 'gender',
             type: 'nominal',
             scale: {rangeStep: 6},
-            axis: null,
+            axis: null
           },
           stroke: {
             field: 'gender',
             type: 'nominal',
-            scale: {range: ['#EA98D2', '#659CCA']},
-          },
+            scale: {range: ['#EA98D2', '#659CCA']}
+          }
         },
-        data: {url: 'data/population.json'},
+        data: {url: 'data/population.json'}
       });
 
       const colorMixins = color(model);
@@ -87,20 +87,20 @@ describe('compile/mark/mixins', () => {
               field: 'gender',
               type: 'nominal',
               scale: {rangeStep: 6},
-              axis: null,
+              axis: null
             },
             fill: {
               field: 'gender',
               type: 'nominal',
-              scale: {range: ['#EA98D2', '#659CCA']},
+              scale: {range: ['#EA98D2', '#659CCA']}
             },
             color: {
               field: 'gender',
               type: 'nominal',
-              scale: {range: ['#EA98D2', '#659CCA']},
-            },
+              scale: {range: ['#EA98D2', '#659CCA']}
+            }
           },
-          data: {url: 'data/population.json'},
+          data: {url: 'data/population.json'}
         });
 
         const colorMixins = color(model);
@@ -120,15 +120,15 @@ describe('compile/mark/mixins', () => {
               field: 'gender',
               type: 'nominal',
               scale: {rangeStep: 6},
-              axis: null,
+              axis: null
             },
             fill: {
               field: 'gender',
               type: 'nominal',
-              scale: {range: ['#EA98D2', '#659CCA']},
-            },
+              scale: {range: ['#EA98D2', '#659CCA']}
+            }
           },
-          data: {url: 'data/population.json'},
+          data: {url: 'data/population.json'}
         });
 
         const colorMixins = color(model);
@@ -145,8 +145,8 @@ describe('compile/mark/mixins', () => {
           mark: {type: 'point', color: 'red', stroke: 'blue'},
           encoding: {
             x: {field: 'Horsepower', type: 'quantitative'},
-            y: {field: 'Miles_per_Gallon', type: 'quantitative'},
-          },
+            y: {field: 'Miles_per_Gallon', type: 'quantitative'}
+          }
         });
         const props = color(model);
         assert.deepEqual(props.stroke, {value: 'blue'});
@@ -161,8 +161,8 @@ describe('compile/mark/mixins', () => {
           mark: {type: 'point', color: 'red', fill: 'blue'},
           encoding: {
             x: {field: 'Horsepower', type: 'quantitative'},
-            y: {field: 'Miles_per_Gallon', type: 'quantitative'},
-          },
+            y: {field: 'Miles_per_Gallon', type: 'quantitative'}
+          }
         });
         const props = color(model);
         assert.isUndefined(props.stroke);
@@ -175,8 +175,8 @@ describe('compile/mark/mixins', () => {
         mark: {type: 'point', color: 'red'},
         encoding: {
           x: {field: 'Horsepower', type: 'quantitative'},
-          y: {field: 'Miles_per_Gallon', type: 'quantitative'},
-        },
+          y: {field: 'Miles_per_Gallon', type: 'quantitative'}
+        }
       });
       const props = color(model);
       assert.deepEqual(props.stroke, {value: 'red'});
@@ -187,9 +187,9 @@ describe('compile/mark/mixins', () => {
         mark: 'point',
         encoding: {
           x: {field: 'Horsepower', type: 'quantitative'},
-          y: {field: 'Miles_per_Gallon', type: 'quantitative'},
+          y: {field: 'Miles_per_Gallon', type: 'quantitative'}
         },
-        config: {mark: {color: 'blue'}, point: {color: 'red'}},
+        config: {mark: {color: 'blue'}, point: {color: 'red'}}
       });
       const props = color(model);
       assert.deepEqual(props.stroke, {value: 'red'});
@@ -200,9 +200,9 @@ describe('compile/mark/mixins', () => {
         mark: 'point',
         encoding: {
           x: {field: 'Horsepower', type: 'quantitative'},
-          y: {field: 'Miles_per_Gallon', type: 'quantitative'},
+          y: {field: 'Miles_per_Gallon', type: 'quantitative'}
         },
-        config: {mark: {color: 'red', stroke: 'blue'}},
+        config: {mark: {color: 'red', stroke: 'blue'}}
       });
       const props = color(model);
       assert.deepEqual(props.stroke, {value: 'blue'});
@@ -213,9 +213,9 @@ describe('compile/mark/mixins', () => {
         mark: 'point',
         encoding: {
           x: {field: 'Horsepower', type: 'quantitative'},
-          y: {field: 'Miles_per_Gallon', type: 'quantitative'},
+          y: {field: 'Miles_per_Gallon', type: 'quantitative'}
         },
-        config: {point: {color: 'red', stroke: 'blue'}},
+        config: {point: {color: 'red', stroke: 'blue'}}
       });
       const props = color(model);
       assert.deepEqual(props.stroke, {value: 'blue'});
@@ -227,12 +227,12 @@ describe('compile/mark/mixins', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'point',
         encoding: {
-          tooltip: [{field: 'Horsepower', type: 'quantitative'}, {field: 'Acceleration', type: 'quantitative'}],
-        },
+          tooltip: [{field: 'Horsepower', type: 'quantitative'}, {field: 'Acceleration', type: 'quantitative'}]
+        }
       });
       const props = tooltip(model);
       assert.deepEqual(props.tooltip, {
-        signal: '{"Horsepower": format(datum["Horsepower"], ""), "Acceleration": format(datum["Acceleration"], "")}',
+        signal: '{"Horsepower": format(datum["Horsepower"], ""), "Acceleration": format(datum["Acceleration"], "")}'
       });
     });
   });
@@ -243,20 +243,20 @@ describe('compile/mark/mixins', () => {
         data: {
           url: 'data/zipcodes.csv',
           format: {
-            type: 'csv',
-          },
+            type: 'csv'
+          }
         },
         mark: 'point',
         encoding: {
           longitude: {
             field: 'longitude',
-            type: 'quantitative',
+            type: 'quantitative'
           },
           latitude: {
             field: 'latitude',
-            type: 'quantitative',
-          },
-        },
+            type: 'quantitative'
+          }
+        }
       });
 
       [X, Y].forEach(channel => {

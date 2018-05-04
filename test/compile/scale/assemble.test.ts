@@ -6,7 +6,7 @@ import {
   parseLayerModel,
   parseRepeatModel,
   parseUnitModel,
-  parseUnitModelWithScale,
+  parseUnitModelWithScale
 } from '../../util';
 
 describe('compile/scale/assemble', () => {
@@ -17,17 +17,17 @@ describe('compile/scale/assemble', () => {
           {
             mark: 'point',
             encoding: {
-              x: {field: 'a', type: 'ordinal'},
-            },
+              x: {field: 'a', type: 'ordinal'}
+            }
           },
           {
             mark: 'bar',
             encoding: {
               x: {field: 'b', type: 'ordinal'},
-              y: {field: 'c', type: 'quantitative'},
-            },
-          },
-        ],
+              y: {field: 'c', type: 'quantitative'}
+            }
+          }
+        ]
       });
 
       model.parseScale();
@@ -42,22 +42,22 @@ describe('compile/scale/assemble', () => {
             mark: 'point',
             encoding: {
               x: {field: 'a', type: 'quantitative'},
-              y: {field: 'c', type: 'quantitative'},
-            },
+              y: {field: 'c', type: 'quantitative'}
+            }
           },
           {
             mark: 'point',
             encoding: {
               x: {field: 'b', type: 'quantitative'},
-              y: {field: 'c', type: 'quantitative'},
-            },
-          },
+              y: {field: 'c', type: 'quantitative'}
+            }
+          }
         ],
         resolve: {
           scale: {
-            x: 'independent',
-          },
-        },
+            x: 'independent'
+          }
+        }
       });
 
       model.parseScale();
@@ -68,14 +68,14 @@ describe('compile/scale/assemble', () => {
     it('includes all scales for repeat', () => {
       const model = parseRepeatModel({
         repeat: {
-          row: ['Acceleration', 'Horsepower'],
+          row: ['Acceleration', 'Horsepower']
         },
         spec: {
           mark: 'point',
           encoding: {
-            x: {field: {repeat: 'row'}, type: 'quantitative'},
-          },
-        },
+            x: {field: {repeat: 'row'}, type: 'quantitative'}
+          }
+        }
       });
 
       model.parseScale();
@@ -86,18 +86,18 @@ describe('compile/scale/assemble', () => {
     it('includes shared scales, but not independent scales (as they are nested) for facet.', () => {
       const model = parseFacetModelWithScale({
         facet: {
-          column: {field: 'a', type: 'quantitative', format: 'd'},
+          column: {field: 'a', type: 'quantitative', format: 'd'}
         },
         spec: {
           mark: 'point',
           encoding: {
             x: {field: 'b', type: 'quantitative'},
-            y: {field: 'c', type: 'quantitative'},
-          },
+            y: {field: 'c', type: 'quantitative'}
+          }
         },
         resolve: {
-          scale: {x: 'independent'},
-        },
+          scale: {x: 'independent'}
+        }
       });
 
       const scales = assembleScales(model);
@@ -111,8 +111,8 @@ describe('compile/scale/assemble', () => {
       const model = parseUnitModel({
         mark: 'point',
         encoding: {
-          x: {field: 'x', type: 'nominal'},
-        },
+          x: {field: 'x', type: 'nominal'}
+        }
       });
 
       assert.deepEqual(assembleScaleRange({step: 21}, 'x', model, 'x'), {step: {signal: 'x_step'}});
@@ -122,8 +122,8 @@ describe('compile/scale/assemble', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          x: {field: 'x', type: 'quantitative'},
-        },
+          x: {field: 'x', type: 'quantitative'}
+        }
       });
 
       // mock renaming
@@ -136,8 +136,8 @@ describe('compile/scale/assemble', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          x: {field: 'y', type: 'quantitative'},
-        },
+          x: {field: 'y', type: 'quantitative'}
+        }
       });
 
       // mock renaming

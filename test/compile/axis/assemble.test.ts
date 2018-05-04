@@ -11,8 +11,8 @@ describe('compile/axis/assemble', () => {
         grid: true,
         encode: {
           grid: {update: {stroke: {value: 'red'}}},
-          labels: {update: {fill: {value: 'red'}}},
-        },
+          labels: {update: {fill: {value: 'red'}}}
+        }
       });
       const axis = assembleAxis(axisCmpt, 'grid', defaultConfig);
       assert.isUndefined(axis.encode.labels);
@@ -22,7 +22,7 @@ describe('compile/axis/assemble', () => {
       const axisCmpt = new AxisComponent({
         orient: 'left',
         grid: true,
-        zindex: 3,
+        zindex: 3
       });
       const axis = assembleAxis(axisCmpt, 'grid', defaultConfig);
       assert.equal(axis.zindex, 3);
@@ -33,8 +33,8 @@ describe('compile/axis/assemble', () => {
         orient: 'left',
         encode: {
           grid: {update: {stroke: {value: 'red'}}},
-          labels: {update: {fill: {value: 'red'}}},
-        },
+          labels: {update: {fill: {value: 'red'}}}
+        }
       });
       const axis = assembleAxis(axisCmpt, 'main', defaultConfig);
       assert.isUndefined(axis.encode.grid);
@@ -43,7 +43,7 @@ describe('compile/axis/assemble', () => {
     it('correctly assemble title fieldDefs', () => {
       const axisCmpt = new AxisComponent({
         orient: 'left',
-        title: [{aggregate: 'max', field: 'a'}, {aggregate: 'min', field: 'b'}],
+        title: [{aggregate: 'max', field: 'a'}, {aggregate: 'min', field: 'b'}]
       });
       const axis = assembleAxis(axisCmpt, 'main', defaultConfig);
       assert.equal(axis.title, 'Max of a, Min of b');

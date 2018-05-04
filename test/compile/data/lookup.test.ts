@@ -15,12 +15,12 @@ describe('compile/data/lookup', () => {
           from: {
             data: {url: 'data/lookup_people.csv'},
             key: 'name',
-            fields: ['age', 'height'],
-          },
-        },
+            fields: ['age', 'height']
+          }
+        }
       ],
       mark: 'bar',
-      encoding: {},
+      encoding: {}
     });
 
     const t = parseTransformArray(null, model);
@@ -29,7 +29,7 @@ describe('compile/data/lookup', () => {
       from: 'lookup_0',
       key: 'name',
       fields: ['person'],
-      values: ['age', 'height'],
+      values: ['age', 'height']
     });
   });
 
@@ -41,8 +41,8 @@ describe('compile/data/lookup', () => {
         from: {
           data: {url: 'data/lookup_people.csv'},
           key: 'name',
-          fields: ['age', 'height'],
-        },
+          fields: ['age', 'height']
+        }
       },
       'lookup_0'
     );
@@ -52,7 +52,7 @@ describe('compile/data/lookup', () => {
       from: 'lookup_0',
       key: 'name',
       fields: ['person'],
-      values: ['age', 'height'],
+      values: ['age', 'height']
     });
   });
 
@@ -63,9 +63,9 @@ describe('compile/data/lookup', () => {
         lookup: 'person',
         from: {
           data: {url: 'data/lookup_people.csv'},
-          key: 'name',
+          key: 'name'
         },
-        as: 'foo',
+        as: 'foo'
       },
       'lookup_0'
     );
@@ -75,7 +75,7 @@ describe('compile/data/lookup', () => {
       from: 'lookup_0',
       key: 'name',
       fields: ['person'],
-      as: ['foo'],
+      as: ['foo']
     });
   });
 
@@ -88,8 +88,8 @@ describe('compile/data/lookup', () => {
           lookup: 'person',
           from: {
             data: {url: 'data/lookup_people.csv'},
-            key: 'name',
-          },
+            key: 'name'
+          }
         },
         'lookup_0'
       );

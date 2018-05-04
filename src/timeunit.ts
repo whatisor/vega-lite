@@ -76,7 +76,7 @@ const LOCAL_SINGLE_TIMEUNIT_INDEX: Flag<LocalSingleTimeUnit> = {
   hours: 1,
   minutes: 1,
   seconds: 1,
-  milliseconds: 1,
+  milliseconds: 1
 };
 
 export const TIMEUNIT_PARTS = flagKeys(LOCAL_SINGLE_TIMEUNIT_INDEX);
@@ -105,7 +105,7 @@ const UTC_SINGLE_TIMEUNIT_INDEX: Flag<UtcSingleTimeUnit> = {
   utchours: 1,
   utcminutes: 1,
   utcseconds: 1,
-  utcmilliseconds: 1,
+  utcmilliseconds: 1
 };
 
 export function isUtcSingleTimeUnit(timeUnit: string): timeUnit is UtcSingleTimeUnit {
@@ -149,7 +149,7 @@ const LOCAL_MULTI_TIMEUNIT_INDEX: Flag<LocalMultiTimeUnit> = {
 
   minutesseconds: 1,
 
-  secondsmilliseconds: 1,
+  secondsmilliseconds: 1
 };
 
 export type UtcMultiTimeUnit =
@@ -186,7 +186,7 @@ const UTC_MULTI_TIMEUNIT_INDEX: Flag<UtcMultiTimeUnit> = {
 
   utcminutesseconds: 1,
 
-  utcsecondsmilliseconds: 1,
+  utcsecondsmilliseconds: 1
 };
 
 export type MultiTimeUnit = LocalMultiTimeUnit | UtcMultiTimeUnit;
@@ -196,7 +196,7 @@ export type UtcTimeUnit = UtcSingleTimeUnit | UtcMultiTimeUnit;
 
 const UTC_TIMEUNIT_INDEX: Flag<UtcTimeUnit> = {
   ...UTC_SINGLE_TIMEUNIT_INDEX,
-  ...UTC_MULTI_TIMEUNIT_INDEX,
+  ...UTC_MULTI_TIMEUNIT_INDEX
 };
 
 export function isUTCTimeUnit(t: string): t is UtcTimeUnit {
@@ -213,7 +213,7 @@ const TIMEUNIT_INDEX: Flag<TimeUnit> = {
   ...LOCAL_SINGLE_TIMEUNIT_INDEX,
   ...UTC_SINGLE_TIMEUNIT_INDEX,
   ...LOCAL_MULTI_TIMEUNIT_INDEX,
-  ...UTC_MULTI_TIMEUNIT_INDEX,
+  ...UTC_MULTI_TIMEUNIT_INDEX
 };
 
 export const TIMEUNITS = flagKeys(TIMEUNIT_INDEX);
@@ -234,7 +234,7 @@ const SET_DATE_METHOD: Record<LocalSingleTimeUnit, DateMethodName> = {
   milliseconds: 'setMilliseconds',
   // Day and quarter have their own special cases
   quarter: null,
-  day: null,
+  day: null
 };
 
 /**

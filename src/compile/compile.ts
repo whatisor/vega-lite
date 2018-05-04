@@ -104,7 +104,7 @@ function getTopLevelProperties(topLevelSpec: TopLevel<any>, config: Config, auto
   return {
     autosize: keys(autosize).length === 1 && autosize.type ? autosize.type : autosize,
     ...extractTopLevelProperties(config),
-    ...extractTopLevelProperties(topLevelSpec),
+    ...extractTopLevelProperties(topLevelSpec)
   };
 }
 
@@ -152,11 +152,11 @@ function assembleTopLevelModel(model: Model, topLevelProperties: TopLevelPropert
     data: data,
     ...(projections.length > 0 ? {projections: projections} : {}),
     ...model.assembleGroup([...layoutSignals, ...model.assembleSelectionTopLevelSignals([])]),
-    ...(vgConfig ? {config: vgConfig} : {}),
+    ...(vgConfig ? {config: vgConfig} : {})
   };
 
   return {
-    spec: output,
+    spec: output
     // TODO: add warning / errors here
   };
 }

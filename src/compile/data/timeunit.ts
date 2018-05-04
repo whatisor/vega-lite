@@ -29,7 +29,7 @@ export class TimeUnitNode extends DataFlowNode {
           timeUnitComponent[f] = {
             as: f,
             timeUnit: fieldDef.timeUnit,
-            field: fieldDef.field,
+            field: fieldDef.field
           };
         }
         return timeUnitComponent;
@@ -49,8 +49,8 @@ export class TimeUnitNode extends DataFlowNode {
       [t.field]: {
         as: t.as,
         timeUnit: t.timeUnit,
-        field: t.field,
-      },
+        field: t.field
+      }
     });
   }
 
@@ -84,7 +84,7 @@ export class TimeUnitNode extends DataFlowNode {
       return {
         type: 'formula',
         as: c.as,
-        expr: fieldExpr(c.timeUnit, c.field),
+        expr: fieldExpr(c.timeUnit, c.field)
       } as VgFormulaTransform;
     });
   }

@@ -18,7 +18,7 @@ import {
   VgFieldRefUnionDomain,
   VgNonUnionDomain,
   VgSortField,
-  VgUnionSortField,
+  VgUnionSortField
 } from '../../vega.schema';
 import {binRequiresRange} from '../common';
 import {sortArrayIndexField} from '../data/calculate';
@@ -58,7 +58,7 @@ function parseUnitScaleDomain(model: UnitModel) {
       localScaleCmpt.set(
         'domainRaw',
         {
-          signal: SELECTION_DOMAIN + hash(specifiedDomain),
+          signal: SELECTION_DOMAIN + hash(specifiedDomain)
         },
         true
       );
@@ -161,7 +161,7 @@ export function parseDomainForChannel(model: UnitModel, channel: ScaleChannel): 
   if (domain !== model.scaleDomain(channel)) {
     model.specifiedScales[channel] = {
       ...model.specifiedScales[channel],
-      domain,
+      domain
     };
   }
 
@@ -214,12 +214,12 @@ function parseSingleChannelDomain(
     return [
       {
         data,
-        field: model.vgField(channel, {suffix: 'start'}),
+        field: model.vgField(channel, {suffix: 'start'})
       },
       {
         data,
-        field: model.vgField(channel, {suffix: 'end'}),
-      },
+        field: model.vgField(channel, {suffix: 'end'})
+      }
     ];
   }
 
@@ -230,12 +230,12 @@ function parseSingleChannelDomain(
     return [
       {
         data,
-        field: model.vgField(channel, {aggregate: 'min'}),
+        field: model.vgField(channel, {aggregate: 'min'})
       },
       {
         data,
-        field: model.vgField(channel, {aggregate: 'max'}),
-      },
+        field: model.vgField(channel, {aggregate: 'max'})
+      }
     ];
   } else if (fieldDef.bin) {
     // bin
@@ -259,10 +259,10 @@ function parseSingleChannelDomain(
             sort === true || !isSortField(sort)
               ? {
                   field: model.vgField(channel, {}),
-                  op: 'min', // min or max doesn't matter since we sort by the start of the bin range
+                  op: 'min' // min or max doesn't matter since we sort by the start of the bin range
                 }
-              : sort,
-        },
+              : sort
+        }
       ];
     } else {
       // continuous scales
@@ -275,20 +275,20 @@ function parseSingleChannelDomain(
         return [
           {
             data,
-            field: model.vgField(channel, {}),
+            field: model.vgField(channel, {})
           },
           {
             data,
-            field: model.vgField(channel, {binSuffix: 'end'}),
-          },
+            field: model.vgField(channel, {binSuffix: 'end'})
+          }
         ];
       } else {
         // TODO: use bin_mid
         return [
           {
             data: model.requestDataName(MAIN),
-            field: model.vgField(channel, {}),
-          },
+            field: model.vgField(channel, {})
+          }
         ];
       }
     }
@@ -299,15 +299,15 @@ function parseSingleChannelDomain(
         // so we can aggregate values for the scale independently from the main aggregation.
         data: util.isBoolean(sort) ? model.requestDataName(MAIN) : model.requestDataName(RAW),
         field: model.vgField(channel),
-        sort: sort,
-      },
+        sort: sort
+      }
     ];
   } else {
     return [
       {
         data: model.requestDataName(MAIN),
-        field: model.vgField(channel),
-      },
+        field: model.vgField(channel)
+      }
     ];
   }
 }
@@ -324,7 +324,7 @@ export function domainSort(model: UnitModel, channel: ScaleChannel, scaleType: S
     return {
       op: 'min',
       field: sortArrayIndexField(model, channel),
-      order: 'ascending',
+      order: 'ascending'
     };
   }
 
@@ -337,7 +337,7 @@ export function domainSort(model: UnitModel, channel: ScaleChannel, scaleType: S
     return {
       op: 'min',
       field: model.vgField(channel),
-      order: 'descending',
+      order: 'descending'
     };
   }
 
@@ -363,14 +363,14 @@ export function canUseUnaggregatedDomain(
   if (!fieldDef.aggregate) {
     return {
       valid: false,
-      reason: log.message.unaggregateDomainHasNoEffectForRawField(fieldDef),
+      reason: log.message.unaggregateDomainHasNoEffectForRawField(fieldDef)
     };
   }
 
   if (!SHARED_DOMAIN_OP_INDEX[fieldDef.aggregate]) {
     return {
       valid: false,
-      reason: log.message.unaggregateDomainWithNonSharedDomainOp(fieldDef.aggregate),
+      reason: log.message.unaggregateDomainWithNonSharedDomainOp(fieldDef.aggregate)
     };
   }
 
@@ -378,7 +378,7 @@ export function canUseUnaggregatedDomain(
     if (scaleType === 'log') {
       return {
         valid: false,
-        reason: log.message.unaggregatedDomainWithLogScale(fieldDef),
+        reason: log.message.unaggregatedDomainWithLogScale(fieldDef)
       };
     }
   }
@@ -435,7 +435,7 @@ export function mergeDomains(domains: VgNonUnionDomain[]): VgDomain {
       }
       return {
         ...domain,
-        sort,
+        sort
       };
     }
     return domain;
@@ -480,7 +480,7 @@ export function mergeDomains(domains: VgNonUnionDomain[]): VgDomain {
     const domain: VgFieldRefUnionDomain = {
       data: allData[0],
       fields: uniqueDomains.map(d => (d as VgDataRef).field),
-      ...(sort ? {sort} : {}),
+      ...(sort ? {sort} : {})
     };
 
     return domain;

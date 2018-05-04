@@ -62,7 +62,7 @@ const MARK_INDEX: {[M in Mark]: 1} = {
   geoshape: 1,
   rule: 1,
   circle: 1,
-  square: 1,
+  square: 1
 };
 
 export function isMark(m: string): m is Mark {
@@ -157,11 +157,11 @@ export const VL_ONLY_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX: {
   bar: ['binSpacing', 'continuousBandSize', 'discreteBandSize'],
   line: ['point'],
   text: ['shortTimeLabels'],
-  tick: ['bandSize', 'thickness'],
+  tick: ['bandSize', 'thickness']
 };
 
 export const defaultMarkConfig: MarkConfig = {
-  color: '#4c78a8',
+  color: '#4c78a8'
 };
 
 export interface MarkConfigMixins {
@@ -268,7 +268,7 @@ export interface MarkDef extends MarkProperties, PointOverlayMixins, LineOverlay
 
 export const defaultBarConfig: BarConfig = {
   binSpacing: 1,
-  continuousBandSize: 5,
+  continuousBandSize: 5
 };
 
 export interface TextConfig extends MarkConfig {
@@ -298,5 +298,5 @@ export interface TickConfig extends MarkConfig {
 }
 
 export const defaultTickConfig: TickConfig = {
-  thickness: 1,
+  thickness: 1
 };

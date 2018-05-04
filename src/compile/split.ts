@@ -19,7 +19,7 @@ export class Split<T extends object> {
     // Add "as any" to avoid an error "Spread types may only be created from object types".
     return {
       ...(this.explicit as any), // Explicit properties comes first
-      ...(this.implicit as any),
+      ...(this.implicit as any)
     };
   }
 
@@ -74,14 +74,14 @@ export interface Explicit<T> {
 export function makeExplicit<T>(value: T): Explicit<T> {
   return {
     explicit: true,
-    value,
+    value
   };
 }
 
 export function makeImplicit<T>(value: T): Explicit<T> {
   return {
     explicit: false,
-    value,
+    value
   };
 }
 

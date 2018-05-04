@@ -10,7 +10,7 @@ import {
   isValueDef,
   MarkPropFieldDef,
   ValueDef,
-  ValueDefWithCondition,
+  ValueDefWithCondition
 } from '../../fielddef';
 import {AREA, BAR, CIRCLE, FILL_STROKE_CONFIG, GEOSHAPE, LINE, POINT, SQUARE, TEXT, TICK} from '../../mark';
 import {ScaleType} from '../../scale';
@@ -33,7 +33,7 @@ export function symbols(
 
   let out = {
     ...applyMarkConfig({}, model, FILL_STROKE_CONFIG),
-    ...mixins.color(model),
+    ...mixins.color(model)
   };
 
   switch (model.mark) {
@@ -161,9 +161,9 @@ export function labels(
           config.legend.shortTimeLabels,
           config.timeFormat,
           isUTCScale
-        ),
+        )
       },
-      ...labelsSpec,
+      ...labelsSpec
     };
   }
 

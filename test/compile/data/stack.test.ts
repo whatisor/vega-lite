@@ -21,8 +21,8 @@ describe('compile/data/stack', () => {
       encoding: {
         x: {aggregate: 'sum', field: 'a', type: 'quantitative'},
         y: {field: 'b', type: 'nominal'},
-        color: {field: 'c', type: 'ordinal'},
-      },
+        color: {field: 'c', type: 'ordinal'}
+      }
     });
 
     assert.deepEqual<StackComponent>(parse(model), {
@@ -32,10 +32,10 @@ describe('compile/data/stack', () => {
       stackby: ['c'],
       sort: {
         field: ['c'],
-        order: ['descending'],
+        order: ['descending']
       },
       offset: 'zero',
-      impute: false,
+      impute: false
     });
   });
 
@@ -45,8 +45,8 @@ describe('compile/data/stack', () => {
       encoding: {
         x: {aggregate: 'sum', field: 'a', type: 'quantitative'},
         y: {bin: true, field: 'b', type: 'quantitative'},
-        color: {field: 'c', type: 'ordinal'},
-      },
+        color: {field: 'c', type: 'ordinal'}
+      }
     });
 
     assert.deepEqual<StackComponent>(parse(model), {
@@ -56,10 +56,10 @@ describe('compile/data/stack', () => {
       stackby: ['c'],
       sort: {
         field: ['c'],
-        order: ['descending'],
+        order: ['descending']
       },
       offset: 'zero',
-      impute: false,
+      impute: false
     });
   });
 
@@ -68,8 +68,8 @@ describe('compile/data/stack', () => {
       mark: 'bar',
       encoding: {
         x: {aggregate: 'sum', field: 'a', type: 'quantitative'},
-        color: {field: 'c', type: 'ordinal'},
-      },
+        color: {field: 'c', type: 'ordinal'}
+      }
     });
 
     assert.deepEqual<StackComponent>(parse(model), {
@@ -79,10 +79,10 @@ describe('compile/data/stack', () => {
       stackby: ['c'],
       sort: {
         field: ['c'],
-        order: ['descending'],
+        order: ['descending']
       },
       offset: 'zero',
-      impute: false,
+      impute: false
     });
 
     assert.deepEqual<VgTransform[]>(assemble(model), [
@@ -92,11 +92,11 @@ describe('compile/data/stack', () => {
         field: 'sum_a',
         sort: {
           field: ['c'],
-          order: ['descending'],
+          order: ['descending']
         },
         as: ['sum_a_start', 'sum_a_end'],
-        offset: 'zero',
-      },
+        offset: 'zero'
+      }
     ]);
   });
 
@@ -107,8 +107,8 @@ describe('compile/data/stack', () => {
         x: {aggregate: 'sum', field: 'a', type: 'quantitative'},
         y: {field: 'b', type: 'nominal'},
         color: {field: 'c', type: 'nominal'},
-        order: {aggregate: 'mean', field: 'd', type: 'quantitative'},
-      },
+        order: {aggregate: 'mean', field: 'd', type: 'quantitative'}
+      }
     });
 
     assert.deepEqual<StackComponent>(parse(model), {
@@ -118,10 +118,10 @@ describe('compile/data/stack', () => {
       stackby: ['c'],
       sort: {
         field: ['mean_d'],
-        order: ['ascending'],
+        order: ['ascending']
       },
       offset: 'zero',
-      impute: true,
+      impute: true
     });
 
     assert.deepEqual<VgTransform[]>(assemble(model), [
@@ -131,7 +131,7 @@ describe('compile/data/stack', () => {
         groupby: ['c'],
         key: 'b',
         method: 'value',
-        value: 0,
+        value: 0
       },
       {
         type: 'stack',
@@ -139,11 +139,11 @@ describe('compile/data/stack', () => {
         field: 'sum_a',
         sort: {
           field: ['mean_d'],
-          order: ['ascending'],
+          order: ['ascending']
         },
         as: ['sum_a_start', 'sum_a_end'],
-        offset: 'zero',
-      },
+        offset: 'zero'
+      }
     ]);
   });
 
@@ -153,8 +153,8 @@ describe('compile/data/stack', () => {
       encoding: {
         x: {aggregate: 'sum', field: 'a', type: 'quantitative'},
         y: {bin: true, field: 'b', type: 'quantitative'},
-        color: {field: 'c', type: 'nominal'},
-      },
+        color: {field: 'c', type: 'nominal'}
+      }
     });
 
     assert.deepEqual<StackComponent>(parse(model), {
@@ -164,17 +164,17 @@ describe('compile/data/stack', () => {
       stackby: ['c'],
       sort: {
         field: ['c'],
-        order: ['descending'],
+        order: ['descending']
       },
       offset: 'zero',
-      impute: true,
+      impute: true
     });
 
     assert.deepEqual<VgTransform[]>(assemble(model), [
       {
         type: 'formula',
         expr: '(datum["bin_maxbins_10_b"]+datum["bin_maxbins_10_b_end"])/2',
-        as: 'bin_maxbins_10_b_mid',
+        as: 'bin_maxbins_10_b_mid'
       },
       {
         type: 'impute',
@@ -182,7 +182,7 @@ describe('compile/data/stack', () => {
         groupby: ['c'],
         key: 'bin_maxbins_10_b_mid',
         method: 'value',
-        value: 0,
+        value: 0
       },
       {
         type: 'stack',
@@ -190,11 +190,11 @@ describe('compile/data/stack', () => {
         field: 'sum_a',
         sort: {
           field: ['c'],
-          order: ['descending'],
+          order: ['descending']
         },
         as: ['sum_a_start', 'sum_a_end'],
-        offset: 'zero',
-      },
+        offset: 'zero'
+      }
     ]);
   });
 });

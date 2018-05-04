@@ -34,7 +34,7 @@ export class LayerModel extends Model {
     const layoutSize = {
       ...parentGivenSize,
       ...(spec.width ? {width: spec.width} : {}),
-      ...(spec.height ? {height: spec.height} : {}),
+      ...(spec.height ? {height: spec.height} : {})
     };
 
     this.initSize(layoutSize);

@@ -11,7 +11,7 @@ import {
   isLocalSingleTimeUnit,
   isUtcSingleTimeUnit,
   normalizeTimeUnit,
-  TimeUnit,
+  TimeUnit
 } from './timeunit';
 import {logicalExpr} from './util';
 
@@ -208,7 +208,7 @@ export function normalizePredicate(f: Predicate): Predicate {
   if (isFieldPredicate(f) && f.timeUnit) {
     return {
       ...f,
-      timeUnit: normalizeTimeUnit(f.timeUnit),
+      timeUnit: normalizeTimeUnit(f.timeUnit)
     };
   }
   return f;

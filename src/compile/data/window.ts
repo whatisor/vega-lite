@@ -53,7 +53,7 @@ export class WindowTransformNode extends DataFlowNode {
     }
     const sort: VgComparator = {
       field: sortFields,
-      order: sortOrder,
+      order: sortOrder
     };
     const ignorePeers = this.transform.ignorePeers;
 
@@ -63,7 +63,7 @@ export class WindowTransformNode extends DataFlowNode {
       as,
       ops,
       fields,
-      sort,
+      sort
     };
 
     if (ignorePeers !== undefined) {

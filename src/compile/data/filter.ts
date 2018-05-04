@@ -19,7 +19,7 @@ export class FilterNode extends DataFlowNode {
   public assemble(): VgFilterTransform {
     return {
       type: 'filter',
-      expr: this.expr,
+      expr: this.expr
     };
   }
 }

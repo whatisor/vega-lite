@@ -7,7 +7,7 @@ import {
   isRepeatSpec,
   isUnitSpec,
   LayoutSizeMixins,
-  NormalizedSpec,
+  NormalizedSpec
 } from '../spec';
 import {ConcatModel} from './concat';
 import {FacetModel} from './facet';

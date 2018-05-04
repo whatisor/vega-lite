@@ -18,8 +18,8 @@ describe('compile/data/parse', () => {
         mark: 'point',
         transform: [{calculate: 'calculate', as: 'as'}, {filter: 'filter'}],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
-        },
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
+        }
       });
 
       const root = new DataFlowNode(null);
@@ -34,8 +34,8 @@ describe('compile/data/parse', () => {
         mark: 'point',
         transform: [{bin: true, field: 'field', as: 'a'}, {timeUnit: 'month', field: 'field', as: 'b'}],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
-        },
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
+        }
       });
 
       const root = new DataFlowNode(null);
@@ -50,11 +50,11 @@ describe('compile/data/parse', () => {
         mark: 'point',
         transform: [
           {bin: true, field: 'field', as: 'a'},
-          {aggregate: [{op: 'count', field: 'f', as: 'b'}, {op: 'sum', field: 'f', as: 'c'}], groupby: ['field']},
+          {aggregate: [{op: 'count', field: 'f', as: 'b'}, {op: 'sum', field: 'f', as: 'c'}], groupby: ['field']}
         ],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
-        },
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
+        }
       });
 
       const root = new DataFlowNode(null);
@@ -69,17 +69,17 @@ describe('compile/data/parse', () => {
           {
             op: 'count',
             field: 'f',
-            as: 'b',
-          },
-        ],
+            as: 'b'
+          }
+        ]
       };
       const model = parseUnitModel({
         data: {values: []},
         mark: 'point',
         transform: [transform],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
-        },
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
+        }
       });
       const root = new DataFlowNode(null);
       parseTransformArray(root, model);
@@ -90,24 +90,24 @@ describe('compile/data/parse', () => {
         window: [
           {
             op: 'row_number',
-            as: 'ordered_row_number',
-          },
+            as: 'ordered_row_number'
+          }
         ],
         ignorePeers: false,
         sort: [
           {
             field: 'f',
-            order: 'ascending',
-          },
-        ],
+            order: 'ascending'
+          }
+        ]
       };
       const model = parseUnitModel({
         data: {values: []},
         mark: 'point',
         transform: [transform],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
-        },
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
+        }
       });
       const root = new DataFlowNode(null);
       parseTransformArray(root, model);
@@ -120,17 +120,17 @@ describe('compile/data/parse', () => {
           {
             op: 'count',
             field: 'f',
-            as: 'b',
-          },
-        ],
+            as: 'b'
+          }
+        ]
       };
       const model = parseUnitModel({
         data: {values: []},
         mark: 'point',
         transform: [transform],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
-        },
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
+        }
       });
       const root = new DataFlowNode(null);
       parseTransformArray(root, model);
@@ -141,24 +141,24 @@ describe('compile/data/parse', () => {
         window: [
           {
             op: 'row_number',
-            as: 'ordered_row_number',
-          },
+            as: 'ordered_row_number'
+          }
         ],
         ignorePeers: false,
         sort: [
           {
             field: 'f',
-            order: 'ascending',
-          },
-        ],
+            order: 'ascending'
+          }
+        ]
       };
       const model = parseUnitModel({
         data: {values: []},
         mark: 'point',
         transform: [transform],
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
-        },
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
+        }
       });
       const root = new DataFlowNode(null);
       parseTransformArray(root, model);

@@ -8,7 +8,7 @@ import {
   isScaleFieldDef,
   isTimeFieldDef,
   OrderFieldDef,
-  vgField,
+  vgField
 } from '../fielddef';
 import {MarkConfig, MarkDef, TextConfig} from '../mark';
 import {ScaleType} from '../scale';
@@ -90,11 +90,11 @@ export function formatSignalRef(
     const startField = vgField(fieldDef, {expr});
     const endField = vgField(fieldDef, {expr, binSuffix: 'end'});
     return {
-      signal: binFormatExpression(startField, endField, format, config),
+      signal: binFormatExpression(startField, endField, format, config)
     };
   } else if (fieldDef.type === 'quantitative') {
     return {
-      signal: `${formatExpr(vgField(fieldDef, {expr, binSuffix: 'range'}), format)}`,
+      signal: `${formatExpr(vgField(fieldDef, {expr, binSuffix: 'range'}), format)}`
     };
   } else if (isTimeFieldDef(fieldDef)) {
     const isUTCScale = isScaleFieldDef(fieldDef) && fieldDef['scale'] && fieldDef['scale'].type === ScaleType.UTC;
@@ -106,11 +106,11 @@ export function formatSignalRef(
         config.text.shortTimeLabels,
         config.timeFormat,
         isUTCScale
-      ),
+      )
     };
   } else {
     return {
-      signal: `''+${vgField(fieldDef, {expr})}`,
+      signal: `''+${vgField(fieldDef, {expr})}`
     };
   }
 }
@@ -220,7 +220,7 @@ export function titleMerger(v1: Explicit<AxisTitleComponent>, v2: Explicit<AxisT
   if (isArray(v1.value) && isArray(v2.value)) {
     return {
       explicit: v1.explicit,
-      value: mergeTitleFieldDefs(v1.value, v2.value),
+      value: mergeTitleFieldDefs(v1.value, v2.value)
     };
   } else if (!isArray(v1.value) && !isArray(v2.value)) {
     return {
@@ -228,7 +228,7 @@ export function titleMerger(v1: Explicit<AxisTitleComponent>, v2: Explicit<AxisT
       value:
         v1.value === v2.value
           ? v1.value // if title is the same just use one of them
-          : v1.value + ', ' + v2.value, // join title with comma if different
+          : v1.value + ', ' + v2.value // join title with comma if different
     };
   }
   /* istanbul ignore next: Condition should not happen -- only for warning in development. */

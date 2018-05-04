@@ -9,7 +9,7 @@ describe('compile/layout', () => {
         height: 456,
         mark: 'text',
         encoding: {},
-        config: {scale: {textXRangeStep: 91}},
+        config: {scale: {textXRangeStep: 91}}
       });
 
       assert.deepEqual(model.component.layoutSize.explicit.width, 123);
@@ -20,7 +20,7 @@ describe('compile/layout', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'text',
         encoding: {},
-        config: {scale: {textXRangeStep: 91}},
+        config: {scale: {textXRangeStep: 91}}
       });
 
       assert.deepEqual(model.component.layoutSize.implicit.width, 91);
@@ -30,7 +30,7 @@ describe('compile/layout', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'point',
         encoding: {},
-        config: {scale: {rangeStep: 23}},
+        config: {scale: {rangeStep: 23}}
       });
 
       assert.deepEqual(model.component.layoutSize.implicit.width, 23);
@@ -42,9 +42,9 @@ describe('compile/layout', () => {
         mark: 'point',
         encoding: {
           x: {field: 'a', type: 'quantitative'},
-          y: {field: 'b', type: 'quantitative'},
+          y: {field: 'b', type: 'quantitative'}
         },
-        config: {view: {width: 123, height: 456}},
+        config: {view: {width: 123, height: 456}}
       });
 
       assert.deepEqual(model.component.layoutSize.implicit.width, 123);
@@ -56,9 +56,9 @@ describe('compile/layout', () => {
         mark: 'point',
         encoding: {
           x: {field: 'a', type: 'ordinal', scale: {rangeStep: null}},
-          y: {field: 'b', type: 'ordinal', scale: {rangeStep: null}},
+          y: {field: 'b', type: 'ordinal', scale: {rangeStep: null}}
         },
-        config: {view: {width: 123, height: 456}},
+        config: {view: {width: 123, height: 456}}
       });
 
       assert.deepEqual(model.component.layoutSize.implicit.width, 123);
@@ -70,9 +70,9 @@ describe('compile/layout', () => {
         mark: 'point',
         encoding: {
           x: {field: 'a', type: 'ordinal'},
-          y: {field: 'b', type: 'ordinal'},
+          y: {field: 'b', type: 'ordinal'}
         },
-        config: {view: {width: 123, height: 456}},
+        config: {view: {width: 123, height: 456}}
       });
 
       assert.deepEqual(model.component.layoutSize.get('width'), 'range-step');

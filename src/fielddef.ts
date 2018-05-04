@@ -154,7 +154,7 @@ export function toFieldDefBase(fieldDef: FieldDef<string>): FieldDefBase<string>
     ...(timeUnit ? {timeUnit} : {}),
     ...(bin ? {bin} : {}),
     ...(aggregate ? {aggregate} : {}),
-    field,
+    field
   };
 }
 
@@ -478,7 +478,7 @@ export function normalize(channelDef: ChannelDef<string>, channel: Channel): Cha
     return {
       ...channelDef,
       // Need to cast as normalizeFieldDef normally return FieldDef, but here we know that it is definitely Condition<FieldDef>
-      condition: normalizeFieldDef(channelDef.condition, channel) as Conditional<FieldDef<string>>,
+      condition: normalizeFieldDef(channelDef.condition, channel) as Conditional<FieldDef<string>>
     };
   }
   return channelDef;
@@ -495,7 +495,7 @@ export function normalizeFieldDef(fieldDef: FieldDef<string>, channel: Channel) 
   if (fieldDef.timeUnit) {
     fieldDef = {
       ...fieldDef,
-      timeUnit: normalizeTimeUnit(fieldDef.timeUnit),
+      timeUnit: normalizeTimeUnit(fieldDef.timeUnit)
     };
   }
 
@@ -503,7 +503,7 @@ export function normalizeFieldDef(fieldDef: FieldDef<string>, channel: Channel) 
   if (fieldDef.bin) {
     fieldDef = {
       ...fieldDef,
-      bin: normalizeBin(fieldDef.bin, channel),
+      bin: normalizeBin(fieldDef.bin, channel)
     };
   }
 
@@ -514,7 +514,7 @@ export function normalizeFieldDef(fieldDef: FieldDef<string>, channel: Channel) 
       // convert short type to full type
       fieldDef = {
         ...fieldDef,
-        type: fullType,
+        type: fullType
       };
     }
     if (fieldDef.type !== 'quantitative') {
@@ -522,7 +522,7 @@ export function normalizeFieldDef(fieldDef: FieldDef<string>, channel: Channel) 
         log.warn(log.message.invalidFieldTypeForCountAggregate(fieldDef.type, fieldDef.aggregate));
         fieldDef = {
           ...fieldDef,
-          type: 'quantitative',
+          type: 'quantitative'
         };
       }
     }
@@ -532,7 +532,7 @@ export function normalizeFieldDef(fieldDef: FieldDef<string>, channel: Channel) 
     log.warn(log.message.emptyOrInvalidFieldType(fieldDef.type, channel, newType));
     fieldDef = {
       ...fieldDef,
-      type: newType,
+      type: newType
     };
   }
 
@@ -566,7 +566,7 @@ export function channelCompatibility(
         // with timeUnit it's not always strictly continuous
         return {
           compatible: false,
-          warning: log.message.facetChannelShouldBeDiscrete(channel),
+          warning: log.message.facetChannelShouldBeDiscrete(channel)
         };
       }
       return COMPATIBLE;
@@ -590,7 +590,7 @@ export function channelCompatibility(
       if (fieldDef.type !== QUANTITATIVE) {
         return {
           compatible: false,
-          warning: `Channel ${channel} should not be used with ${fieldDef.type} field.`,
+          warning: `Channel ${channel} should not be used with ${fieldDef.type} field.`
         };
       }
       return COMPATIBLE;
@@ -602,7 +602,7 @@ export function channelCompatibility(
       if (isDiscrete(fieldDef) && !fieldDef.bin) {
         return {
           compatible: false,
-          warning: `Channel ${channel} should not be used with discrete field.`,
+          warning: `Channel ${channel} should not be used with discrete field.`
         };
       }
       return COMPATIBLE;
@@ -611,7 +611,7 @@ export function channelCompatibility(
       if (fieldDef.type !== 'nominal' && fieldDef.type !== 'geojson') {
         return {
           compatible: false,
-          warning: 'Shape channel should be used with nominal data or geojson only',
+          warning: 'Shape channel should be used with nominal data or geojson only'
         };
       }
       return COMPATIBLE;
@@ -620,7 +620,7 @@ export function channelCompatibility(
       if (fieldDef.type === 'nominal') {
         return {
           compatible: false,
-          warning: `Channel order is inappropriate for nominal field, which has no inherent order.`,
+          warning: `Channel order is inappropriate for nominal field, which has no inherent order.`
         };
       }
       return COMPATIBLE;

@@ -60,12 +60,12 @@ describe('fieldDef', () => {
         const fieldDef: FieldDef<string> = {
           timeUnit: 'yearmonthday' as TimeUnit, // Need to cast here as this is intentionally wrong
           field: 'a',
-          type: 'temporal',
+          type: 'temporal'
         };
         assert.deepEqual<ChannelDef<string>>(normalize(fieldDef, 'x'), {
           timeUnit: 'yearmonthdate',
           field: 'a',
-          type: 'temporal',
+          type: 'temporal'
         });
         assert.equal(localLogger.warns[0], log.message.dayReplacedWithDate('yearmonthday'));
       })
@@ -79,7 +79,7 @@ describe('fieldDef', () => {
           assert.deepEqual<ChannelDef<string>>(normalize(fieldDef, 'x'), {
             aggregate,
             field: 'a',
-            type: 'quantitative',
+            type: 'quantitative'
           });
         }
         assert.equal(localLogger.warns.length, 4);

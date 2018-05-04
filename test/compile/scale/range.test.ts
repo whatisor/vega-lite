@@ -416,7 +416,7 @@ describe('compile/scale', () => {
       describe('bar', () => {
         it('should return [minBandSize, maxBandSize] if both are specified', () => {
           const config = {
-            scale: {minBandSize: 2, maxBandSize: 9},
+            scale: {minBandSize: 2, maxBandSize: 9}
           };
           assert.deepEqual(
             parseRangeForChannel('size', 'linear', QUANTITATIVE, {}, config, undefined, 'bar', false, 'plot_width', []),
@@ -446,7 +446,7 @@ describe('compile/scale', () => {
       describe('tick', () => {
         it('should return [minBandSize, maxBandSize] if both are specified', () => {
           const config = {
-            scale: {minBandSize: 4, maxBandSize: 9},
+            scale: {minBandSize: 4, maxBandSize: 9}
           };
           assert.deepEqual(
             parseRangeForChannel(
@@ -530,8 +530,8 @@ describe('compile/scale', () => {
             const config = {
               scale: {
                 minSize: 5,
-                maxSize: 25,
-              },
+                maxSize: 25
+              }
             };
 
             assert.deepEqual(

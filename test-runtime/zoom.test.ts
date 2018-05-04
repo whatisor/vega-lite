@@ -3,7 +3,7 @@ import {bound, brush, compositeTypes, embedFn, parentSelector, spec, testRenderF
 
 const hits = {
   zoom: [9, 23],
-  bins: [8, 2],
+  bins: [8, 2]
 };
 
 type InOut = 'in' | 'out';
@@ -24,7 +24,7 @@ const cmp = (a: number, b: number) => a - b;
 
     const assertExtent = {
       in: ['isAtLeast', 'isAtMost'],
-      out: ['isAtMost', 'isAtLeast'],
+      out: ['isAtMost', 'isAtLeast']
     };
 
     function setup(brushKey: string, idx: number, encodings: string[], parent?: string) {
@@ -72,7 +72,7 @@ const cmp = (a: number, b: number) => a - b;
             {
               x: {aggregate: 'count', field: '*', type: 'quantitative'},
               y: {bin: true},
-              color: {value: 'steelblue', field: null, type: null},
+              color: {value: 'steelblue', field: null, type: null}
             }
           )
         );
@@ -114,7 +114,7 @@ const cmp = (a: number, b: number) => a - b;
             {type, ...binding},
             {
               x: {scale: {type: 'pow', exponent: 1.5}},
-              y: {scale: {type: 'log'}},
+              y: {scale: {type: 'log'}}
             }
           )
         );
@@ -142,7 +142,7 @@ const cmp = (a: number, b: number) => a - b;
               {type, ...binding},
               {
                 x: {type: 'ordinal'},
-                y: {type: 'nominal'},
+                y: {type: 'nominal'}
               }
             )
           );

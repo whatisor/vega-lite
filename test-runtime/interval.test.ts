@@ -68,7 +68,7 @@ describe('interval selections at runtime in unit views', () => {
         {
           x: {aggregate: 'count', field: '*', type: 'quantitative'},
           y: {bin: true},
-          color: {value: 'steelblue', field: null, type: null},
+          color: {value: 'steelblue', field: null, type: null}
         }
       )
     );
@@ -89,7 +89,7 @@ describe('interval selections at runtime in unit views', () => {
     const xextents = [[2, 3, 4], [6, 7, 8]];
     const yextents = [
       [48, 49, 52, 53, 54, 55, 66, 67, 68, 76, 81, 87, 91],
-      [16, 17, 19, 23, 24, 27, 28, 35, 39, 43, 48],
+      [16, 17, 19, 23, 24, 27, 28, 35, 39, 43, 48]
     ];
 
     for (let i = 0; i < hits.drag.length; i++) {
@@ -143,7 +143,7 @@ describe('interval selections at runtime in unit views', () => {
           {type},
           {
             x: {scale: {type: 'pow', exponent: 1.5}},
-            y: {scale: {type: 'log'}},
+            y: {scale: {type: 'log'}}
           }
         )
       );

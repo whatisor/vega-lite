@@ -51,7 +51,7 @@ export class ConcatModel extends BaseConcatModel {
       ...(this.isVConcat ? {columns: 1} : {}),
       bounds: 'full',
       // Use align each so it can work with multiple plots with different size
-      align: 'each',
+      align: 'each'
     };
   }
 }

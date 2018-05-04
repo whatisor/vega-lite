@@ -11,8 +11,8 @@ describe('Single Selection', () => {
     encoding: {
       x: {field: 'Horsepower', type: 'quantitative'},
       y: {field: 'Miles_per_Gallon', type: 'quantitative', bin: true},
-      color: {field: 'Origin', type: 'nominal'},
-    },
+      color: {field: 'Origin', type: 'nominal'}
+    }
   });
 
   const selCmpts = (model.component.selection = selection.parseUnitSelection(model, {
@@ -21,8 +21,8 @@ describe('Single Selection', () => {
       type: 'single',
       nearest: true,
       on: 'mouseover',
-      encodings: ['y', 'color'],
-    },
+      encodings: ['y', 'color']
+    }
   }));
 
   it('builds tuple signals', () => {
@@ -36,10 +36,10 @@ describe('Single Selection', () => {
             events: selCmpts['one'].events,
             update:
               'datum && item().mark.marktype !== \'group\' ? {unit: "", encodings: [], fields: ["_vgsid_"], values: [datum["_vgsid_"]]} : null',
-            force: true,
-          },
-        ],
-      },
+            force: true
+          }
+        ]
+      }
     ]);
 
     const twoSg = single.signals(model, selCmpts['two']);
@@ -52,10 +52,10 @@ describe('Single Selection', () => {
             events: selCmpts['two'].events,
             update:
               'datum && item().mark.marktype !== \'group\' ? {unit: "", encodings: ["y", "color"], fields: ["Miles_per_Gallon", "Origin"], values: [[(item().isVoronoi ? datum.datum : datum)["bin_maxbins_10_Miles_per_Gallon"], (item().isVoronoi ? datum.datum : datum)["bin_maxbins_10_Miles_per_Gallon_end"]], (item().isVoronoi ? datum.datum : datum)["Origin"]], "bin_Miles_per_Gallon": 1} : null',
-            force: true,
-          },
-        ],
-      },
+            force: true
+          }
+        ]
+      }
     ]);
 
     const signals = selection.assembleUnitSelectionSignals(model, []);
@@ -76,19 +76,19 @@ describe('Single Selection', () => {
         on: [
           {
             events: {signal: 'one_tuple'},
-            update: `modify(\"one_store\", ${oneExpr})`,
-          },
-        ],
+            update: `modify(\"one_store\", ${oneExpr})`
+          }
+        ]
       },
       {
         name: 'two_modify',
         on: [
           {
             events: {signal: 'two_tuple'},
-            update: `modify(\"two_store\", ${twoExpr})`,
-          },
-        ],
-      },
+            update: `modify(\"two_store\", ${twoExpr})`
+          }
+        ]
+      }
     ]);
   });
 
@@ -97,8 +97,8 @@ describe('Single Selection', () => {
     assert.sameDeepMembers(oneSg, [
       {
         name: 'one',
-        update: 'data("one_store").length && {_vgsid_: data("one_store")[0].values[0]}',
-      },
+        update: 'data("one_store").length && {_vgsid_: data("one_store")[0].values[0]}'
+      }
     ]);
 
     const twoSg = single.topLevelSignals(model, selCmpts['two'], []);
@@ -106,8 +106,8 @@ describe('Single Selection', () => {
       {
         name: 'two',
         update:
-          'data("two_store").length && {Miles_per_Gallon: data("two_store")[0].values[0], Origin: data("two_store")[0].values[1]}',
-      },
+          'data("two_store").length && {Miles_per_Gallon: data("two_store")[0].values[0], Origin: data("two_store")[0].values[1]}'
+      }
     ]);
 
     const signals = selection.assembleTopLevelSignals(model, []);
@@ -117,8 +117,8 @@ describe('Single Selection', () => {
         {
           name: 'unit',
           value: {},
-          on: [{events: 'mousemove', update: 'isTuple(group()) ? group() : unit'}],
-        },
+          on: [{events: 'mousemove', update: 'isTuple(group()) ? group() : unit'}]
+        }
       ].concat(oneSg, twoSg)
     );
   });
@@ -127,7 +127,7 @@ describe('Single Selection', () => {
     const data: any[] = [];
     assert.sameDeepMembers(selection.assembleUnitSelectionData(model, data), [
       {name: 'one_store'},
-      {name: 'two_store'},
+      {name: 'two_store'}
     ]);
   });
 

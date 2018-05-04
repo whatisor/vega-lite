@@ -11,8 +11,8 @@ describe('Multi Selection', () => {
     encoding: {
       x: {field: 'Horsepower', type: 'quantitative'},
       y: {field: 'Miles_per_Gallon', type: 'quantitative', bin: true},
-      color: {field: 'Origin', type: 'nominal'},
-    },
+      color: {field: 'Origin', type: 'nominal'}
+    }
   });
 
   const selCmpts = (model.component.selection = selection.parseUnitSelection(model, {
@@ -22,8 +22,8 @@ describe('Multi Selection', () => {
       nearest: true,
       on: 'mouseover',
       toggle: 'event.ctrlKey',
-      encodings: ['y', 'color'],
-    },
+      encodings: ['y', 'color']
+    }
   }));
 
   it('builds tuple signals', () => {
@@ -37,10 +37,10 @@ describe('Multi Selection', () => {
             events: selCmpts['one'].events,
             update:
               'datum && item().mark.marktype !== \'group\' ? {unit: "", encodings: [], fields: ["_vgsid_"], values: [datum["_vgsid_"]]} : null',
-            force: true,
-          },
-        ],
-      },
+            force: true
+          }
+        ]
+      }
     ]);
 
     const twoSg = multi.signals(model, selCmpts['two']);
@@ -53,10 +53,10 @@ describe('Multi Selection', () => {
             events: selCmpts['two'].events,
             update:
               'datum && item().mark.marktype !== \'group\' ? {unit: "", encodings: ["y", "color"], fields: ["Miles_per_Gallon", "Origin"], values: [[(item().isVoronoi ? datum.datum : datum)["bin_maxbins_10_Miles_per_Gallon"], (item().isVoronoi ? datum.datum : datum)["bin_maxbins_10_Miles_per_Gallon_end"]], (item().isVoronoi ? datum.datum : datum)["Origin"]], "bin_Miles_per_Gallon": 1} : null',
-            force: true,
-          },
-        ],
-      },
+            force: true
+          }
+        ]
+      }
     ]);
 
     const signals = selection.assembleUnitSelectionSignals(model, []);
@@ -67,7 +67,7 @@ describe('Multi Selection', () => {
     const data: any[] = [];
     assert.sameDeepMembers(selection.assembleUnitSelectionData(model, data), [
       {name: 'one_store'},
-      {name: 'two_store'},
+      {name: 'two_store'}
     ]);
   });
 

@@ -114,13 +114,13 @@ export class FacetNode extends DataFlowNode {
           fields: [`distinct_${childIndependentFieldsWithStep[childChannel]}`],
           ops: ['max'],
           // Although it is technically a max, just name it distinct so it's easier to refer to it
-          as: [`distinct_${childIndependentFieldsWithStep[childChannel]}`],
+          as: [`distinct_${childIndependentFieldsWithStep[childChannel]}`]
         };
       } else {
         aggregateChildField = {
           // If there is no crossed data, just calculate distinct
           fields: [childIndependentFieldsWithStep[childChannel]],
-          ops: ['distinct'],
+          ops: ['distinct']
         };
       }
     }
@@ -133,9 +133,9 @@ export class FacetNode extends DataFlowNode {
         {
           type: 'aggregate',
           groupby: channel === 'row' ? this.rowFields : this.columnFields,
-          ...aggregateChildField,
-        },
-      ],
+          ...aggregateChildField
+        }
+      ]
     };
   }
 
@@ -162,9 +162,9 @@ export class FacetNode extends DataFlowNode {
             type: 'aggregate',
             groupby: this.columnFields.concat(this.rowFields),
             fields: fields,
-            ops,
-          },
-        ],
+            ops
+          }
+        ]
       });
     }
 

@@ -22,7 +22,7 @@ import {
   VgMarkGroup,
   VgSignal,
   VgSignalRef,
-  VgTitle,
+  VgTitle
 } from '../vega.schema';
 import {VgProjection} from '../vega.schema';
 import {assembleAxes} from './axis/assemble';
@@ -204,7 +204,7 @@ export abstract class Model {
         outputNodeRefCounts: parent ? parent.component.data.outputNodeRefCounts : {},
         ancestorParse: parent ? {...parent.component.data.ancestorParse} : {},
         // data is faceted if the spec is a facet spec or the parent has faceted data and no data is defined
-        isFaceted: isFacetSpec(spec) || (parent && parent.component.data.isFaceted && !spec.data),
+        isFaceted: isFacetSpec(spec) || (parent && parent.component.data.isFaceted && !spec.data)
       },
       layoutSize: new Split<LayoutSizeIndex>(),
       layoutHeaders: {row: {}, column: {}},
@@ -213,13 +213,13 @@ export abstract class Model {
         scale: {},
         axis: {},
         legend: {},
-        ...(resolve || {}),
+        ...(resolve || {})
       },
       selection: null,
       scales: null,
       projection: null,
       axes: {},
-      legends: {},
+      legends: {}
     };
   }
 
@@ -308,7 +308,7 @@ export abstract class Model {
     if (this.type === 'unit' || this.type === 'layer') {
       return {
         width: this.getSizeSignalRef('width'),
-        height: this.getSizeSignalRef('height'),
+        height: this.getSizeSignalRef('height')
       };
     }
     return undefined;
@@ -351,7 +351,7 @@ export abstract class Model {
   public assembleTitle(): VgTitle {
     const title: VgTitle = {
       ...extractTitleConfig(this.config.title).nonMark,
-      ...this.title,
+      ...this.title
     };
 
     if (title.text) {
@@ -459,7 +459,7 @@ export abstract class Model {
           if (field) {
             const fieldRef = vgField({aggregate: 'distinct', field}, {expr: 'datum'});
             return {
-              signal: sizeExpr(scaleName, scaleComponent, fieldRef),
+              signal: sizeExpr(scaleName, scaleComponent, fieldRef)
             };
           } else {
             log.warn('Unknown field for ${channel}.  Cannot calculate view size.');
@@ -470,7 +470,7 @@ export abstract class Model {
     }
 
     return {
-      signal: this.layoutSizeNameMap.get(this.getName(sizeType)),
+      signal: this.layoutSizeNameMap.get(this.getName(sizeType))
     };
   }
 

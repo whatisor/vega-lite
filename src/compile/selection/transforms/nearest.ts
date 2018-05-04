@@ -27,17 +27,17 @@ const nearest: TransformCompiler = {
           fill: {value: 'transparent'},
           strokeWidth: {value: 0.35},
           stroke: {value: 'transparent'},
-          isVoronoi: {value: true},
-        },
+          isVoronoi: {value: true}
+        }
       },
       transform: [
         {
           type: 'voronoi',
           x: {expr: x || (!x && !y) ? 'datum.datum.x || 0' : '0'},
           y: {expr: y || (!x && !y) ? 'datum.datum.y || 0' : '0'},
-          size: [model.getSizeSignalRef('width'), model.getSizeSignalRef('height')],
-        },
-      ],
+          size: [model.getSizeSignalRef('width'), model.getSizeSignalRef('height')]
+        }
+      ]
     };
 
     let index = 0;
@@ -56,7 +56,7 @@ const nearest: TransformCompiler = {
     }
 
     return marks;
-  },
+  }
 };
 
 export default nearest;

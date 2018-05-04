@@ -19,16 +19,16 @@ describe('compile/legend', () => {
             from: {
               data: {
                 url: 'data/us-10m.json',
-                format: {type: 'topojson', feature: 'states'},
+                format: {type: 'topojson', feature: 'states'}
               },
-              key: 'id',
+              key: 'id'
             },
-            as: 'geo',
-          },
+            as: 'geo'
+          }
         ],
         encoding: {
-          shape: {field: 'geo', type: 'geojson'},
-        },
+          shape: {field: 'geo', type: 'geojson'}
+        }
       };
 
       const unitModel = parseUnitModelWithScale(spec);
@@ -49,8 +49,8 @@ describe('compile/legend', () => {
         mark: 'point',
         encoding: {
           x: {field: 'a', type: 'nominal'},
-          color: {field: 'a', type: 'quantitative'},
-        },
+          color: {field: 'a', type: 'quantitative'}
+        }
       });
 
       const def = legendParse.parseLegendForChannel(model, COLOR).combine();
@@ -69,9 +69,9 @@ describe('compile/legend', () => {
             color: {
               field: 'a',
               type: 'quantitative',
-              legend: {title: val as any}, // Need to cast as false is not valid, but we want to fall back gracefully
-            },
-          },
+              legend: {title: val as any} // Need to cast as false is not valid, but we want to fall back gracefully
+            }
+          }
         });
 
         const def = legendParse.parseLegendForChannel(model, COLOR).combine();
@@ -84,8 +84,8 @@ describe('compile/legend', () => {
         const spec: NormalizedUnitSpec = {
           mark: 'point',
           encoding: {
-            x: {field: 'a', type: 'nominal'},
-          },
+            x: {field: 'a', type: 'nominal'}
+          }
         };
         spec.encoding[channel] = {field: 'a', type: 'nominal'};
 
@@ -121,18 +121,18 @@ describe('compile/legend', () => {
             encoding: {
               x: {field: 'date', type: 'temporal'},
               y: {field: 'price', type: 'quantitative'},
-              color: {field: 'symbol', type: 'nominal'},
-            },
+              color: {field: 'symbol', type: 'nominal'}
+            }
           },
           {
             mark: {type: 'point', filled: true},
             encoding: {
               x: {field: 'date', type: 'temporal'},
               y: {field: 'price', type: 'quantitative'},
-              color: {field: 'symbol', type: 'nominal', legend: {orient: 'left'}},
-            },
-          },
-        ],
+              color: {field: 'symbol', type: 'nominal', legend: {orient: 'left'}}
+            }
+          }
+        ]
       });
       model.parseScale();
       model.parseLegend();
@@ -149,18 +149,18 @@ describe('compile/legend', () => {
             mark: 'line',
             encoding: {
               x: {field: 'date', type: 'temporal'},
-              y: {field: 'price', type: 'quantitative'},
-            },
+              y: {field: 'price', type: 'quantitative'}
+            }
           },
           {
             mark: {type: 'point', filled: true},
             encoding: {
               x: {field: 'date', type: 'temporal'},
               y: {field: 'price', type: 'quantitative'},
-              color: {field: 'symbol', type: 'nominal'},
-            },
-          },
-        ],
+              color: {field: 'symbol', type: 'nominal'}
+            }
+          }
+        ]
       });
       model.parseScale();
       model.parseLegend();

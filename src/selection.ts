@@ -209,14 +209,14 @@ export const defaultConfig: SelectionConfig = {
     on: 'click',
     fields: [SELECTION_ID],
     resolve: 'global',
-    empty: 'all',
+    empty: 'all'
   },
   multi: {
     on: 'click',
     fields: [SELECTION_ID],
     toggle: 'event.shiftKey',
     resolve: 'global',
-    empty: 'all',
+    empty: 'all'
   },
   interval: {
     on: '[mousedown, window:mouseup] > window:mousemove!',
@@ -224,6 +224,6 @@ export const defaultConfig: SelectionConfig = {
     translate: '[mousedown, window:mouseup] > window:mousemove!',
     zoom: 'wheel!',
     mark: {fill: '#333', fillOpacity: 0.125, stroke: 'white'},
-    resolve: 'global',
-  },
+    resolve: 'global'
+  }
 };

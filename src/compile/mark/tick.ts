@@ -23,11 +23,11 @@ export const tick: MarkCompiler = {
       // size / thickness => width / height
       ...mixins.nonPosition('size', model, {
         defaultValue: defaultSize(model),
-        vgChannel: vgSizeChannel,
+        vgChannel: vgSizeChannel
       }),
-      [vgThicknessChannel]: {value: config.tick.thickness},
+      [vgThicknessChannel]: {value: config.tick.thickness}
     };
-  },
+  }
 };
 
 function defaultSize(model: UnitModel): number {

@@ -19,15 +19,15 @@ describe('compile/data/nullfilter', () => {
         y: {field: 'qq', type: 'quantitative'},
         x: {field: 'tt', type: 'temporal'},
         color: {field: 'oo', type: 'ordinal'},
-        shape: {field: 'nn', type: 'nominal'},
-      },
+        shape: {field: 'nn', type: 'nominal'}
+      }
     };
 
     it('should add filterNull for Q and T by default', () => {
       const model = parseUnitModelWithScale(spec);
       assert.deepEqual(parse(model).filter, {
         qq: {field: 'qq', type: 'quantitative'},
-        tt: {field: 'tt', type: 'temporal'},
+        tt: {field: 'tt', type: 'temporal'}
       });
     });
 
@@ -35,13 +35,13 @@ describe('compile/data/nullfilter', () => {
       const model = parseUnitModelWithScale(
         mergeDeep<TopLevel<NormalizedUnitSpec>>(spec, {
           config: {
-            invalidValues: 'filter',
-          },
+            invalidValues: 'filter'
+          }
         })
       );
       assert.deepEqual(parse(model).filter, {
         qq: {field: 'qq', type: 'quantitative'},
-        tt: {field: 'tt', type: 'temporal'},
+        tt: {field: 'tt', type: 'temporal'}
       });
     });
 
@@ -49,8 +49,8 @@ describe('compile/data/nullfilter', () => {
       const model = parseUnitModelWithScale(
         mergeDeep<TopLevel<NormalizedUnitSpec>>(spec, {
           config: {
-            invalidValues: null,
-          },
+            invalidValues: null
+          }
         })
       );
       assert.deepEqual(parse(model), null);
@@ -60,8 +60,8 @@ describe('compile/data/nullfilter', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          y: {aggregate: 'count', type: 'quantitative'},
-        },
+          y: {aggregate: 'count', type: 'quantitative'}
+        }
       });
 
       assert.deepEqual(parse(model), null);
@@ -73,13 +73,13 @@ describe('compile/data/nullfilter', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          y: {field: 'foo', type: 'quantitative'},
-        },
+          y: {field: 'foo', type: 'quantitative'}
+        }
       });
 
       assert.deepEqual(parse(model).assemble(), {
         type: 'filter',
-        expr: 'datum["foo"] !== null && !isNaN(datum["foo"])',
+        expr: 'datum["foo"] !== null && !isNaN(datum["foo"])'
       });
     });
 
@@ -87,13 +87,13 @@ describe('compile/data/nullfilter', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          y: {field: 'foo.bar', type: 'quantitative'},
-        },
+          y: {field: 'foo.bar', type: 'quantitative'}
+        }
       });
 
       assert.deepEqual(parse(model).assemble(), {
         type: 'filter',
-        expr: 'datum["foo.bar"] !== null && !isNaN(datum["foo.bar"])',
+        expr: 'datum["foo.bar"] !== null && !isNaN(datum["foo.bar"])'
       });
     });
   });

@@ -13,19 +13,19 @@ describe('compile/data/calculate', () => {
   it('makeAllForSortIndex', () => {
     const model = parseUnitModel({
       data: {
-        values: [{a: 'A', b: 28}, {a: 'B', b: 55}, {a: 'C', b: 43}],
+        values: [{a: 'A', b: 28}, {a: 'B', b: 55}, {a: 'C', b: 43}]
       },
       mark: 'bar',
       encoding: {
         x: {field: 'a', type: 'ordinal', sort: ['B', 'A', 'C']},
-        y: {field: 'b', type: 'quantitative'},
-      },
+        y: {field: 'b', type: 'quantitative'}
+      }
     });
     const nodes = assembleFromSortArray(model);
     assert.deepEqual(nodes, {
       type: 'formula',
       expr: "datum.a === 'B' ? 0 : datum.a === 'A' ? 1 : datum.a === 'C' ? 2 : 3",
-      as: 'x_a_sort_index',
+      as: 'x_a_sort_index'
     });
   });
 

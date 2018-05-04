@@ -143,7 +143,7 @@ export const MONTHS = [
   'september',
   'october',
   'november',
-  'december',
+  'december'
 ];
 export const SHORT_MONTHS = MONTHS.map(m => m.substr(0, 3));
 

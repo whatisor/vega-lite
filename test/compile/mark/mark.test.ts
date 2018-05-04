@@ -7,7 +7,7 @@ import {
   parseFacetModel,
   parseUnitModel,
   parseUnitModelWithScale,
-  parseUnitModelWithScaleAndLayoutSize,
+  parseUnitModelWithScaleAndLayoutSize
 } from '../../util';
 
 describe('Mark', () => {
@@ -19,8 +19,8 @@ describe('Mark', () => {
         encoding: {
           x: {field: 'date', type: 'temporal', axis: {format: '%Y'}},
           y: {field: 'price', type: 'quantitative'},
-          color: {field: 'symbol', type: 'nominal'},
-        },
+          color: {field: 'symbol', type: 'nominal'}
+        }
       });
       it('should have a facet directive and a nested mark group that uses the faceted data.', () => {
         const markGroup = parseMarkGroup(model)[0];
@@ -29,8 +29,8 @@ describe('Mark', () => {
           facet: {
             name: 'faceted_path_main',
             data: 'main',
-            groupby: ['symbol'],
-          },
+            groupby: ['symbol']
+          }
         });
         const submarkGroup = markGroup.marks[0];
         assert.equal(submarkGroup.name, 'marks');
@@ -46,8 +46,8 @@ describe('Mark', () => {
           facet: {
             name: 'faceted_path_main',
             data: 'main',
-            groupby: ['symbol'],
-          },
+            groupby: ['symbol']
+          }
         });
         const submarkGroup = markGroup.marks[0];
         assert.isUndefined(submarkGroup.transform);
@@ -59,8 +59,8 @@ describe('Mark', () => {
         mark: 'line',
         encoding: {
           x: {field: 'date', type: 'temporal', axis: {format: '%Y'}},
-          y: {field: 'price', type: 'quantitative'},
-        },
+          y: {field: 'price', type: 'quantitative'}
+        }
       });
       it('should have mark group with proper data and key', () => {
         const markGroup = parseMarkGroup(model)[0];
@@ -82,8 +82,8 @@ describe('Mark', () => {
         encoding: {
           x: {field: 'date', type: 'temporal', axis: {format: '%Y'}},
           y: {field: 'price', type: 'quantitative'},
-          key: {field: 'k', type: 'quantitative'},
-        },
+          key: {field: 'k', type: 'quantitative'}
+        }
       });
       it('should have mark group with proper data and key', () => {
         const markGroup = parseMarkGroup(model)[0];
@@ -102,16 +102,16 @@ describe('Mark', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'geoshape',
         projection: {
-          type: 'albersUsa',
+          type: 'albersUsa'
         },
         data: {
           url: 'data/us-10m.json',
           format: {
             type: 'topojson',
-            feature: 'states',
-          },
+            feature: 'states'
+          }
         },
-        encoding: {},
+        encoding: {}
       });
       const markGroup = parseMarkGroup(model);
       assert.isDefined(markGroup[0].transform);
@@ -124,8 +124,8 @@ describe('Mark', () => {
         encoding: {
           x: {type: 'quantitative', field: 'Cost__Other', aggregate: 'sum'},
           y: {bin: true, type: 'quantitative', field: 'Cost__Total_$'},
-          color: {type: 'ordinal', field: 'Effect__Amount_of_damage'},
-        },
+          color: {type: 'ordinal', field: 'Effect__Amount_of_damage'}
+        }
       });
       it('should use main stacked data source', () => {
         const markGroup = parseMarkGroup(model);
@@ -141,16 +141,16 @@ describe('Mark', () => {
     describe('Faceted aggregated Bar with a color with binned x', () => {
       const model = parseFacetModel({
         facet: {
-          row: {field: 'a', type: 'nominal'},
+          row: {field: 'a', type: 'nominal'}
         },
         spec: {
           mark: 'bar',
           encoding: {
             x: {type: 'quantitative', field: 'Cost__Other', aggregate: 'sum'},
             y: {bin: true, type: 'quantitative', field: 'Cost__Total_$'},
-            color: {type: 'ordinal', field: 'Effect__Amount_of_damage'},
-          },
-        },
+            color: {type: 'ordinal', field: 'Effect__Amount_of_damage'}
+          }
+        }
       });
       it('should use faceted data source', () => {
         model.parseScale();
@@ -174,8 +174,8 @@ describe('Mark', () => {
         mark: 'bar',
         encoding: {
           x: {type: 'quantitative', field: 'Cost__Other', aggregate: 'sum'},
-          y: {bin: true, type: 'quantitative', field: 'Cost__Total_$'},
-        },
+          y: {bin: true, type: 'quantitative', field: 'Cost__Total_$'}
+        }
       });
 
       it('should use main aggregated data source', () => {
@@ -198,12 +198,12 @@ describe('Mark', () => {
         encoding: {
           x: {field: 'miles', type: 'quantitative', scale: {zero: false}},
           y: {field: 'gas', type: 'quantitative', scale: {zero: false}},
-          order: {field: 'year', type: 'temporal'},
-        },
+          order: {field: 'year', type: 'temporal'}
+        }
       });
       assert.deepEqual(getSort(model), {
         field: ['datum["year"]'],
-        order: ['ascending'],
+        order: ['ascending']
       });
     });
 
@@ -215,21 +215,21 @@ describe('Mark', () => {
           x: {
             bin: {maxbins: 10},
             field: 'IMDB_Rating',
-            type: 'quantitative',
+            type: 'quantitative'
           },
           color: {
             field: 'Source',
-            type: 'nominal',
+            type: 'nominal'
           },
           y: {
             aggregate: 'count',
-            type: 'quantitative',
-          },
-        },
+            type: 'quantitative'
+          }
+        }
       });
       assert.deepEqual(getSort(model), {
         field: 'datum["bin_maxbins_10_IMDB_Rating"]',
-        order: 'descending',
+        order: 'descending'
       });
     });
 
@@ -240,13 +240,13 @@ describe('Mark', () => {
         encoding: {
           color: {
             field: 'Source',
-            type: 'nominal',
+            type: 'nominal'
           },
           y: {
             aggregate: 'count',
-            type: 'quantitative',
-          },
-        },
+            type: 'quantitative'
+          }
+        }
       });
       assert.deepEqual(getSort(model), undefined);
     });
@@ -278,8 +278,8 @@ describe('Mark', () => {
         assert.deepEqual(
           pathGroupingFields('line', {
             [channel]: {
-              condition: {selection: 'sel', field: 'a', type: 'nominal'},
-            },
+              condition: {selection: 'sel', field: 'a', type: 'nominal'}
+            }
           }),
           ['a']
         );
@@ -290,7 +290,7 @@ describe('Mark', () => {
       for (const channel of UNIT_CHANNELS) {
         assert.doesNotThrow(() => {
           pathGroupingFields('line', {
-            [channel]: {field: 'a', type: 'nominal'},
+            [channel]: {field: 'a', type: 'nominal'}
           });
         });
       }

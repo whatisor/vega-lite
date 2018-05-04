@@ -18,7 +18,7 @@ import {
   PositionFieldDef,
   TextFieldDef,
   ValueDef,
-  ValueDefWithCondition,
+  ValueDefWithCondition
 } from './fielddef';
 import * as log from './log';
 import {Mark} from './mark';
@@ -257,8 +257,8 @@ export function normalizeEncoding(encoding: Encoding<string>, mark: Mark): Encod
           ...newEncoding,
           [newChannel]: {
             ...normalize(fieldDef as any, channel),
-            type: 'quantitative',
-          },
+            type: 'quantitative'
+          }
         };
       }
 

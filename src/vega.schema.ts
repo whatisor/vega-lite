@@ -1335,7 +1335,7 @@ const VG_MARK_CONFIG_INDEX: Flag<keyof VgMarkConfig> = {
   fontWeight: 1,
   fontStyle: 1,
   cursor: 1,
-  href: 1,
+  href: 1
   // commented below are vg channel that do not have mark config.
   // 'x'|'x2'|'xc'|'width'|'y'|'y2'|'yc'|'height'
   // clip: 1,

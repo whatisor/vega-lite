@@ -6,7 +6,7 @@ import {
   Scale,
   scaleCompatible,
   ScaleType,
-  scaleTypePrecedence,
+  scaleTypePrecedence
 } from '../../scale';
 import {GEOJSON} from '../../type';
 import {keys} from '../../util';
@@ -74,7 +74,7 @@ function parseUnitScaleCore(model: UnitModel): ScaleComponentIndex {
       const sType = scaleType(specifiedScale.type, channel, fieldDef, mark, config.scale);
       scaleComponents[channel] = new ScaleComponent(model.scaleName(channel + '', true), {
         value: sType,
-        explicit: specifiedScaleType === sType,
+        explicit: specifiedScaleType === sType
       });
     }
     return scaleComponents;

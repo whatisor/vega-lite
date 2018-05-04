@@ -10,33 +10,33 @@ describe('Mark: Geoshape', () => {
       const model = parseUnitModelWithScaleAndLayoutSize({
         mark: 'geoshape',
         projection: {
-          type: 'albersUsa',
+          type: 'albersUsa'
         },
         data: {
           url: 'data/us-10m.json',
           format: {
             type: 'topojson',
-            feature: 'states',
-          },
+            feature: 'states'
+          }
         },
         encoding: {
           color: {
-            value: 'black',
+            value: 'black'
           },
           opacity: {
-            value: 0.8,
-          },
-        },
+            value: 0.8
+          }
+        }
       });
       const props = geoshape.encodeEntry(model);
       assert.deepEqual(
         {
           fill: {
-            value: 'black',
+            value: 'black'
           },
           opacity: {
-            value: 0.8,
-          },
+            value: 0.8
+          }
         },
         props
       );

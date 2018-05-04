@@ -42,7 +42,7 @@ export function assembleAxis(
       // Only need to keep encode block for grid
       const {grid} = axis.encode;
       axis.encode = {
-        ...(grid ? {grid} : {}),
+        ...(grid ? {grid} : {})
       };
 
       if (keys(axis.encode).length === 0) {
@@ -62,7 +62,7 @@ export function assembleAxis(
       maxExtent: 0,
       minExtent: 0,
       ticks: false,
-      zindex: zindex !== undefined ? zindex : 0, // put grid behind marks by default
+      zindex: zindex !== undefined ? zindex : 0 // put grid behind marks by default
     };
   } else {
     // kind === 'main'
@@ -91,7 +91,7 @@ export function assembleAxis(
       orient,
       ...(titleString ? {title: titleString} : {}),
       ...axis,
-      zindex: zindex !== undefined ? zindex : 1, // put axis line above marks by default
+      zindex: zindex !== undefined ? zindex : 1 // put axis line above marks by default
     };
   }
 }
@@ -102,6 +102,6 @@ export function assembleAxes(axisComponents: AxisComponentIndex, config: Config)
     ...x.map(a => assembleAxis(a, 'main', config)),
     ...x.map(a => assembleAxis(a, 'grid', config)),
     ...y.map(a => assembleAxis(a, 'main', config)),
-    ...y.map(a => assembleAxis(a, 'grid', config)),
+    ...y.map(a => assembleAxis(a, 'grid', config))
   ].filter(a => a); // filter undefined
 }

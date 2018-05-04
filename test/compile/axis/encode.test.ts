@@ -10,8 +10,8 @@ describe('compile/axis/encode', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
-        },
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
+        }
       });
       const labels = encode.labels(model, 'x', {}, 'bottom');
       assert.isUndefined(labels.angle);
@@ -21,9 +21,9 @@ describe('compile/axis/encode', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'month'},
+          x: {field: 'a', type: 'temporal', timeUnit: 'month'}
         },
-        config: {axisX: {labelAngle: 90}},
+        config: {axisX: {labelAngle: 90}}
       });
       const labels = encode.labels(model, 'x', {}, 'bottom');
       assert.isUndefined(labels.angle);
@@ -33,8 +33,8 @@ describe('compile/axis/encode', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'quarter'},
-        },
+          x: {field: 'a', type: 'temporal', timeUnit: 'quarter'}
+        }
       });
       const labels = encode.labels(model, 'x', {}, 'bottom');
       const expected = "'Q' + quarter(datum.value)";
@@ -45,8 +45,8 @@ describe('compile/axis/encode', () => {
       const model = parseUnitModelWithScale({
         mark: 'point',
         encoding: {
-          x: {field: 'a', type: 'temporal', timeUnit: 'yearquartermonth'},
-        },
+          x: {field: 'a', type: 'temporal', timeUnit: 'yearquartermonth'}
+        }
       });
       const labels = encode.labels(model, 'x', {}, 'bottom');
       const expected = "'Q' + quarter(datum.value) + ' ' + timeFormat(datum.value, '%b %Y')";

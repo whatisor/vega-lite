@@ -4,7 +4,7 @@ import {COMPOSITE_MARK_STYLES} from './compositemark';
 import {
   CompositeMarkConfigMixins,
   CompositeMarkStyle,
-  VL_ONLY_COMPOSITE_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX,
+  VL_ONLY_COMPOSITE_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX
 } from './compositemark/index';
 import {VL_ONLY_GUIDE_CONFIG} from './guide';
 import {defaultLegendConfig, LegendConfig} from './legend';
@@ -13,7 +13,7 @@ import {
   MarkConfigMixins,
   PRIMITIVE_MARKS,
   VL_ONLY_MARK_CONFIG_PROPERTIES,
-  VL_ONLY_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX,
+  VL_ONLY_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX
 } from './mark';
 import * as mark from './mark';
 import {ProjectionConfig} from './projection';
@@ -107,7 +107,7 @@ export interface ViewConfig {
 
 export const defaultViewConfig: ViewConfig = {
   width: 200,
-  height: 200,
+  height: 200
 };
 
 export type RangeConfigValue = (number | string)[] | VgScheme | {step: number};
@@ -276,7 +276,7 @@ export const defaultConfig: Config = {
   selection: defaultSelectionConfig,
   style: {},
 
-  title: {},
+  title: {}
 };
 
 export function initConfig(config: Config) {
@@ -294,13 +294,13 @@ const VL_ONLY_CONFIG_PROPERTIES: (keyof Config)[] = [
   'scale',
   'selection',
   'invalidValues',
-  'overlay' as keyof Config, // FIXME: Redesign and unhide this
+  'overlay' as keyof Config // FIXME: Redesign and unhide this
 ];
 
 const VL_ONLY_ALL_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX = {
   view: ['width', 'height'],
   ...VL_ONLY_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX,
-  ...VL_ONLY_COMPOSITE_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX,
+  ...VL_ONLY_COMPOSITE_MARK_SPECIFIC_CONFIG_PROPERTY_INDEX
 };
 
 export function stripAndRedirectConfig(config: Config) {
@@ -372,7 +372,7 @@ function redirectConfig(config: Config, prop: Mark | CompositeMarkStyle | 'title
 
   const style: VgMarkConfig = {
     ...propConfig,
-    ...config.style[prop],
+    ...config.style[prop]
   };
   // set config.style if it is not an empty object
   if (keys(style).length > 0) {

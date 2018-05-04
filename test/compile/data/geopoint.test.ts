@@ -12,20 +12,20 @@ describe('compile/data/geopoint', () => {
         data: {
           url: 'data/zipcodes.csv',
           format: {
-            type: 'csv',
-          },
+            type: 'csv'
+          }
         },
         mark: 'circle',
         encoding: {
           longitude: {
             field: 'longitude',
-            type: 'quantitative',
+            type: 'quantitative'
           },
           latitude: {
             field: 'latitude',
-            type: 'quantitative',
-          },
-        },
+            type: 'quantitative'
+          }
+        }
       });
       model.parse();
 

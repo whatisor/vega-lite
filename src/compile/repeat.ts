@@ -44,7 +44,7 @@ export class RepeatModel extends BaseConcatModel {
 
         const childRepeat = {
           row: rowField,
-          column: columnField,
+          column: columnField
         };
 
         children.push(buildModel(spec.spec, this, this.getName('child' + name), undefined, childRepeat, config, false));
@@ -65,7 +65,7 @@ export class RepeatModel extends BaseConcatModel {
       offset: 10,
       columns: this.repeat && this.repeat.column ? this.repeat.column.length : 1,
       bounds: 'full',
-      align: 'all',
+      align: 'all'
     };
   }
 }

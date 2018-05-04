@@ -37,7 +37,7 @@ describe('compile/axis', () => {
   describe('tickCount', () => {
     it('should return undefined by default for a binned field', () => {
       const tickCount = properties.tickCount('x', {bin: {maxbins: 10}, field: 'a', type: 'quantitative'}, 'linear', {
-        signal: 'a',
+        signal: 'a'
       });
       assert.deepEqual(tickCount, {signal: 'ceil(a/20)'});
     });
@@ -45,7 +45,7 @@ describe('compile/axis', () => {
     for (const timeUnit of ['month', 'hours', 'day', 'quarter'] as TimeUnit[]) {
       it(`should return undefined by default for a temporal field with timeUnit=${timeUnit}`, () => {
         const tickCount = properties.tickCount('x', {timeUnit, field: 'a', type: 'temporal'}, 'linear', {
-          signal: 'a',
+          signal: 'a'
         });
         assert.isUndefined(tickCount);
       });
@@ -90,7 +90,7 @@ describe('compile/axis', () => {
 
       assert.deepEqual(values, [
         {signal: 'datetime(1970, 0, 1, 0, 0, 0, 0)'},
-        {signal: 'datetime(1980, 0, 1, 0, 0, 0, 0)'},
+        {signal: 'datetime(1980, 0, 1, 0, 0, 0, 0)'}
       ]);
     });
 
@@ -108,10 +108,10 @@ describe('compile/axis', () => {
             type: 'quantitative',
             field: 'US_Gross',
             scale: {domain: [-1, 2]},
-            bin: {extent: [0, 1]},
-          },
+            bin: {extent: [0, 1]}
+          }
         },
-        data: {url: 'data/movies.json'},
+        data: {url: 'data/movies.json'}
       });
       const values = properties.values({}, model1, model1.fieldDef('y'), 'y');
 

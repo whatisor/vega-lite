@@ -21,11 +21,11 @@ describe('stack', () => {
           encoding: {
             x: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
             y: {field: 'variety', type: 'nominal'},
-            color: {field: 'site', type: 'nominal'},
+            color: {field: 'site', type: 'nominal'}
           },
           config: {
-            stack: stacked,
-          },
+            stack: stacked
+          }
         };
         assert.isNull(stack(spec.mark, spec.encoding, spec.config.stack));
         assert.isFalse(isStacked(spec));
@@ -41,8 +41,8 @@ describe('stack', () => {
         encoding: {
           x: {field: 'yield', type: 'quantitative', stack: 'zero'},
           y: {field: 'variety', type: 'nominal'},
-          color: {field: 'site', type: 'nominal'},
-        },
+          color: {field: 'site', type: 'nominal'}
+        }
       };
       const stackProps = stack(spec.mark, spec.encoding, undefined);
       assert.equal(stackProps.fieldChannel, 'x');
@@ -58,8 +58,8 @@ describe('stack', () => {
         encoding: {
           x: {field: 'yield', type: 'quantitative', stack: 'zero'},
           y: {field: 'variety', type: 'quantitative'},
-          color: {field: 'site', type: 'nominal'},
-        },
+          color: {field: 'site', type: 'nominal'}
+        }
       };
       const stackProps = stack(spec.mark, spec.encoding, undefined);
       assert.equal(stackProps.fieldChannel, 'x');
@@ -75,11 +75,11 @@ describe('stack', () => {
           mark: mark,
           encoding: {
             x: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
-            y: {field: 'variety', type: 'nominal'},
+            y: {field: 'variety', type: 'nominal'}
           },
           config: {
-            stack: stacked,
-          },
+            stack: stacked
+          }
         };
         assert.isNull(stack(spec.mark, spec.encoding, spec.config.stack));
         assert.isFalse(isStacked(spec));
@@ -96,11 +96,11 @@ describe('stack', () => {
           encoding: {
             x: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
             y: {field: 'variety', type: 'nominal'},
-            color: {aggregate: 'count', type: 'quantitative'},
+            color: {aggregate: 'count', type: 'quantitative'}
           },
           config: {
-            stack: stacked,
-          },
+            stack: stacked
+          }
         };
         assert.isNull(stack(spec.mark, spec.encoding, spec.config.stack));
         assert.isFalse(isStacked(spec));
@@ -117,11 +117,11 @@ describe('stack', () => {
           encoding: {
             x: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
             y: {field: 'variety', type: 'nominal'},
-            color: {field: 'variety', type: 'nominal'},
+            color: {field: 'variety', type: 'nominal'}
           },
           config: {
-            stack: stacked,
-          },
+            stack: stacked
+          }
         };
         assert.isNull(stack(spec.mark, spec.encoding, spec.config.stack));
         assert.isFalse(isStacked(spec));
@@ -140,11 +140,11 @@ describe('stack', () => {
             x: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
             y: {field: 'variety', type: 'nominal'},
             color: {aggregate: 'count', type: 'quantitative'},
-            detail: {field: 'site', type: 'nominal'},
+            detail: {field: 'site', type: 'nominal'}
           },
           config: {
-            stack: stacked,
-          },
+            stack: stacked
+          }
         };
         const _stack = stack(spec.mark, spec.encoding, spec.config.stack);
         assert.isOk(_stack);
@@ -165,8 +165,8 @@ describe('stack', () => {
             x: {aggregate: 'sum', field: 'yield', type: 'quantitative', stack: stacked},
             y: {field: 'variety', type: 'nominal'},
             color: {aggregate: 'count', type: 'quantitative'},
-            detail: {field: 'site', type: 'nominal'},
-          },
+            detail: {field: 'site', type: 'nominal'}
+          }
         };
 
         const _stack = stack(spec.mark, spec.encoding, undefined);
@@ -186,11 +186,11 @@ describe('stack', () => {
           encoding: {
             x: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
             y: {aggregate: 'count', type: 'quantitative'},
-            color: {field: 'site', type: 'nominal'},
+            color: {field: 'site', type: 'nominal'}
           },
           config: {
-            stack: stacked,
-          },
+            stack: stacked
+          }
         };
         assert.isNull(stack(spec.mark, spec.encoding, spec.config.stack));
         assert.isFalse(isStacked(spec));
@@ -207,11 +207,11 @@ describe('stack', () => {
           encoding: {
             x: {field: 'variety', type: 'nominal'},
             y: {field: 'variety', type: 'nominal'},
-            color: {field: 'site', type: 'nominal'},
+            color: {field: 'site', type: 'nominal'}
           },
           config: {
-            stack: stacked,
-          },
+            stack: stacked
+          }
         };
         assert.isNull(stack(spec.mark, spec.encoding, spec.config.stack));
         assert.isFalse(isStacked(spec));
@@ -231,11 +231,11 @@ describe('stack', () => {
               x: {field: 'a', type: 'quantitative', aggregate: 'sum'},
               x2: {field: 'a', type: 'quantitative', aggregate: 'sum'},
               y: {field: 'variety', type: 'nominal'},
-              color: {field: 'site', type: 'nominal'},
+              color: {field: 'site', type: 'nominal'}
             },
             config: {
-              stack: stacked,
-            },
+              stack: stacked
+            }
           };
           assert.isNull(stack(spec.mark, spec.encoding, spec.config.stack));
           assert.isFalse(isStacked(spec));
@@ -262,11 +262,11 @@ describe('stack', () => {
               y: {field: 'a', type: 'quantitative', aggregate: 'sum'},
               y2: {field: 'a', type: 'quantitative', aggregate: 'sum'},
               x: {field: 'variety', type: 'nominal'},
-              color: {field: 'site', type: 'nominal'},
+              color: {field: 'site', type: 'nominal'}
             },
             config: {
-              stack: stacked,
-            },
+              stack: stacked
+            }
           };
           assert.isNull(stack(spec.mark, spec.encoding, spec.config.stack));
           assert.isFalse(isStacked(spec));
@@ -294,11 +294,11 @@ describe('stack', () => {
               encoding: {
                 x: {field: 'a', type: 'quantitative', aggregate: 'sum', scale: {type: scaleType}},
                 y: {field: 'variety', type: 'nominal'},
-                color: {field: 'site', type: 'nominal'},
+                color: {field: 'site', type: 'nominal'}
               },
               config: {
-                stack: stacked,
-              },
+                stack: stacked
+              }
             };
             assert.isNotNull(stack(spec.mark, spec.encoding, spec.config.stack));
             assert.isTrue(isStacked(spec));
@@ -325,11 +325,11 @@ describe('stack', () => {
                   aggregate,
                   stack: stackOffset,
                   field: 'a',
-                  type: 'quantitative',
+                  type: 'quantitative'
                 },
                 y: {field: 'variety', type: 'nominal'},
-                color: {field: 'site', type: 'nominal'},
-              },
+                color: {field: 'site', type: 'nominal'}
+              }
             };
             assert.isTrue(isStacked(spec));
             const warns = localLogger.warns;
@@ -349,8 +349,8 @@ describe('stack', () => {
           encoding: {
             x: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
             y: {field: 'variety', type: 'nominal'},
-            color: {field: 'site', type: 'nominal'},
-          },
+            color: {field: 'site', type: 'nominal'}
+          }
         };
         const _stack = stack(spec.mark, spec.encoding, undefined);
         assert.equal(_stack.fieldChannel, X);
@@ -366,8 +366,8 @@ describe('stack', () => {
           mark: stackableMark,
           encoding: {
             x: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
-            color: {field: 'site', type: 'nominal'},
-          },
+            color: {field: 'site', type: 'nominal'}
+          }
         };
         const _stack = stack(spec.mark, spec.encoding, undefined);
         assert.equal(_stack.fieldChannel, X);
@@ -384,8 +384,8 @@ describe('stack', () => {
           encoding: {
             y: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
             x: {field: 'variety', type: 'nominal'},
-            color: {field: 'site', type: 'nominal'},
-          },
+            color: {field: 'site', type: 'nominal'}
+          }
         };
         const _stack = stack(spec.mark, spec.encoding, undefined);
         assert.equal(_stack.fieldChannel, Y);
@@ -401,8 +401,8 @@ describe('stack', () => {
           mark: stackableMark,
           encoding: {
             y: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
-            color: {field: 'site', type: 'nominal'},
-          },
+            color: {field: 'site', type: 'nominal'}
+          }
         };
         const _stack = stack(spec.mark, spec.encoding, undefined);
         assert.equal(_stack.fieldChannel, Y);
@@ -421,8 +421,8 @@ describe('stack', () => {
           encoding: {
             x: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
             y: {field: 'variety', type: 'nominal'},
-            color: {field: 'site', type: 'nominal'},
-          },
+            color: {field: 'site', type: 'nominal'}
+          }
         };
         assert.equal(stack(spec.mark, spec.encoding, undefined).offset, 'zero');
         assert.isTrue(isStacked(spec));
@@ -438,11 +438,11 @@ describe('stack', () => {
             encoding: {
               x: {aggregate: 'sum', field: 'yield', type: 'quantitative'},
               y: {field: 'variety', type: 'nominal'},
-              color: {field: 'site', type: 'nominal'},
+              color: {field: 'site', type: 'nominal'}
             },
             config: {
-              stack: stacked,
-            },
+              stack: stacked
+            }
           };
           assert.equal(stack(spec.mark, spec.encoding, spec.config.stack).offset, stacked);
           assert.equal(isStacked(spec), true);

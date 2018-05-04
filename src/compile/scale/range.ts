@@ -12,7 +12,7 @@ import {
   ScaleConfig,
   ScaleType,
   scaleTypeSupportProperty,
-  Scheme,
+  Scheme
 } from '../../scale';
 import {hasContinuousDomain} from '../../scale';
 import {Type} from '../../type';

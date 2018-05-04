@@ -254,6 +254,6 @@ export function parseData(model: Model): DataComponent {
     raw,
     main,
     facetRoot,
-    ancestorParse,
+    ancestorParse
   };
 }

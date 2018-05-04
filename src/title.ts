@@ -57,13 +57,13 @@ export function extractTitleConfig(
 
   const mark: VgMarkConfig = {
     ...titleMarkConfig,
-    ...(color ? {fill: color} : {}),
+    ...(color ? {fill: color} : {})
   };
 
   const nonMark: TitleBase = {
     ...(anchor ? {anchor} : {}),
     ...(offset ? {offset} : {}),
-    ...(orient ? {orient} : {}),
+    ...(orient ? {orient} : {})
   };
 
   return {mark, nonMark};

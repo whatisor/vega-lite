@@ -8,7 +8,7 @@
         "singleQuote": true,
         "bracketSpacing": false,
         "arrowParens": "avoid",
-        "trailingComma": "es5"
+        "trailingComma": "none"
       }
     }
   ]

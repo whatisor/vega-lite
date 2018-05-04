@@ -5,7 +5,7 @@ import {
   fieldFilterExpression,
   isFieldEqualPredicate,
   isFieldOneOfPredicate,
-  isFieldRangePredicate,
+  isFieldRangePredicate
 } from '../src/predicate';
 import {TimeUnit} from '../src/timeunit';
 
@@ -61,8 +61,8 @@ describe('filter', () => {
       const expr = expression(null, {
         field: 'date',
         equal: {
-          month: 'January',
-        },
+          month: 'January'
+        }
       });
       assert.equal(expr, 'datum["date"]===time(datetime(0, 0, 1, 0, 0, 0, 0))');
     });
@@ -72,8 +72,8 @@ describe('filter', () => {
         timeUnit: TimeUnit.MONTH,
         field: 'date',
         equal: {
-          month: 'January',
-        },
+          month: 'January'
+        }
       });
       assert.equal(
         expr,
@@ -85,7 +85,7 @@ describe('filter', () => {
       const expr = expression(null, {
         timeUnit: TimeUnit.MONTH,
         field: 'date',
-        equal: 'January',
+        equal: 'January'
       });
       assert.equal(
         expr,
@@ -129,7 +129,7 @@ describe('filter', () => {
     assert.equal(expr, '!(datum["color"]==="red")');
 
     expr = expression(null, {
-      and: [{field: 'color', equal: 'red'}, {field: 'x', range: [0, 5]}],
+      and: [{field: 'color', equal: 'red'}, {field: 'x', range: [0, 5]}]
     });
 
     assert.equal(expr, '(datum["color"]==="red") && (inrange(datum["x"], [0, 5]))');
@@ -138,9 +138,9 @@ describe('filter', () => {
       and: [
         {field: 'color', oneOf: ['red', 'yellow']},
         {
-          or: [{field: 'x', range: [0, null]}, 'datum.price > 10', {not: 'datum["x"]===5'}],
-        },
-      ],
+          or: [{field: 'x', range: [0, null]}, 'datum.price > 10', {not: 'datum["x"]===5'}]
+        }
+      ]
     });
 
     assert.equal(

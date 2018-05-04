@@ -9,7 +9,7 @@ import {
   spec,
   testRenderFn,
   tuples,
-  unbound,
+  unbound
 } from './util';
 
 [bound, unbound].forEach((bind, idx) => {
@@ -23,12 +23,12 @@ import {
     const assertExtent = {
       [unbound]: {
         x: ['isAbove', 'isBelow'],
-        y: ['isBelow', 'isAbove'],
+        y: ['isBelow', 'isAbove']
       },
       [bound]: {
         x: ['isBelow', 'isAbove'],
-        y: ['isAbove', 'isBelow'],
-      },
+        y: ['isAbove', 'isBelow']
+      }
     };
 
     it('should move back-and-forth', () => {
@@ -55,7 +55,7 @@ import {
             {
               x: {aggregate: 'count', field: '*', type: 'quantitative'},
               y: {bin: true},
-              color: {value: 'steelblue', field: null, type: null},
+              color: {value: 'steelblue', field: null, type: null}
             }
           )
         );
@@ -92,7 +92,7 @@ import {
             {type, ...binding},
             {
               x: {scale: {type: 'pow', exponent: 1.5}},
-              y: {scale: {type: 'log'}},
+              y: {scale: {type: 'log'}}
             }
           )
         );
@@ -117,7 +117,7 @@ import {
               {type, ...binding},
               {
                 x: {type: 'ordinal'},
-                y: {type: 'nominal'},
+                y: {type: 'nominal'}
               }
             )
           );
@@ -136,12 +136,12 @@ import {
         const assertExtents = {
           repeat: {
             x: ['isBelow', 'isBelow', 'isBelow'],
-            y: ['isAbove', 'isAbove', 'isAbove'],
+            y: ['isAbove', 'isAbove', 'isAbove']
           },
           facet: {
             x: ['isBelow', 'isBelow', 'isBelow'],
-            y: ['isBelow', 'isAbove', 'isBelow'],
-          },
+            y: ['isBelow', 'isAbove', 'isBelow']
+          }
         };
         it(`should work with shared scales in ${specType} views`, () => {
           for (let i = 0; i < hits[specType].length; i++) {

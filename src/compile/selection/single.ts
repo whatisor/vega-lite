@@ -17,14 +17,14 @@ const single: SelectionCompiler = {
       ? signals
       : signals.concat({
           name: selCmpt.name,
-          update: `${data}.length && {` + selCmpt.project.map((p, i) => `${p.field}: ${values}[${i}]`).join(', ') + '}',
+          update: `${data}.length && {` + selCmpt.project.map((p, i) => `${p.field}: ${values}[${i}]`).join(', ') + '}'
         });
   },
 
   modifyExpr: (model, selCmpt) => {
     const tpl = selCmpt.name + TUPLE;
     return tpl + ', ' + (selCmpt.resolve === 'global' ? 'true' : `{unit: ${unitName(model)}}`);
-  },
+  }
 };
 
 export default single;

@@ -26,8 +26,8 @@ describe('compile/scale', () => {
           x: {field: 'a', type: 'quantitative'},
           x2: {field: 'b', type: 'quantitative'},
           y: {field: 'c', type: 'quantitative'},
-          y2: {field: 'd', type: 'quantitative'},
-        },
+          y2: {field: 'd', type: 'quantitative'}
+        }
       });
 
       const xDomain = testParseDomainForChannel(model, 'x');
@@ -41,8 +41,8 @@ describe('compile/scale', () => {
       const model = parseUnitModel({
         mark: 'bar',
         encoding: {
-          color: {field: 'a', type: 'quantitative'},
-        },
+          color: {field: 'a', type: 'quantitative'}
+        }
       });
 
       const xDomain = testParseDomainForChannel(model, 'color');
@@ -54,9 +54,9 @@ describe('compile/scale', () => {
         mark: 'bar',
         encoding: {
           color: {
-            condition: {selection: 'sel', field: 'a', type: 'quantitative'},
-          },
-        },
+            condition: {selection: 'sel', field: 'a', type: 'quantitative'}
+          }
+        }
       });
 
       const xDomain = testParseDomainForChannel(model, 'color');
@@ -70,22 +70,22 @@ describe('compile/scale', () => {
           y: {
             aggregate: 'sum',
             field: 'origin',
-            type: 'quantitative',
+            type: 'quantitative'
           },
           x: {field: 'x', type: 'ordinal'},
-          color: {field: 'color', type: 'ordinal'},
-        },
+          color: {field: 'color', type: 'ordinal'}
+        }
       });
 
       assert.deepEqual(testParseDomainForChannel(model, 'y'), [
         {
           data: 'main',
-          field: 'sum_origin_start',
+          field: 'sum_origin_start'
         },
         {
           data: 'main',
-          field: 'sum_origin_end',
-        },
+          field: 'sum_origin_end'
+        }
       ]);
     });
 
@@ -96,14 +96,14 @@ describe('compile/scale', () => {
           y: {
             aggregate: 'sum',
             field: 'origin',
-            type: 'quantitative',
+            type: 'quantitative'
           },
           x: {field: 'x', type: 'ordinal'},
-          color: {field: 'color', type: 'ordinal'},
+          color: {field: 'color', type: 'ordinal'}
         },
         config: {
-          stack: 'normalize',
-        },
+          stack: 'normalize'
+        }
       });
 
       assert.deepEqual(testParseDomainForChannel(model, 'y'), [[0, 1]]);
@@ -117,24 +117,24 @@ describe('compile/scale', () => {
             bin: {maxbins: 15},
             field: 'origin',
             scale: {domain: 'unaggregated'},
-            type: 'quantitative',
+            type: 'quantitative'
           };
           const model = parseUnitModel({
             mark: 'point',
             encoding: {
-              y: fieldDef,
-            },
+              y: fieldDef
+            }
           });
 
           assert.deepEqual(testParseDomainForChannel(model, 'y'), [
             {
               data: 'main',
-              field: 'bin_maxbins_15_origin',
+              field: 'bin_maxbins_15_origin'
             },
             {
               data: 'main',
-              field: 'bin_maxbins_15_origin_end',
-            },
+              field: 'bin_maxbins_15_origin_end'
+            }
           ]);
 
           assert.equal(localLogger.warns[0], log.message.unaggregateDomainHasNoEffectForRawField(fieldDef));
@@ -150,9 +150,9 @@ describe('compile/scale', () => {
               y: {
                 field: 'origin',
                 type: 'quantitative',
-                bin: {maxbins: 15, extent: [0, 100]},
-              },
-            },
+                bin: {maxbins: 15, extent: [0, 100]}
+              }
+            }
           });
           const _domain = testParseDomainForChannel(model, 'y');
 
@@ -168,20 +168,20 @@ describe('compile/scale', () => {
               aggregate: 'mean',
               field: 'acceleration',
               scale: {domain: 'unaggregated'},
-              type: 'quantitative',
-            },
-          },
+              type: 'quantitative'
+            }
+          }
         });
 
         assert.deepEqual(testParseDomainForChannel(model, 'y'), [
           {
             data: MAIN,
-            field: 'min_acceleration',
+            field: 'min_acceleration'
           },
           {
             data: MAIN,
-            field: 'max_acceleration',
-          },
+            field: 'max_acceleration'
+          }
         ]);
       });
 
@@ -195,9 +195,9 @@ describe('compile/scale', () => {
                 aggregate: 'sum',
                 field: 'origin',
                 scale: {domain: 'unaggregated'},
-                type: 'quantitative',
-              },
-            },
+                type: 'quantitative'
+              }
+            }
           });
           testParseDomainForChannel(model, 'y');
           assert.equal(localLogger.warns[0], log.message.unaggregateDomainWithNonSharedDomainOp('sum'));
@@ -211,9 +211,9 @@ describe('compile/scale', () => {
             y: {
               field: 'horsepower',
               type: 'quantitative',
-              scale: {domain: [0, 200]},
-            },
-          },
+              scale: {domain: [0, 200]}
+            }
+          }
         });
         const _domain = testParseDomainForChannel(model, 'y');
 
@@ -230,9 +230,9 @@ describe('compile/scale', () => {
                 field: 'origin',
                 type: 'quantitative',
                 scale: {domain: [0, 200]},
-                bin: {maxbins: 15},
-              },
-            },
+                bin: {maxbins: 15}
+              }
+            }
           });
           const _domain = testParseDomainForChannel(model, 'y');
 
@@ -247,16 +247,16 @@ describe('compile/scale', () => {
             y: {
               aggregate: 'min',
               field: 'origin',
-              type: 'quantitative',
-            },
-          },
+              type: 'quantitative'
+            }
+          }
         });
 
         assert.deepEqual(testParseDomainForChannel(model, 'y'), [
           {
             data: 'main',
-            field: 'min_origin',
-          },
+            field: 'min_origin'
+          }
         ]);
       });
 
@@ -267,25 +267,25 @@ describe('compile/scale', () => {
             y: {
               aggregate: 'min',
               field: 'acceleration',
-              type: 'quantitative',
-            },
+              type: 'quantitative'
+            }
           },
           config: {
             scale: {
-              useUnaggregatedDomain: true,
-            },
-          },
+              useUnaggregatedDomain: true
+            }
+          }
         });
 
         assert.deepEqual(testParseDomainForChannel(model, 'y'), [
           {
             data: MAIN,
-            field: 'min_acceleration',
+            field: 'min_acceleration'
           },
           {
             data: MAIN,
-            field: 'max_acceleration',
-          },
+            field: 'max_acceleration'
+          }
         ]);
       });
     });
@@ -298,9 +298,9 @@ describe('compile/scale', () => {
             y: {
               field: 'origin',
               type: 'temporal',
-              timeUnit: 'month',
-            },
-          },
+              timeUnit: 'month'
+            }
+          }
         });
         const _domain = testParseDomainForChannel(model, 'y');
         assert.deepEqual(_domain, [{data: 'main', field: 'month_origin'}]);
@@ -313,9 +313,9 @@ describe('compile/scale', () => {
             y: {
               field: 'origin',
               type: 'ordinal',
-              timeUnit: 'month',
-            },
-          },
+              timeUnit: 'month'
+            }
+          }
         });
         const _domain = testParseDomainForChannel(model, 'y');
         assert.deepEqual(_domain, [{data: 'main', field: 'month_origin', sort: true}]);
@@ -328,9 +328,9 @@ describe('compile/scale', () => {
             y: {
               field: 'origin',
               type: 'temporal',
-              timeUnit: 'yearmonth',
-            },
-          },
+              timeUnit: 'yearmonth'
+            }
+          }
         });
         const _domain = testParseDomainForChannel(model, 'y');
 
@@ -346,14 +346,14 @@ describe('compile/scale', () => {
               timeUnit: 'month',
               field: 'date',
               type: 'ordinal',
-              sort: sortDef,
+              sort: sortDef
             },
             y: {
               aggregate: 'mean',
               field: 'precipitation',
-              type: 'quantitative',
-            },
-          },
+              type: 'quantitative'
+            }
+          }
         });
         const _domain = testParseDomainForChannel(model, 'x');
 
@@ -361,8 +361,8 @@ describe('compile/scale', () => {
           {
             data: 'raw',
             field: 'month_date',
-            sort: sortDef,
-          },
+            sort: sortDef
+          }
         ]);
       });
 
@@ -373,15 +373,15 @@ describe('compile/scale', () => {
             y: {
               field: 'year',
               type: 'temporal',
-              scale: {domain: [{year: 1970}, {year: 1980}]},
-            },
-          },
+              scale: {domain: [{year: 1970}, {year: 1980}]}
+            }
+          }
         });
         const _domain = testParseDomainForChannel(model, 'y');
 
         assert.deepEqual(_domain, [
           {signal: '{data: datetime(1970, 0, 1, 0, 0, 0, 0)}'},
-          {signal: '{data: datetime(1980, 0, 1, 0, 0, 0, 0)}'},
+          {signal: '{data: datetime(1980, 0, 1, 0, 0, 0, 0)}'}
         ]);
       });
     });
@@ -391,13 +391,13 @@ describe('compile/scale', () => {
         const model = parseUnitModel({
           mark: 'bar',
           encoding: {
-            color: {field: 'a', bin: true, type: 'ordinal'},
-          },
+            color: {field: 'a', bin: true, type: 'ordinal'}
+          }
         });
 
         const xDomain = testParseDomainForChannel(model, 'color');
         assert.deepEqual(xDomain, [
-          {data: 'main', field: 'bin_maxbins_6_a_range', sort: {field: 'bin_maxbins_6_a', op: 'min'}},
+          {data: 'main', field: 'bin_maxbins_6_a_range', sort: {field: 'bin_maxbins_6_a', op: 'min'}}
         ]);
       });
     });
@@ -408,15 +408,15 @@ describe('compile/scale', () => {
         const model = parseUnitModel({
           mark: 'point',
           encoding: {
-            y: {field: 'origin', type: 'nominal', sort: sortDef},
-          },
+            y: {field: 'origin', type: 'nominal', sort: sortDef}
+          }
         });
         assert.deepEqual(testParseDomainForChannel(model, 'y'), [
           {
             data: 'raw',
             field: 'origin',
-            sort: sortDef,
-          },
+            sort: sortDef
+          }
         ]);
       });
 
@@ -425,16 +425,16 @@ describe('compile/scale', () => {
         const model = parseUnitModel({
           mark: 'point',
           encoding: {
-            y: {field: 'origin', type: 'nominal', sort: sortDef},
-          },
+            y: {field: 'origin', type: 'nominal', sort: sortDef}
+          }
         });
 
         assert.deepEqual(testParseDomainForChannel(model, 'y'), [
           {
             data: 'raw',
             field: 'origin',
-            sort: sortDef,
-          },
+            sort: sortDef
+          }
         ]);
       });
 
@@ -442,16 +442,16 @@ describe('compile/scale', () => {
         const model = parseUnitModel({
           mark: 'point',
           encoding: {
-            y: {field: 'origin', type: 'nominal'},
-          },
+            y: {field: 'origin', type: 'nominal'}
+          }
         });
 
         assert.deepEqual(testParseDomainForChannel(model, 'y'), [
           {
             data: 'main',
             field: 'origin',
-            sort: true,
-          },
+            sort: true
+          }
         ]);
       });
     });
@@ -463,19 +463,19 @@ describe('compile/scale', () => {
         {
           data: 'foo',
           field: 'a',
-          sort: {field: 'b', op: 'mean'},
+          sort: {field: 'b', op: 'mean'}
         },
         {
           data: 'foo',
           field: 'a',
-          sort: {field: 'b', op: 'mean'},
-        },
+          sort: {field: 'b', op: 'mean'}
+        }
       ]);
 
       assert.deepEqual<VgDomain>(domain, {
         data: 'foo',
         field: 'a',
-        sort: {field: 'b', op: 'mean'},
+        sort: {field: 'b', op: 'mean'}
       });
     });
 
@@ -484,14 +484,14 @@ describe('compile/scale', () => {
         {
           data: 'foo',
           field: 'a',
-          sort: {op: 'count', field: 'b'},
-        },
+          sort: {op: 'count', field: 'b'}
+        }
       ]);
 
       assert.deepEqual<VgDomain>(domain, {
         data: 'foo',
         field: 'a',
-        sort: {op: 'count'},
+        sort: {op: 'count'}
       });
     });
 
@@ -499,19 +499,19 @@ describe('compile/scale', () => {
       const domain = mergeDomains([
         {
           data: 'foo',
-          field: 'a',
+          field: 'a'
         },
         {
           data: 'foo',
           field: 'a',
-          sort: {field: 'b', op: 'mean', order: 'descending'},
-        },
+          sort: {field: 'b', op: 'mean', order: 'descending'}
+        }
       ]);
 
       assert.deepEqual<VgDomain>(domain, {
         data: 'foo',
         field: 'a',
-        sort: {field: 'b', op: 'mean', order: 'descending'},
+        sort: {field: 'b', op: 'mean', order: 'descending'}
       });
     });
 
@@ -520,18 +520,18 @@ describe('compile/scale', () => {
         {
           data: 'foo',
           field: 'a',
-          sort: true,
+          sort: true
         },
         {
           data: 'foo',
-          field: 'b',
-        },
+          field: 'b'
+        }
       ]);
 
       assert.deepEqual(domain, {
         data: 'foo',
         fields: ['a', 'b'],
-        sort: true,
+        sort: true
       });
     });
 
@@ -539,17 +539,17 @@ describe('compile/scale', () => {
       const domain = mergeDomains([
         {
           data: 'foo',
-          field: 'a',
+          field: 'a'
         },
         {
           data: 'foo',
-          field: 'b',
-        },
+          field: 'b'
+        }
       ]);
 
       assert.deepEqual(domain, {
         data: 'foo',
-        fields: ['a', 'b'],
+        fields: ['a', 'b']
       });
     });
 
@@ -558,19 +558,19 @@ describe('compile/scale', () => {
         {
           data: 'foo',
           field: 'a',
-          sort: {field: 'b', op: 'mean', order: 'ascending'},
+          sort: {field: 'b', op: 'mean', order: 'ascending'}
         },
         {
           data: 'foo',
           field: 'a',
-          sort: {field: 'b', op: 'mean'},
-        },
+          sort: {field: 'b', op: 'mean'}
+        }
       ]);
 
       assert.deepEqual<VgDomain>(domain, {
         data: 'foo',
         field: 'a',
-        sort: {field: 'b', op: 'mean'},
+        sort: {field: 'b', op: 'mean'}
       });
     });
 
@@ -578,17 +578,17 @@ describe('compile/scale', () => {
       const domain = mergeDomains([
         {
           data: 'foo',
-          field: 'a',
+          field: 'a'
         },
         {
           data: 'foo',
-          field: 'a',
-        },
+          field: 'a'
+        }
       ]);
 
       assert.deepEqual<VgDomain>(domain, {
         data: 'foo',
-        field: 'a',
+        field: 'a'
       });
     });
 
@@ -596,17 +596,17 @@ describe('compile/scale', () => {
       const domain = mergeDomains([
         {
           data: 'foo',
-          field: 'a',
+          field: 'a'
         },
         {
           data: 'foo',
-          field: 'b',
-        },
+          field: 'b'
+        }
       ]);
 
       assert.deepEqual<VgDomain>(domain, {
         data: 'foo',
-        fields: ['a', 'b'],
+        fields: ['a', 'b']
       });
     });
 
@@ -615,27 +615,27 @@ describe('compile/scale', () => {
         {
           data: 'foo',
           field: 'a',
-          sort: true,
+          sort: true
         },
         {
           data: 'bar',
           field: 'a',
-          sort: true,
-        },
+          sort: true
+        }
       ]);
 
       assert.deepEqual(domain, {
         fields: [
           {
             data: 'foo',
-            field: 'a',
+            field: 'a'
           },
           {
             data: 'bar',
-            field: 'a',
-          },
+            field: 'a'
+          }
         ],
-        sort: true,
+        sort: true
       });
     });
 
@@ -645,29 +645,29 @@ describe('compile/scale', () => {
           data: 'foo',
           field: 'a',
           sort: {
-            op: 'count',
-          },
+            op: 'count'
+          }
         },
         {
           data: 'bar',
-          field: 'a',
-        },
+          field: 'a'
+        }
       ]);
 
       assert.deepEqual<VgDomain>(domain, {
         fields: [
           {
             data: 'foo',
-            field: 'a',
+            field: 'a'
           },
           {
             data: 'bar',
-            field: 'a',
-          },
+            field: 'a'
+          }
         ],
         sort: {
-          op: 'count',
-        },
+          op: 'count'
+        }
       });
     });
 
@@ -675,57 +675,57 @@ describe('compile/scale', () => {
       const domain = mergeDomains([
         {
           data: 'foo',
-          field: 'a',
+          field: 'a'
         },
         {
           data: 'foo',
-          field: 'b',
+          field: 'b'
         },
         {
           data: 'bar',
-          field: 'a',
-        },
+          field: 'a'
+        }
       ]);
 
       assert.deepEqual(domain, {
         fields: [
           {
             data: 'foo',
-            field: 'a',
+            field: 'a'
           },
           {
             data: 'foo',
-            field: 'b',
+            field: 'b'
           },
           {
             data: 'bar',
-            field: 'a',
-          },
-        ],
+            field: 'a'
+          }
+        ]
       });
     });
 
     it('should merge signal domains', () => {
       const domain = mergeDomains([
         {
-          signal: 'foo',
+          signal: 'foo'
         },
         {
           data: 'bar',
-          field: 'a',
-        },
+          field: 'a'
+        }
       ]);
 
       assert.deepEqual(domain, {
         fields: [
           {
-            signal: 'foo',
+            signal: 'foo'
           },
           {
             data: 'bar',
-            field: 'a',
-          },
-        ],
+            field: 'a'
+          }
+        ]
       });
     });
 
@@ -737,20 +737,20 @@ describe('compile/scale', () => {
             data: 'foo',
             field: 'a',
             sort: {
-              op: 'count',
-            },
+              op: 'count'
+            }
           },
           {
             data: 'foo',
             field: 'b',
-            sort: true,
-          },
+            sort: true
+          }
         ]);
 
         assert.deepEqual(domain, {
           data: 'foo',
           fields: ['a', 'b'],
-          sort: true,
+          sort: true
         });
 
         assert.equal(localLogger.warns[0], log.message.MORE_THAN_ONE_SORT);
@@ -765,20 +765,20 @@ describe('compile/scale', () => {
             data: 'foo',
             field: 'a',
             sort: {
-              op: 'count',
-            },
+              op: 'count'
+            }
           },
           {
             data: 'foo',
             field: 'a',
-            sort: true,
-          },
+            sort: true
+          }
         ]);
 
         assert.deepEqual(domain, {
           data: 'foo',
           field: 'a',
-          sort: true,
+          sort: true
         });
 
         assert.equal(localLogger.warns[0], log.message.MORE_THAN_ONE_SORT);
@@ -794,26 +794,26 @@ describe('compile/scale', () => {
             field: 'a',
             sort: {
               op: 'mean',
-              field: 'c',
-            },
+              field: 'c'
+            }
           },
           {
             data: 'foo',
-            field: 'b',
-          },
+            field: 'b'
+          }
         ]);
 
         assert.deepEqual(domain, {
           data: 'foo',
           fields: ['a', 'b'],
-          sort: true,
+          sort: true
         });
 
         assert.equal(
           localLogger.warns[0],
           log.message.domainSortDropped({
             op: 'mean',
-            field: 'c',
+            field: 'c'
           })
         );
       })
@@ -823,7 +823,7 @@ describe('compile/scale', () => {
       const domain = mergeDomains([[1, 2, 3, 4], [3, 4, 5, 6]]);
 
       assert.deepEqual(domain, {
-        fields: [[1, 2, 3, 4], [3, 4, 5, 6]],
+        fields: [[1, 2, 3, 4], [3, 4, 5, 6]]
       });
     });
   });
@@ -833,8 +833,8 @@ describe('compile/scale', () => {
       const model = parseUnitModel({
         mark: 'point',
         encoding: {
-          x: {field: 'a', type: 'quantitative'},
-        },
+          x: {field: 'a', type: 'quantitative'}
+        }
       });
       const sort = domainSort(model, 'x', ScaleType.LINEAR);
       assert.deepEqual(sort, undefined);
@@ -844,8 +844,8 @@ describe('compile/scale', () => {
       const model = parseUnitModel({
         mark: 'point',
         encoding: {
-          x: {field: 'a', type: 'ordinal'},
-        },
+          x: {field: 'a', type: 'ordinal'}
+        }
       });
       const sort = domainSort(model, 'x', ScaleType.ORDINAL);
       assert.deepEqual(sort, true);
@@ -855,8 +855,8 @@ describe('compile/scale', () => {
       const model = parseUnitModel({
         mark: 'point',
         encoding: {
-          x: {field: 'a', type: 'quantitative', sort: 'ascending'},
-        },
+          x: {field: 'a', type: 'quantitative', sort: 'ascending'}
+        }
       });
       const sort = domainSort(model, 'x', ScaleType.ORDINAL);
       assert.deepEqual(sort, true);
@@ -866,8 +866,8 @@ describe('compile/scale', () => {
       const model = parseUnitModel({
         mark: 'bar',
         encoding: {
-          x: {field: 'a', type: 'quantitative', sort: null},
-        },
+          x: {field: 'a', type: 'quantitative', sort: null}
+        }
       });
       const sort = domainSort(model, 'x', ScaleType.ORDINAL);
       assert.deepEqual(sort, undefined);
@@ -878,8 +878,8 @@ describe('compile/scale', () => {
         mark: 'bar',
         encoding: {
           x: {field: 'a', type: 'nominal', sort: {op: 'sum', field: 'y'}},
-          y: {field: 'b', aggregate: 'sum', type: 'quantitative'},
-        },
+          y: {field: 'b', aggregate: 'sum', type: 'quantitative'}
+        }
       });
       const sort = domainSort(model, 'x', ScaleType.ORDINAL);
       assert.deepEqual<VgSortField>(sort, {op: 'sum', field: 'y'});
@@ -890,8 +890,8 @@ describe('compile/scale', () => {
         mark: 'bar',
         encoding: {
           x: {field: 'a', type: 'nominal', sort: {op: 'count'}},
-          y: {field: 'b', aggregate: 'sum', type: 'quantitative'},
-        },
+          y: {field: 'b', aggregate: 'sum', type: 'quantitative'}
+        }
       });
       const sort = domainSort(model, 'x', ScaleType.ORDINAL);
       assert.deepEqual<VgSortField>(sort, {op: 'count'});
@@ -902,8 +902,8 @@ describe('compile/scale', () => {
         mark: 'bar',
         encoding: {
           x: {field: 'a', type: 'nominal'},
-          y: {field: 'b', aggregate: 'sum', type: 'quantitative'},
-        },
+          y: {field: 'b', aggregate: 'sum', type: 'quantitative'}
+        }
       });
       const sort = domainSort(model, 'x', ScaleType.ORDINAL);
       assert.deepEqual(sort, true);
@@ -914,13 +914,13 @@ describe('compile/scale', () => {
         mark: 'bar',
         encoding: {
           x: {field: 'a', type: 'nominal', sort: 'descending'},
-          y: {field: 'b', aggregate: 'sum', type: 'quantitative'},
-        },
+          y: {field: 'b', aggregate: 'sum', type: 'quantitative'}
+        }
       });
       assert.deepEqual<VgSortField>(domainSort(model, 'x', ScaleType.ORDINAL), {
         op: 'min',
         field: 'a',
-        order: 'descending',
+        order: 'descending'
       });
     });
 
@@ -929,13 +929,13 @@ describe('compile/scale', () => {
         mark: 'bar',
         encoding: {
           x: {field: 'a', type: 'ordinal', sort: ['B', 'A', 'C']},
-          y: {field: 'b', type: 'quantitative'},
-        },
+          y: {field: 'b', type: 'quantitative'}
+        }
       });
       assert.deepEqual<VgSortField>(domainSort(model, 'x', ScaleType.ORDINAL), {
         op: 'min',
         field: 'x_a_sort_index',
-        order: 'ascending',
+        order: 'ascending'
       });
     });
   });

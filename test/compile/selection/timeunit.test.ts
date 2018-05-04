@@ -20,26 +20,26 @@ function getModel(unit2: NormalizedUnitSpec) {
         {date: 'Sun, 02 Jan 2012 00:10:02', price: 100},
         {date: 'Sun, 02 Jan 2012 01:20:03', price: 170},
         {date: 'Sun, 02 Jan 2012 02:30:04', price: 165},
-        {date: 'Sun, 02 Jan 2012 03:40:05', price: 200},
-      ],
+        {date: 'Sun, 02 Jan 2012 03:40:05', price: 200}
+      ]
     },
     hconcat: [
       {
         mark: 'point',
         selection: {
-          two: {type: 'single', encodings: ['x', 'y']},
+          two: {type: 'single', encodings: ['x', 'y']}
         },
         encoding: {
           x: {
             field: 'date',
             type: 'temporal',
-            timeUnit: 'seconds',
+            timeUnit: 'seconds'
           },
-          y: {field: 'price', type: 'quantitative'},
-        },
+          y: {field: 'price', type: 'quantitative'}
+        }
       },
-      unit2,
-    ],
+      unit2
+    ]
   });
   model.parse();
   return model;
@@ -51,12 +51,12 @@ describe('Selection time unit', () => {
       mark: 'point',
       encoding: {
         x: {field: 'date', type: 'temporal', timeUnit: 'seconds'},
-        y: {field: 'date', type: 'temporal', timeUnit: 'minutes'},
-      },
+        y: {field: 'date', type: 'temporal', timeUnit: 'minutes'}
+      }
     });
     const selCmpts = (model.component.selection = selection.parseUnitSelection(model, {
       one: {type: 'single'},
-      two: {type: 'single', encodings: ['x', 'y']},
+      two: {type: 'single', encodings: ['x', 'y']}
     }));
 
     assert.isUndefined(selCmpts['one'].timeUnit);
@@ -73,14 +73,14 @@ describe('Selection time unit', () => {
         x: {
           field: 'date',
           type: 'temporal',
-          timeUnit: 'minutes',
+          timeUnit: 'minutes'
         },
         y: {field: 'price', type: 'quantitative'},
         color: {
           condition: {selection: 'two', value: 'goldenrod'},
-          value: 'steelblue',
-        },
-      },
+          value: 'steelblue'
+        }
+      }
     });
 
     const data2 = getData(model).filter(d => d.name === 'data_2')[0].transform;
@@ -95,10 +95,10 @@ describe('Selection time unit', () => {
         x: {
           field: 'date',
           type: 'temporal',
-          timeUnit: 'minutes',
+          timeUnit: 'minutes'
         },
-        y: {field: 'price', type: 'quantitative'},
-      },
+        y: {field: 'price', type: 'quantitative'}
+      }
     });
 
     const data2 = getData(model).filter(d => d.name === 'data_2')[0].transform;
@@ -126,10 +126,10 @@ describe('Selection time unit', () => {
         x: {
           field: 'date',
           type: 'temporal',
-          timeUnit: 'seconds',
+          timeUnit: 'seconds'
         },
-        y: {field: 'price', type: 'quantitative'},
-      },
+        y: {field: 'price', type: 'quantitative'}
+      }
     });
 
     const data2 = getData(model).filter(d => d.name === 'data_2')[0].transform;

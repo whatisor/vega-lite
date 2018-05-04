@@ -42,7 +42,7 @@ export class GeoJSONNode extends DataFlowNode {
       type: 'geojson',
       ...(this.fields ? {fields: this.fields} : {}),
       ...(this.geojson ? {geojson: this.geojson} : {}),
-      signal: this.signal,
+      signal: this.signal
     };
   }
 }

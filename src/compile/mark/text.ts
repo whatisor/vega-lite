@@ -25,11 +25,11 @@ export const text: MarkCompiler = {
       ...mixins.text(model),
       ...mixins.nonPosition('size', model, {
         ...(markDef.size ? {defaultValue: markDef.size} : {}),
-        vgChannel: 'fontSize', // VL's text size is fontSize
+        vgChannel: 'fontSize' // VL's text size is fontSize
       }),
-      ...mixins.valueIfDefined('align', align(model.markDef, encoding, config)),
+      ...mixins.valueIfDefined('align', align(model.markDef, encoding, config))
     };
-  },
+  }
 };
 
 function xDefault(config: Config, textDef: ChannelDef<string>): VgValueRef {

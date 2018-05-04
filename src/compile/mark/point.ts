@@ -14,7 +14,7 @@ function encodeEntry(model: UnitModel, fixedShape?: 'circle' | 'square') {
     ...mixins.pointPosition('x', model, ref.mid(width)),
     ...mixins.pointPosition('y', model, ref.mid(height)),
     ...mixins.nonPosition('size', model),
-    ...shapeMixins(model, config, fixedShape),
+    ...shapeMixins(model, config, fixedShape)
   };
 }
 
@@ -29,19 +29,19 @@ export const point: MarkCompiler = {
   vgMark: 'symbol',
   encodeEntry: (model: UnitModel) => {
     return encodeEntry(model);
-  },
+  }
 };
 
 export const circle: MarkCompiler = {
   vgMark: 'symbol',
   encodeEntry: (model: UnitModel) => {
     return encodeEntry(model, 'circle');
-  },
+  }
 };
 
 export const square: MarkCompiler = {
   vgMark: 'symbol',
   encodeEntry: (model: UnitModel) => {
     return encodeEntry(model, 'square');
-  },
+  }
 };

@@ -12,7 +12,7 @@ import {
   SelectionComponent,
   STORE,
   TUPLE,
-  unitName,
+  unitName
 } from './selection';
 import scales from './transforms/scales';
 
@@ -64,7 +64,7 @@ const interval: SelectionCompiler = {
         expr:
           `(!isArray(${dname}) || ` +
           `(${toNum}invert(${scaleStr}, ${vname})[0] === ${toNum}${dname}[0] && ` +
-          `${toNum}invert(${scaleStr}, ${vname})[1] === ${toNum}${dname}[1]))`,
+          `${toNum}invert(${scaleStr}, ${vname})[1] === ${toNum}${dname}[1]))`
       });
     }
 
@@ -73,7 +73,7 @@ const interval: SelectionCompiler = {
     if (!hasScales) {
       signals.push({
         name: name + SCALE_TRIGGER,
-        update: scaleTriggers.map(t => t.expr).join(' && ') + ` ? ${name + SCALE_TRIGGER} : {}`,
+        update: scaleTriggers.map(t => t.expr).join(' && ') + ` ? ${name + SCALE_TRIGGER} : {}`
       });
     }
 
@@ -86,9 +86,9 @@ const interval: SelectionCompiler = {
         {
           events: tupleTriggers.map(t => ({signal: t})),
           update:
-            tupleTriggers.join(' && ') + ` ? {unit: ${unitName(model)}, intervals: [${intervals.join(', ')}]} : null`,
-        },
-      ],
+            tupleTriggers.join(' && ') + ` ? {unit: ${unitName(model)}, intervals: [${intervals.join(', ')}]} : null`
+        }
+      ]
     });
   },
 
@@ -111,7 +111,7 @@ const interval: SelectionCompiler = {
       x: xi !== null ? {signal: `${name}_x[0]`} : {value: 0},
       y: yi !== null ? {signal: `${name}_y[0]`} : {value: 0},
       x2: xi !== null ? {signal: `${name}_x[1]`} : {field: {group: 'width'}},
-      y2: yi !== null ? {signal: `${name}_y[1]`} : {field: {group: 'height'}},
+      y2: yi !== null ? {signal: `${name}_y[1]`} : {field: {group: 'height'}}
     };
 
     // If the selection is resolved to global, only a single interval is in
@@ -123,9 +123,9 @@ const interval: SelectionCompiler = {
         update[key] = [
           {
             test: `${store}.length && ${store}[0].unit === ${unitName(model)}`,
-            ...update[key],
+            ...update[key]
           },
-          {value: 0},
+          {value: 0}
         ];
       }
     }
@@ -140,9 +140,9 @@ const interval: SelectionCompiler = {
           test: [xi !== null && `${name}_x[0] !== ${name}_x[1]`, yi != null && `${name}_y[0] !== ${name}_y[1]`]
             .filter(x => x)
             .join(' && '),
-          value: stroke[k],
+          value: stroke[k]
         },
-        {value: null},
+        {value: null}
       ];
       return def;
     }, {});
@@ -155,23 +155,23 @@ const interval: SelectionCompiler = {
         encode: {
           enter: {
             fill: {value: fill},
-            fillOpacity: {value: fillOpacity},
+            fillOpacity: {value: fillOpacity}
           },
-          update: update,
-        },
-      } as any,
+          update: update
+        }
+      } as any
     ].concat(marks, {
       name: name + BRUSH,
       type: 'rect',
       clip: true,
       encode: {
         enter: {
-          fill: {value: 'transparent'},
+          fill: {value: 'transparent'}
         },
-        update: {...update, ...vgStroke},
-      },
+        update: {...update, ...vgStroke}
+      }
     });
-  },
+  }
 };
 export default interval;
 
@@ -204,7 +204,7 @@ function channelSignals(model: UnitModel, selCmpt: SelectionComponent, channel: 
     update:
       hasContinuousDomain(scaleType) && !isBinScale(scaleType)
         ? `[scale(${scaleStr}, ${dname}[0]), scale(${scaleStr}, ${dname}[1])]`
-        : `[0, 0]`,
+        : `[0, 0]`
   });
 
   return hasScales
@@ -213,12 +213,12 @@ function channelSignals(model: UnitModel, selCmpt: SelectionComponent, channel: 
         {
           name: vname,
           value: [],
-          on: on,
+          on: on
         },
         {
           name: dname,
-          on: [{events: {signal: vname}, update: `${vname}[0] === ${vname}[1] ? null : invert(${scaleStr}, ${vname})`}],
-        },
+          on: [{events: {signal: vname}, update: `${vname}[0] === ${vname}[1] ? null : invert(${scaleStr}, ${vname})`}]
+        }
       ];
 }
 

@@ -81,7 +81,7 @@ export const GEOPOSITION_CHANNEL_INDEX: Flag<GeoPositionChannel> = {
   longitude: 1,
   longitude2: 1,
   latitude: 1,
-  latitude2: 1,
+  latitude2: 1
 };
 
 export const GEOPOSITION_CHANNELS = flagKeys(GEOPOSITION_CHANNEL_INDEX);
@@ -111,7 +111,7 @@ const UNIT_CHANNEL_INDEX: Flag<keyof Encoding<any>> = {
   detail: 1,
   key: 1,
   tooltip: 1,
-  href: 1,
+  href: 1
 };
 
 export type ColorChannel = 'color' | 'fill' | 'stroke';
@@ -122,12 +122,12 @@ export function isColorChannel(channel: Channel): channel is ColorChannel {
 
 const FACET_CHANNEL_INDEX: Flag<keyof FacetMapping<any>> = {
   row: 1,
-  column: 1,
+  column: 1
 };
 
 const CHANNEL_INDEX = {
   ...UNIT_CHANNEL_INDEX,
-  ...FACET_CHANNEL_INDEX,
+  ...FACET_CHANNEL_INDEX
 };
 
 export const CHANNELS = flagKeys(CHANNEL_INDEX);
@@ -219,7 +219,7 @@ export type NonPositionScaleChannel = typeof NONPOSITION_SCALE_CHANNELS[0];
 // Declare SCALE_CHANNEL_INDEX
 const SCALE_CHANNEL_INDEX = {
   ...POSITION_SCALE_CHANNEL_INDEX,
-  ...NONPOSITION_SCALE_CHANNEL_INDEX,
+  ...NONPOSITION_SCALE_CHANNEL_INDEX
 };
 
 /** List of channels with scales */
@@ -274,7 +274,7 @@ export function getSupportedMark(channel: Channel): SupportedMark {
         trail: true,
         area: true,
         text: true,
-        geoshape: true,
+        geoshape: true
       };
     case X:
     case Y:
@@ -292,7 +292,7 @@ export function getSupportedMark(channel: Channel): SupportedMark {
         line: true,
         trail: true,
         area: true,
-        text: true,
+        text: true
       };
     case X2:
     case Y2:
@@ -302,7 +302,7 @@ export function getSupportedMark(channel: Channel): SupportedMark {
         rule: true,
         bar: true,
         rect: true,
-        area: true,
+        area: true
       };
     case SIZE:
       return {
@@ -314,7 +314,7 @@ export function getSupportedMark(channel: Channel): SupportedMark {
         bar: true,
         text: true,
         line: true,
-        trail: true,
+        trail: true
       };
     case SHAPE:
       return {point: true, geoshape: true};

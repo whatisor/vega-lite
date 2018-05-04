@@ -19,15 +19,15 @@ describe('compile/layout/header', () => {
     const model = parseFacetModel({
       facet: {
         row: {field: 'a', type: 'ordinal', sort: 'ascending'},
-        column: {field: 'a', type: 'ordinal', sort: 'descending'},
+        column: {field: 'a', type: 'ordinal', sort: 'descending'}
       },
       spec: {
         mark: 'point',
         encoding: {
           x: {field: 'b', type: 'quantitative'},
-          y: {field: 'c', type: 'quantitative'},
-        },
-      },
+          y: {field: 'c', type: 'quantitative'}
+        }
+      }
     });
     model.parseScale();
     model.parseLayoutSize();
@@ -45,15 +45,15 @@ describe('compile/layout/header', () => {
     const model = parseFacetModel({
       facet: {
         row: {field: 'a', type: 'ordinal'},
-        column: {field: 'a', type: 'ordinal'},
+        column: {field: 'a', type: 'ordinal'}
       },
       spec: {
         mark: 'point',
         encoding: {
           x: {field: 'b', type: 'quantitative'},
-          y: {field: 'c', type: 'quantitative'},
-        },
-      },
+          y: {field: 'c', type: 'quantitative'}
+        }
+      }
     });
     model.parseScale();
     model.parseLayoutSize();
@@ -66,7 +66,7 @@ describe('compile/layout/header', () => {
         assert.deepEqual(columnTitleGroupTopLevelProps, {
           name: 'column_title',
           type: 'group',
-          role: 'column-title',
+          role: 'column-title'
         });
       });
       const textMark = marks[0];
@@ -80,9 +80,9 @@ describe('compile/layout/header', () => {
           encode: {
             update: {
               text: {value: 'a'},
-              align: {value: 'center'},
-            },
-          },
+              align: {value: 'center'}
+            }
+          }
         });
       });
     });
@@ -94,7 +94,7 @@ describe('compile/layout/header', () => {
         assert.deepEqual(rowTitleGroupTopLevelProps, {
           name: 'row_title',
           type: 'group',
-          role: 'row-title',
+          role: 'row-title'
         });
       });
       const textMark = marks[0];
@@ -109,9 +109,9 @@ describe('compile/layout/header', () => {
             update: {
               text: {value: 'a'},
               angle: {value: 270},
-              align: {value: 'center'},
-            },
-          },
+              align: {value: 'center'}
+            }
+          }
         });
       });
     });

@@ -33,7 +33,7 @@ describe('channel', () => {
           'text',
           'label',
           'tooltip',
-          'href',
+          'href'
         ])
       );
     });

@@ -50,5 +50,5 @@ export {
   transform,
   type,
   util,
-  validate,
+  validate
 };

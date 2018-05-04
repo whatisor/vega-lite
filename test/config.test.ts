@@ -9,19 +9,19 @@ describe('config', () => {
       ...defaultConfig,
       mark: {
         ...defaultConfig.mark,
-        opacity: 0.3,
+        opacity: 0.3
       },
       bar: {
         opacity: 0.5,
-        ...defaultConfig.bar,
+        ...defaultConfig.bar
       },
       view: {
-        fill: '#eee',
+        fill: '#eee'
       },
       title: {
         color: 'red',
-        fontWeight: 'bold',
-      },
+        fontWeight: 'bold'
+      }
     };
     const copy = duplicate(config);
     const output = stripAndRedirectConfig(config);

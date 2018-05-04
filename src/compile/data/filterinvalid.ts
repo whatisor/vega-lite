@@ -67,7 +67,7 @@ export class FilterInvalidNode extends DataFlowNode {
     return filters.length > 0
       ? {
           type: 'filter',
-          expr: filters.join(' && '),
+          expr: filters.join(' && ')
         }
       : null;
   }

@@ -15,8 +15,8 @@ function getVgData(selection: any, x?: any, y?: any, mark?: Mark, enc?: any, tra
       x: {field: 'Horsepower', type: 'quantitative', ...x},
       y: {field: 'Miles-per-Gallon', type: 'quantitative', ...y},
       color: {field: 'Origin', type: 'nominal'},
-      ...enc,
-    },
+      ...enc
+    }
   });
   model.parse();
   optimizeDataflow(model.component.data);

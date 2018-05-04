@@ -20,7 +20,7 @@ function rangeFormula(model: ModelWithField, fieldDef: FieldDef<string>, channel
 
     return {
       formulaAs: vgField(fieldDef, {binSuffix: 'range'}),
-      formula: binFormatExpression(startField, endField, guide.format, config),
+      formula: binFormatExpression(startField, endField, guide.format, config)
     };
   }
   return {};
@@ -33,7 +33,7 @@ function binKey(bin: BinParams, field: string) {
 function getSignalsFromModel(model: Model, key: string) {
   return {
     signal: model.getName(`${key}_bins`),
-    extentSignal: model.getName(`${key}_extent`),
+    extentSignal: model.getName(`${key}_extent`)
   };
 }
 
@@ -59,7 +59,7 @@ function createBinComponent(t: FieldDef<string> | BinTransform, model: Model) {
     field: t.field,
     as: as,
     ...(signal ? {signal} : {}),
-    ...(extentSignal ? {extentSignal} : {}),
+    ...(extentSignal ? {extentSignal} : {})
   };
 
   return {key, binComponent};
@@ -94,7 +94,7 @@ export class BinNode extends DataFlowNode {
         binComponentIndex[key] = {
           ...binComponent,
           ...binComponentIndex[key],
-          ...rangeFormula(model, fieldDef, channel, model.config),
+          ...rangeFormula(model, fieldDef, channel, model.config)
         };
       }
       return binComponentIndex;
@@ -114,7 +114,7 @@ export class BinNode extends DataFlowNode {
   public static makeFromTransform(parent: DataFlowNode, t: BinTransform, model: Model) {
     const {key, binComponent} = createBinComponent(t, model);
     return new BinNode(parent, {
-      [key]: binComponent,
+      [key]: binComponent
     });
   }
 
@@ -153,14 +153,14 @@ export class BinNode extends DataFlowNode {
           field: bin.field,
           as: bin.as,
           signal: bin.signal,
-          ...bin.bin,
+          ...bin.bin
         };
 
         if (!bin.bin.extent && bin.extentSignal) {
           transform.push({
             type: 'extent',
             field: bin.field,
-            signal: bin.extentSignal,
+            signal: bin.extentSignal
           });
           binTrans.extent = {signal: bin.extentSignal};
         }
@@ -171,7 +171,7 @@ export class BinNode extends DataFlowNode {
           transform.push({
             type: 'formula',
             expr: bin.formula,
-            as: bin.formulaAs,
+            as: bin.formulaAs
           });
         }
 

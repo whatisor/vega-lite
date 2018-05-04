@@ -135,7 +135,7 @@ export function fieldDefMatchScaleType(specifiedType: ScaleType, fieldDef: Field
         ScaleType.QUANTIZE,
         ScaleType.LINEAR,
         ScaleType.SEQUENTIAL,
-        undefined,
+        undefined
       ],
       specifiedType
     );

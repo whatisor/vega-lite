@@ -129,7 +129,7 @@ export class FacetModel extends ModelWithField {
         title,
         facetFieldDef: fieldDef,
         // TODO: support adding label to footer as well
-        header: [this.makeHeaderComponent(channel, true)],
+        header: [this.makeHeaderComponent(channel, true)]
       };
     }
   }
@@ -140,7 +140,7 @@ export class FacetModel extends ModelWithField {
     return {
       labels,
       sizeSignal: this.child.component.layoutSize.get(sizeType) ? this.child.getSizeSignalRef(sizeType) : undefined,
-      axes: [],
+      axes: []
     };
   }
 
@@ -223,7 +223,7 @@ export class FacetModel extends ModelWithField {
       offset: 10,
       columns,
       bounds: 'full',
-      align: 'all',
+      align: 'all'
     };
   }
 
@@ -257,12 +257,12 @@ export class FacetModel extends ModelWithField {
                 update: {
                   // TODO(https://github.com/vega/vega-lite/issues/2759):
                   // Correct the signal for facet of concat of facet_column
-                  columns: {field: vgField(this.facet.column, {prefix: 'distinct'})},
-                },
-              },
+                  columns: {field: vgField(this.facet.column, {prefix: 'distinct'})}
+                }
+              }
             }
           : {}),
-        ...super.assembleGroup(signals),
+        ...super.assembleGroup(signals)
       };
     }
     return super.assembleGroup(signals);
@@ -321,7 +321,7 @@ export class FacetModel extends ModelWithField {
     if (cardinalityAggregateForChild) {
       aggregateMixins.aggregate = {
         ...aggregateMixins.aggregate,
-        ...cardinalityAggregateForChild,
+        ...cardinalityAggregateForChild
       };
     }
 
@@ -338,8 +338,8 @@ export class FacetModel extends ModelWithField {
           name: facetRoot.name,
           data: facetRoot.data,
           groupby: [].concat(hasRow ? [this.vgField(ROW)] : [], hasColumn ? [this.vgField(COLUMN)] : []),
-          ...aggregateMixins,
-        },
+          ...aggregateMixins
+        }
       },
       sort: {
         field: [].concat(
@@ -349,11 +349,11 @@ export class FacetModel extends ModelWithField {
         order: [].concat(
           hasRow ? [facet.row.sort || 'ascending'] : [],
           hasColumn ? [facet.column.sort || 'ascending'] : []
-        ),
+        )
       },
       ...(data.length > 0 ? {data: data} : {}),
       ...(layoutSizeEncodeEntry ? {encode: {update: layoutSizeEncodeEntry}} : {}),
-      ...child.assembleGroup(),
+      ...child.assembleGroup()
     };
 
     return [markGroup];

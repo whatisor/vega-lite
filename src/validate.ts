@@ -15,7 +15,7 @@ export const DEFAULT_REQUIRED_CHANNEL_MAP: RequiredChannelMap = {
   text: ['text'],
   line: ['x', 'y'],
   trail: ['x', 'y'],
-  area: ['x', 'y'],
+  area: ['x', 'y']
 };
 
 export interface SupportedChannelMap {
@@ -37,7 +37,7 @@ export const DEFAULT_SUPPORTED_CHANNEL_TYPE: SupportedChannelMap = {
   square: toSet(['row', 'column', 'x', 'y', 'color', 'fill', 'stroke', 'size', 'detail']),
   point: toSet(['row', 'column', 'x', 'y', 'color', 'fill', 'stroke', 'size', 'detail', 'shape']),
   geoshape: toSet(['row', 'column', 'color', 'fill', 'stroke', 'detail', 'shape']),
-  text: toSet(['row', 'column', 'size', 'color', 'fill', 'stroke', 'text']), // TODO(#724) revise
+  text: toSet(['row', 'column', 'size', 'color', 'fill', 'stroke', 'text']) // TODO(#724) revise
 };
 
 // TODO: consider if we should add validate method and

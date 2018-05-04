@@ -11,8 +11,8 @@ describe('Toggle Selection Transform', () => {
     encoding: {
       x: {field: 'Horsepower', type: 'quantitative'},
       y: {field: 'Miles_per_Gallon', type: 'quantitative'},
-      color: {field: 'Origin', type: 'nominal'},
-    },
+      color: {field: 'Origin', type: 'nominal'}
+    }
   });
 
   model.parseScale();
@@ -23,12 +23,12 @@ describe('Toggle Selection Transform', () => {
       resolve: 'union',
       on: 'mouseover',
       toggle: 'event.ctrlKey',
-      encodings: ['y', 'color'],
+      encodings: ['y', 'color']
     },
     three: {type: 'multi', toggle: false},
     four: {type: 'multi', toggle: null},
     five: {type: 'single'},
-    six: {type: 'interval'},
+    six: {type: 'interval'}
   }));
 
   it('identifies transform invocation', () => {
@@ -49,10 +49,10 @@ describe('Toggle Selection Transform', () => {
         on: [
           {
             events: selCmpts['one'].events,
-            update: 'event.shiftKey',
-          },
-        ],
-      },
+            update: 'event.shiftKey'
+          }
+        ]
+      }
     ]);
 
     const twoSg = toggle.signals(model, selCmpts['two'], []);
@@ -63,10 +63,10 @@ describe('Toggle Selection Transform', () => {
         on: [
           {
             events: selCmpts['two'].events,
-            update: 'event.ctrlKey',
-          },
-        ],
-      },
+            update: 'event.ctrlKey'
+          }
+        ]
+      }
     ]);
 
     const signals = selection.assembleUnitSelectionSignals(model, []);
@@ -90,19 +90,19 @@ describe('Toggle Selection Transform', () => {
         on: [
           {
             events: {signal: 'one_tuple'},
-            update: `modify(\"one_store\", ${oneExpr})`,
-          },
-        ],
+            update: `modify(\"one_store\", ${oneExpr})`
+          }
+        ]
       },
       {
         name: 'two_modify',
         on: [
           {
             events: {signal: 'two_tuple'},
-            update: `modify(\"two_store\", ${twoExpr})`,
-          },
-        ],
-      },
+            update: `modify(\"two_store\", ${twoExpr})`
+          }
+        ]
+      }
     ]);
   });
 });

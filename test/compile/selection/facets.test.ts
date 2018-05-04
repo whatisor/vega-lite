@@ -10,27 +10,27 @@ describe('Faceted Selections', () => {
     data: {url: 'data/anscombe.json'},
     facet: {
       column: {field: 'Series', type: 'nominal'},
-      row: {field: 'X', type: 'nominal', bin: true},
+      row: {field: 'X', type: 'nominal', bin: true}
     },
     spec: {
       layer: [
         {
           mark: 'rule',
-          encoding: {y: {value: 10}},
+          encoding: {y: {value: 10}}
         },
         {
           selection: {
             one: {type: 'single'},
             twp: {type: 'multi'},
-            three: {type: 'interval'},
+            three: {type: 'interval'}
           },
           mark: 'rule',
           encoding: {
-            x: {value: 10},
-          },
-        },
-      ],
-    },
+            x: {value: 10}
+          }
+        }
+      ]
+    }
   });
 
   model.parse();
@@ -44,10 +44,10 @@ describe('Faceted Selections', () => {
         on: [
           {
             events: [{source: 'scope', type: 'mousemove'}],
-            update: 'isTuple(facet) ? facet : group("cell").datum',
-          },
-        ],
-      },
+            update: 'isTuple(facet) ? facet : group("cell").datum'
+          }
+        ]
+      }
     ]);
   });
 

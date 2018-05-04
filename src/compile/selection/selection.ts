@@ -98,7 +98,7 @@ export function parseUnitSelection(model: UnitModel, selDefs: Dict<SelectionDef>
     const selCmpt = (selCmpts[name] = {
       ...selDef,
       name: name,
-      events: isString(selDef.on) ? parseSelector(selDef.on, 'scope') : selDef.on,
+      events: isString(selDef.on) ? parseSelector(selDef.on, 'scope') : selDef.on
     } as SelectionComponent);
 
     forEachTransform(selCmpt, txCompiler => {
@@ -132,9 +132,9 @@ export function assembleUnitSelectionSignals(model: UnitModel, signals: any[]) {
       on: [
         {
           events: {signal: name + TUPLE},
-          update: `modify(${stringValue(selCmpt.name + STORE)}, ${modifyExpr})`,
-        },
-      ],
+          update: `modify(${stringValue(selCmpt.name + STORE)}, ${modifyExpr})`
+        }
+      ]
     });
   });
 
@@ -147,9 +147,9 @@ export function assembleUnitSelectionSignals(model: UnitModel, signals: any[]) {
       on: [
         {
           events: parseSelector('mousemove', 'scope'),
-          update: `isTuple(facet) ? facet : group(${name}).datum`,
-        },
-      ],
+          update: `isTuple(facet) ? facet : group(${name}).datum`
+        }
+      ]
     });
   }
 
@@ -178,7 +178,7 @@ export function assembleTopLevelSignals(model: UnitModel, signals: any[]) {
       signals.unshift({
         name: 'unit',
         value: {},
-        on: [{events: 'mousemove', update: 'isTuple(group()) ? group() : unit'}],
+        on: [{events: 'mousemove', update: 'isTuple(group()) ? group() : unit'}]
       });
     }
   }
@@ -286,7 +286,7 @@ export function selectionScaleDomain(model: Model, domainRaw: VgSignalRef): VgSi
         compiler(selCmpt.type).scaleDomain +
         `(${stringValue(name + STORE)}, ${stringValue(selDomain.encoding || null)}, ` +
         stringValue(selDomain.field || null) +
-        (selCmpt.resolve === 'global' ? ')' : `, ${stringValue(selCmpt.resolve)})`),
+        (selCmpt.resolve === 'global' ? ')' : `, ${stringValue(selCmpt.resolve)})`)
     };
   }
 

@@ -30,7 +30,7 @@ import {
   assembleUnitSelectionData,
   assembleUnitSelectionMarks,
   assembleUnitSelectionSignals,
-  parseUnitSelection,
+  parseUnitSelection
 } from './selection/selection';
 
 /**
@@ -67,7 +67,7 @@ export class UnitModel extends ModelWithField {
     this.initSize({
       ...parentGivenSize,
       ...(spec.width ? {width: spec.width} : {}),
-      ...(spec.height ? {height: spec.height} : {}),
+      ...(spec.height ? {height: spec.height} : {})
     });
     const mark = isMarkDef(spec.mark) ? spec.mark.type : spec.mark;
 
@@ -156,7 +156,7 @@ export class UnitModel extends ModelWithField {
         // We no longer support false in the schema, but we keep false here for backward compatibility.
         if (axisSpec !== null && axisSpec !== false) {
           _axis[channel] = {
-            ...axisSpec,
+            ...axisSpec
           };
         }
       }
@@ -239,7 +239,7 @@ export class UnitModel extends ModelWithField {
   public assembleLayoutSize(): VgEncodeEntry {
     return {
       width: this.getSizeSignalRef('width'),
-      height: this.getSizeSignalRef('height'),
+      height: this.getSizeSignalRef('height')
     };
   }
 
@@ -253,7 +253,7 @@ export class UnitModel extends ModelWithField {
 
     spec = {
       mark: this.markDef,
-      encoding: encoding,
+      encoding: encoding
     };
 
     if (!excludeConfig) {

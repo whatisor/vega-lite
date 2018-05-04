@@ -29,7 +29,7 @@ const OPPOSITE_ORIENT: {[K in AxisOrient]: AxisOrient} = {
   bottom: 'top',
   top: 'bottom',
   left: 'right',
-  right: 'left',
+  right: 'left'
 };
 
 export function parseLayerAxis(model: LayerModel) {
@@ -144,7 +144,7 @@ function mergeAxisComponent(merged: AxisComponent, child: AxisComponent): AxisCo
           case 'gridScale':
             return {
               explicit: v1.explicit, // keep the old explicit
-              value: v1.value || v2.value,
+              value: v1.value || v2.value
             };
         }
         return defaultTieBreaker<VgAxis, any>(v1, v2, prop, 'axis');

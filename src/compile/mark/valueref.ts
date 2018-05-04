@@ -13,7 +13,7 @@ import {
   isFieldDef,
   isValueDef,
   TextFieldDef,
-  vgField,
+  vgField
 } from '../../fielddef';
 import * as log from '../../log';
 import {Mark} from '../../mark';
@@ -85,13 +85,13 @@ export function fieldRef(
 ): VgValueRef {
   const ref: VgValueRef = {
     ...(scaleName ? {scale: scaleName} : {}),
-    field: vgField(fieldDef, opt),
+    field: vgField(fieldDef, opt)
   };
 
   if (mixins) {
     return {
       ...ref,
-      ...mixins,
+      ...mixins
     };
   }
   return ref;
@@ -100,7 +100,7 @@ export function fieldRef(
 export function bandRef(scaleName: string, band: number | boolean = true): VgValueRef {
   return {
     scale: scaleName,
-    band: band,
+    band: band
   };
 }
 
@@ -114,7 +114,7 @@ function binMidSignal(fieldDef: FieldDef<string>, scaleName: string) {
       `scale("${scaleName}", ${vgField(fieldDef, {expr: 'datum'})})` +
       ` + ` +
       `scale("${scaleName}", ${vgField(fieldDef, {binSuffix: 'end', expr: 'datum'})})` +
-      `)/2`,
+      `)/2`
   };
 }
 
@@ -223,7 +223,7 @@ export function getDefaultRef(
         if (domainDefinitelyIncludeZero(scale)) {
           return {
             scale: scaleName,
-            value: 0,
+            value: 0
           };
         }
         if (mark === 'bar' || mark === 'area') {

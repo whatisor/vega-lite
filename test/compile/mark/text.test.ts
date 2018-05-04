@@ -15,10 +15,10 @@ describe('Mark: Text', () => {
       mark: 'text',
       encoding: {
         x: {aggregate: 'sum', field: 'a', type: 'quantitative'},
-        color: {field: 'b', type: 'ordinal'},
+        color: {field: 'b', type: 'ordinal'}
       },
       data: {url: 'data/barley.json'},
-      config: {stack: 'zero'},
+      config: {stack: 'zero'}
     });
 
     const props = text.encodeEntry(model);
@@ -35,10 +35,10 @@ describe('Mark: Text', () => {
       mark: 'text',
       encoding: {
         y: {aggregate: 'sum', field: 'a', type: 'quantitative'},
-        color: {field: 'b', type: 'ordinal'},
+        color: {field: 'b', type: 'ordinal'}
       },
       data: {url: 'data/barley.json'},
-      config: {stack: 'zero'},
+      config: {stack: 'zero'}
     });
 
     const props = text.encodeEntry(model);
@@ -52,8 +52,8 @@ describe('Mark: Text', () => {
     const spec: NormalizedUnitSpec = {
       mark: 'text',
       encoding: {
-        text: {field: 'foo', type: 'quantitative', format: 'd'},
-      },
+        text: {field: 'foo', type: 'quantitative', format: 'd'}
+      }
     };
     const model = parseUnitModelWithScaleAndLayoutSize(spec);
     const props = text.encodeEntry(model);
@@ -67,15 +67,15 @@ describe('Mark: Text', () => {
     const spec: NormalizedUnitSpec = {
       mark: 'text',
       encoding: {
-        text: {bin: true, field: 'foo', type: 'quantitative', format: 'd'},
-      },
+        text: {bin: true, field: 'foo', type: 'quantitative', format: 'd'}
+      }
     };
     const model = parseUnitModelWithScaleAndLayoutSize(spec);
     const props = text.encodeEntry(model);
 
     it('should output correct bin range', () => {
       assert.deepEqual(props.text, {
-        signal: `datum["bin_maxbins_10_foo"] === null || isNaN(datum["bin_maxbins_10_foo"]) ? "null" : format(datum["bin_maxbins_10_foo"], "d") + " - " + format(datum["bin_maxbins_10_foo_end"], "d")`,
+        signal: `datum["bin_maxbins_10_foo"] === null || isNaN(datum["bin_maxbins_10_foo"]) ? "null" : format(datum["bin_maxbins_10_foo"], "d") + " - " + format(datum["bin_maxbins_10_foo_end"], "d")`
       });
     });
   });
@@ -84,8 +84,8 @@ describe('Mark: Text', () => {
     const spec: NormalizedUnitSpec = {
       mark: 'text',
       encoding: {
-        text: {field: 'foo', type: 'temporal'},
-      },
+        text: {field: 'foo', type: 'temporal'}
+      }
     };
     const model = parseUnitModelWithScaleAndLayoutSize(spec);
     const props = text.encodeEntry(model);
@@ -101,9 +101,9 @@ describe('Mark: Text', () => {
       encoding: {
         x: {field: 'Acceleration', type: 'ordinal'},
         y: {field: 'Displacement', type: 'quantitative'},
-        text: {field: 'Origin', type: 'ordinal'},
+        text: {field: 'Origin', type: 'ordinal'}
       },
-      data: {url: 'data/cars.json'},
+      data: {url: 'data/cars.json'}
     };
     const model = parseUnitModelWithScaleAndLayoutSize(spec);
     const props = text.encodeEntry(model);
@@ -128,9 +128,9 @@ describe('Mark: Text', () => {
     const spec: NormalizedUnitSpec = {
       mark: {type: 'text', size: 5},
       encoding: {
-        text: {field: 'Origin', type: 'ordinal'},
+        text: {field: 'Origin', type: 'ordinal'}
       },
-      data: {url: 'data/cars.json'},
+      data: {url: 'data/cars.json'}
     };
     const model = parseUnitModelWithScaleAndLayoutSize(spec);
     const props = text.encodeEntry(model);
@@ -148,9 +148,9 @@ describe('Mark: Text', () => {
         column: {field: 'Cylinders', type: 'ordinal'},
         text: {field: 'Acceleration', type: 'quantitative', aggregate: 'mean'},
         color: {field: 'Acceleration', type: 'quantitative', aggregate: 'mean'},
-        size: {field: 'Acceleration', type: 'quantitative', aggregate: 'mean'},
+        size: {field: 'Acceleration', type: 'quantitative', aggregate: 'mean'}
       },
-      data: {url: 'data/cars.json'},
+      data: {url: 'data/cars.json'}
     };
     const model = parseModelWithScale(spec);
     model.parseLayoutSize();
@@ -165,27 +165,27 @@ describe('Mark: Text', () => {
     it('should center on y', () => {
       assert.deepEqual(props.y, {
         mult: 0.5,
-        signal: 'child_height',
+        signal: 'child_height'
       });
     });
 
     it('should map text to expression', () => {
       assert.deepEqual(props.text, {
-        signal: `format(datum["mean_Acceleration"], "")`,
+        signal: `format(datum["mean_Acceleration"], "")`
       });
     });
 
     it('should map color to fill', () => {
       assert.deepEqual(props.fill, {
         scale: 'color',
-        field: 'mean_Acceleration',
+        field: 'mean_Acceleration'
       });
     });
 
     it('should map size to fontSize', () => {
       assert.deepEqual(props.fontSize, {
         scale: 'size',
-        field: 'mean_Acceleration',
+        field: 'mean_Acceleration'
       });
     });
   });

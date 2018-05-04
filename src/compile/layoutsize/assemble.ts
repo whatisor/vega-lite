@@ -41,8 +41,8 @@ export function sizeSignals(model: Model, sizeType: 'width' | 'height'): VgSigna
           stepSignal(scaleName, range),
           {
             name,
-            update: sizeExpr(scaleName, scaleComponent, `domain('${scaleName}').length`),
-          },
+            update: sizeExpr(scaleName, scaleComponent, `domain('${scaleName}').length`)
+          }
         ];
       }
     }
@@ -52,8 +52,8 @@ export function sizeSignals(model: Model, sizeType: 'width' | 'height'): VgSigna
     return [
       {
         name,
-        value: size,
-      },
+        value: size
+      }
     ];
   }
 }
@@ -61,7 +61,7 @@ export function sizeSignals(model: Model, sizeType: 'width' | 'height'): VgSigna
 function stepSignal(scaleName: string, range: VgRangeStep): VgSignal {
   return {
     name: scaleName + '_step',
-    value: range.step,
+    value: range.step
   };
 }
 

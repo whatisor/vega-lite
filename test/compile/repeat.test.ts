@@ -12,14 +12,14 @@ describe('Repeat', () => {
       const resolved = replaceRepeaterInEncoding(
         {
           x: {field: {repeat: 'row'}, type: 'quantitative'},
-          y: {field: 'bar', type: 'quantitative'},
+          y: {field: 'bar', type: 'quantitative'}
         },
         {row: 'foo'}
       );
 
       assert.deepEqual<Encoding<string>>(resolved, {
         x: {field: 'foo', type: 'quantitative'},
-        y: {field: 'bar', type: 'quantitative'},
+        y: {field: 'bar', type: 'quantitative'}
       });
     });
 
@@ -29,14 +29,14 @@ describe('Repeat', () => {
         const resolved = replaceRepeaterInEncoding(
           {
             x: {field: {repeat: 'row'}, type: 'quantitative'},
-            y: {field: 'bar', type: 'quantitative'},
+            y: {field: 'bar', type: 'quantitative'}
           },
           {column: 'foo'}
         );
 
         assert.equal(localLogger.warns[0], log.message.noSuchRepeatedValue('row'));
         assert.deepEqual(resolved, {
-          y: {field: 'bar', type: 'quantitative'},
+          y: {field: 'bar', type: 'quantitative'}
         });
       })
     );
@@ -44,26 +44,26 @@ describe('Repeat', () => {
     it('should support arrays fo field defs', () => {
       const resolved = replaceRepeaterInEncoding(
         {
-          detail: [{field: {repeat: 'row'}, type: 'quantitative'}, {field: 'bar', type: 'quantitative'}],
+          detail: [{field: {repeat: 'row'}, type: 'quantitative'}, {field: 'bar', type: 'quantitative'}]
         },
         {row: 'foo'}
       );
 
       assert.deepEqual<Encoding<string>>(resolved, {
-        detail: [{field: 'foo', type: 'quantitative'}, {field: 'bar', type: 'quantitative'}],
+        detail: [{field: 'foo', type: 'quantitative'}, {field: 'bar', type: 'quantitative'}]
       });
     });
 
     it('should replace fields in sort', () => {
       const resolved = replaceRepeaterInEncoding(
         {
-          x: {field: 'bar', type: 'quantitative', sort: {field: {repeat: 'row'}, op: 'min'}},
+          x: {field: 'bar', type: 'quantitative', sort: {field: {repeat: 'row'}, op: 'min'}}
         },
         {row: 'foo'}
       );
 
       assert.deepEqual<Encoding<string>>(resolved, {
-        x: {field: 'bar', type: 'quantitative', sort: {field: 'foo', op: 'min'}},
+        x: {field: 'bar', type: 'quantitative', sort: {field: 'foo', op: 'min'}}
       });
     });
 
@@ -72,8 +72,8 @@ describe('Repeat', () => {
         {
           color: {
             condition: {selection: 'test', field: {repeat: 'row'}, type: 'quantitative'},
-            value: 'red',
-          },
+            value: 'red'
+          }
         },
         {row: 'foo'}
       );
@@ -81,8 +81,8 @@ describe('Repeat', () => {
       assert.deepEqual<Encoding<string>>(resolved, {
         color: {
           condition: {selection: 'test', field: 'foo', type: 'quantitative'},
-          value: 'red',
-        },
+          value: 'red'
+        }
       });
     });
 
@@ -92,8 +92,8 @@ describe('Repeat', () => {
           color: {
             condition: {selection: 'test', value: 'red'},
             field: {repeat: 'row'},
-            type: 'quantitative',
-          },
+            type: 'quantitative'
+          }
         },
         {row: 'foo'}
       );
@@ -102,8 +102,8 @@ describe('Repeat', () => {
         color: {
           condition: {selection: 'test', value: 'red'},
           field: 'foo',
-          type: 'quantitative',
-        },
+          type: 'quantitative'
+        }
       });
     });
 
@@ -114,15 +114,15 @@ describe('Repeat', () => {
           {
             color: {
               condition: {selection: 'test', field: {repeat: 'row'}, type: 'quantitative'},
-              value: 'red',
-            },
+              value: 'red'
+            }
           },
           {column: 'foo'}
         );
 
         assert.equal(localLogger.warns[0], log.message.noSuchRepeatedValue('row'));
         assert.deepEqual(resolved, {
-          color: {value: 'red'},
+          color: {value: 'red'}
         });
       })
     );
@@ -135,8 +135,8 @@ describe('Repeat', () => {
             color: {
               condition: {selection: 'test', value: 'red'},
               field: {repeat: 'row'},
-              type: 'quantitative',
-            },
+              type: 'quantitative'
+            }
           },
           {column: 'foo'}
         );
@@ -144,8 +144,8 @@ describe('Repeat', () => {
         assert.equal(localLogger.warns[0], log.message.noSuchRepeatedValue('row'));
         assert.deepEqual(resolved, {
           color: {
-            condition: {selection: 'test', value: 'red'},
-          },
+            condition: {selection: 'test', value: 'red'}
+          }
         });
       })
     );
@@ -155,14 +155,14 @@ describe('Repeat', () => {
     it('should create a model per repeated value', () => {
       const model = parseRepeatModel({
         repeat: {
-          row: ['Acceleration', 'Horsepower'],
+          row: ['Acceleration', 'Horsepower']
         },
         spec: {
           mark: 'point',
           encoding: {
-            x: {field: {repeat: 'row'}, type: 'quantitative'},
-          },
-        },
+            x: {field: {repeat: 'row'}, type: 'quantitative'}
+          }
+        }
       });
 
       assert.equal(model.children.length, 2);
@@ -172,15 +172,15 @@ describe('Repeat', () => {
       const model = parseRepeatModel({
         repeat: {
           row: ['Acceleration', 'Horsepower', 'Displacement'],
-          column: ['Origin', 'NumCylinders'],
+          column: ['Origin', 'NumCylinders']
         },
         spec: {
           mark: 'point',
           encoding: {
             x: {field: {repeat: 'row'}, type: 'quantitative'},
-            y: {field: {repeat: 'column'}, type: 'ordinal'},
-          },
-        },
+            y: {field: {repeat: 'column'}, type: 'ordinal'}
+          }
+        }
       });
 
       assert.equal(model.children.length, 6);
@@ -190,16 +190,16 @@ describe('Repeat', () => {
       const model = parseRepeatModel({
         repeat: {
           row: ['foo', 'bar'],
-          column: ['foo', 'bar'],
+          column: ['foo', 'bar']
         },
         spec: {
           mark: 'point',
           encoding: {
             x: {field: {repeat: 'row'}, type: 'quantitative'},
             y: {field: {repeat: 'column'}, type: 'ordinal'},
-            color: {field: 'baz', type: 'nominal'},
-          },
-        },
+            color: {field: 'baz', type: 'nominal'}
+          }
+        }
       });
 
       model.parseScale();
@@ -221,13 +221,13 @@ describe('Repeat', () => {
           repeat: {},
           spec: {
             mark: 'point',
-            encoding: {},
+            encoding: {}
           },
           resolve: {
             axis: {
-              x: 'shared',
-            },
-          },
+              x: 'shared'
+            }
+          }
         });
         assert.equal(localLogger.warns[0], log.message.REPEAT_CANNOT_SHARE_AXIS);
       })

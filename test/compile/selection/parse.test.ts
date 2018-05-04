@@ -12,15 +12,15 @@ describe('Selection', () => {
     encoding: {
       x: {field: 'Horsepower', type: 'quantitative'},
       y: {field: 'Miles_per_Gallon', type: 'quantitative'},
-      color: {field: 'Origin', type: 'nominal'},
-    },
+      color: {field: 'Origin', type: 'nominal'}
+    }
   });
 
   it('parses default selection definitions', () => {
     const component = selection.parseUnitSelection(model, {
       one: {type: 'single'},
       two: {type: 'multi'},
-      three: {type: 'interval'},
+      three: {type: 'interval'}
     });
 
     assert.sameMembers(keys(component), ['one', 'two', 'three']);
@@ -42,7 +42,7 @@ describe('Selection', () => {
     assert.equal(component.three.zoom, 'wheel!');
     assert.sameDeepMembers<selection.ProjectComponent>(component['three'].project, [
       {field: 'Horsepower', channel: 'x'},
-      {field: 'Miles_per_Gallon', channel: 'y'},
+      {field: 'Miles_per_Gallon', channel: 'y'}
     ]);
     assert.sameDeepMembers(
       component['three'].events,
@@ -55,21 +55,21 @@ describe('Selection', () => {
       one: {
         type: 'single',
         on: 'dblclick',
-        fields: ['Cylinders'],
+        fields: ['Cylinders']
       },
       two: {
         type: 'multi',
         on: 'mouseover',
         toggle: 'event.ctrlKey',
-        encodings: ['color'],
+        encodings: ['color']
       },
       three: {
         type: 'interval',
         on: '[mousedown[!event.shiftKey], mouseup] > mousemove',
         encodings: ['y'],
         translate: false,
-        zoom: 'wheel[event.altKey]',
-      },
+        zoom: 'wheel[event.altKey]'
+      }
     });
 
     assert.sameMembers(keys(component), ['one', 'two', 'three']);
@@ -90,7 +90,7 @@ describe('Selection', () => {
     assert.equal(component.three.translate, false);
     assert.equal(component.three.zoom, 'wheel[event.altKey]');
     assert.sameDeepMembers<selection.ProjectComponent>(component['three'].project, [
-      {field: 'Miles_per_Gallon', channel: 'y'},
+      {field: 'Miles_per_Gallon', channel: 'y'}
     ]);
     assert.sameDeepMembers(
       component['three'].events,
@@ -105,14 +105,14 @@ describe('Selection', () => {
       interval: {
         on: '[mousedown[!event.shiftKey], mouseup] > mousemove',
         encodings: ['y'],
-        zoom: 'wheel[event.altKey]',
-      },
+        zoom: 'wheel[event.altKey]'
+      }
     };
 
     const component = selection.parseUnitSelection(model, {
       one: {type: 'single'},
       two: {type: 'multi'},
-      three: {type: 'interval'},
+      three: {type: 'interval'}
     });
 
     assert.sameMembers(keys(component), ['one', 'two', 'three']);
@@ -133,7 +133,7 @@ describe('Selection', () => {
     assert(!component.three.translate);
     assert.equal(component.three.zoom, 'wheel[event.altKey]');
     assert.sameDeepMembers<selection.ProjectComponent>(component['three'].project, [
-      {field: 'Miles_per_Gallon', channel: 'y'},
+      {field: 'Miles_per_Gallon', channel: 'y'}
     ]);
     assert.sameDeepMembers(
       component['three'].events,
