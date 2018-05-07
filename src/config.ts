@@ -64,6 +64,27 @@ export interface ViewConfig {
   stroke?: string;
 
   /**
+   * The stroke line join method. One of miter (default), round or bevel
+   *
+   * __Default value:__ `"miter"`
+   */
+  strokeJoin?: 'bevel' | 'miter' | 'round';
+
+  /**
+   * The stroke cap for line ending style. One of `"butt"`, `"round"`, or `"square"`.
+   *
+   * __Default value:__ `"butt"`
+   */
+  strokeCap?: 'butt' | 'round' | 'square';
+
+  /**
+   * The miter limit at which to bevel a line join.
+   *
+   * __Default value:__ (none)
+   */
+  strokeMiterLimit?: number;
+
+  /**
    * The stroke opacity (value between [0,1]).
    *
    * __Default value:__ (none)

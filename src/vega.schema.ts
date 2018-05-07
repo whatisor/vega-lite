@@ -267,7 +267,7 @@ export interface VgSignal {
   push?: string;
 }
 
-export type VgEncodeChannel = 'x'|'x2'|'xc'|'width'|'y'|'y2'|'yc'|'height'|'opacity'|'fill'|'fillOpacity'|'stroke'|'strokeWidth'|'strokeCap'|'strokeOpacity'|'strokeDash'|'strokeDashOffset'|'cursor'|'clip'|'size'|'shape'|'path'|'innerRadius'|'outerRadius'|'startAngle'|'endAngle'|'interpolate'|'tension'|'orient'|'url'|'align'|'baseline'|'text'|'dir'|'ellipsis'|'limit'|'dx'|'dy'|'radius'|'theta'|'angle'|'font'|'fontSize'|'fontWeight'|'fontStyle'|'tooltip'|'href'|'cursor'|'defined';
+export type VgEncodeChannel = 'x'|'x2'|'xc'|'width'|'y'|'y2'|'yc'|'height'|'opacity'|'fill'|'fillOpacity'|'stroke'|'strokeWidth'|'strokeCap'|'strokeOpacity'|'strokeDash'|'strokeDashOffset'|'strokeJoin'|'strokeMiterLimit'|'stroke'|'cursor'|'clip'|'size'|'shape'|'path'|'innerRadius'|'outerRadius'|'startAngle'|'endAngle'|'interpolate'|'tension'|'orient'|'url'|'align'|'baseline'|'text'|'dir'|'ellipsis'|'limit'|'dx'|'dy'|'radius'|'theta'|'angle'|'font'|'fontSize'|'fontWeight'|'fontStyle'|'tooltip'|'href'|'cursor'|'defined';
 export type VgEncodeEntry = {
   [k in VgEncodeChannel]?: VgValueRef | (VgValueRef & {test?: string})[];
 };
@@ -1019,9 +1019,23 @@ export interface VgMarkConfig {
   strokeWidth?: number;
 
   /**
+   * The stroke line join method. One of miter (default), round or bevel
+   *
+   * __Default value:__ `"miter"`
+   */
+  strokeJoin?: 'bevel' | 'miter' | 'round';
+
+  /**
+   * The miter limit at which to bevel a line join.
+   *
+   * __Default value:__ (none)
+   */
+  strokeMiterLimit?: number;
+
+  /**
    * The stroke cap for line ending style. One of `"butt"`, `"round"`, or `"square"`.
    *
-   * __Default value:__ `"square"`
+   * __Default value:__ `"butt"`
    */
   strokeCap?: 'butt' | 'round' | 'square';
 
@@ -1189,6 +1203,8 @@ const VG_MARK_CONFIG_INDEX: Flag<keyof VgMarkConfig> = {
   strokeOpacity: 1,
   strokeDash: 1,
   strokeDashOffset: 1,
+  strokeJoin: 1,
+  strokeMiterLimit: 1,
   size: 1,
   shape: 1,
   interpolate: 1,

@@ -115,4 +115,4 @@ The `width` and `height` properties of the `view` configuration determine the wi
 
 ### View Styles
 
-{% include table.html props="clip,fill,fillOpacity,stroke,strokeOpacity,strokeWidth,strokeDash,strokeDashOffset" source="ViewConfig" %}
+{% include table.html props="clip,fill,fillOpacity,stroke,strokeOpacity,strokeWidth,strokeDash,strokeDashOffset,strokeJoin,strokeCap,strokeMiterLimit" source="ViewConfig" %}

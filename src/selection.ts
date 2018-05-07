@@ -123,6 +123,27 @@ export interface BrushConfig {
    * The offset (in pixels) with which to begin drawing the stroke dash array.
    */
   strokeDashOffset?: number;
+
+  /**
+   * The stroke line join method. One of miter (default), round or bevel
+   *
+   * __Default value:__ `"miter"`
+   */
+  strokeJoin?: 'bevel' | 'miter' | 'round';
+
+  /**
+   * The miter limit at which to bevel a line join.
+   *
+   * __Default value:__ (none)
+   */
+  strokeMiterLimit?: number;
+
+  /**
+   * The stroke cap for line ending style. One of `"butt"`, `"round"`, or `"square"`.
+   *
+   * __Default value:__ `"butt"`
+   */
+  strokeCap?: 'butt' | 'round' | 'square';
 }
 
 export interface IntervalSelectionConfig extends BaseSelectionDef {

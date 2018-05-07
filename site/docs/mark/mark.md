@@ -80,7 +80,7 @@ Note: If [mark property encoding channels](encoding.html#mark-prop) are specifie
 {:#stroke}
 ### Stroke Style Properties
 
-{% include table.html props="strokeWidth,strokeDash,strokeDashOffset" source="MarkDef" %}
+{% include table.html props="strokeWidth,strokeDash,strokeDashOffset, strokeJoin, strokeCap, strokeMiterLimit" source="MarkDef" %}
 
 {:#hyperlink}
 ### Hyperlink Properties
