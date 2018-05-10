@@ -115,6 +115,13 @@ export interface ViewConfig {
    *
    */
   strokeDashOffset?: number;
+
+  /**
+   *  The radius in pixels of rounded corners for the group background
+   *
+   * __Default value:__ (0)
+   */
+  cornerRadius?: number;
 }
 
 export const defaultViewConfig: ViewConfig = {
