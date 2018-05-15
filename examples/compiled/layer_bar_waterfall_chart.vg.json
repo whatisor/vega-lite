@@ -1,0 +1,302 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+    "autosize": "pad",
+    "padding": 5,
+    "height": 200,
+    "style": "cell",
+    "data": [
+        {
+            "name": "source_0",
+            "values": [
+                {
+                    "label": "Start",
+                    "amount": 4000,
+                    "order": 1
+                },
+                {
+                    "label": "Jan",
+                    "amount": 1707,
+                    "order": 2
+                },
+                {
+                    "label": "Feb",
+                    "amount": -1425,
+                    "order": 3
+                },
+                {
+                    "label": "Mar",
+                    "amount": -1030,
+                    "order": 4
+                },
+                {
+                    "label": "Apr",
+                    "amount": 1812,
+                    "order": 5
+                },
+                {
+                    "label": "May",
+                    "amount": -1067,
+                    "order": 6
+                },
+                {
+                    "label": "Jun",
+                    "amount": -1481,
+                    "order": 7
+                },
+                {
+                    "label": "Jul",
+                    "amount": 1228,
+                    "order": 8
+                },
+                {
+                    "label": "Aug",
+                    "amount": 1176,
+                    "order": 9
+                },
+                {
+                    "label": "Sep",
+                    "amount": 1146,
+                    "order": 10
+                },
+                {
+                    "label": "Oct",
+                    "amount": 1205,
+                    "order": 11
+                },
+                {
+                    "label": "Nov",
+                    "amount": -1388,
+                    "order": 12
+                },
+                {
+                    "label": "Dec",
+                    "amount": 1492,
+                    "order": 13
+                },
+                {
+                    "label": "End",
+                    "amount": 0,
+                    "order": 14
+                }
+            ]
+        },
+        {
+            "name": "data_0",
+            "source": "source_0",
+            "transform": [
+                {
+                    "type": "window",
+                    "params": [
+                        null
+                    ],
+                    "as": [
+                        "sum"
+                    ],
+                    "ops": [
+                        "sum"
+                    ],
+                    "fields": [
+                        "amount"
+                    ],
+                    "sort": {
+                        "field": [
+                            "order"
+                        ],
+                        "order": [
+                            "ascending"
+                        ]
+                    }
+                },
+                {
+                    "type": "formula",
+                    "expr": "datum.label == 'End' ? 0 : datum.sum - datum.amount",
+                    "as": "last"
+                },
+                {
+                    "type": "formula",
+                    "expr": "datum.label == 'End' ? datum.sum : datum.amount",
+                    "as": "amount"
+                },
+                {
+                    "type": "formula",
+                    "expr": "datum.label == 'End' || datum.label == 'Start' ? 'Start/End' : datum.amount >= 0 ? 'increasing' : 'decreasing'",
+                    "as": "color"
+                },
+                {
+                    "type": "formula",
+                    "expr": "datum.sum - 100",
+                    "as": "bottomline"
+                },
+                {
+                    "type": "filter",
+                    "expr": "datum[\"last\"] !== null && !isNaN(datum[\"last\"])"
+                }
+            ]
+        }
+    ],
+    "signals": [
+        {
+            "name": "x_step",
+            "value": 21
+        },
+        {
+            "name": "width",
+            "update": "bandspace(domain('x').length, 0.1, 0.05) * x_step"
+        }
+    ],
+    "marks": [
+        {
+            "name": "layer_0_marks",
+            "type": "rect",
+            "style": [
+                "bar"
+            ],
+            "from": {
+                "data": "data_0"
+            },
+            "encode": {
+                "update": {
+                    "fill": {
+                        "scale": "color",
+                        "field": "color"
+                    },
+                    "x": {
+                        "scale": "x",
+                        "field": "label"
+                    },
+                    "width": {
+                        "scale": "x",
+                        "band": true
+                    },
+                    "y": {
+                        "scale": "y",
+                        "field": "last"
+                    },
+                    "y2": {
+                        "scale": "y",
+                        "field": "sum"
+                    }
+                }
+            }
+        }
+    ],
+    "scales": [
+        {
+            "name": "x",
+            "type": "band",
+            "domain": {
+                "data": "data_0",
+                "field": "label"
+            },
+            "range": {
+                "step": {
+                    "signal": "x_step"
+                }
+            },
+            "paddingInner": 0.1,
+            "paddingOuter": 0.05
+        },
+        {
+            "name": "y",
+            "type": "linear",
+            "domain": {
+                "data": "data_0",
+                "fields": [
+                    "last",
+                    "sum"
+                ]
+            },
+            "range": [
+                {
+                    "signal": "height"
+                },
+                0
+            ],
+            "nice": true,
+            "zero": true
+        },
+        {
+            "name": "color",
+            "type": "ordinal",
+            "domain": {
+                "data": "data_0",
+                "field": "color",
+                "sort": true
+            },
+            "range": [
+                "#f7e0b6",
+                "#f78a64",
+                "#93c4aa"
+            ]
+        }
+    ],
+    "axes": [
+        {
+            "scale": "x",
+            "orient": "bottom",
+            "title": "months",
+            "labelOverlap": true,
+            "encode": {
+                "labels": {
+                    "update": {
+                        "angle": {
+                            "value": 270
+                        },
+                        "align": {
+                            "value": "right"
+                        },
+                        "baseline": {
+                            "value": "middle"
+                        }
+                    }
+                }
+            },
+            "zindex": 1
+        },
+        {
+            "scale": "y",
+            "orient": "left",
+            "title": "amount",
+            "labelOverlap": true,
+            "tickCount": {
+                "signal": "ceil(height/40)"
+            },
+            "zindex": 1
+        },
+        {
+            "scale": "y",
+            "orient": "left",
+            "grid": true,
+            "tickCount": {
+                "signal": "ceil(height/40)"
+            },
+            "gridScale": "x",
+            "domain": false,
+            "labels": false,
+            "maxExtent": 0,
+            "minExtent": 0,
+            "ticks": false,
+            "zindex": 0
+        }
+    ],
+    "legends": [
+        {
+            "fill": "color",
+            "title": "color",
+            "encode": {
+                "symbols": {
+                    "update": {
+                        "shape": {
+                            "value": "square"
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "config": {
+        "axisY": {
+            "minExtent": 30
+        }
+    }
+}
