@@ -215,16 +215,26 @@ export function extractTransformsFromEncoding(oldEncoding: Encoding<string>) {
         });
       } else {
         // Add bin or timeUnit transform if applicable
-        const bin = channelDef.bin;
-        if (bin) {
-          const {field} = channelDef;
+        if (channelDef.bin) {
+          const {bin, field} = channelDef;
           bins.push({bin, field, as: transformedField});
+          encoding[channel] = {
+            ...channelDef,
+            field: transformedField,
+            type: ORDINAL
+          };
         } else if (channelDef.timeUnit) {
           const {timeUnit, field} = channelDef;
           timeUnits.push({timeUnit, field, as: transformedField});
         }
 
         // TODO(@alanbanh): make bin correct
+        if (channelDef.bin) {
+          groupby.push(vgField(channelDef, {binSuffix: 'end'}));
+          if (binRequiresRange(channelDef, channel)) {
+            groupby.push(vgField(channelDef, {binSuffix: 'range'}));
+          }
+        }
         groupby.push(transformedField);
       }
       // now the field should refer to post-transformed field instead
